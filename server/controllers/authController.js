@@ -1,4 +1,4 @@
-import {supabase} from "../db/connection.js"
+import {supabase} from "../db/connection.js";
 
 export const signup = async (req , res , next) => {
    const email = req.body.email
@@ -11,8 +11,13 @@ export const signup = async (req , res , next) => {
             password: password,
          })
          if(user) {
-            res.status(200).send("user signed up successfuly !");
-            next()
+            if(createUser(user) ) {
+               res.status(200).send("user signed up successfuly !");
+               next()
+            } else {
+               res.status(400).send("something went wrong  !");
+            }
+
          } else {
          res.status(400).send("user allready exist  !");
          }
@@ -58,4 +63,12 @@ export const logout = async (req , res , next) => {
    } catch(err) {
       console.log(err)
    }
+}
+
+const createUser = async (user) => {
+   const { error } = await supabase
+  .from('users')
+  .insert({ user_auth_id : user.id });
+  
+  return (error ? false : true)
 }
