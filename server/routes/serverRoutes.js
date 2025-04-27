@@ -3,8 +3,8 @@ const router = express.Router();
 
 // import authRoutes from "./authRoutes.js"
 import userRoutes from "./userRoutes.js"
-import businessRoutes from "./userRoutes.js"
-import businessOwnersRoutes from "./userRoutes.js"
+import businessRoutes from "./businessRoutes.js"
+import businessOwnersRoutes from "./businessOwnersRoutes.js"
 import claimsRoutes from "./claimsRoutes.js"
 import retirementRoutes from "./retirementRoutes.js"
 import employessRoutes from "./employessRoutes.js"
