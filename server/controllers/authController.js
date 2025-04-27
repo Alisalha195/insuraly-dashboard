@@ -59,6 +59,7 @@ export const login = async (req , res , next) => {
 export const logout = async (req , res , next) => {
    try {
       await supabase.auth.signOut();
+      console.log("ddd")
       res.status(200).send("user logged out successfuly")
    } catch(err) {
       console.log(err)
