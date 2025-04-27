@@ -11,13 +11,8 @@ export const signup = async (req , res , next) => {
             password: password,
          })
          if(user) {
-            if(createUser(user) ) {
-               res.status(200).send("user signed up successfuly !");
-               next()
-            } else {
-               res.status(400).send("something went wrong  !");
-            }
-
+            req.body.user_id = user.id;
+            next()
          } else {
          res.status(400).send("user allready exist  !");
          }
@@ -29,7 +24,6 @@ export const signup = async (req , res , next) => {
       throw new Error("error occured !")
    }
 
-   
 }
 
 export const login = async (req , res , next) => {
@@ -59,17 +53,9 @@ export const login = async (req , res , next) => {
 export const logout = async (req , res , next) => {
    try {
       await supabase.auth.signOut();
-      console.log("ddd")
+      console.log("signed out successfuly")
       res.status(200).send("user logged out successfuly")
    } catch(err) {
       console.log(err)
    }
-}
-
-const createUser = async (user) => {
-   const { error } = await supabase
-  .from('users')
-  .insert({ user_auth_id : user.id });
-  
-  return (error ? false : true)
 }

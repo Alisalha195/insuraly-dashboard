@@ -1,12 +1,23 @@
 import {supabase} from "../db/connection.js";
 
+export  const createUser = async (req, res, next) => {
+   const { error } = await supabase
+  .from('users')
+  .insert({ user_auth_id : req.body.user_id });
+  
+  if(error) {
+    res.status(400).send("error , user was not saved")
+  } else {
+   res.status(200).send("new user saved successfuly")
+  }
+}
 
 export const getUsers = async (req, res, next) => {
    try {
       const { data, error } = await supabase
      .from('users')
      .select()
-      // console.log("in get")
+
      if(!error && data) {
       res.status(200).send(data)
      }
