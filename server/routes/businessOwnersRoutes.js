@@ -17,7 +17,7 @@ router.post("/get/national-number", getPersonalInfoByNationalNumber, getBusiness
 router.post("/get/name", getPersonalInfoByName , getBusinessOwner)
 router.post("/get/insurance-number", getPersonalInfoByInsuranceNumber , getBusinessOwner)
 
-// router.put("/edit", editBusinessOwner)
+// router.put("/edit", ,editBusinessOwner)
 // router.delete("/delete", deleteBusinessOwner)
 
 export default router;

@@ -101,3 +101,40 @@ export const getPersonalInfoByInsuranceNumber = async(req , res, next) => {
          
       }
 }
+
+export const editPersonalInfoRecord = async (req, res, next) => {
+   
+   const { personal_info_id ,
+      national_number,
+      first_name ,
+      last_name ,
+      father_name ,
+      mother_name ,
+      birth_date ,
+      birth_registration_place ,
+      birth_registration_digit ,
+      
+   } = req.body;
+   
+   const { data, error } = await supabase
+  .from(personalInfoTableName)
+  .update({ 
+      national_number,
+      first_name ,
+      last_name ,
+      father_name ,
+      mother_name ,
+      birth_date ,
+      birth_registration_place ,
+      birth_registration_digit ,
+   })
+  .eq('personal_info_id', personal_info_id)
+  .select();
+  
+  if(error) {
+   throw new Error("something went wrong")
+  } else {
+     res.status(200).send("updated successfuly")
+  }
+  
+}
