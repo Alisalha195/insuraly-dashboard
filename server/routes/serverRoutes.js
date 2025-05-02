@@ -7,7 +7,7 @@ import businessRoutes from "./businessRoutes.js"
 import businessOwnersRoutes from "./businessOwnersRoutes.js"
 import claimsRoutes from "./claimsRoutes.js"
 import retirementRoutes from "./retirementRoutes.js"
-import employessRoutes from "./employessRoutes.js"
+import employeesRoutes from "./employeesRoutes.js"
 import servicesRoutes from "./servicesRoutes.js"
 import retirementIndemnificationRoutes from "./retirementIndemnificationRoutes.js"
 import retirementSalaryRoutes from "./retirementSalaryRoutes.js"
@@ -24,7 +24,7 @@ router.use("/retirementIndemnification", retirementIndemnificationRoutes)
 router.use("/claims", claimsRoutes)
 router.use("/retirement", retirementRoutes)
 router.use("/businessOwners", businessOwnersRoutes)
-router.use("/employess", employessRoutes)
+router.use("/employees", employeesRoutes)
 router.use("/services", servicesRoutes)
 router.use("/retirementSalary", retirementSalaryRoutes)
 router.use("/servicesWages", servicesWagesRoutes)
