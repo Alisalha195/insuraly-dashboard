@@ -12,7 +12,7 @@ export const createBusinessOwner = async (req , res , next) => {
       })
       .select()
       if(error)
-         res.status(400).send("error occured");
+         res.status(404).json({msg:"error occured"});
       else
          res.status(200).json(data)
       
@@ -25,10 +25,10 @@ export const getBusinessOwner = async (req , res , next) => {
   .eq("personal_info_id",  infoData.personal_info_id)
   
   if(error) {
-   throw new Error("business owner not found !");
+   res.status(404).json({msg:"business owner not found !"});
   } else {
    if(data.length < 1) {
-      res.status(200).send("not a business owner");
+      res.status(404).json({msg:"not a business owner"});
    } else {
       res.status(200).json({...data[0], ...infoData})
       next()

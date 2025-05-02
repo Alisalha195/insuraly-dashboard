@@ -1,7 +1,6 @@
 
 import { Router } from "express";
 import { createBusiness, editBusiness } from "../controllers/businessController.js";
-// import { getBusinessOwner } from "../controllers/businessOwnerController";
 
 const router = Router();
 

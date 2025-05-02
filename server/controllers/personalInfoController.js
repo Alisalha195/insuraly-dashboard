@@ -31,7 +31,7 @@ export const createPersonalInfoRecord =  async(req , res , next) => {
       .select()
 
       if(error)
-         res.status(400).send("error occured");
+         res.status(404).json({msg: "error occured"});
       else {
          req.body.personal_info_id = data[0].personal_info_id;
          next()
@@ -47,11 +47,11 @@ export const getPersonalInfoByNationalNumber = async (req , res, next) => {
       .select()
       .eq("national_number",nationalNumber);
       
-      if(error) {
-         throw new Error("user not found !");
+      if(error || data.length < 1) {
+         res.status(404).json({msg:"user not found"});
       } else {
          if(data.length > 1) {
-            throw new Error("repeated national number !");
+            res.status(404).json({msg:"repeated national number !"});
          } else {
             req.body.infoData = data[0]
             next()
@@ -61,18 +61,23 @@ export const getPersonalInfoByNationalNumber = async (req , res, next) => {
 }
 
 export const getPersonalInfoByName = async (req , res, next) => {
-   const {firstName,  lastName} = req.body;
+   const {firstName,  lastName , motherName, fatherName} = req.body;
    
    const {data , error} = await supabase
       .from(personalInfoTableName) 
       .select()
-      .match({first_name:firstName, last_name:lastName})
+      .match({
+         first_name:firstName, 
+         last_name:lastName ,
+         mother_name : motherName,
+         father_name : fatherName
+      })
       
-      if(error) {
-         throw new Error("user not found !");
+      if(error || data?.length < 1) {
+         res.status(404).json({msg:"user not found"})
       } else {
          if(data.length > 1) {      
-            throw new Error("repeated name !");
+            res.status(200).json({msg:"repeated name !",data:data, repeated:true})
          } else {
             req.body.infoData = data[0]
             next()
@@ -89,11 +94,12 @@ export const getPersonalInfoByInsuranceNumber = async(req , res, next) => {
       .select()
       .eq("insurance_number",insuranceNumber);
       
-      if(error) {
-         throw new Error("user not found !");
+      if(error || data.length < 1) {
+         res.status(404).json({msg:"user not found !"});
+         
       } else {
          if(data.length > 1) {
-            throw new Error("repeated insurance number !");
+            res.status(404).json({msg:"repeated insurance number !"});
          } else {
             req.body.infoData = data[0]
             next()
@@ -132,9 +138,9 @@ export const editPersonalInfoRecord = async (req, res, next) => {
   .select();
   
   if(error) {
-   throw new Error("something went wrong")
+   res.status(404).json({msg:"something went wrong"})
   } else {
-     res.status(200).send("updated successfuly")
+     res.status(200).json({msg:"updated successfuly"})
   }
   
 }
