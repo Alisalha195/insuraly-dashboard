@@ -35,4 +35,19 @@ export const getEmployee = async (req , res , next) => {
    }
   }
 }
+export const checkIfEmployee = async (req ,res , next) => {
+   const {employeeId} = req.body ;
+   
+   const {data , error } = await supabase
+   .from(employeeTable)
+   .select()
+   .eq("emp_id" , employeeId)
+   
+   
+   if((data?.length > 0) && (!error)) {
+      next()
+   }
+   else
+      res.status(404).json({msg:"not an employee"})
+}
 
