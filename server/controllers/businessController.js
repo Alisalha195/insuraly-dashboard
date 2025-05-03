@@ -1,5 +1,5 @@
 import {supabase} from "../db/connection.js";
-const businessTableName = 'Businesses';
+import { businessTable } from "../db/tables.js";
 
 export const createBusiness = async (req, res , next) => {
    const {
@@ -12,7 +12,7 @@ export const createBusiness = async (req, res , next) => {
    } = req.body;
    
    const { data , error } = await supabase
-     .from(businessTableName)
+     .from(businessTable)
      .insert({ 
          business_owner_id ,
          business_name ,
@@ -42,7 +42,7 @@ export const editBusiness = async (req, res , next) => {
    } = req.body;
    
    const { data , error } = await supabase
-     .from(businessTableName)
+     .from(businessTable)
      .update({ 
          business_owner_id ,
          business_name ,

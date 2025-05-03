@@ -1,6 +1,5 @@
 import {supabase} from "../db/connection.js";
-
-const personalInfoTableName = 'personal_informations';
+import { personalInfoTable } from "../db/tables.js";
 
 export const createPersonalInfoRecord =  async(req , res , next) => {
    
@@ -16,7 +15,7 @@ export const createPersonalInfoRecord =  async(req , res , next) => {
    } = req.body;
    
    const { data , error } = await supabase
-     .from(personalInfoTableName)
+     .from(personalInfoTable)
      .insert({ 
          national_number, 
          first_name ,
@@ -43,7 +42,7 @@ export const getPersonalInfoByNationalNumber = async (req , res, next) => {
    const {nationalNumber} = req.body;
    
    const {data , error} = await supabase
-      .from(personalInfoTableName) 
+      .from(personalInfoTable) 
       .select()
       .eq("national_number",nationalNumber);
       
@@ -64,7 +63,7 @@ export const getPersonalInfoByName = async (req , res, next) => {
    const {firstName,  lastName , motherName, fatherName} = req.body;
    
    const {data , error} = await supabase
-      .from(personalInfoTableName) 
+      .from(personalInfoTable) 
       .select()
       .match({
          first_name:firstName, 
@@ -90,7 +89,7 @@ export const getPersonalInfoByInsuranceNumber = async(req , res, next) => {
    const {insuranceNumber} = req.body;
    
    const {data , error} = await supabase
-      .from(personalInfoTableName) 
+      .from(personalInfoTable) 
       .select()
       .eq("insurance_number",insuranceNumber);
       
@@ -123,7 +122,7 @@ export const editPersonalInfoRecord = async (req, res, next) => {
    } = req.body;
    
    const { data, error } = await supabase
-  .from(personalInfoTableName)
+  .from(personalInfoTable)
   .update({ 
       national_number,
       first_name ,

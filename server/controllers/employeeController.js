@@ -1,12 +1,12 @@
 import {supabase} from "../db/connection.js";
-const employeeTableName = 'Employees';
+import { employeeTable } from "../db/tables.js";
 
 export const createEmployee = async (req , res , next) => {
    
      const { personal_info_id } = req.body;
 
      const { data, error } = await supabase
-     .from(employeeTableName)
+     .from(employeeTable)
      .insert({ 
          personal_info_id
       })
@@ -20,7 +20,7 @@ export const createEmployee = async (req , res , next) => {
 export const getEmployee = async (req , res , next) => {
    const {infoData} = req.body;
    const { data, error } = await supabase
-  .from(employeeTableName)
+  .from(employeeTable)
   .select()
   .eq("personal_info_id",  infoData.personal_info_id)
   

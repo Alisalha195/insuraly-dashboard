@@ -1,8 +1,9 @@
 import {supabase} from "../db/connection.js";
+import { usersTable } from "../db/tables.js";
 
 export  const createUser = async (req, res, next) => {
    const { error } = await supabase
-  .from('users')
+  .from(usersTable)
   .insert({ user_auth_id : req.body.user_id });
   
   if(error) {
@@ -15,7 +16,7 @@ export  const createUser = async (req, res, next) => {
 export const getUsers = async (req, res, next) => {
    try {
       const { data, error } = await supabase
-     .from('users')
+     .from(usersTable)
      .select()
 
      if(!error && data) {
@@ -29,7 +30,7 @@ export const getUsers = async (req, res, next) => {
 export const getUser = async (req, res, next) => {
    try {
       const { data, error } = await supabase
-     .from('users')
+     .from(usersTable)
      .select()
      .eq("user_auth_id" , req.body.user_id)
 

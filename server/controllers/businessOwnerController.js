@@ -1,12 +1,12 @@
 import {supabase} from "../db/connection.js";
-const businessOwnerTableName = 'Business_owners';
+import { businessOwnerTable } from "../db/tables.js";
 
 export const createBusinessOwner = async (req , res , next) => {
    
      const { personal_info_id } = req.body;
 
      const { data, error } = await supabase
-     .from(businessOwnerTableName)
+     .from(businessOwnerTable)
      .insert({ 
          personal_info_id
       })
@@ -20,7 +20,7 @@ export const createBusinessOwner = async (req , res , next) => {
 export const getBusinessOwner = async (req , res , next) => {
    const {infoData} = req.body;
    const { data, error } = await supabase
-  .from(businessOwnerTableName)
+  .from(businessOwnerTable)
   .select()
   .eq("personal_info_id",  infoData.personal_info_id)
   
