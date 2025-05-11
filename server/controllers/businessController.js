@@ -72,16 +72,30 @@ export const addEmployeeToBusiness = async (req , res , next) => {
    })
    .select()
    
-   if((data.length > 0 ) && (!error)) {
+   if((data?.length > 0 ) && (!error)) {
       req.body.business_employee_id = data[0].business_employee_id;
       next();
    } else {
-      res.status(404).json({msg: "something went wrong  !"});
+      res.status(404).json({msg: "something went wrong...!"});
    }
    
+}
 
+export const removeEmployeeFromBusiness = async (req , res, next) => {
    
+   const {employeeId, businessId} = req.body;
+   const {data , error} = await supabase
+   .from(businessEmployeeTable)
+   .delete()
+   .eq("employee_id", employeeId)
+   .eq("business_id",businessId) ;
    
-    
+   if(!error) {
+      // req.body.business_employee_id = data[0].business_employee_id;
+      // next();
+      res.status(200).json({msg: "employee removed from business successfuly  !"});
+   } else {
+      res.status(404).json({msg: "something went wrong  !"});
+   }
 }
 
