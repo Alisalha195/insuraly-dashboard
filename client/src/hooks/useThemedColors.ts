@@ -15,10 +15,24 @@ const useThemedColors:any = () => {
    
    const hovering = useColorModeValue('gray.300', 'gray.600');
    
-   const bgInfoCard = useColorModeValue('gray.300', 'gray.500');
-   const bgInfoCardHover = useColorModeValue('gray.400', 'gray.400');
-   const InfoCardBorder = useColorModeValue('gray.200', 'gray.600');
 
+   const InfoCardBorder = useColorModeValue('gray.200', 'gray.600');
+   
+   // ? background colors for dashboard Cards
+   const bgInfoCard = {
+      blue :  useColorModeValue('blue.300', 'blue.500'),
+      red : useColorModeValue('red.300', 'red.500'),
+      purple : useColorModeValue('purple.300', 'purple.500'),
+      green : useColorModeValue('green.300', 'green.500'),
+   };
+   const bgInfoCardHover = {
+      blue :  useColorModeValue('blue.400', 'blue.400'),
+      red : useColorModeValue('red.400', 'red.400'),
+      purple : useColorModeValue('purple.400', 'purple.400'),
+      green : useColorModeValue('green.400', 'green.400'),
+   };
+   
+   
   return (
     {
       textPrimary, 
@@ -28,11 +42,11 @@ const useThemedColors:any = () => {
       hovering,
       logoText,
       logoBackground,
-      bgInfoCard,
       bgInfoCardHover,
-      InfoCardBorder
+      InfoCardBorder,
+      bgInfoCard
     }
   )
 }
 
-export default useThemedColors
+export default useThemedColors;
