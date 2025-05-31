@@ -1,0 +1,20 @@
+import InfoCard from './InfoCard'
+import {  Grid, Box  } from '@chakra-ui/react'
+import { infoCardDataList } from './infoCardDataList';
+
+const InfoCards = () => {
+  return (
+   <Grid  className=' xs-to-sm-container' templateColumns={{ smToMd:"repeat(2, 1fr)", mdTo2xl:"repeat(4, 1fr)"}}   padding={2} gap={2}>
+      {
+         infoCardDataList.map((item , index)=>(
+            <Box  className=' xs-to-sm-item' key={index} > 
+               <InfoCard  data={item} />
+            </Box>
+         ))
+      }
+   </Grid>
+   
+  )
+}
+
+export default InfoCards
