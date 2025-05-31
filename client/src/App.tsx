@@ -1,3 +1,4 @@
+import './App.css';
 
 import {Routes , Route} from 'react-router-dom';
 import Dashboard from './pages/dashboard';
@@ -5,6 +6,7 @@ import Businesses from './pages/dashboard/businesses';
 import BusinessOwners from './pages/dashboard/businessOwners';
 import Claims from './pages/dashboard/claims';
 import Retirements from './pages/dashboard/retirements';
+
 
 function App() {
   
