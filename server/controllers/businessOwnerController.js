@@ -1,5 +1,5 @@
 import {supabase} from "../db/connection.js";
-import { businessOwnerTable } from "../db/tables.js";
+import { businessOwnerTable, personalInfoTable } from "../db/tables.js";
 
 export const createBusinessOwner = async (req , res , next) => {
    
@@ -34,5 +34,28 @@ export const getBusinessOwner = async (req , res , next) => {
       next()
    }
   }
+}
+
+export const getPaginatedBusinessOwners = async (req, res, next) => {
+   const {page, pageSize} = req.query;
+   const from = (page - 1) * pageSize;
+   const to = (from + Number(pageSize) ) -1 ;
+   
+   const { data, error } = await supabase
+   .from(businessOwnerTable)
+   .select(`
+      * ,
+      personal_informations:personal_info_id(
+         *
+      )
+   `)
+   .range(from , to);
+   
+   if(data.length < 1 || error) {
+      res.status(404).json({msg:"something went wrong !"});
+   } else {
+      res.status(200).json(data);
+      return data;
+   }
 }
 
