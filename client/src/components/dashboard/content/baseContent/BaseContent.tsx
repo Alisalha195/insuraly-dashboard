@@ -1,6 +1,7 @@
 import { Flex, Stack } from '@chakra-ui/react'
 import InfoCards from './infoCards/InfoCards'
 import Header from '../../header/Header'
+import DashboardCharts from './charts/DashboardCharts'
 
 const BaseContent = () => {
   return (
@@ -9,7 +10,7 @@ const BaseContent = () => {
     <Flex direction="column" >
       <Header />
       <InfoCards />
-      <div>charts</div>
+      <DashboardCharts />
     </Flex>
    </Stack>
   )
