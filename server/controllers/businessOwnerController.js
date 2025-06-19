@@ -51,11 +51,38 @@ export const getPaginatedBusinessOwners = async (req, res, next) => {
    `)
    .range(from , to);
    
-   if(data.length < 1 || error) {
+   if(data?.length < 1 || error) {
       res.status(404).json({msg:"something went wrong !"});
    } else {
       res.status(200).json(data);
       return data;
    }
+}
+
+export const getBusinessOwnersCount = async (req, res , next) => {
+   const { count, error } = await supabase
+   .from(businessOwnerTable).select('*', {count : 'exact' , head:true});
+   
+   if(count > 0) 
+      res.status(200).json({count});
+   else if(count < 1)
+      res.status(200).json({count:0});
+   else 
+      res.status(404).json({msg:"something went wrong !"});
+}
+
+export const deleteBusinessOwner = async (req, res , next) => {
+   const {businessOwnerId} = req.body;
+   
+   const { data, error } = await supabase
+  .from(businessOwnerTable)
+  .delete()
+  .eq('business_owner_id', businessOwnerId);
+  
+  if(error) {
+   res.status(404).json({msg:"something went wrong"})
+  } else {
+     res.status(200).json({msg:"deleted successfuly"})
+  }
 }
 
