@@ -3,29 +3,36 @@ import { personalInfoTable } from "../db/tables.js";
 
 export const createPersonalInfoRecord =  async(req , res , next) => {
    
-   const { national_number,
-       first_name ,
-       last_name ,
-       father_name ,
-       mother_name ,
-       birth_date ,
-       birth_registration_place ,
-       birth_registration_digit ,
-       insurance_number
+   const { nationalNumber,
+      firstName ,
+      lastName ,
+      fatherName ,
+      motherName ,
+      gender ,
+      birthDate ,
+      birthLocation ,
+      registrationPlace ,
+      registrationDigit ,
+      email,
+      phoneNumber
    } = req.body;
    
    const { data , error } = await supabase
      .from(personalInfoTable)
      .insert({ 
-         national_number, 
-         first_name ,
-         last_name ,
-         father_name ,
-         mother_name ,
-         birth_date ,
-         birth_registration_place ,
-         birth_registration_digit ,
-         insurance_number
+         national_number: nationalNumber, 
+         first_name : firstName ,
+         last_name: lastName ,
+         father_name: fatherName  ,
+         mother_name: motherName ,
+         gender : gender ,
+         birth_location : birthLocation, 
+         birth_date : birthDate ,
+         birth_registration_place : registrationPlace ,
+         birth_registration_digit: registrationDigit ,
+         email: email ,
+         phone_number: phoneNumber 
+         
       })
       .select()
 
@@ -140,6 +147,22 @@ export const editPersonalInfoRecord = async (req, res, next) => {
    res.status(404).json({msg:"something went wrong"})
   } else {
      res.status(200).json({msg:"updated successfuly"})
+  }
+  
+}
+
+export const deletePersonalInfoRecord = async (req, res , next) => {
+   const {personal_info_id} = req.body;
+   
+   const { data, error } = await supabase
+  .from(personalInfoTable)
+  .delete()
+  .eq('personal_info_id', personal_info_id);
+  
+  if(error) {
+   res.status(404).json({msg:"something went wrong"})
+  } else {
+     res.status(200).json({msg:"deleted successfuly"})
   }
   
 }
