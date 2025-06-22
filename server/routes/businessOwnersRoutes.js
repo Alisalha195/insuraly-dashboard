@@ -5,13 +5,14 @@ import {
    getPersonalInfoByName,
    getPersonalInfoByNationalNumber,
    getPersonalInfoByInsuranceNumber ,
-   deletePersonalInfoRecord
+   deletePersonalInfoRecord,
+   checkIfPersonalInfoRecordExistBeforeCreating
 } from "../controllers/personalInfoController.js";
 
 const router = Router();
 
 //? create business owner after creation of related personal information  
-router.post("/create", createPersonalInfoRecord ,createBusinessOwner)
+router.post("/create", checkIfPersonalInfoRecordExistBeforeCreating ,createPersonalInfoRecord ,createBusinessOwner)
 
 //? get business owner by one of three variables (after getting related personal information record)  
 router.post("/get/national-number", getPersonalInfoByNationalNumber, getBusinessOwner)
