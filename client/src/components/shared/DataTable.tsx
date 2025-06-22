@@ -25,7 +25,7 @@ const DataTable = ({ data, TableHeader, TableBody , currentpage, setCurrentPage,
    return (
       <Box >
          {/* <Table.ScrollArea borderWidth="1px" > */}
-         <Table.Root size="sm" variant="outline" striped >
+         <Table.Root size="sm"   >
             <TableHeader />
             <TableBody data={data} />
          </Table.Root>

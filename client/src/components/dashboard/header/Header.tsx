@@ -10,7 +10,7 @@ import SidebarDrawer from "../content/sidebar/SidebarDrawer";
 const Header = () => {
    const {bgPrimary} = useThemedColors();
   return (
-    <HStack  paddingX={1} gap={2}  bg={bgPrimary} justifyContent={'space-between'} >
+    <HStack position={'relative'} width={'auto'}   paddingX={1} gap={2}  bg={bgPrimary} justifyContent={'space-between'} >
       <Flex className="flex w-full" paddingBottom={0} paddingTop={1} smDown={{padding:1 , paddingTop:'8px'}}>
          <Flex smDown={{display:'none'}} flexDirection='column' justifyContent='center' >
             <SearchBox ref={null} isFull={false} large={false}/>

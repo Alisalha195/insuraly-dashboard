@@ -1,0 +1,26 @@
+
+.btn {
+   cursor: pointer;
+}
+
+@media (min-width:450px) and (max-width:840px) {
+   .xs-to-sm-container {
+      display: grid;
+      grid-template-rows:repeat(2, 1fr); 
+      grid-template-columns:repeat(2, 1fr);
+      
+   }
+   .xs-to-sm-item {
+      /* max-width: 40%; */
+   }
+}
+
+.date-picker {
+   background-color: transparent;
+   outline: none;
+   color: #666;
+}
+
+/* .fix-height  {
+   padding-bottom: calc(100% + 40px);
+} */
