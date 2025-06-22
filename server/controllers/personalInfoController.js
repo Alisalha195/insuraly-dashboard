@@ -1,5 +1,45 @@
 import {supabase} from "../db/connection.js";
-import { personalInfoTable } from "../db/tables.js";
+import { personalInfoTable } from "../db/tables.js"; 
+
+export const checkIfPersonalInfoRecordExistBeforeCreating =  async(req , res , next) => {
+   
+   
+   const { nationalNumber,
+      firstName ,
+      lastName ,
+      fatherName ,
+      motherName ,
+      gender ,
+      birthDate ,
+      birthLocation ,
+      registrationLocation ,
+      registrationDigit ,
+      email,
+      phoneNumber
+   } = req.body;
+   
+   console.log("req.body :",req.body);
+   
+   const { data , error } = await supabase
+     .from(personalInfoTable)
+     .select('national_number, email, phone_number')
+     .or(`national_number.eq.${nationalNumber},email.eq.${email},phone_number.eq.${phoneNumber}`)
+     
+      if(data?.length > 0) {
+         console.log("in check 400")
+         res.status(400).json({msg: "Duplicated" , status:400 , duplicatedColumns: duplicatedColumns});
+      }
+      else if(error) {
+         console.log("in check 404")
+         res.status(404).json({msg: "error occured" , status:404});
+      }
+         
+      else {
+         
+         next()
+      }
+
+}
 
 export const createPersonalInfoRecord =  async(req , res , next) => {
    
@@ -11,7 +51,7 @@ export const createPersonalInfoRecord =  async(req , res , next) => {
       gender ,
       birthDate ,
       birthLocation ,
-      registrationPlace ,
+      registrationLocation ,
       registrationDigit ,
       email,
       phoneNumber
@@ -28,7 +68,7 @@ export const createPersonalInfoRecord =  async(req , res , next) => {
          gender : gender ,
          birth_location : birthLocation, 
          birth_date : birthDate ,
-         birth_registration_place : registrationPlace ,
+         birth_registration_place : registrationLocation ,
          birth_registration_digit: registrationDigit ,
          email: email ,
          phone_number: phoneNumber 
@@ -37,7 +77,7 @@ export const createPersonalInfoRecord =  async(req , res , next) => {
       .select()
 
       if(error)
-         res.status(404).json({msg: "error occured"});
+         res.status(404).json({msg: "error occured" , status:404});
       else {
          req.body.personal_info_id = data[0].personal_info_id;
          next()
@@ -165,4 +205,31 @@ export const deletePersonalInfoRecord = async (req, res , next) => {
      res.status(200).json({msg:"deleted successfuly"})
   }
   
+}
+
+export const checkIfPersonalInfoRecordExist =  async(req , res , next) => {
+   
+   // console.log("req.body :::",req.body);
+   
+   const { column, value } = req.body;
+   
+      const { data , error } = await supabase
+        .from(personalInfoTable)
+        .select(column)
+        .eq(column,value)
+        
+      if(data?.length > 0) {
+         // console.log('duplicated!!!!')
+         res.status(400).json({msg: "Duplicated" , status:400});
+      }
+      else if(error) {
+         
+         res.status(404).json({msg: "error occured" , status:404});
+      }
+         
+      else {
+
+          res.status(200).json({msg: "Not Duplicated" , status:200});
+      }
+
 }

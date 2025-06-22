@@ -12,9 +12,9 @@ export const createBusinessOwner = async (req , res , next) => {
       })
       .select()
       if(error)
-         res.status(404).json({msg:"error occured"});
+         res.status(404).json({msg:"error occured",  status:404});
       else
-         res.status(200).json(data)
+         res.status(200).json({...data , status:200})
       
 }
 export const getBusinessOwner = async (req , res , next) => {
@@ -74,6 +74,7 @@ export const getBusinessOwnersCount = async (req, res , next) => {
 export const deleteBusinessOwner = async (req, res , next) => {
    const {businessOwnerId} = req.body;
    
+   console.log("req : ", req.body);
    const { data, error } = await supabase
   .from(businessOwnerTable)
   .delete()
