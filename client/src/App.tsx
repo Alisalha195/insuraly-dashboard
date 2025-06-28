@@ -10,8 +10,9 @@ import Retirements from './pages/dashboard/retirements';
 
 import {useQuery, QueryClient, QueryClientProvider} from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
-import AddBusinessOwner from './pages/dashboard/businessOwners/AddBusinessOwner';
-import EditBusinessOwner from './pages/dashboard/businessOwners/EditBusinessOwner';
+import AddBusinessOwner from './pages/dashboard/businessOwners/add/AddBusinessOwner';
+import EditBusinessOwner from './pages/dashboard/businessOwners/edit/EditBusinessOwner';
+import AddBusiness from './pages/dashboard/businessOwners/add/AddBusinessOwner';
 
 function App() {
   const queryClient = new QueryClient();
@@ -19,11 +20,12 @@ function App() {
   return (
     <>
        <Toaster />
-       <QueryClientProvider client={queryClient}>
+       <QueryClientProvider client={queryClient}> 
           <Routes >
             <Route path='/dashboard' element={<Dashboard />} />
             
             <Route path='/dashboard/businesses' element={<Businesses />} />
+            <Route path='/dashboard/businesses/add' element={<AddBusiness />} />
             
             <Route path='/dashboard/business-owners' element={<BusinessOwners  />} />
             <Route path='/dashboard/business-owners/add' element={<AddBusinessOwner  />} />

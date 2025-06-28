@@ -6,7 +6,8 @@ import {
    getPersonalInfoByNationalNumber,
    getPersonalInfoByInsuranceNumber ,
    deletePersonalInfoRecord,
-   checkIfPersonalInfoRecordExistBeforeCreating
+   checkIfPersonalInfoRecordExistBeforeCreating,
+   editPersonalInfoRecord
 } from "../controllers/personalInfoController.js";
 
 const router = Router();
@@ -15,13 +16,15 @@ const router = Router();
 router.post("/create", checkIfPersonalInfoRecordExistBeforeCreating ,createPersonalInfoRecord ,createBusinessOwner)
 
 //? get business owner by one of three variables (after getting related personal information record)  
-router.post("/get/national-number", getPersonalInfoByNationalNumber, getBusinessOwner)
-router.post("/get/name", getPersonalInfoByName , getBusinessOwner)
-router.post("/get/insurance-number", getPersonalInfoByInsuranceNumber , getBusinessOwner)
+router.post("/get/national-number", getPersonalInfoByNationalNumber, getBusinessOwner);
+router.post("/get/name", getPersonalInfoByName , getBusinessOwner);
+router.post("/get/insurance-number", getPersonalInfoByInsuranceNumber , getBusinessOwner);
 
-router.get("/get", getPaginatedBusinessOwners)
-router.get("/get-count", getBusinessOwnersCount)
-router.delete("/delete", deleteBusinessOwner)
+router.get("/get", getPaginatedBusinessOwners);
+router.get("/get-count", getBusinessOwnersCount);
+
+router.put("/edit", editPersonalInfoRecord);
+router.delete("/delete", deleteBusinessOwner);
 
 
 export default router;

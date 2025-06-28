@@ -1,8 +1,11 @@
 
-const Businesses = () => {
+import PageContainer from '../../../components/dashboard/PageContainer';
+import BusinessesPageContent from './BusinessesPageContent';
+
+ const Businesses = () => {
    return (
-     <div>Businesses</div>
-   )
+      <PageContainer pageContent={BusinessesPageContent()} />
+   );
  }
  
- export default Businesses
+ export default Businesses;

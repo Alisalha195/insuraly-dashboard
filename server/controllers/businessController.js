@@ -99,3 +99,52 @@ export const removeEmployeeFromBusiness = async (req , res, next) => {
    }
 }
 
+export const getAllEmployeesInBusiness = async (req, res, next) => {
+   const {businessId} = req.body;
+   
+   const {data, error} = await supabase
+   .from(businessEmployeeTable)
+   .select()
+   .eq("business_id",businessId);
+}
+
+export const getBusinessesCount = async (req, res , next) => {
+   const { count, error } = await supabase
+   .from(businessTable).select('*', {count : 'exact' , head:true});
+   
+   if(count > 0) 
+      res.status(200).json({count});
+   else if(count < 1)
+      res.status(200).json({count:0});
+   else 
+      res.status(404).json({msg:"something went wrong !"});
+}
+
+export const getPaginatedBusinesses = async (req, res, next) => {
+   const {page, pageSize} = req.query;
+   const from = (page - 1) * pageSize;
+   const to = (from + Number(pageSize) ) -1 ;
+   
+   const { data, error } = await supabase
+   .from(businessTable)
+   .select(`
+      * ,
+      Business_owners:business_owner_id(
+         business_owner_id,
+         personal_informations:personal_info_id(
+            *
+         )
+      )
+      
+   `)
+   .range(from , to);
+   
+   // console.log("data :",data);
+   if(data?.length < 1 || error) {
+      res.status(404).json({msg:"something went wrong !"});
+   } else {
+      res.status(200).json(data);
+      return data;
+   }
+}
+

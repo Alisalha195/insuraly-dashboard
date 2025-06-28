@@ -156,37 +156,47 @@ export const getPersonalInfoByInsuranceNumber = async(req , res, next) => {
 
 export const editPersonalInfoRecord = async (req, res, next) => {
    
-   const { personal_info_id ,
-      national_number,
-      first_name ,
-      last_name ,
-      father_name ,
-      mother_name ,
-      birth_date ,
-      birth_registration_place ,
-      birth_registration_digit ,
+   const { nationalNumber,
+      firstName ,
+      lastName ,
+      fatherName ,
+      motherName ,
+      gender ,
+      birthDate ,
+      birthLocation ,
+      registrationLocation ,
+      registrationDigit ,
+      email,
+      phoneNumber,
       
+      personalId
    } = req.body;
+   
+   // console.log("req.body:: ::",req.body);
    
    const { data, error } = await supabase
   .from(personalInfoTable)
   .update({ 
-      national_number,
-      first_name ,
-      last_name ,
-      father_name ,
-      mother_name ,
-      birth_date ,
-      birth_registration_place ,
-      birth_registration_digit ,
+      national_number :nationalNumber,
+      first_name:firstName ,
+      last_name:lastName ,
+      father_name:fatherName ,
+      mother_name:motherName ,
+      birth_date:birthDate ,
+      birth_location:birthLocation ,
+      birth_registration_place:registrationLocation ,
+      birth_registration_digit:registrationDigit ,
+      gender:gender,
+      phone_number:phoneNumber ,
+      email:email
    })
-  .eq('personal_info_id', personal_info_id)
+  .eq('personal_info_id', personalId)
   .select();
   
   if(error) {
-   res.status(404).json({msg:"something went wrong"})
+   res.status(404).json({msg:"something went wrong" ,  status : 404});
   } else {
-     res.status(200).json({msg:"updated successfuly"})
+     res.status(200).json({msg:"updated successfuly" , status : 200});
   }
   
 }

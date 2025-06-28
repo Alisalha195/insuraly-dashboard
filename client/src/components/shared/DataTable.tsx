@@ -7,55 +7,19 @@ import {
    Button,
    Select,
 } from '@chakra-ui/react';
-import { LuChevronLeft, LuChevronRight } from "react-icons/lu";
 
-const DataTable = ({ data, TableHeader, TableBody , currentpage, setCurrentPage, pageSize, completeDataCount }) => {``
+
+const DataTable = ({ data, TableHeader, TableBody  }) => {``
  
-   const totalItems = completeDataCount;
-   const totalPages = Math.ceil(totalItems / pageSize);
-   const startIndex = (currentpage - 1) * pageSize;
-   const endIndex = startIndex + pageSize;
-   // const currentItems = data.slice(startIndex, endIndex);
-
-   // Handle page change
-   const handlePageChange = (page) => {
-      setCurrentPage(page);
-   };
-
    return (
       <Box >
-         {/* <Table.ScrollArea borderWidth="1px" > */}
-         <Table.Root size="sm"   >
+         <Table.ScrollArea borderWidth="1px" maxW="xl">
+         <Table.Root size="sm"   stickyHeader interactive showColumnBorder>
             <TableHeader />
             <TableBody data={data} />
          </Table.Root>
-         {/* </Table.ScrollArea> */}
+         </Table.ScrollArea>
 
-         <Flex justifyContent="space-between" mt={4} alignItems="center">
-
-            <Text>
-               {startIndex + 1}-{Math.min(endIndex, totalItems)} of {totalItems}
-            </Text>
-            <Flex>
-               <Button
-                  onClick={() => handlePageChange(currentpage - 1)}
-                  disabled={currentpage === 1}
-                  mr={2}
-                  size={"xs"}
-                  paddingLeft={0}
-               >
-                  <LuChevronLeft /> Previous
-               </Button>
-               <Button
-                  onClick={() => handlePageChange(currentpage + 1)}
-                  disabled={currentpage === totalPages}
-                  size={"xs"}
-                  paddingRight={0}
-               >
-                  Next<LuChevronRight />
-               </Button>
-            </Flex>
-         </Flex>
       </Box>
    );
 };

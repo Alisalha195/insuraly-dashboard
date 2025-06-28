@@ -12,8 +12,12 @@ app.use(cors());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
+app.use("/test"  ,(req,res)=>{
+   res.status(200).json({msg:"ok"})
+});
 app.use("/auth"  ,authRoutes);
-app.use("/" ,authenticated ,serverRoutes);
+// app.use("/" ,authenticated ,serverRoutes);
+app.use("/"  ,serverRoutes);
 
 const port = process.env.PORT || 5000;
 try {
