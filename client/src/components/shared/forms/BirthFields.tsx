@@ -14,14 +14,7 @@ const BirthFields = ({register, Controller, control,errors}) => {
        <Text marginBottom={1} color={titleTextSecondary}>Birth</Text>
        <Grid  className=' ' templateColumns={{  mdTo2xl:"repeat(2, 1fr)"}}   padding={2} gap={2}>
           <FieldGroup 
-            //  type={"text"}
-            //  invalid = {false} 
-            //  label = "birth location" 
-            //  placeholder = ""
-            //  error = "wrong email"
-            //  value={dataObject.birthLocation}
-            //  setValue={setBirthLocation}
-             
+            onchangeValue={null}
             register = {register}
             name={'birthLocation'}
             type={'text'}
@@ -33,13 +26,12 @@ const BirthFields = ({register, Controller, control,errors}) => {
           />
           
           <DatePickerField 
+             name={"birthDate"}
              register={register}
              label="birth date" 
              Controller={Controller}
              control={control}
              error={errors.birthDate}
-            //  value={dataObject.birthDate}
-            //  setValue={setBirthDate}
           />
        </Grid>
     </Box>

@@ -6,7 +6,7 @@ import DatePickerField from './DatePickerField';
 import PhoneNumberField from './PhoneNumberField';
 import EmailField from './EmailField';
 
-const ContactFields = ({register,errors}) => {
+const ContactFields = ({register,errors, Controller, control}) => {
    
    // const {dataObject, setPhoneNumber, setEmail} = data
    const {textPrimary, textSecondary, titleTextSecondary} = useThemedColors();
@@ -16,20 +16,13 @@ const ContactFields = ({register,errors}) => {
            <Text marginBottom={1} color={titleTextSecondary}>Contact</Text>
            <Grid  className=' ' templateColumns={{  mdTo2xl:"repeat(2, 1fr)"}}   padding={2} gap={2}>
               <PhoneNumberField 
-                 register={register}
                  error={errors.phoneNumber}
-               //   data = {{
-               //    dataObject, 
-               //    setPhoneNumber
-               //   }}
+                 Controller={Controller}
+                 control={control}
               />
               <EmailField 
                  register={register}
                  error={errors.email}
-               //   data = {{
-               //    dataObject, 
-               //    setEmail
-               //   }}
               />
            </Grid>
         </Box>

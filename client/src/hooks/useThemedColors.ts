@@ -22,6 +22,9 @@ const useThemedColors:any = () => {
    const btnPrimary = useColorModeValue('blue.400', 'blue.600');
    // const btnSecondaryBorder = useColorModeValue('blue.400', 'blue.600');
    const btnSecondary = useColorModeValue('blue.400', 'blue.500');
+   
+   const btnGreen = useColorModeValue('green.400', 'green.500');
+   
    const InfoCardBorder = useColorModeValue('gray.200', 'gray.600');
    
    // ? background colors for dashboard Cards
@@ -54,7 +57,8 @@ const useThemedColors:any = () => {
       bgInfoCard,
       inputBorder,
       titleTextSecondary,
-      btnPrimary
+      btnPrimary,
+      btnGreen
     }
   )
 }

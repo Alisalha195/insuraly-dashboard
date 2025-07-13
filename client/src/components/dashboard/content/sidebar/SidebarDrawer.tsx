@@ -5,6 +5,7 @@ import SidebarList from "./SidebarList";
 import UserMenu from "../../header/UserMenu";
 import ColorModeToggleButton from "../../../shared/header/ColorModeToggleButton";
 import SearchBoxDialog from "./SearchBoxDialog";
+import SidebarSearchActions from "./SidebarSearchActions";
 
 const SidebarDrawer = () => {
   const {bgPrimary, textPrimary} = useThemedColors();
@@ -25,7 +26,10 @@ const SidebarDrawer = () => {
               <Flex marginTop={4} paddingRight={3}>
                   
                   <ColorModeToggleButton />
-                  <SearchBoxDialog />
+                  <SearchBoxDialog 
+                     title={"serach"}
+                     SearchActions={SidebarSearchActions}
+                  />
                   <UserMenu  />
               </Flex>
             </Drawer.Header>

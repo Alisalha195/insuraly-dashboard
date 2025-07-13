@@ -18,19 +18,22 @@ export const createBusinessOwner = async (req , res , next) => {
       
 }
 export const getBusinessOwner = async (req , res , next) => {
-   const {infoData} = req.body;
+   const {personal_informations} = req.body;
+   
    const { data, error } = await supabase
   .from(businessOwnerTable)
   .select()
-  .eq("personal_info_id",  infoData.personal_info_id)
+  .eq("personal_info_id",  personal_informations.personal_info_id)
   
   if(error) {
-   res.status(404).json({msg:"business owner not found !"});
+   res.status(404).json({msg:"business owner not found !", status:404 });
   } else {
    if(data.length < 1) {
-      res.status(404).json({msg:"not a business owner"});
+      res.status(400).json({msg:"not a business owner", status:400});
    } else {
-      res.status(200).json({...data[0], ...infoData})
+      res.status(200).json([
+         {...data[0] , personal_informations ,  status:200}
+      ]);
       next()
    }
   }
@@ -57,6 +60,91 @@ export const getPaginatedBusinessOwners = async (req, res, next) => {
       res.status(200).json(data);
       return data;
    }
+}
+
+export const getBusinessOwnersByNames = async (req, res, next) => {
+   
+   const {firstName, fatherName, motherName,lastName} = req.body;
+   
+   if(firstName && fatherName && motherName && lastName) {
+      const { data, error } = await supabase
+      .from(businessOwnerTable)
+      .select(`
+         * ,
+         personal_informations!inner(
+            *
+         )
+      `)
+      .like('personal_informations.first_name' , `%${firstName}%`)
+      .like('personal_informations.father_name' , `%${fatherName}%`)
+      .like('personal_informations.mother_name' , `%${motherName}%`)
+      .like('personal_informations.last_name' , `%${lastName}%`)
+      
+      if(data?.length < 1 || error) {
+         res.status(404).json({msg:"something went wrong !",status:404});
+      } else {
+         res.status(200).json(data);
+         return data;
+      }
+   } else if(firstName && fatherName &&  lastName ) {
+      const { data, error } = await supabase
+      .from(businessOwnerTable)
+      .select(`
+         * ,
+         personal_informations!inner(
+            *
+         )
+      `)
+      .like('personal_informations.first_name' , `%${firstName}%`)
+      .like('personal_informations.father_name' , `%${fatherName}%`)
+      .like('personal_informations.last_name' , `%${lastName}%`)
+      
+      if(data?.length < 1 || error) {
+         res.status(404).json({msg:"something went wrong !",status:404});
+      } else {
+         res.status(200).json(data);
+         return data;
+      }
+   } else if(firstName  &&  lastName ) {
+      const { data, error } = await supabase
+      .from(businessOwnerTable)
+      .select(`
+         * ,
+         personal_informations!inner(
+            *
+         )
+      `)
+      .like('personal_informations.first_name' , `%${firstName}%`)
+      .like('personal_informations.last_name' , `%${lastName}%`)
+      
+      if(data?.length < 1 || error) {
+         res.status(404).json({msg:"something went wrong !",status:404});
+      } else {
+         res.status(200).json(data);
+         return data;
+      }
+   } else if(firstName ) {
+      const { data, error } = await supabase
+      .from(businessOwnerTable)
+      .select(`
+         * ,
+         personal_informations!inner(
+            *
+         )
+      `)
+      .like('personal_informations.first_name' , `%${firstName}%`)
+      
+      if(data?.length < 1 || error) {
+         res.status(404).json({msg:"something went wrong !",status:404});
+      } else {
+         res.status(200).json(data);
+         return data;
+      }
+   } else {
+      res.status(404).json({msg:"something went wrong !",status:404});
+   }
+   
+   
 }
 
 export const getBusinessOwnersCount = async (req, res , next) => {

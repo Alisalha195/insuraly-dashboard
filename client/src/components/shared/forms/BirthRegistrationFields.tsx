@@ -12,6 +12,7 @@ const BirthRegistrationFields = ({register,errors}) => {
       <Text marginBottom={1} color={titleTextSecondary}>Birth Registration</Text>
       <Grid  className=' ' templateColumns={{  mdTo2xl:"repeat(2, 1fr)"}}   padding={2} gap={2}>
          <FieldGroup 
+            onchangeValue={null}
             register={register}
             name={'registrationLocation'}
             type={"text"}
@@ -20,10 +21,10 @@ const BirthRegistrationFields = ({register,errors}) => {
             placeholder = ""
             error = {errors.registrationLocation}
             preInputText={null}
-            // value={dataObject.registrationPlace}
-            // setValue={setRegistrationPlace}
          />
+         
          <FieldGroup 
+            onchangeValue={null}
             register={register}
             name={'registrationDigit'}
             type={"text"}
@@ -32,8 +33,6 @@ const BirthRegistrationFields = ({register,errors}) => {
             placeholder = ""
             error = {errors.registrationDigit}
             preInputText={null}
-            // value={dataObject.registrationDigit}
-            // setValue={setRegistrationDigit}
          />
          
       </Grid>

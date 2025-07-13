@@ -16,4 +16,9 @@ export const retirementSalaryAuthorizedTable = process.env. RETIREMENT_SALARY_AU
 export const retirementSalarySuccessorTable = process.env.RETIREMENT_SALARY_SUCCESSOR_TABLE
 export const servicesTable = process.env.SERVICES_TABLE
 export const servicesWagesTable = process.env.SERVICES_WAGES_TABLE
-export const unpaidVacationsTable = process.env.UNPAID_VACATIONS_TABLE
+export const unpaidVacationsTable = process.env.UNPAID_VACATIONS_TABLE  
+export const businessStagesTable = process.env.BUSINESS_STAGES
+export const businessCommercialTypesTable = process.env.BUSINESS_COMMERCIAL_TYPES
+export const businessStatusesTable = process.env.BUSINESS_STATUSES
+
+

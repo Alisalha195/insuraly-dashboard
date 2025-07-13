@@ -29,7 +29,6 @@
 
 // export default DatePickerField
 
-
 import { Box,Field,Text } from '@chakra-ui/react';
 import { useRef, useState } from 'react';
 import DatePicker from 'react-datepicker';
@@ -37,7 +36,7 @@ import "react-datepicker/dist/react-datepicker.css";
 import useThemedColors from '../../../hooks/useThemedColors';
 import { useForm } from 'react-hook-form';
 
-const DatePickerField = ({register, label,Controller , control,error }) => {
+const DatePickerField = ({register, label,Controller , control,error, name }) => {
    
    const {textPrimary, textSecondary,inputBorder} = useThemedColors();
    const [date , setDate] = useState(new Date());
@@ -46,10 +45,11 @@ const DatePickerField = ({register, label,Controller , control,error }) => {
   return (
       <Field.Root >
          <Field.Label fontSize={'22px'} color={textSecondary}>{label}</Field.Label>
-         <Box className='btn' backgroundColor={'transparent'} border={`1px solid ${inputBorder}`} paddingY={1} paddingX={1} fontSize={'23px'} borderRadius={'7px'} outline={'none'} >
+         <Box  className='btn' backgroundColor={'transparent'} border={`1px solid ${inputBorder}`} paddingY={1} paddingX={1} fontSize={'23px'} borderRadius={'7px'} outline={'none'} >
             <Controller
+               
                control = {control}
-               name='birthDate'
+               name={name}
                render = {({field}) =>(
                   <DatePicker 
                      
@@ -60,7 +60,6 @@ const DatePickerField = ({register, label,Controller , control,error }) => {
                         field.onChange(date)
                      }}
                      showDateSelect
-                     
                      // readOnly={true}
                      // onKeyDown={(e)=>e.preventDefault()}
                      dateFormat="yyyy-MM-dd"

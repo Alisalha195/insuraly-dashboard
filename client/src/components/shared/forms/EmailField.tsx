@@ -5,6 +5,7 @@ const EmailField = ({register, error}) => {
    // const {dataObject, setEmail} = data;
   return (
    <FieldGroup 
+       onchangeValue={null}
        register={register}
        name={'email'} 
        type={'email'}
@@ -13,8 +14,6 @@ const EmailField = ({register, error}) => {
        placeholder = "email@a.com"
        error = {error}
        preInputText={null}
-      //  value={dataObject.email}
-      //  setValue={setEmail}
     />
   )
 }

@@ -1,10 +1,15 @@
-import {  CloseButton, Dialog, Field, Flex, Portal, Stack } from "@chakra-ui/react";
+import {  Box, CloseButton, Dialog, Field, Flex, Portal, Stack } from "@chakra-ui/react";
 import { LuSearch } from 'react-icons/lu';
-import { useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import SearchBox from "../../../shared/header/SearchBox";
 
-const SearchBoxDialog = () => {
+
+const SearchBoxDialog = ({title, SearchActions}) => {
+   
    const ref = useRef<HTMLInputElement>(null)
+   
+   const [searchValue , setSearchValue] = useState("")
+   
   return (
    <Dialog.Root initialFocusEl={() => ref.current}>
    <Dialog.Trigger asChild>
@@ -18,17 +23,27 @@ const SearchBoxDialog = () => {
        <Dialog.Content >
          <Dialog.Body pb="4" padding={"30px"}  >
            <Stack gap="4">
-             <Field.Root  marginTop={4} marginBottom={4} width={"100%"}>
-               <Field.Label>search</Field.Label>
-               <SearchBox ref={ref} isFull={true} large={true}/>
+             <Field.Root  marginTop={4} marginBottom={1} width={"100%"}>
+               <Field.Label>{title}</Field.Label>
+               <SearchBox   
+                  
+                  setSearchValue={setSearchValue}
+                  ref={ref} 
+                  isFull={true} 
+                  large={true}
+               />
              </Field.Root>
            </Stack>
          </Dialog.Body>
          <Dialog.CloseTrigger asChild>
               <CloseButton size="sm" />
-            </Dialog.CloseTrigger>
+         </Dialog.CloseTrigger>
+         <Box marginBottom={2}>
+            <SearchActions searchValue={searchValue} />
+         </Box>
        </Dialog.Content>
      </Dialog.Positioner>
+     
    </Portal>
  </Dialog.Root>
   )

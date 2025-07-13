@@ -1,12 +1,16 @@
 import React from 'react'
-import FieldGroup from './FieldGroup'
+// import FieldGroup from './FieldGroup'
 import useBusinessOwnerStore from '../../../store/useAddBusinessOwnerStore'
+import LimitedFieldGroup from './LimitedFieldGroup'
+import { phoneNumberLimit } from '../../../constants/forms';
 
-const PhoneNumberField = ({register,error}) => {
-   // const {dataObject, setPhoneNumber} = data;
+const PhoneNumberField = ({error, Controller, control}) => {
+   
   return (
-   <FieldGroup
-      register={register}
+   <LimitedFieldGroup
+      Controller={Controller}
+      control={control}
+      onchangeValue={null}
       name={"phoneNumber"}
       type={'number'}
       invalid = {false} 
@@ -14,10 +18,7 @@ const PhoneNumberField = ({register,error}) => {
       label = "phone number"
       placeholder = ""
       error = {error}
-      
-      // value={dataObject.phoneNumber}
-      // setValue={setPhoneNumber}
-      
+      limit={phoneNumberLimit}
    />
   )
 }

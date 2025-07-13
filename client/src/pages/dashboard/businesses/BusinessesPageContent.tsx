@@ -12,6 +12,7 @@ import BackArrow from '../../../components/shared/BackArrow';
 import BusinessTableHeader from '../../../components/dashboard/content/baseContent/tables/businesses/BusinessTableHeader';
 import BusinessTableBody from '../../../components/dashboard/content/baseContent/tables/businesses/BusinessTableBody';
 import DataTableControl from '../../../components/shared/DataTableControl';
+import SearchBoxDialog from '../../../components/dashboard/content/sidebar/SearchBoxDialog';
  
  const BusinessesPageContent = () => {
    const navigate = useNavigate();
@@ -40,6 +41,7 @@ import DataTableControl from '../../../components/shared/DataTableControl';
          <Box >
             <BackArrow />
             <HStack marginBottom={2} padding={2}  justifyContent={"space-around"}>
+               <SearchBoxDialog />
                <Text color={textPrimary}>Businesses</Text>
                <Box className='btn' padding={1} color={btnSecondary}>
                   <Text onClick={()=>navigate("/dashboard/businesses/add")} fontSize={"40px"}>

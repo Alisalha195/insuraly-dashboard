@@ -6,7 +6,10 @@ import { createBusiness,
          removeEmployeeFromBusiness ,
          getAllEmployeesInBusiness,
          getBusinessesCount,
-         getPaginatedBusinesses
+         getPaginatedBusinesses,
+         getStages,
+         getCommercialTypes,
+         getStatuses
    } from "../controllers/businessController.js";
    
 import { checkIfEmployee } from "../controllers/employeeController.js";
@@ -23,7 +26,11 @@ router.post("/remove-employee-from-business" ,removeEmployeeFromBusiness);
 router.post("/get-all-employees-in-business" ,getAllEmployeesInBusiness);
 
 router.get("/get", getPaginatedBusinesses);
-router.get("/get-count", getBusinessesCount)
+router.get("/get-count", getBusinessesCount);
+
+router.get("/commercialTypes", getCommercialTypes);
+router.get("/stages", getStages);
+router.get("/statuses",getStatuses);
 
 router.put("/edit", editBusiness)
 

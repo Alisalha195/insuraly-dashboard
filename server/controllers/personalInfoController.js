@@ -86,20 +86,25 @@ export const createPersonalInfoRecord =  async(req , res , next) => {
 }
 
 export const getPersonalInfoByNationalNumber = async (req , res, next) => {
-   const {nationalNumber} = req.body;
-   
+
+   const {searchValue} = req.body;
+   const serachAsNumber = Number(searchValue);
+
    const {data , error} = await supabase
       .from(personalInfoTable) 
       .select()
-      .eq("national_number",nationalNumber);
+      .eq("national_number",serachAsNumber);
       
       if(error || data.length < 1) {
-         res.status(404).json({msg:"user not found"});
+         res.status(404).json({msg:"user not found", status:404});
+         
       } else {
          if(data.length > 1) {
-            res.status(404).json({msg:"repeated national number !"});
-         } else {
-            req.body.infoData = data[0]
+            // console.log("data.length > 1 :",data)
+            res.status(400).json({msg:"repeated national number !",status:400});
+         } else if(data.length == 1) {
+            
+            req.body.personal_informations = data[0];
             next()
          }
          
@@ -107,25 +112,26 @@ export const getPersonalInfoByNationalNumber = async (req , res, next) => {
 }
 
 export const getPersonalInfoByName = async (req , res, next) => {
-   const {firstName,  lastName , motherName, fatherName} = req.body;
+   // const {firstName,  lastName , motherName, fatherName} = req.body;
+   const {firstName, fatherName, motherName,lastName, } = req.body;
    
    const {data , error} = await supabase
       .from(personalInfoTable) 
       .select()
-      .match({
-         first_name:firstName, 
-         last_name:lastName ,
-         mother_name : motherName,
-         father_name : fatherName
-      })
+      .like('first_name' , `%${firstName}%`)
+      .like('father_name' , `%${fatherName}%`)
+      .like('mother_name' , `%${motherName}%`)
+      .like('last_name' , `%${lastName}%`)
       
-      if(error || data?.length < 1) {
-         res.status(404).json({msg:"user not found"})
+      if(error || data.length < 1) {
+         res.status(404).json({msg:"user not found", status:404});
+         
       } else {
-         if(data.length > 1) {      
-            res.status(200).json({msg:"repeated name !",data:data, repeated:true})
-         } else {
-            req.body.infoData = data[0]
+         if(data.length > 1) {
+            console.log("data.length > 1 :",data)
+            res.status(400).json({msg:"repeated name !",status:400});
+         } else if(data.length == 1) {
+            req.body.personal_informations = data[0];
             next()
          }
          
@@ -133,21 +139,24 @@ export const getPersonalInfoByName = async (req , res, next) => {
 }
 
 export const getPersonalInfoByInsuranceNumber = async(req , res, next) => {
-   const {insuranceNumber} = req.body;
+   const {searchValue} = req.body;
+   const serachAsNumber = Number(searchValue);
    
    const {data , error} = await supabase
       .from(personalInfoTable) 
       .select()
-      .eq("insurance_number",insuranceNumber);
+      .eq("insurance_number",serachAsNumber);
       
       if(error || data.length < 1) {
-         res.status(404).json({msg:"user not found !"});
+         res.status(404).json({msg:"user not found", status:404});
          
       } else {
          if(data.length > 1) {
-            res.status(404).json({msg:"repeated insurance number !"});
-         } else {
-            req.body.infoData = data[0]
+            // console.log("data.length > 1 :",data)
+            res.status(400).json({msg:"repeated insurance number !",status:400});
+         } else if(data.length == 1) {
+            
+            req.body.personal_informations = data[0];
             next()
          }
          

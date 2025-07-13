@@ -1,32 +1,39 @@
 import {supabase} from "../db/connection.js";
-import { businessTable, businessEmployeeTable  } from "../db/tables.js";
+import { businessTable, businessEmployeeTable, businessStagesTable ,businessCommercialTypesTable ,businessStatusesTable } from "../db/tables.js";
 
 export const createBusiness = async (req, res , next) => {
    const {
-      business_owner_id,
-      business_name ,
-      registration_date ,
-      registration_number ,
-      financial_balance ,
-      is_self_insurance
+      businessOwnerId,
+      businessName ,
+      city,
+      country,
+      commercialType,
+      lawInitiativeDate,
+      stage,
+      status
    } = req.body;
+   // console.log("req.body :",req.body);
    
    const { data , error } = await supabase
      .from(businessTable)
      .insert({ 
-         business_owner_id ,
-         business_name ,
-         registration_date ,
-         registration_number ,
-         financial_balance ,
-         is_self_insurance
+         business_owner_id: businessOwnerId,
+         business_name :businessName ,
+         registration_date : new Date(Date.now()) ,
+         registration_number : 1 ,
+         stage: stage ,
+         status: status ,
+         state:city ,
+         country: country ,
+         commercial_type : commercialType ,
+         law_initiative_date: lawInitiativeDate
       })
       .select();
-      
-      if(error)
-         res.status(400).send("error occured");
+      console.log("data :",data)
+      if(error || data?.length < 1)
+         res.status(400).json({msg:"error occured", status:400});
       else
-         res.status(200).json(data);
+         res.status(200).json({...data, status: 200});
    
 }
 
@@ -146,5 +153,35 @@ export const getPaginatedBusinesses = async (req, res, next) => {
       res.status(200).json(data);
       return data;
    }
+}
+
+export const getStages = async (req, res , next) => {
+   const { data, error } = await supabase
+   .from(businessStagesTable).select();
+   // console.log("stages in server :",data);
+   if(data?.length > 0) 
+      res.status(200).json(data);
+   else 
+      res.status(404).json({msg:"something went wrong !"});
+}
+
+export const getCommercialTypes = async (req, res , next) => {
+   const { data, error } = await supabase
+   .from(businessCommercialTypesTable).select();
+      // console.log("data commercial :",data);
+   if(data?.length > 0) 
+      res.status(200).json(data);
+   else 
+      res.status(404).json({msg:"something went wrong !"});
+}
+
+export const getStatuses = async (req, res , next) => {
+   const { data, error } = await supabase
+   .from(businessStatusesTable).select();
+   
+   if(data?.length > 0) 
+      res.status(200).json(data);
+   else 
+      res.status(404).json({msg:"something went wrong !"});
 }
 
