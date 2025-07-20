@@ -100,10 +100,8 @@ export const getPersonalInfoByNationalNumber = async (req , res, next) => {
          
       } else {
          if(data.length > 1) {
-            // console.log("data.length > 1 :",data)
             res.status(400).json({msg:"repeated national number !",status:400});
          } else if(data.length == 1) {
-            
             req.body.personal_informations = data[0];
             next()
          }
@@ -152,7 +150,6 @@ export const getPersonalInfoByInsuranceNumber = async(req , res, next) => {
          
       } else {
          if(data.length > 1) {
-            // console.log("data.length > 1 :",data)
             res.status(400).json({msg:"repeated insurance number !",status:400});
          } else if(data.length == 1) {
             

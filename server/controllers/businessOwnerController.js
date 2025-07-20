@@ -1,5 +1,5 @@
 import {supabase} from "../db/connection.js";
-import { businessOwnerTable, personalInfoTable } from "../db/tables.js";
+import {businessTable, businessOwnerTable, personalInfoTable } from "../db/tables.js";
 
 export const createBusinessOwner = async (req , res , next) => {
    
@@ -19,7 +19,7 @@ export const createBusinessOwner = async (req , res , next) => {
 }
 export const getBusinessOwner = async (req , res , next) => {
    const {personal_informations} = req.body;
-   
+
    const { data, error } = await supabase
   .from(businessOwnerTable)
   .select()
@@ -37,6 +37,31 @@ export const getBusinessOwner = async (req , res , next) => {
       next()
    }
   }
+}
+
+export const getBusinessOwnerById = async (req, res, next) => {
+   const {id} = req.query;
+   
+   const { data, error } = await supabase
+   .from(businessOwnerTable)
+   .select(`
+      * ,
+      personal_informations:personal_info_id(
+         *
+      )
+   `)
+   .eq('business_owner_id', id);
+   
+   if(error) {
+      res.status(404).json({msg:"business owner not found !", status:404 });
+   } else {
+      if(data.length < 1) {
+         res.status(400).json({msg:"not a business owner", status:400});
+      } else {
+         res.status(200).json({...data[0] , status:200});
+         next()
+      }
+   }
 }
 
 export const getPaginatedBusinessOwners = async (req, res, next) => {
@@ -159,10 +184,33 @@ export const getBusinessOwnersCount = async (req, res , next) => {
       res.status(404).json({msg:"something went wrong !"});
 }
 
+export const getOwnerBusinesses = async (req, res , next) => {
+   
+   const {ownerId} = req.query;
+   
+   const { data , error } = await supabase
+   .from(businessTable)
+   .select(`
+      * ,
+      Business_owners:business_owner_id(
+         business_owner_id,
+         personal_informations:personal_info_id(
+            *
+         )
+      )
+   `)
+   .eq("business_owner_id",ownerId);
+      
+   if(data?.length < 1 || error) {
+      res.status(404).json({msg:"something went wrong !"});
+   } else {
+      res.status(200).json(data);
+   }
+}
+
 export const deleteBusinessOwner = async (req, res , next) => {
    const {businessOwnerId} = req.body;
    
-   console.log("req : ", req.body);
    const { data, error } = await supabase
   .from(businessOwnerTable)
   .delete()

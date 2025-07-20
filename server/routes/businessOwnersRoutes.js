@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { createBusinessOwner, getBusinessOwner, getPaginatedBusinessOwners, getBusinessOwnersCount, deleteBusinessOwner, getBusinessOwnersByNames } from "../controllers/businessOwnerController.js";
+import { createBusinessOwner, getBusinessOwner, getPaginatedBusinessOwners, getBusinessOwnersCount, deleteBusinessOwner, getBusinessOwnersByNames,getBusinessOwnerById, getOwnerBusinesses } from "../controllers/businessOwnerController.js";
 import { 
    createPersonalInfoRecord,
    getPersonalInfoByName,
@@ -16,12 +16,13 @@ const router = Router();
 router.post("/create", checkIfPersonalInfoRecordExistBeforeCreating ,createPersonalInfoRecord ,createBusinessOwner)
 
 //? get business owner by one of three variables (after getting related personal information record)  
+router.get("/get/id",  getBusinessOwnerById);
 router.post("/get/national-number", getPersonalInfoByNationalNumber, getBusinessOwner);
 // router.post("/get/name", getPersonalInfoByName , getBusinessOwner);
 router.post("/get/name", getBusinessOwnersByNames);
 router.post("/get/insurance-number", getPersonalInfoByInsuranceNumber , getBusinessOwner); 
 
-
+router.get("/businesses",getOwnerBusinesses)
 
 // router.post("/checkIfExist", getPersonalInfoByName , getBusinessOwner);
 
