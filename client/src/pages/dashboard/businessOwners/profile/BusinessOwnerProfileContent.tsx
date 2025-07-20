@@ -7,6 +7,10 @@ import useThemedColors from '../../../../hooks/useThemedColors';
 import BusinessOwnerProfileTabs from '../../../../components/shared/profile/businessOwner/BusinessOwnerProfileTabs';
 
 import { capitalize } from '../../../../lib/Capitalize.ts';
+
+import { MdOutlineEmail } from "react-icons/md";
+import { BsTelephone } from "react-icons/bs";
+
 const BusinessOwnerProfileContent = () => {
    
    const {textPrimary , textSecondary, textEmail} = useThemedColors();
@@ -37,12 +41,23 @@ const BusinessOwnerProfileContent = () => {
                <Heading size={{smTo2xl:"2xl",smDown:"xl"}} color={textPrimary}>
                   {`${capitalize(businessOwnerData?.personal_informations?.first_name)} ${capitalize(businessOwnerData?.personal_informations?.last_name)}`}
                </Heading>
-               <Text textStyle="sm" color={textEmail}>
-                  {businessOwnerData?.personal_informations?.email}
-               </Text>
-               <Text textStyle="sm" color={textEmail}>
-               {businessOwnerData?.personal_informations?.phone_number}
-               </Text>
+               <Flex>
+                  <Flex paddingTop={1} flexDirection={'column'} justifyContent={'center'} color={textSecondary}>
+                     <MdOutlineEmail size={'20px'} />
+                  </Flex>
+                  <Text   marginLeft={1} textStyle="sm" color={textEmail}>
+                     {businessOwnerData?.personal_informations?.email}
+                  </Text>
+               </Flex>
+               
+               <Flex>
+                  <Flex flexDirection={'column'} justifyContent={'center'} color={textSecondary}>
+                     <BsTelephone size={'20px'} />
+                  </Flex>
+                  <Text marginLeft={1} textStyle="sm" color={textEmail}>
+                     {businessOwnerData?.personal_informations?.phone_number}
+                  </Text>
+               </Flex>
             </Flex>
          </Box>
          

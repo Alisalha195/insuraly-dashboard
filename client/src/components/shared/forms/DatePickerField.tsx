@@ -45,7 +45,7 @@ const DatePickerField = ({register, label,Controller , control,error, name }) =>
   return (
       <Field.Root >
          <Field.Label fontSize={'22px'} color={textSecondary}>{label}</Field.Label>
-         <Box  className='btn' backgroundColor={'transparent'} border={`1px solid ${inputBorder}`} paddingY={1} paddingX={1} fontSize={'23px'} borderRadius={'7px'} outline={'none'} >
+         <Box marginTop={"4px"}  className='btn' backgroundColor={'transparent'} border={`1px solid ${inputBorder}`} paddingY={"10px"} paddingX={1} fontSize={'23px'} borderRadius={'7px'} outline={'none'} >
             <Controller
                
                control = {control}

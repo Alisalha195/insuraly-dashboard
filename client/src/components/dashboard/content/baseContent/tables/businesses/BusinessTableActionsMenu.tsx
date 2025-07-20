@@ -1,4 +1,4 @@
-import {  HStack, Menu, Portal, Text } from "@chakra-ui/react"
+import { Box, Button, Flex, HStack, Menu, Portal, Text } from "@chakra-ui/react"
 import { CiMenuKebab } from "react-icons/ci";
 import { tableMenuData } from "./TableActionsMenuData";
 import useThemedColors from "../../../../../../hooks/useThemedColors";
@@ -8,24 +8,24 @@ import { useState } from "react";
 import { useMutation } from "@tanstack/react-query";
 import toast from "react-hot-toast";
 
-const TableActionsMenu = ({itemId, itemData}) => {
-
+const BusinessTableActionsMenu = ({itemId, itemData}) => {
    const [waiting , setWaiting] = useState(false)
    const navigate = useNavigate();
    const {hovering} = useThemedColors();
-   
-   const deleteBusinessOwner = useMutation({
-      mutationFn : (itemId) => fetch("http://localhost:5000/businessOwners/delete",{method:'DELETE', headers: {'Content-Type' : 'application/json'}, body : JSON.stringify({businessOwnerId:itemId})}).then(res => res.json()) ,
+      
+   const deleteBusiness = useMutation({
+      mutationFn : (itemId) => fetch("http://localhost:5000/business/delete",{method:'DELETE', headers: {'Content-Type' : 'application/json'}, body : JSON.stringify({businessId:itemId})}).then(res => res.json()) ,
+      
       
       onSuccess: (data) => {
-         toast.success('Business Owner Deleted Successfuly !');
+         toast.success('Business Deleted Successfuly !');
          setWaiting(false);
       }
    })
    
    const handleDelete = () => {
       setWaiting(true);
-      deleteBusinessOwner.mutate(itemId);
+      deleteBusiness.mutate(itemId);
    }
   return (
    <Menu.Root >
@@ -45,6 +45,7 @@ const TableActionsMenu = ({itemId, itemData}) => {
                     click={handleDelete} 
                     item={item}
                     waiting={waiting} 
+                  
                />
                :
                <Menu.Item style={{fontSize:"clamp(16px, 20px , 36px)"}} key={index} marginBottom={1} paddingY={0} paddingX={1} className="btn" value="" backgroundColor={'transparent'} _hover={{backgroundColor:hovering}}
@@ -57,6 +58,8 @@ const TableActionsMenu = ({itemId, itemData}) => {
                </Menu.Item>
             ))
          }
+         
+         
        </Menu.Content>
      </Menu.Positioner>
    </Portal>
@@ -64,7 +67,7 @@ const TableActionsMenu = ({itemId, itemData}) => {
   )
 }
 
-export default TableActionsMenu
+export default BusinessTableActionsMenu;
 
 
 

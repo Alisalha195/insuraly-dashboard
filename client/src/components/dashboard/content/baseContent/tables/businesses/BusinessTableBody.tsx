@@ -1,5 +1,5 @@
 import { Table } from "@chakra-ui/react"
-import TableActionsMenu from "../businesses/TableActionsMenu";
+import BusinessTableActionsMenu from "./BusinessTableActionsMenu";
 
 const BusinessTableBody = ({data}) => {
   return (
@@ -26,7 +26,7 @@ const BusinessTableBody = ({data}) => {
                </Table.Cell>
             
             <Table.Cell fontSize={"20px"} textWrap={"nowrap"}>
-               <TableActionsMenu itemId={item.business_id} itemData={item} />
+               <BusinessTableActionsMenu itemId={item.business_id} itemData={item} />
                </Table.Cell> 
          </Table.Row>
       ))}

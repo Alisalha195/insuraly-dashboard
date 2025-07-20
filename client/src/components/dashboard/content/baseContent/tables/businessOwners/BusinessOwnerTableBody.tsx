@@ -1,6 +1,6 @@
 import {  Table } from "@chakra-ui/react"
-import TableActionsMenu from "./TableActionsMenu";
 import { useNavigate } from "react-router-dom";
+import BusinessOwnerTableActionsMenu from "./BusinessOwnerTableActionsMenu";
 
 const BusinessOwnerTableBody = ({data , search = false}) => {
    
@@ -46,7 +46,7 @@ const BusinessOwnerTableBody = ({data , search = false}) => {
                </Table.Cell>
                :
                <Table.Cell fontSize={"20px"} textWrap={"nowrap"}>
-                  <TableActionsMenu itemId={item.business_owner_id} itemData={item} />
+                  <BusinessOwnerTableActionsMenu itemId={item.business_owner_id} itemData={item} />
                </Table.Cell>
                }
             </Table.Row>

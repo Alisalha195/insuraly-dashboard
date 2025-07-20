@@ -26,7 +26,6 @@ const BusinessesTab = ({businessOwnerId}) => {
          staleTime : 30000,
    });
 
-    console.log("businessesData :",businessesData)
    if(businessesDataIsLoading )
       return <h1>Loading.......</h1>  
 
@@ -48,7 +47,7 @@ const BusinessesTab = ({businessOwnerId}) => {
         
         >
            <DataTable
-                       maxHeight={"380px"}
+                       maxHeight={"350px"}
                        search={false}   
                        data={businessesData} 
                        TableHeader={BusinessTableHeader}
