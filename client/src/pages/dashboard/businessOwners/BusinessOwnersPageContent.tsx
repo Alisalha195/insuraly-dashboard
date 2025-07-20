@@ -59,7 +59,9 @@ import BusinessOwnerSearchActions from '../../../components/dashboard/content/ba
                   maxWidth={'98vw'} 
                   height={'70vh'}
             >
-               <DataTable data={businessOwnerData} 
+               <DataTable
+                          maxHeight={"560px"}
+                          data={businessOwnerData} 
                           TableHeader={BusinessOwnerTableHeader}
                           TableBody={BusinessOwnerTableBody}
                           search={false}

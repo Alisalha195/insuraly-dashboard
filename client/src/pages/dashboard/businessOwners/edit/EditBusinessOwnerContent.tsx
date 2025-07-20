@@ -184,6 +184,8 @@ const EditBusinessOwnerContent = () => {
       <ContactFields 
          register = {register}
          errors={errors}
+         Controller ={Controller}
+         control={control}
       />
       
       <Control click = {handleSubmit(handleSaveBusinessOwner)} />

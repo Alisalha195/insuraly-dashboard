@@ -4,7 +4,6 @@
  export const getTableRowsCount = (table) => {
    
    const {data} = useQuery({ 
-   //   queryKey: [`${table}` ], 
      queryKey: [`${table}` ], 
      queryFn: () => fetch(`http://localhost:5000/${table}/get-count`).then(res =>  res.json()),
         refetchInterval : 5000,

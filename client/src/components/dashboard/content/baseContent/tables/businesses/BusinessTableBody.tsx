@@ -5,8 +5,6 @@ const BusinessTableBody = ({data}) => {
   return (
    <Table.Body>
       {data.map((item , index) => (  
-         
-         
          <Table.Row key={index}>
             <Table.Cell fontSize={"20px"} textWrap={"nowrap"}>
                {item.business_id}

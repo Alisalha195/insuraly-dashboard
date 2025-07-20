@@ -12,7 +12,9 @@ import {useQuery, QueryClient, QueryClientProvider} from '@tanstack/react-query'
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 import AddBusinessOwner from './pages/dashboard/businessOwners/add/AddBusinessOwner';
 import EditBusinessOwner from './pages/dashboard/businessOwners/edit/EditBusinessOwner';
-import AddBusiness from './pages/dashboard/businessOwners/add/AddBusinessOwner';
+import AddBusiness from './pages/dashboard/businesses/add/AddBusiness';
+import BusinessOwnerProfile from './pages/dashboard/businessOwners/profile';
+
 
 function App() {
   const queryClient = new QueryClient();
@@ -28,6 +30,8 @@ function App() {
             <Route path='/dashboard/businesses/add' element={<AddBusiness />} />
             
             <Route path='/dashboard/business-owners' element={<BusinessOwners  />} />
+            <Route path='/dashboard/business-owners/:id' element={<BusinessOwnerProfile  />} /> 
+            
             <Route path='/dashboard/business-owners/add' element={<AddBusinessOwner  />} />
             <Route path='/dashboard/business-owners/edit' element={<EditBusinessOwner  />} />
             

@@ -21,7 +21,7 @@ const BusinessOwnerTableBody = ({data , search = false}) => {
                <Table.Cell  fontSize={"20px"} textWrap={"nowrap"}>
                      <span 
                         className="btn hover:[color:#6666ff] [padding:4px_9px] "
-                        onClick={() => navigate(`${item.business_owner_id}`)}
+                        onClick={() => navigate(`${item.business_owner_id}`,{state:item})}
                      >
                         {item.personal_informations.first_name}
                      </span>

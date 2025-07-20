@@ -57,7 +57,10 @@ import SearchBoxDialog from '../../../components/dashboard/content/sidebar/Searc
                   height={'70vh'}
             
             >
-               <DataTable data={businessesData} 
+               <DataTable
+                           maxHeight={"580px"}
+                           search={false}
+                           data={businessesData} 
                            TableHeader={BusinessTableHeader}
                            TableBody={BusinessTableBody}
                />

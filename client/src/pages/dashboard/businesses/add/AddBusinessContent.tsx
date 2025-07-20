@@ -108,7 +108,6 @@ const AddBusinessContent = () => {
    })
    
    const handleSaveBusiness = (data) => {
-      // console.log("data :",data);
       saveBusiness.mutate(data);
    }
    
@@ -117,11 +116,11 @@ const AddBusinessContent = () => {
       let isBusinessOwner = false;
       const businessOwner = await getBusinessOwnerByInsuranceNumber(val);
       if(businessOwner)  {
-         setBusinessOwnerName(`${businessOwner.first_name} ${businessOwner.father_name} ${businessOwner.last_name}`)
+         setBusinessOwnerName(`${businessOwner?.personal_informations?.first_name} ${businessOwner?.personal_informations?.father_name} ${businessOwner?.personal_informations?.last_name}`)
          
-         setValue('businessOwnerId' ,businessOwner.business_owner_id
+         setValue('businessOwnerId' ,businessOwner?.business_owner_id
          );
-         console.log("businessOwner :",businessOwner.business_owner_id);
+         console.log("businessOwner :",businessOwner?.business_owner_id);
          
          isBusinessOwner = true;
       }

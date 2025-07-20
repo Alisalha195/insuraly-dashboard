@@ -12,6 +12,7 @@ const useThemedColors:any = () => {
    
    const textPrimary = useColorModeValue('gray.800', 'gray.200');
    const textSecondary = useColorModeValue('gray.600', 'gray.300');
+   const textEmail = useColorModeValue('gray.500', 'gray.400');
    
    const inputBorder = useColorModeValue("#e4e4e7","#27272a")
    const bgPrimary = useColorModeValue('gray.100', 'gray.900');
@@ -58,7 +59,8 @@ const useThemedColors:any = () => {
       inputBorder,
       titleTextSecondary,
       btnPrimary,
-      btnGreen
+      btnGreen,
+      textEmail
     }
   )
 }
