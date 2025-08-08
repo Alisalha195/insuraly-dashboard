@@ -14,6 +14,8 @@ import DataTableControl from '../../../components/shared/DataTableControl';
 import SearchBoxDialog from '../../../components/dashboard/content/sidebar/SearchBoxDialog';
 import BusinessOwnerSearchActions from '../../../components/dashboard/content/baseContent/tables/businessOwners/BusinessOwnerSearchActions';
  
+import {host} from '../../../constants/connection.ts';
+
  const BusinessOwnersPageContent = () => {
    const navigate = useNavigate()
    
@@ -28,7 +30,7 @@ import BusinessOwnerSearchActions from '../../../components/dashboard/content/ba
          isLoading:businessOwnerDataIsLoading, 
         } = useQuery({ 
       queryKey: ['business-owners',currentpage ], 
-      queryFn: () => fetch(`http://localhost:5000/businessOwners/get?page=${currentpage}&pageSize=${pageSize}`).then(res =>  res.json()),
+      queryFn: () => fetch(`${host}/businessOwners/get?page=${currentpage}&pageSize=${pageSize}`).then(res =>  res.json()),
          refetchInterval : 5000,
          keepPreviousData: true ,
          staleTime : 30000,

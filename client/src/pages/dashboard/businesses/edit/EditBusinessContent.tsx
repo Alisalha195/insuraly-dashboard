@@ -1,9 +1,5 @@
 import {useMutation } from '@tanstack/react-query';
-import * as z from 'zod';
-import {zodResolver} from '@hookform/resolvers/zod';
-import { checkPersonExist } from '../../../../api/checkPersonExist';
-import { host } from '../../../../constants/connection.ts';
-
+import {host} from "../../../../constants/connection.ts";
 import {
    Box,
    Button,
@@ -12,6 +8,7 @@ import {
    Flex,
    For,
    HStack,
+   IconButton,
    Input,
    NativeSelect,
    Stack,
@@ -19,32 +16,35 @@ import {
    Textarea,
    VStack,
  } from "@chakra-ui/react";
- import { useNavigate } from 'react-router-dom';
- import {useForm, Controller} from 'react-hook-form';
+ 
+ 
+ import * as z from 'zod';
+ import {zodResolver} from '@hookform/resolvers/zod';
+  import {useForm, Controller} from 'react-hook-form';
+//  import { checkPersonExist } from '../../../../api/checkPersonExist';
+ 
+import { useNavigate, useLocation } from 'react-router-dom';
 import useThemedColors from '../../../../hooks/useThemedColors';
-import BirthFields from '../../../../components/shared/forms/BirthFields';
 import FixBottomArea from '../../../../components/shared/FixBottomArea';
-import BirthRegistrationFields from '../../../../components/shared/forms/BirthRegistrationFields';
-import ContactFields from '../../../../components/shared/forms/ContactFields';
 import Control from '../../../../components/shared/forms/Control';
-import BasicFieldsSection from '../../../../components/shared/forms/BasicFieldsSection';
-import useAddBusinessOwnerStore from '../../../../store/useAddBusinessOwnerStore';
-
 import toast from 'react-hot-toast' ;
-import { useEffect, useState } from 'react';
 import BackArrow from '../../../../components/shared/BackArrow';
+import { getBusinessOwnerByInsuranceNumber } from '../../../../api/businessOwner/getBusinessOwnerByInsuranceNumber';
+import { useState } from 'react';
 import BusinessGeneralFields from '../../../../components/shared/forms/business/BusinessGeneralFields';
 import AddressFields from '../../../../components/shared/forms/business/AddressFields';
-import { getBusinessOwnerByInsuranceNumber } from '../../../../api/businessOwner/getBusinessOwnerByInsuranceNumber';
-
-const AddBusinessContent = () => {
+const EditBusinessContent = () => {
+   
+   const navigate = useNavigate();
+   const location = useLocation();
+   const itemData = location.state;
    
    const [contentLoaded , setContentLoaded] = useState({
       businessGeneralFields : false ,
       addressFields : false ,
    })
-   
    const [businessOwnerName ,setBusinessOwnerName] = useState("");
+   
    const {textPrimary, textSecondary} = useThemedColors();
    
    const formSchema = z.object({
@@ -63,38 +63,40 @@ const AddBusinessContent = () => {
       city: z.string().nonempty('city can not be empty !'),
       
       businessOwnerId :z.number(),
-   })
+
+   });
    
    type FormValues = z.infer<typeof formSchema>;
    const {
       register,
       handleSubmit ,
-      watch ,
       setValue,
       formState : {errors},
-      control ,
-      trigger
+      control
    } = useForm<FormValues>({
       resolver : zodResolver(formSchema) ,
       defaultValues : {
-         lawInitiativeDate: new Date(Date.now()),
-         country: "Syria",
-         city: "Damascus Governorate",
-         status:"active",
-         stage:"1",
-         commercialType:"food/resturants"
-      },
-      mode:'onChange'
+         
+         businessName: itemData.business_name,
+         commercialType: itemData.commercial_type,
+         stage: itemData.stage,
+         status: itemData.status,
+         lawInitiativeDate: new Date(itemData.law_initiative_date),
+
+         bOwnerInsuranceNumber : itemData.Business_owners.personal_informations.insurance_number,
+
+         country: itemData.country,
+         city: itemData.state,
+
+         // businessOwnerId :itemData.business_name,
+         
+      }
    });
    
-   const navigate = useNavigate();
    
    const saveBusiness = useMutation({
-      mutationFn : (business) => fetch(`${host}/business/create`,{method:'POST', headers: {'Content-Type' : 'application/json'}, body : JSON.stringify(business)}).then(res => res.json()) ,
+      mutationFn : (business) => fetch(`${host}/business/edit`,{method:'PUT', headers: {'Content-Type' : 'application/json'}, body : JSON.stringify(business)}).then(res => res.json()) ,
       
-      onError : (error) => {
-         console.log("error occured ! :",error)
-      },
       onSuccess: (response) => {
          if(response.status == 404 || response.status == 400){
             
@@ -102,14 +104,15 @@ const AddBusinessContent = () => {
          } else if(response.status == 200) {
             navigate(-1)
             setTimeout(() => {
-               toast.success('Business Added Successfuly !');
-            }, 1000);
+               toast.success('Business updated Successfuly !');
+            }, 500);
          }
       },
    })
    
    const handleSaveBusiness = (data) => {
-      saveBusiness.mutate(data);
+      const dataWithId = {...data , businesslId : itemData.business_id}      
+      saveBusiness.mutate(dataWithId);
    }
    
    const handleViewBusinessOwnerName = async(val) => {
@@ -130,22 +133,13 @@ const AddBusinessContent = () => {
       }
          return isBusinessOwner ;
    }
-     return (
+   return (
       <Flex flexDirection={'column'} maxHeight={'100vh'} overflowY={'scroll'}>
          
-         {
-            (contentLoaded.businessGeneralFields && contentLoaded.addressFields)
-            ? 
-            <>
-               <BackArrow />
-               <Text color={textSecondary} textAlign={'center'} fontWeight={"500"}>
-                  New Business
-               </Text>
-            
-            </>
-            : <p>Loading....</p>
-         }
-         
+         <BackArrow />
+         <Text color={textSecondary} textAlign={'center'} fontWeight={"500"}>
+            Edit Business
+         </Text>
          <Box>
             <Flex flexDirection={'row'} justifyContent={'center'} fontSize={'16px'}>
                
@@ -179,7 +173,7 @@ const AddBusinessContent = () => {
          &&
          <Control click = {handleSubmit(handleSaveBusiness)} />
          }
-    
+         
          <FixBottomArea />
          
       </Flex> 
@@ -187,6 +181,6 @@ const AddBusinessContent = () => {
 
 }
 
-export default AddBusinessContent;
+export default EditBusinessContent;
 
  

@@ -3,6 +3,7 @@ import {  Button, CloseButton, Dialog, Portal, Text } from "@chakra-ui/react";
 import useThemedColors from "../../../../../../../hooks/useThemedColors";
 import SearchResults from "./SearchResults";
 import { useQuery } from "@tanstack/react-query";
+import {host} from "../../../../../../../constants/connection.ts";
 
 const SearchByInsuranceNumber = ({searchValue}) => {
    const {btnGreen, textPrimary} = useThemedColors();
@@ -12,7 +13,7 @@ const SearchByInsuranceNumber = ({searchValue}) => {
       isLoading:businessOwnerResultDataIsLoading, 
     } = useQuery({ 
       queryKey: ['business-owners-search-results-insurance',searchValue ], 
-      queryFn: () => fetch("http://localhost:5000/businessOwners/get/insurance-number",{method:'POST', headers: {'Content-Type' : 'application/json'}, body : JSON.stringify({searchValue:searchValue})}).then(res =>  res.json()),
+      queryFn: () => fetch(`${host}/businessOwners/get/insurance-number`,{method:'POST', headers: {'Content-Type' : 'application/json'}, body : JSON.stringify({searchValue:searchValue})}).then(res =>  res.json()),
          refetchInterval : 5000,
          keepPreviousData: true ,
          staleTime : 30000,

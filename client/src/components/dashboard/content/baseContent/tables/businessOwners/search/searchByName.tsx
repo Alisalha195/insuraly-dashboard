@@ -4,6 +4,8 @@ import useThemedColors from "../../../../../../../hooks/useThemedColors";
 import SearchResults from "./SearchResults";
 import { useQuery } from "@tanstack/react-query";
 import { useState } from "react";
+import {host} from "../../../../../../../constants/connection.ts";
+
 
 const SearchByName = ({searchValue}) => {
          
@@ -43,7 +45,7 @@ const SearchByName = ({searchValue}) => {
       isLoading:businessOwnerResultDataIsLoading, 
      } = useQuery({ 
    queryKey: ['business-owners-search-results-name',searchValue ], 
-   queryFn: () => fetch("http://localhost:5000/businessOwners/get/name/",{method:'POST', headers: {'Content-Type' : 'application/json'}, body : JSON.stringify({
+   queryFn: () => fetch(`${host}/businessOwners/get/name/`,{method:'POST', headers: {'Content-Type' : 'application/json'}, body : JSON.stringify({
       firstName : fullName.firstName,
       fatherName : fullName.fatherName ,
       motherName: fullName.motherName,

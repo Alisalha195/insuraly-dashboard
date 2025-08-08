@@ -2,7 +2,7 @@ import {useMutation } from '@tanstack/react-query';
 import * as z from 'zod';
 import {zodResolver} from '@hookform/resolvers/zod';
 import { checkPersonExist } from '../../../../api/checkPersonExist';
- 
+import {host} from "../../../../constants/connection.ts"
 
 import {
    Box,
@@ -89,7 +89,7 @@ const AddBusinessOwnerContent = () => {
    const navigate = useNavigate();
 
    const saveBusinessOwner = useMutation({
-      mutationFn : (businessOwner) => fetch("http://localhost:5000/businessOwners/create",{method:'POST', headers: {'Content-Type' : 'application/json'}, body : JSON.stringify(businessOwner)}).then(res => res.json()) ,
+      mutationFn : (businessOwner) => fetch(`${host}/businessOwners/create`,{method:'POST', headers: {'Content-Type' : 'application/json'}, body : JSON.stringify(businessOwner)}).then(res => res.json()) ,
       
       onError : (error) => {
          console.log("error occured ! :",error)

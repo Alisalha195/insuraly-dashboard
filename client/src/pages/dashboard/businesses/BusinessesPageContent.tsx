@@ -1,13 +1,15 @@
- 
- import {  useState } from 'react';
- import { useNavigate } from 'react-router-dom';
- import {useQuery, } from '@tanstack/react-query';
- import DataTable from '../../../components/shared/DataTable';
- import { getTableRowsCount } from '../../../api/getTableRowsCount';
 
- import { Box,  Flex,  HStack,  Text} from '@chakra-ui/react';
- import { AiFillPlusCircle } from "react-icons/ai";
- import useThemedColors from '../../../hooks/useThemedColors';
+import {host} from "../../../constants/connection.ts"
+
+import {  useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import {useQuery, } from '@tanstack/react-query';
+import DataTable from '../../../components/shared/DataTable';
+import { getTableRowsCount } from '../../../api/getTableRowsCount';
+
+import { Box,  Flex,  HStack,  Text} from '@chakra-ui/react';
+import { AiFillPlusCircle } from "react-icons/ai";
+import useThemedColors from '../../../hooks/useThemedColors';
 import BackArrow from '../../../components/shared/BackArrow';
 import BusinessTableHeader from '../../../components/dashboard/content/baseContent/tables/businesses/BusinessTableHeader';
 import BusinessTableBody from '../../../components/dashboard/content/baseContent/tables/businesses/BusinessTableBody';
@@ -28,7 +30,7 @@ import SearchBoxDialog from '../../../components/dashboard/content/sidebar/Searc
          isLoading:businessesDataIsLoading, 
         } = useQuery({ 
       queryKey: ['businesses',currentpage ], 
-      queryFn: () => fetch(`http://localhost:5000/business/get?page=${currentpage}&pageSize=${pageSize}`).then(res =>  res.json()),
+      queryFn: () => fetch(`${host}/business/get?page=${currentpage}&pageSize=${pageSize}`).then(res =>  res.json()),
          refetchInterval : 5000,
          keepPreviousData: true ,
          staleTime : 30000,
