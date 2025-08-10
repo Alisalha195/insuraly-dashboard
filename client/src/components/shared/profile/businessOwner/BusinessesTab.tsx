@@ -9,6 +9,7 @@ import useThemedColors from '../../../../hooks/useThemedColors';
 import { useQuery } from '@tanstack/react-query';
 import BusinessTableHeader from '../../../dashboard/content/baseContent/tables/businesses/BusinessTableHeader';
 import BusinessTableBody from '../../../dashboard/content/baseContent/tables/businesses/BusinessTableBody';
+import {host} from "../../../../constants/connection.ts"
 
 const BusinessesTab = ({businessOwnerId}) => {
     
@@ -20,7 +21,7 @@ const BusinessesTab = ({businessOwnerId}) => {
       isLoading:businessesDataIsLoading, 
      } = useQuery({ 
       queryKey: ['businesses-of-owner',businessOwnerId ], 
-      queryFn: () => fetch(`http://localhost:5000/businessOwners/businesses?ownerId=${businessOwnerId}`).then(res =>  res.json()),
+      queryFn: () => fetch(`${host}/businessOwners/businesses?ownerId=${businessOwnerId}`).then(res =>  res.json()),
          refetchInterval : 5000,
          keepPreviousData: true ,
          staleTime : 30000,

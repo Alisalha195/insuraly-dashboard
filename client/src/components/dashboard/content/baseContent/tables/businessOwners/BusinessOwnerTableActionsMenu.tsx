@@ -7,6 +7,8 @@ import DeleteDialog from "../DeleteDialog";
 import { useState } from "react";
 import { useMutation } from "@tanstack/react-query";
 import toast from "react-hot-toast";
+import {host} from "../../../../../../constants/connection.ts";
+
 
 const BusinessOwnerTableActionsMenu = ({itemId, itemData}) => {
 
@@ -15,7 +17,7 @@ const BusinessOwnerTableActionsMenu = ({itemId, itemData}) => {
    const {hovering} = useThemedColors();
    
    const deleteBusinessOwner = useMutation({
-      mutationFn : (itemId) => fetch("http://localhost:5000/businessOwners/delete",{method:'DELETE', headers: {'Content-Type' : 'application/json'}, body : JSON.stringify({businessOwnerId:itemId})}).then(res => res.json()) ,
+      mutationFn : (itemId) => fetch(`${host}/businessOwners/delete`,{method:'DELETE', headers: {'Content-Type' : 'application/json'}, body : JSON.stringify({businessOwnerId:itemId})}).then(res => res.json()) ,
       
       onSuccess: (data) => {
          toast.success('Business Owner Deleted Successfuly !');

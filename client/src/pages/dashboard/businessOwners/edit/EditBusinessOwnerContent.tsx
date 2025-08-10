@@ -21,6 +21,7 @@ import {
  import {zodResolver} from '@hookform/resolvers/zod';
   import {useForm, Controller} from 'react-hook-form';
  import { checkPersonExist } from '../../../../api/checkPersonExist';
+ import { host } from '../../../../constants/connection.ts';
  
  import { useNavigate, useLocation } from 'react-router-dom';
 import useThemedColors from '../../../../hooks/useThemedColors';
@@ -133,7 +134,7 @@ const EditBusinessOwnerContent = () => {
    
    
    const saveBusinessOwner = useMutation({
-      mutationFn : (businessOwner) => fetch("http://localhost:5000/businessOwners/edit",{method:'PUT', headers: {'Content-Type' : 'application/json'}, body : JSON.stringify(businessOwner)}).then(res => res.json()) ,
+      mutationFn : (businessOwner) => fetch(`${host}/businessOwners/edit`,{method:'PUT', headers: {'Content-Type' : 'application/json'}, body : JSON.stringify(businessOwner)}).then(res => res.json()) ,
       
       onSuccess: (response) => {
          if(response.status == 404 || response.status == 400){
