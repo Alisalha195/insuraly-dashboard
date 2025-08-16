@@ -1,11 +1,13 @@
 
 import { Button, CloseButton, Dialog, Flex, Portal, Text } from "@chakra-ui/react";
 import useThemedColors from "../../../../../../../hooks/useThemedColors";
-import SearchResults from "./SearchResults";
 import { useQuery } from "@tanstack/react-query";
 import { useState } from "react";
 import {host} from "../../../../../../../constants/connection.ts";
 
+import BusinessOwnerTableHeader from "../BusinessOwnerTableHeader"
+import BusinessOwnerTableBody from "../BusinessOwnerTableBody"
+import SearchResults from "../../search/SearchResults";
 
 const SearchByName = ({searchValue}) => {
          
@@ -83,6 +85,8 @@ const SearchByName = ({searchValue}) => {
                   <Flex  justifyContent={"center"}>
                      < SearchResults 
                         resultData={businessOwnerResultData} 
+                        tableHeader={BusinessOwnerTableHeader}
+                        tableBody={BusinessOwnerTableBody}
                      />
                   </Flex>
                   

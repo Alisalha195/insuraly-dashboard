@@ -1,7 +1,7 @@
 import { Table } from "@chakra-ui/react"
 import BusinessTableActionsMenu from "./BusinessTableActionsMenu";
 
-const BusinessTableBody = ({data}) => {
+const BusinessTableBody = ({data, search = false}) => {
   return (
    <Table.Body>
       {data?.map((item , index) => (  
@@ -24,10 +24,18 @@ const BusinessTableBody = ({data}) => {
             <Table.Cell textAlign="start" fontSize={"20px"} textWrap={"nowrap"}>
                {item.employees_count}
                </Table.Cell>
-            
+
+            {
+            search 
+            ?
+            <Table.Cell fontSize={"20px"} textWrap={"nowrap"}>
+               
+            </Table.Cell>
+            :
             <Table.Cell fontSize={"20px"} textWrap={"nowrap"}>
                <BusinessTableActionsMenu itemId={item.business_id} itemData={item} />
-               </Table.Cell> 
+            </Table.Cell>
+            }
          </Table.Row>
       ))}
    </Table.Body>

@@ -1,9 +1,14 @@
 
 import {  Button, CloseButton, Dialog, Portal, Text } from "@chakra-ui/react";
 import useThemedColors from "../../../../../../../hooks/useThemedColors";
-import SearchResults from "./SearchResults";
+
 import { useQuery } from "@tanstack/react-query";
 import {host} from "../../../../../../../constants/connection.ts";
+
+import BusinessOwnerTableHeader from "../BusinessOwnerTableHeader"
+import BusinessOwnerTableBody from "../BusinessOwnerTableBody"
+import SearchResults from "../../search/SearchResults";
+
 
 const SearchByInsuranceNumber = ({searchValue}) => {
    const {btnGreen, textPrimary} = useThemedColors();
@@ -41,7 +46,9 @@ const SearchByInsuranceNumber = ({searchValue}) => {
          {
             businessOwnerResultData &&
             < SearchResults 
-               resultData={businessOwnerResultData} 
+               resultData={businessOwnerResultData}
+               tableHeader={BusinessOwnerTableHeader}
+               tableBody={BusinessOwnerTableBody}
             />
          }
          </Dialog.Body>
