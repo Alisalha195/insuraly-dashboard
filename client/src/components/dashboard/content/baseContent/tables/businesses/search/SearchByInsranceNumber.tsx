@@ -1,33 +1,33 @@
 
 import { Button, CloseButton, Dialog, Portal, Text } from "@chakra-ui/react";
 import useThemedColors from "../../../../../../../hooks/useThemedColors";
+
 import { useQuery } from "@tanstack/react-query";
 import { host } from "../../../../../../../constants/connection.ts";
 
-import BusinessOwnerTableHeader from "../BusinessOwnerTableHeader"
-import BusinessOwnerTableBody from "../BusinessOwnerTableBody"
+import BusinessTableHeader from "../BusinessTableHeader"
+import BusinessTableBody from "../BusinessTableBody"
 import SearchResults from "../../search/SearchResults";
 
-const SearchByNationalNumber = ({ searchValue }) => {
 
+const SearchByInsuranceNumber = ({ searchValue }) => {
    const { btnGreen, textPrimary } = useThemedColors();
 
-   const { data: businessOwnerResultData,
-      error: businessOwnerResultDataError,
-      isLoading: businessOwnerResultDataIsLoading,
+   const { data: businessResultData,
+      error: businessResultDataError,
+      isLoading: businessResultDataIsLoading,
    } = useQuery({
-      queryKey: ['business-owners-search-results-national', searchValue],
-      queryFn: () => fetch(`${host}/businessOwners/get/national-number`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ searchValue: searchValue }) }).then(res => res.json()),
+      queryKey: ['business-search-results-insurance', searchValue],
+      queryFn: () => fetch(`${host}/business/get/insurance-number`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ searchValue: searchValue }) }).then(res => res.json()),
       refetchInterval: 5000,
       keepPreviousData: true,
       staleTime: 30000,
    });
-
    return (
       <Dialog.Root scrollBehavior="inside" size="sm">
          <Dialog.Trigger asChild >
-            <Button disabled={businessOwnerResultDataIsLoading} className='btn' backgroundColor={btnGreen} paddingX={2} borderRadius={6} paddingY={1} height={'auto'} lineHeight={1} color={textPrimary}>
-               national number
+            <Button disabled={businessResultDataIsLoading} className='btn' backgroundColor={btnGreen} paddingX={2} borderRadius={6} paddingY={1} height={'auto'} lineHeight={1} color={textPrimary}>
+               insurance number
             </Button>
          </Dialog.Trigger>
          <Portal>
@@ -35,7 +35,7 @@ const SearchByNationalNumber = ({ searchValue }) => {
             <Dialog.Positioner>
                <Dialog.Content>
                   <Dialog.Header>
-                     <Dialog.Title>search by national number for
+                     <Dialog.Title>search by insurance number for
                         <Text textAlign={'center'}>{searchValue}</Text>
                      </Dialog.Title>
                   </Dialog.Header>
@@ -44,12 +44,11 @@ const SearchByNationalNumber = ({ searchValue }) => {
                   </Dialog.CloseTrigger>
                   <Dialog.Body>
                      {
-                        businessOwnerResultData &&
-
+                        businessResultData &&
                         < SearchResults
-                           resultData={businessOwnerResultData}
-                           tableHeader={BusinessOwnerTableHeader}
-                           tableBody={BusinessOwnerTableBody}
+                           resultData={businessResultData}
+                           tableHeader={BusinessTableHeader}
+                           tableBody={BusinessTableBody}
                         />
                      }
                   </Dialog.Body>
@@ -60,4 +59,4 @@ const SearchByNationalNumber = ({ searchValue }) => {
    )
 }
 
-export default SearchByNationalNumber
+export default SearchByInsuranceNumber;

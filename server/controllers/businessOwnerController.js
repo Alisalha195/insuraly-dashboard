@@ -202,7 +202,7 @@ export const getOwnerBusinesses = async (req, res , next) => {
    .eq("business_owner_id",ownerId);
       
    if(data?.length < 1 || error) {
-      res.status(404).json({msg:"something went wrong !"});
+      res.status(404).json({msg:"something went wrong !", status:404});
    } else {
       res.status(200).json(data);
    }

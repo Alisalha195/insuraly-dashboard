@@ -1,6 +1,6 @@
 import {  Box, CloseButton, Dialog, Field, Flex, Portal, Stack } from "@chakra-ui/react";
 import { LuSearch } from 'react-icons/lu';
-import { useEffect, useRef, useState } from "react";
+import {  useRef, useState } from "react";
 import SearchBox from "../../../shared/header/SearchBox";
 
 
