@@ -1,43 +1,52 @@
 import React from 'react';
- import {useQuery, } from '@tanstack/react-query';
+import { useQuery, } from '@tanstack/react-query';
 import { getTableRowsCount } from '../api/getTableRowsCount';
+
+import { MdOutlineBusinessCenter } from "react-icons/md";
+import { FaChalkboardTeacher } from "react-icons/fa";
+import { MdOutlineElderly } from "react-icons/md";
+import { FaDollarSign } from "react-icons/fa";
 
 
 const useInfoCardDataList = () => {
-   
-   
+
+
    const claimsCount = getTableRowsCount("claims");
    const businessOwnerCount = getTableRowsCount("businessOwners");
    const businessCount = getTableRowsCount("business");
    const retirementCount = getTableRowsCount("retirement");
-   
+
    const infoCardDataList = [
       {
-         title:"Businesses",
+         title: "Businesses",
          amount: businessCount,
-         bgColor:'blue',
-         page:'businesses'
+         basicColor: 'blue',
+         page: 'businesses',
+         icon: MdOutlineBusinessCenter
       },
       {
-         title:"Claims",
+         title: "Claims",
          amount: claimsCount,
-         bgColor:'red' ,
-         page:'claims'
+         basicColor: 'orange',
+         page: 'claims',
+         icon: FaDollarSign
       },
       {
-         title:"Businesses Owners",
+         title: "Businesses Owners",
          amount: businessOwnerCount,
-         bgColor:'purple',
-         page:'business-owners'
+         basicColor: 'yellow',
+         page: 'business-owners',
+         icon: FaChalkboardTeacher
       },
       {
-         title:"Retirements",
+         title: "Retirements",
          amount: retirementCount,
-         bgColor:'green',
-         page:'retirements'
+         basicColor: 'purple',
+         page: 'retirements',
+         icon: MdOutlineElderly
       },
    ];
-  return infoCardDataList
+   return infoCardDataList
 }
 
 export default useInfoCardDataList;
