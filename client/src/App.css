@@ -3,11 +3,11 @@
    cursor: pointer;
 }
 
-@media (min-width:450px) and (max-width:840px) {
+@media (min-width:473px) and (max-width:840px) {
    .xs-to-sm-container {
-      display: grid;
+      /* display: grid;
       grid-template-rows:repeat(2, 1fr); 
-      grid-template-columns:repeat(2, 1fr);
+      grid-template-columns:repeat(2, 1fr); */
       
    }
    .xs-to-sm-item {

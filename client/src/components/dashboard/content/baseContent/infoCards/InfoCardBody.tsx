@@ -5,7 +5,7 @@ const InfoCardBody = ({ amount, textColor }) => {
    const { textSecondary, } = useThemedColors();
    return (
       <Flex>
-         <Text fontSize={'30px'} color={textColor}>{amount}</Text>
+         <Text fontSize={{xssToXm:"24px", xmToXmm:'30px'}} color={textColor}>{amount}</Text>
       </Flex>
    )
 }

@@ -14,14 +14,14 @@ const SidebarDrawer = () => {
       
     <Drawer.Root >
       <Drawer.Trigger asChild>
-      <Button padding={0} border={'none'} outline={'none'} backgroundColor={'transparent'} color={textPrimary}> 
+      <Button padding={0} border={'none'} outline={'none'} backgroundColor={'transparent'} color={textPrimary} size={{xmDown:"xs"}}> 
           <MdMenu />
         </Button>
       </Drawer.Trigger>
       <Portal >
         <Drawer.Backdrop />
         <Drawer.Positioner>
-          <Drawer.Content width={"40%"} display={{smTo2xl:'none'}}>
+          <Drawer.Content width={{xssToXs : "80%"}} display={{smTo2xl:'none'}}>
             <Drawer.Header borderBottom={'4px solid #fff'} borderColor={bgPrimary}>
               <Flex marginTop={4} paddingRight={3}>
                   
