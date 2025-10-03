@@ -8,24 +8,29 @@ const InfoCardHeader = ({ title, textColor, icon }) => {
    const { textPrimary } = useThemedColors();
 
    return (
-      <Flex 
+      <Flex
          // fontSize={{xmToXmm:"16px"}} 
-         color={textPrimary} 
+         color={textPrimary}
          flexWrap={'wrap'}
       >
-         <Box 
-            className='[position:absolute] [top:4px] [right:5px]'
+         <Box
+            className='[position:absolute] [top:-12px] [right:4px]'
          >
-            <Icon 
-               className='md:text-[12px]' 
-               color={textColor} 
-               size={{xssToXmm:"xs"}}
+            <Icon
+               className=''
+               color={textColor}
+
+               size={{ xssToXmm: "xs", xmmToSm: "sm" }}
             >
                {icon}
             </Icon>
          </Box>
          <Box
-             fontSize={{xssToXm:"10px" ,xmToXmm:"16px"}}
+            fontSize={{ xssToXm: "10px", xmToXmm: "15px", xmmToSm: "20px", smToXl: "22px" }}
+            wordBreak={"break-all"}
+            overflow={'hidden'}
+            maxHeight={'35px'}
+
          >
             {title}
          </Box>
