@@ -1,26 +1,27 @@
+@import "tailwindcss";
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 @theme {
-   --text-iconXm: 29px ,
+   --text-iconXm: 29px,
 
- }
- 
- @theme {
-   --breakpoint-base : 0rem, 
-   --breakpoint-xss: 5rem,
-   --breakpoint-xs : 10rem ,
-   --breakpoint-xm : 14rem ,
-   --breakpoint-xmm : 22rem ,
-   --breakpoint-sm: 30rem, 
-   --breakpoint-smm : 40rem ,
-   --breakpoint-md: 48rem, 
+}
 
-   --breakpoint-xd : "50rem" ,
-   --breakpoint-lg: "62rem", 
-   --breakpoint-xl: "80rem", 
-   --breakpoint-2xl: "96rem", 
-   --breakpoint-3xl: "120em",
-   --breakpoint-4xl: "160em",
- }
+@theme {
+   --breakpoint-base: 0rem,
+      --breakpoint-xss: 1rem,
+      --breakpoint-xs: 10rem,
+      --breakpoint-xm: 24rem,
+      --breakpoint-xmm: 22rem,
+      --breakpoint-sm: 30rem,
+      --breakpoint-smm: 40rem,
+      --breakpoint-md: 48rem,
+
+      --breakpoint-xd: "50rem",
+      --breakpoint-lg: "62rem",
+      --breakpoint-xl: "80rem",
+      --breakpoint-2xl: "96rem",
+      --breakpoint-3xl: "120em",
+      --breakpoint-4xl: "160em",
+}
