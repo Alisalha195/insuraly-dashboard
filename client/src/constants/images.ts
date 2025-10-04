@@ -1,8 +1,8 @@
 
 export const userAvatarSize = {
-   xss: "30px",
-   xs : "35px" ,
-   sm : "42px" ,
-   md : "44px" ,
-   xl : "48px"
+   xss: "20px",
+   xs: "28px",
+   sm: "33px",
+   md: "38px",
+   xl: "40px"
 }

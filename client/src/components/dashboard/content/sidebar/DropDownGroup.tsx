@@ -10,10 +10,10 @@ const DropDownGroup = ({ data }) => {
             <Accordion.Item key={index} value={item.title} className="btn">
 
                <Accordion.ItemTrigger padding={0}>
-                  <Flex flex="1" className="btn">
-                     <Span color={textPrimary}
+                  <Flex flex="1" className="btn" marginBottom={2}>
+                     <Span color={textSecondary}
                         // className="text-[20px]"
-                        fontSize={{ xssToXs: "14px", xsToXm: "18px", xmToSm: "20px" }}
+                        fontSize={{ xssToXs: "12px", xsToXm: "16px", xmToSm: "18px", smToMd: "20px", mdTo2xl: "22px" }}
                      >
                         {item.title}
                      </Span>
@@ -30,7 +30,8 @@ const DropDownGroup = ({ data }) => {
                               color={textSecondary}
                               _hover={{ paddingLeft: '3px' }}
                               transition={'.2s ease-in-out'}
-                              fontSize={{ xssToXs: "14px", xsToXm: "16px", xmToSm: "18px" }}
+                              fontSize={{ xssToXs: "14px", xsToXm: "16px", xmToSm: "18px", smTo2xl: "20px" }}
+                              paddingTop={{ xmToSm: "4px" }}
                            >
                               <item.icon />
                               {
