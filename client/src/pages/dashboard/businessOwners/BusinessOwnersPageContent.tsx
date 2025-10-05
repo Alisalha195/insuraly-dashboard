@@ -4,6 +4,8 @@ import { useNavigate } from 'react-router-dom';
 import { useQuery, } from '@tanstack/react-query';
 import DataTable from '../../../components/shared/DataTable';
 import { getTableRowsCount } from '../../../api/getTableRowsCount';
+import { businessOwnerTableHeaderData } from "../../../components/dashboard/content/baseContent/tables/businessOwners/businessOwnerTableHeaderData.ts";
+import TableHeader from "../../../components/shared/tables/TableHeader.tsx"
 import BusinessOwnerTableHeader from '../../../components/dashboard/content/baseContent/tables/businessOwners/BusinessOwnerTableHeader';
 import BusinessOwnerTableBody from '../../../components/dashboard/content/baseContent/tables/businessOwners/BusinessOwnerTableBody';
 import { Box, HStack, Flex, Text } from '@chakra-ui/react';
@@ -88,7 +90,9 @@ const BusinessOwnersPageContent = () => {
                <DataTable
                   maxHeight={"560px"}
                   data={businessOwnerData}
-                  TableHeader={BusinessOwnerTableHeader}
+                  TableHeader={
+                     <TableHeader headerData={businessOwnerTableHeaderData} />
+                  }
                   TableBody={BusinessOwnerTableBody}
                   search={false}
                />

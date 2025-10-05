@@ -29,6 +29,10 @@ const useThemedColors: any = () => {
    const InfoCardBorder = useColorModeValue('gray.200', 'gray.600');
 
    const borderSecondary = useColorModeValue('gray.100', 'gray.900');
+
+   const tableHead = useColorModeValue('gray.600', 'gray.300');
+   const tableItem = useColorModeValue('gray.500', 'gray.400');
+
    // ? background colors for dashboard Cards
    // const bgInfoCard = {
    //    blue: useColorModeValue('blue.300', 'blue.500'),
@@ -78,7 +82,9 @@ const useThemedColors: any = () => {
          cardBasicColor,
          InfoCardsColors,
          InfoCardsColorsHover,
-         borderSecondary
+         borderSecondary,
+         tableItem,
+         tableHead
       }
    )
 }

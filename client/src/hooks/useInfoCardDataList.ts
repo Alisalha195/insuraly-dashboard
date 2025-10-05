@@ -32,7 +32,7 @@ const useInfoCardDataList = () => {
          icon: FaDollarSign
       },
       {
-         title: "Businesses Owners",
+         title: "Owners",
          amount: businessOwnerCount,
          basicColor: 'yellow',
          page: 'business-owners',

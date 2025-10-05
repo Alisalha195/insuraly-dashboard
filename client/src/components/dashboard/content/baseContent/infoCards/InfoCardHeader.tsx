@@ -14,7 +14,7 @@ const InfoCardHeader = ({ title, textColor, icon }) => {
          flexWrap={'wrap'}
       >
          <Box
-            className='[position:absolute] [top:-12px] [right:4px]'
+            className='[position:absolute] [top:-5px] [right:4px]'
          >
             <Icon
                className=''
@@ -29,7 +29,7 @@ const InfoCardHeader = ({ title, textColor, icon }) => {
             fontSize={{ xssToXm: "10px", xmToXmm: "15px", xmmToSm: "20px", smToXl: "22px" }}
             wordBreak={"break-all"}
             overflow={'hidden'}
-            maxHeight={'35px'}
+            maxHeight={'30px'}
 
          >
             {title}
