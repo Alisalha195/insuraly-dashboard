@@ -28,7 +28,7 @@ const SearchByName = ({ searchValue }) => {
       <Flex justifyContent={'center'}>
          <Dialog.Root size="full" motionPreset="slide-in-bottom">
             <Dialog.Trigger asChild >
-               <Button disabled={businessResultDataIsLoading} className='btn' backgroundColor={btnGreen} paddingX={2} borderRadius={6} paddingY={1} height={'auto'} lineHeight={1} color={textPrimary}>
+               <Button disabled={businessResultDataIsLoading} className='btn' backgroundColor={btnGreen} paddingX={{ xssToXmm: "5px", xmmTo2xl: "6px" }} borderRadius={6} paddingY={1} height={'auto'} lineHeight={1} color={textPrimary} marginBottom={{ xssToXmm: "7px" }} fontSize={{ xssToXm: "15px", xmToSm: "16px" }}>
                   name
                </Button>
             </Dialog.Trigger>
@@ -37,8 +37,13 @@ const SearchByName = ({ searchValue }) => {
                <Dialog.Positioner>
                   <Dialog.Content>
                      <Dialog.Header>
-                        <Dialog.Title>search by name for
-                           <Text textAlign={'center'}>{searchValue}</Text>
+                        <Dialog.Title>
+                           <Text fontSize={{ xssToXm: "16px", xmToSm: "18px" }}>
+                              search by name for   :
+                           </Text>
+                           <Text textAlign={'center'}>
+                              {searchValue}
+                           </Text>
                         </Dialog.Title>
                      </Dialog.Header>
                      <Dialog.CloseTrigger asChild>
