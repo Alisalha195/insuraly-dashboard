@@ -59,7 +59,7 @@ const BusinessOwnerTableBody = ({ data, search = false }) => {
                      <Text color={tableItem} fontSize={{ xssToXs: "12px", xsToXm: "14px", xmToSm: "16px" }}>
                         {item.personal_informations.email}
                      </Text>
-                     {item.personal_informations.email}
+                     
                   </Table.Cell>
 
 
