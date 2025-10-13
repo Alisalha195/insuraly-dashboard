@@ -7,7 +7,7 @@ import {
    Select,
 } from '@chakra-ui/react';
 import { LuChevronLeft, LuChevronRight } from "react-icons/lu";
-import useThemedColors from '../../hooks/useThemedColors';
+import useThemedColors from '../../../hooks/useThemedColors';
 
 const DataTableControl = ({ currentpage, setCurrentPage, pageSize, completeDataCount }) => {
 
