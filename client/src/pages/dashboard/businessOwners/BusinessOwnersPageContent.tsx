@@ -2,7 +2,6 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useQuery, } from '@tanstack/react-query';
-import DataTable from '../../../components/shared/DataTable';
 import { getTableRowsCount } from '../../../api/getTableRowsCount';
 import { businessOwnerTableHeaderData } from "../../../components/dashboard/content/baseContent/tables/businessOwners/businessOwnerTableHeaderData.ts";
 import TableHeader from "../../../components/shared/tables/TableHeader.tsx"
@@ -12,19 +11,21 @@ import { Box, HStack, Flex, Text } from '@chakra-ui/react';
 import { AiFillPlusCircle } from "react-icons/ai";
 import useThemedColors from '../../../hooks/useThemedColors';
 import BackArrow from '../../../components/shared/BackArrow';
-import DataTableControl from '../../../components/shared/DataTableControl';
+import DataTable from '../../../components/shared/tables/DataTable.tsx';
+import DataTableControl from '../../../components/shared/tables/DataTableControl.tsx';
 import SearchBoxDialog from '../../../components/dashboard/content/sidebar/SearchBoxDialog';
 import BusinessOwnerSearchActions from '../../../components/dashboard/content/baseContent/tables/businessOwners/BusinessOwnerSearchActions';
 
 import { host } from '../../../constants/connection.ts';
+import PageHeadTitle from "../../../components/shared/PageHeadTitle";
+import TableRowsCountSelectBox from "../../../components/shared/tables/TableRowsCountSelectBox.tsx";
 
 const BusinessOwnersPageContent = () => {
-   const navigate = useNavigate()
 
+   const navigate = useNavigate();
    const [currentpage, setCurrentPage] = useState(1);
    const pageSize = 5;
-
-   const { btnSecondary, textPrimary } = useThemedColors();
+   const { btnSecondary, textPrimary, bgSecondary } = useThemedColors();
    const businessOwnersCount = getTableRowsCount('businessOwners');
 
    const { data: businessOwnerData,
@@ -43,37 +44,23 @@ const BusinessOwnersPageContent = () => {
    if (businessOwnerData)
       return (
          <Box >
-
             {/* header line */}
-            <HStack
-               justifyContent={'center'}
-               marginBottom={{ xssToXm: "40px", xmToSm: "50px" }}
-            >
-               <BackArrow />
-               <Text
-                  flexGrow={"1"}
-                  textAlign={'center'}
-                  color={textPrimary}
-                  fontSize={{ xssToXs: '12px', xsToXm: "14px", xmToSm: "24px" }}
-                  paddingRight={{ xmToSm: "2rem" }}
-
-                  fontWeight={{ xssToSm: 500 }}
-               >
-                  Business Owners
-               </Text>
-            </HStack>
+            <PageHeadTitle
+               backButton={true}
+               title={"Business Owners"}
+            />
 
             {/* upper control */}
-            <HStack justifyContent={"start"}>
+            <HStack justifyContent={"start"} marginBottom={1}>
                <SearchBoxDialog
                   title={'serach for a business owner'}
                   SearchActions={BusinessOwnerSearchActions}
                />
-
                <Box className='btn' color={btnSecondary}>
                   <Text
                      onClick={() => navigate("/dashboard/business-owners/add")}
                      fontSize={{ xssToXs: "14px", xsToXm: "16px", xmToSm: "18px" }}
+                     marginLeft={2}
                   >
                      new owner
                      {/* <AiFillPlusCircle /> */}

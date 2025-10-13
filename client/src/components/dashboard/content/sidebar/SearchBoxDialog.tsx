@@ -1,4 +1,4 @@
-import { Box, CloseButton, Dialog, Field, Flex, Portal, Stack, Icon } from "@chakra-ui/react";
+import { Box, Text, CloseButton, Dialog, Field, Flex, Portal, Stack, Icon } from "@chakra-ui/react";
 import { LuSearch } from 'react-icons/lu';
 import { useRef, useState } from "react";
 import SearchBox from "../../../shared/header/SearchBox";
@@ -15,7 +15,7 @@ const SearchBoxDialog = ({ title, SearchActions }) => {
          <Dialog.Trigger asChild>
             <Flex flexDirection={'column'} justifyContent={'center'} paddingY={0} paddingX={1}>
                <Icon
-                  fontSize={{ xssToXs: "16px", xsToXm:"18px", xmToSm:"20px" }}
+                  fontSize={{ xssToXs: "16px", xsToXm: "18px", xmToSm: "20px" }}
                >
                   <LuSearch
                      className='btn'
@@ -30,13 +30,17 @@ const SearchBoxDialog = ({ title, SearchActions }) => {
                   <Dialog.Body pb="4" padding={"30px"}  >
                      <Stack gap="4">
                         <Field.Root marginTop={4} marginBottom={1} width={"100%"}>
-                           <Field.Label>{title}</Field.Label>
+                           <Field.Label>
+                              <Text fontSize={{ xssToXm: "16px" }}>
+                                 {title}
+                              </Text>
+                           </Field.Label>
                            <SearchBox
 
                               setSearchValue={setSearchValue}
                               ref={ref}
                               isFull={true}
-                              large={true}
+                              large={false}
                            />
                         </Field.Root>
                      </Stack>
@@ -44,7 +48,7 @@ const SearchBoxDialog = ({ title, SearchActions }) => {
                   <Dialog.CloseTrigger asChild>
                      <CloseButton size="sm" />
                   </Dialog.CloseTrigger>
-                  <Box marginBottom={2}>
+                  <Box marginBottom={5}>
                      <SearchActions searchValue={searchValue} />
                   </Box>
                </Dialog.Content>
