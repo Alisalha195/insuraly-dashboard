@@ -42,7 +42,10 @@ const ProfileHeadInfo = ({ data }) => {
                </Text>
             </Flex>
             <Text marginLeft={1} lineHeight={"normal"} fontSize={{ xssToXm: "14px", xmToSm:"16px" }} color={textEmail} lineBreak={'anywhere'} overflow={'hidden'}>
-               {emailFormat(data?.personal_informations?.email, 20)}
+               {data?.personal_informations?.email 
+                  ? emailFormat(data?.personal_informations?.email, 20)
+                  : "unavailable"
+               }
             </Text>
          </Flex>
 
@@ -58,7 +61,12 @@ const ProfileHeadInfo = ({ data }) => {
                </Text>
             </HStack>
             <Text marginLeft={1} lineHeight={"normal"} fontSize={{ xssToXm: "14px",  xmToSm:"16px" }} color={textEmail} lineBreak={'anywhere'}>
-               {data?.personal_informations?.phone_number}
+               {
+                  data?.personal_informations?.phone_number 
+                  ? data?.personal_informations?.phone_number
+                  : "unavailable"
+                  
+               }
             </Text>
          </Flex>
       </Flex>

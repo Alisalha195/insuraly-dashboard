@@ -5,12 +5,14 @@
 // };
 
 export const emailFormat = (email, validLength) => {
-   let basicEmailPart = email.substring(0, email.indexOf('@'));
-   let emailProviderPart = email.substring(email.indexOf('@'));
+   if(!email)
+      return null;
+   let basicEmailPart = email?.substring(0, email?.indexOf('@')) ;
+   let emailProviderPart = email?.substring(email?.indexOf('@')) ;
 
-   if ((basicEmailPart.length + emailProviderPart.length) <= validLength) {
+   if ((basicEmailPart?.length + emailProviderPart?.length) <= validLength) {
       return email;
    } else {
-      return basicEmailPart.substring(0, (validLength - emailProviderPart.length)) + "..." + emailProviderPart;
+      return basicEmailPart?.substring(0, (validLength - emailProviderPart?.length)) + "..." + emailProviderPart || null;
    }
 }
