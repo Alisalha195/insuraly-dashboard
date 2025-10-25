@@ -8,7 +8,7 @@ import BusinessOwnerProfileTabs from "../../../../components/shared/profile/busi
 import { capitalize } from "../../../../lib/capitalize.ts";
 import { host } from '../../../../constants/connection.ts';
 import ProfileHeadInfo from "../../../../components/shared/profile/businessOwner/ProfileHeadInfo.tsx";
-
+import Error from "../../../../components/shared/Error.tsx";
 
 const BusinessOwnerProfileContent = () => {
    const { textPrimary, textSecondary, textEmail } = useThemedColors();
@@ -29,7 +29,8 @@ const BusinessOwnerProfileContent = () => {
    });
    if (businessOwnerDataIsLoading)
       return <h1>Loading.......</h1>
-
+   if(businessOwnerDataError) 
+      return <Error message={"Error"} />
    if (businessOwnerData)
       return (
          <Box>

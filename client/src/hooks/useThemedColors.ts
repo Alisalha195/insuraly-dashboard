@@ -9,10 +9,13 @@ const useThemedColors: any = () => {
 
    const titleTextSecondary = useColorModeValue('gray.500', 'gray.400');
 
-
    const textPrimary = useColorModeValue('gray.800', 'gray.200');
    const textSecondary = useColorModeValue('gray.600', 'gray.300');
    const textEmail = useColorModeValue('gray.500', 'gray.400');
+
+   const textInput = useColorModeValue('#777', '#aaa');
+
+   const textError = useColorModeValue('red.500', 'red.400');
 
    const inputBorder = useColorModeValue("#e4e4e7", "#27272a")
    const bgPrimary = useColorModeValue('gray.100', 'gray.900');
@@ -23,9 +26,10 @@ const useThemedColors: any = () => {
    const btnPrimary = useColorModeValue('blue.400', 'blue.600');
    // const btnSecondaryBorder = useColorModeValue('blue.400', 'blue.600');
    const btnSecondary = useColorModeValue('blue.400', 'blue.500');
-
+   const btnDanger = useColorModeValue('red.400', 'red.500') ;
    const btnGreen = useColorModeValue('green.400', 'green.500');
-
+   const btnGray = useColorModeValue('#888', 'gray.300');
+   
    const InfoCardBorder = useColorModeValue('gray.200', 'gray.600');
 
    const borderSecondary = useColorModeValue('gray.100', 'gray.900');
@@ -68,6 +72,7 @@ const useThemedColors: any = () => {
          textSecondary,
          bgSecondary,
          btnSecondary,
+         btnDanger,
          hovering,
          logoText,
          logoBackground,
@@ -78,13 +83,16 @@ const useThemedColors: any = () => {
          titleTextSecondary,
          btnPrimary,
          btnGreen,
+         btnGray,
          textEmail,
          cardBasicColor,
          InfoCardsColors,
          InfoCardsColorsHover,
          borderSecondary,
          tableItem,
-         tableHead
+         tableHead,
+         textError,
+         textInput
       }
    )
 }

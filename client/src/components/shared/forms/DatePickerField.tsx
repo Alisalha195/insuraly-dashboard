@@ -1,77 +1,76 @@
 
-// import { Box,Field,Text } from '@chakra-ui/react';
-// import { useRef, useState } from 'react';
-// import DatePicker from 'react-datepicker';
-// import "react-datepicker/dist/react-datepicker.css";
-// import useThemedColors from '../../../hooks/useThemedColors';
 
-// const DatePickerField = ({label , value , setValue}) => {
-   
-//    const {textPrimary, textSecondary,inputBorder} = useThemedColors();
-//    const [date , setDate] = useState(new Date());
-   
-//   return (
-//       <Field.Root >
-//          <Field.Label fontSize={'22px'} color={textSecondary}>{label}</Field.Label>
-//          <Box backgroundColor={'transparent'} border={`1px solid ${inputBorder}`} paddingY={1} paddingX={1} fontSize={'23px'} borderRadius={'7px'} outline={'none'} >
-//             <DatePicker 
-//                className='date-picker'
-//                selected={value}
-//                onChange={setValue}
-//                showDateSelect
-//                dateFormat="yyyy-MM-dd"
-//             />
-//          </Box>
-//          {/* <Field.ErrorText>{error}</Field.ErrorText> */}
-//       </Field.Root>
-//   )
-// }
-
-// export default DatePickerField
-
-import { Box,Field,Text } from '@chakra-ui/react';
+import { Box, Field, Text, Input } from '@chakra-ui/react';
 import { useRef, useState } from 'react';
 import DatePicker from 'react-datepicker';
 import "react-datepicker/dist/react-datepicker.css";
 import useThemedColors from '../../../hooks/useThemedColors';
 import { useForm } from 'react-hook-form';
 
-const DatePickerField = ({register, label,Controller , control,error, name }) => {
-   
-   const {textPrimary, textSecondary,inputBorder} = useThemedColors();
-   const [date , setDate] = useState(new Date());
-   
-   
-  return (
+const DatePickerField = ({ register, label, Controller, control, error, name }) => {
+
+   const { textPrimary, textSecondary, inputBorder, textError } = useThemedColors();
+   const [date, setDate] = useState(new Date());
+
+
+   return (
       <Field.Root >
-         <Field.Label fontSize={'22px'} color={textSecondary}>{label}</Field.Label>
-         <Box marginTop={"4px"}  className='btn' backgroundColor={'transparent'} border={`1px solid ${inputBorder}`} paddingY={"10px"} paddingX={1} fontSize={'23px'} borderRadius={'7px'} outline={'none'} >
+         <Field.Label fontSize={{ xssToXs: "14px", xsToXm: "15px", xmToSm: "16px", smToMd: "18px", mdTo3xl: "20px" }} color={textSecondary}>{label}</Field.Label>
+         <Box className='btn'>
             <Controller
-               
-               control = {control}
+               className='btn'
+               control={control}
                name={name}
-               render = {({field}) =>(
-                  <DatePicker 
-                     
+               render={({ field }) => (
+                  <DatePicker
                      className='date-picker btn'
                      selected={field.value}
-                     onChange={(date) =>{
-                        // if(date.length > 11)
+                     open={false}
+                     onChange={(date) => {
                         field.onChange(date)
                      }}
                      showDateSelect
-                     // readOnly={true}
-                     // onKeyDown={(e)=>e.preventDefault()}
+                     isClearable={false}
                      dateFormat="yyyy-MM-dd"
+                     // readOnly={true}
+                     customInput={
+                        <Input
+                           {...field}
+                           _hover={{ cursor: 'pointer' }}
+                           type='date'
+                           cursor={'pointer'}
+                           fontSize={{ xssToXs: "14px", xsToXm: "15px", xmToSm: "16px", smToMd: "18px", mdTo3xl: "20px" }}
+                           paddingY={1}
+                           paddingX={2}
+                           height={'auto'}
+                           color={textSecondary}
+                           _selected={field.value}
+
+                           className='btn'
+                           value={field.value}
+
+                           onChange={(date) => {
+
+                              field.onChange(date)
+                           }}
+                        />
+                     }
                   />
                )}
-            
             />
+
          </Box>
-            {error && <p className='text-[#f00]' >{error.message}</p>}
+         {error &&
+            <Text
+               fontSize={{ xssToXs: "13px", xsToXm: "14px", xmToSm: "15px", smToMd: "17px", mdTo3xl: "18px" }}
+               color={textError}
+            >
+               {error.message}
+            </Text>
+         }
          {/* <Field.ErrorText>{error}</Field.ErrorText> */}
       </Field.Root>
-  )
+   )
 }
 
 export default DatePickerField
