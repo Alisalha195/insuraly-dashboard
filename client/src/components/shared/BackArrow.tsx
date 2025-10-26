@@ -8,12 +8,16 @@ const BackArrow = () => {
    const navigate = useNavigate();
    return (
       <Flex>
-         <HStack className='btn'  gap={0} onClick={()=>navigate(-1)}>
-            <IoIosArrowBack  />
-            <Text fontSize={'20px'}>back</Text>
-       </HStack>
+         <HStack className='btn' gap={0} onClick={() => navigate(-1)}>
+            <Text fontSize={{ xssToXs: "0.7rem", xsToXm: "0.8rem", xmToSm: "0.9rem" }}>
+               <IoIosArrowBack />
+            </Text>
+            <Text fontSize={{ xssToXs: "0.6rem", xsToXm: "0.7rem", xmToSm: "0.8rem" }}>
+               back
+            </Text>
+         </HStack>
       </Flex>
-  )
+   )
 }
 
 export default BackArrow;

@@ -1,7 +1,7 @@
 import { Flex } from "@chakra-ui/react"
-import DataTable from "../../../../../shared/DataTable"
-
-const SearchResults = ({ resultData, tableHeader, tableBody }) => {
+import DataTable from "../../../../../shared/tables/DataTable"
+import TableHeader from "../../../../../shared/tables/TableHeader";
+const SearchResults = ({ resultData, headerData, tableBody }) => {
 
    return (
       <Flex flexDirection={'column'}
@@ -11,9 +11,11 @@ const SearchResults = ({ resultData, tableHeader, tableBody }) => {
          height={'70vh'}
       >
          <DataTable
-            maxHeight={"300px"}
+            maxHeight={"70vh"}
             data={resultData}
-            TableHeader={tableHeader}
+            TableHeader={
+               <TableHeader headerData={headerData} />
+            }
             TableBody={tableBody}
             search={true}
          />

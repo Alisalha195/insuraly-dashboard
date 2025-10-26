@@ -7,6 +7,8 @@ import { host } from "../../../../../../../constants/connection.ts";
 import BusinessOwnerTableHeader from "../BusinessOwnerTableHeader"
 import BusinessOwnerTableBody from "../BusinessOwnerTableBody"
 import SearchResults from "../../search/SearchResults";
+import { businessOwnerTableHeaderData } from "../businessOwnerTableHeaderData.ts"
+
 
 const SearchByNationalNumber = ({ searchValue }) => {
 
@@ -26,7 +28,7 @@ const SearchByNationalNumber = ({ searchValue }) => {
    return (
       <Dialog.Root scrollBehavior="inside" size="sm">
          <Dialog.Trigger asChild >
-            <Button disabled={businessOwnerResultDataIsLoading} className='btn' backgroundColor={btnGreen} paddingX={2} borderRadius={6} paddingY={1} height={'auto'} lineHeight={1} color={textPrimary}>
+            <Button disabled={businessOwnerResultDataIsLoading} className='btn' backgroundColor={btnGreen} paddingX={{ xssToXmm: "5px", xmmTo2xl: "6px" }} borderRadius={6} paddingY={1} height={'auto'} lineHeight={1} color={textPrimary} marginBottom={{ xssToXmm: "7px" }} fontSize={{ xssToXm: "15px", xmToSm: "16px" }}>
                national number
             </Button>
          </Dialog.Trigger>
@@ -35,8 +37,13 @@ const SearchByNationalNumber = ({ searchValue }) => {
             <Dialog.Positioner>
                <Dialog.Content>
                   <Dialog.Header>
-                     <Dialog.Title>search by national number for
-                        <Text textAlign={'center'}>{searchValue}</Text>
+                     <Dialog.Title>
+                        <Text fontSize={{ xssToXm: "16px", xmToSm: "18px" }}>
+                           search by national number for :
+                        </Text>
+                        <Text textAlign={'center'}>
+                           {searchValue}
+                        </Text>
                      </Dialog.Title>
                   </Dialog.Header>
                   <Dialog.CloseTrigger asChild>
@@ -48,7 +55,7 @@ const SearchByNationalNumber = ({ searchValue }) => {
 
                         < SearchResults
                            resultData={businessOwnerResultData}
-                           tableHeader={BusinessOwnerTableHeader}
+                           headerData={businessOwnerTableHeaderData}
                            tableBody={BusinessOwnerTableBody}
                         />
                      }

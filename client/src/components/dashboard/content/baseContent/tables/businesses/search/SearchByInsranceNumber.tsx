@@ -26,7 +26,7 @@ const SearchByInsuranceNumber = ({ searchValue }) => {
    return (
       <Dialog.Root scrollBehavior="inside" size="sm">
          <Dialog.Trigger asChild >
-            <Button disabled={businessResultDataIsLoading} className='btn' backgroundColor={btnGreen} paddingX={2} borderRadius={6} paddingY={1} height={'auto'} lineHeight={1} color={textPrimary}>
+            <Button disabled={businessResultDataIsLoading} className='btn' backgroundColor={btnGreen} paddingX={{ xssToXmm: "5px", xmmTo2xl: "6px" }} borderRadius={6} paddingY={1} height={'auto'} lineHeight={1} color={textPrimary} fontSize={{ xssToXm: "15px", xmToSm: "16px" }}>
                insurance number
             </Button>
          </Dialog.Trigger>
@@ -35,8 +35,13 @@ const SearchByInsuranceNumber = ({ searchValue }) => {
             <Dialog.Positioner>
                <Dialog.Content>
                   <Dialog.Header>
-                     <Dialog.Title>search by insurance number for
-                        <Text textAlign={'center'}>{searchValue}</Text>
+                     <Dialog.Title>
+                        <Text fontSize={{ xssToXm: "16px", xmToSm: "18px" }}>
+                           search by insurance number for :
+                        </Text>
+                        <Text textAlign={'center'}>
+                           {searchValue}
+                        </Text>
                      </Dialog.Title>
                   </Dialog.Header>
                   <Dialog.CloseTrigger asChild>

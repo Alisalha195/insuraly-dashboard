@@ -10,9 +10,9 @@ import Retirements from './pages/dashboard/retirements';
 
 import { useQuery, QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
-import AddBusinessOwner from './pages/dashboard/businessOwners/add/AddBusinessOwner';
-import EditBusinessOwner from './pages/dashboard/businessOwners/edit/EditBusinessOwner';
-import AddBusiness from './pages/dashboard/businesses/add/AddBusiness';
+import AddBusinessOwner from './pages/dashboard/businessOwners/add';
+import EditBusinessOwner from './pages/dashboard/businessOwners/edit';
+import AddBusiness from './pages/dashboard/businesses/add';
 import BusinessOwnerProfile from './pages/dashboard/businessOwners/profile';
 
 
