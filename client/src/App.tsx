@@ -14,6 +14,7 @@ import AddBusinessOwner from './pages/dashboard/businessOwners/add';
 import EditBusinessOwner from './pages/dashboard/businessOwners/edit';
 import AddBusiness from './pages/dashboard/businesses/add';
 import BusinessOwnerProfile from './pages/dashboard/businessOwners/profile';
+import BusinessProfile from './pages/dashboard/businesses/profile';
 
 
 function App() {
@@ -33,6 +34,8 @@ function App() {
 
                <Route path='/dashboard/business-owners' element={<BusinessOwners />} />
                <Route path='/dashboard/business-owners/:id' element={<BusinessOwnerProfile />} />
+               
+               <Route path='/dashboard/businesses/:id' element={<BusinessProfile />} />
 
                <Route path='/dashboard/business-owners/add' element={<AddBusinessOwner />} />
                <Route path='/dashboard/business-owners/edit' element={<EditBusinessOwner />} />
