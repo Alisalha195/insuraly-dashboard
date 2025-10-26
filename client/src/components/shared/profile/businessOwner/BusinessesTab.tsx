@@ -60,7 +60,7 @@ const BusinessesTab = ({ businessOwnerId }) => {
                   maxHeight={"300px"}
                   search={false}
                   data={businessesData}
-                  TableHeader={BusinessTableHeader}
+                  // TableHeader={BusinessTableHeader}
                   TableHeader={
                      <TableHeader headerData={businessTableHeaderData}
                      />
