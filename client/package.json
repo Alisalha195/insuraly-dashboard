@@ -5,7 +5,7 @@
   "proxy": "https://localhost:5000",
   "type": "module",
   "scripts": {
-    "dev": "vite",
+    "dev": "vite --host",
     "build": "tsc -b && vite build",
     "lint": "eslint .",
     "preview": "vite preview"
@@ -22,9 +22,9 @@
     "framer-motion": "^12.12.1",
     "immer": "^10.1.1",
     "next-themes": "^0.4.6",
-    "react": "^19.0.0",
+    "react": "^19.2.0",
     "react-datepicker": "^8.4.0",
-    "react-dom": "^19.0.0",
+    "react-dom": "^19.2.0",
     "react-hook-form": "^7.58.1",
     "react-hot-toast": "^2.5.2",
     "react-icons": "^5.5.0",
