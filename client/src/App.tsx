@@ -16,34 +16,46 @@ import AddBusiness from './pages/dashboard/businesses/add';
 import BusinessOwnerProfile from './pages/dashboard/businessOwners/profile';
 import BusinessProfile from './pages/dashboard/businesses/profile';
 
+import BusinessBudget from './pages/dashboard/businesses/budget';
+import PageContainer from './components/dashboard/PageContainer';
+import BusinessEmployees from './pages/dashboard/businesses/employess';
+
 
 function App() {
    const navigate = useNavigate();
    const queryClient = new QueryClient();
-
+   
    return (
       <>
          <Toaster />
          <QueryClientProvider client={queryClient}>
-            <Routes >
-               <Route path='/' element={<Dashboard />} />
-               <Route path='/dashboard' element={<Dashboard />} />
+            {/* <PageContainer> */}
+            <Routes>
+               <Route path='/' element={<PageContainer />}>
+                  <Route index element={<Dashboard />} />
+                  {/* <Route path='/' element={<Dashboard />} /> */}
+                  <Route path='/dashboard' element={<Dashboard />} />
 
-               <Route path='/dashboard/businesses' element={<Businesses />} />
-               <Route path='/dashboard/businesses/add' element={<AddBusiness />} />
+                  {/* Business Routes */}
+                  <Route path='/dashboard/businesses' element={<Businesses />} />
+                  <Route path='/dashboard/businesses/add' element={<AddBusiness />} />
+                  <Route path='/dashboard/businesses/:id' element={<BusinessProfile />} />
+                  <Route path='/dashboard/businesses/:id/budget' element={<BusinessBudget />} />
+                  <Route path='/dashboard/businesses/:id/employees' element={<BusinessEmployees />} />
+                  
+                  {/* Business Owners Routes */}
+                  <Route path='/dashboard/business-owners' element={<BusinessOwners />} />
+                  <Route path='/dashboard/business-owners/:id' element={<BusinessOwnerProfile />} />
+                  <Route path='/dashboard/business-owners/add' element={<AddBusinessOwner />} />
+                  <Route path='/dashboard/business-owners/edit' element={<EditBusinessOwner />} />
 
-               <Route path='/dashboard/business-owners' element={<BusinessOwners />} />
-               <Route path='/dashboard/business-owners/:id' element={<BusinessOwnerProfile />} />
-               
-               <Route path='/dashboard/businesses/:id' element={<BusinessProfile />} />
-
-               <Route path='/dashboard/business-owners/add' element={<AddBusinessOwner />} />
-               <Route path='/dashboard/business-owners/edit' element={<EditBusinessOwner />} />
-
-               <Route path='/dashboard/claims' element={<Claims />} />
-
-               <Route path='/dashboard/retirements' element={<Retirements />} />
-            </Routes>
+                  {/* claims Routes */}
+                  <Route path='/dashboard/claims' element={<Claims />} />
+                  {/* Retirements Routes */}
+                  <Route path='/dashboard/retirements' element={<Retirements />} />
+                  </Route>
+               </Routes>
+            {/* </PageContainer> */}
 
             {/* <ReactQueryDevtools initialIsOpen={false} /> */}
          </QueryClientProvider>
