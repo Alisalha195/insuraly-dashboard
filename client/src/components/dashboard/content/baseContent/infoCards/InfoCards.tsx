@@ -2,6 +2,7 @@ import InfoCard from './InfoCard'
 import { Grid, Box } from '@chakra-ui/react'
 import { useNavigate } from 'react-router-dom';
 import useInfoCardDataList from '../../../../../hooks/useInfoCardDataList';
+import { Suspense } from 'react';
 
 const InfoCards = () => {
    const navigate = useNavigate();
@@ -24,7 +25,6 @@ const InfoCards = () => {
             ))
          }
       </Grid>
-
    )
 }
 

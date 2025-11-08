@@ -8,9 +8,9 @@ import SearchBoxDialog from "./SearchBoxDialog";
 import SidebarSearchActions from "./SidebarSearchActions";
 
 const SidebarDrawer = () => {
-   const { bgPrimary, textPrimary } = useThemedColors();
+   const { bgPrimary,bgSecondary, textPrimary } = useThemedColors();
    return (
-      <Box display={{ smTo2xl: 'none' }}>
+      <Box display={{ smTo2xl: 'none' }} backgroundColor={bgSecondary}>
 
          <Drawer.Root >
             <Drawer.Trigger asChild>
@@ -28,8 +28,9 @@ const SidebarDrawer = () => {
             <Portal >
                <Drawer.Backdrop />
                <Drawer.Positioner>
-                  <Drawer.Content width={{ xssToXm: "100%", xmToSm: "auto" }} display={{ smTo2xl: 'none' }}
+                  <Drawer.Content width={{ xssToXm: "100%", xmToSm: "50%" }} display={{ smTo2xl: 'none' }}
                      paddingTop={0}
+                     backgroundColor={bgSecondary}
                   >
                      <Drawer.Header borderBottom={'4px solid #fff'} borderColor={bgPrimary}
                         paddingTop={"10px"}
@@ -48,6 +49,7 @@ const SidebarDrawer = () => {
                               SearchActions={SidebarSearchActions}
                            />
                            <UserMenu />
+                           
                         </Flex>
                      </Drawer.Header>
                      <Drawer.Body

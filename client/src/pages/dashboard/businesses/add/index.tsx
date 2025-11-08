@@ -4,12 +4,7 @@ import AddBusinessContent from './AddBusinessContent';
 import { Box } from '@chakra-ui/react';
  const AddBusiness = () => {
    return (
-      <Box maxHeight={'100vh'} >
-         
-         <PageContainer pageContent={ AddBusinessContent()} 
-         
-         />
-      </Box>
+      <AddBusinessContent />
    );
  }
  

@@ -4,7 +4,7 @@ import BusinessesPageContent from './BusinessesPageContent';
 
  const Businesses = () => {
    return (
-      <PageContainer pageContent={BusinessesPageContent()} />
+      <BusinessesPageContent />
    );
  }
  

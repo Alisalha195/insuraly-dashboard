@@ -6,13 +6,15 @@ import useThemedColors from "../../../hooks/useThemedColors";
 import Logo from "../../shared/header/Logo";
 import FixGrowBox from "../../shared/FixGrowBox";
 import SidebarDrawer from "../content/sidebar/SidebarDrawer";
+import { useEffect, useRef } from "react";
 
-const Header = () => {
+const Header = ({ref}) => {
    const {bgPrimary} = useThemedColors();
+    
   return (
-    <HStack position={'relative'} width={'auto'}   paddingX={1} gap={{xmTo2xl:2}}  bg={bgPrimary} justifyContent={'space-between'} >
+    <HStack zIndex={1000} ref={ref}  position={'fixed'} width={{xssToSm:"100%", smToMd:"70%", mdTo3xl:"80%"}}   flexGrow={1}   paddingX={1} gap={{xmTo2xl:2}}  bg={bgPrimary} justifyContent={'space-between'} >
       <Flex className="flex w-full" paddingBottom={0}  
-       xmTo2xl={{padding:1 , paddingTop:'8px'}}>
+       xmTo3xl={{padding:1 , paddingTop:'8px'}}>
          <Flex smDown={{display:'none'}} flexDirection='column' justifyContent='center' >
             <SearchBox ref={null} isFull={false} large={false}/>
          </Flex>
@@ -22,7 +24,13 @@ const Header = () => {
          
          <FixGrowBox />
          
-         <Flex smDown={{display:'none'}}>
+         <Flex 
+            smDown={{display:'none'}}
+            gap={2} 
+            // backgroundColor={"#f0f"}
+            justifyContent={"space-around"}
+            paddingX={2}
+         >
             <ColorModeToggleButton />
             <UserMenu />
          </Flex>

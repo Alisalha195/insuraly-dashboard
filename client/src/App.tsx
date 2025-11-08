@@ -19,6 +19,7 @@ import BusinessProfile from './pages/dashboard/businesses/profile';
 import BusinessBudget from './pages/dashboard/businesses/budget';
 import PageContainer from './components/dashboard/PageContainer';
 import BusinessEmployees from './pages/dashboard/businesses/employess';
+import SearchBusinessOwner from './pages/dashboard/businessOwners/search';
 
 
 function App() {
@@ -45,6 +46,7 @@ function App() {
                   
                   {/* Business Owners Routes */}
                   <Route path='/dashboard/business-owners' element={<BusinessOwners />} />
+                  <Route path='/dashboard/business-owners/search' element={<SearchBusinessOwner />} />
                   <Route path='/dashboard/business-owners/:id' element={<BusinessOwnerProfile />} />
                   <Route path='/dashboard/business-owners/add' element={<AddBusinessOwner />} />
                   <Route path='/dashboard/business-owners/edit' element={<EditBusinessOwner />} />

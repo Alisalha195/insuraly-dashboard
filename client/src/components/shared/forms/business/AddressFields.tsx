@@ -28,7 +28,7 @@ const AddressFields = ({setContentLoaded , errors, Controller, control}) => {
                    <Grid className=' ' templateColumns={{  mdTo2xl:"repeat(2, 1fr)"}}   padding={2} gap={2}>
                       
                      <CountrySelectBox 
-                        data={countries.data}
+                        data={countries?.data}
                         label="country" 
                         Controller={Controller}
                         control={control}
@@ -36,7 +36,7 @@ const AddressFields = ({setContentLoaded , errors, Controller, control}) => {
                      />
                      
                       <CitySelectBox
-                        data={cities.data.states}
+                        data={cities?.data?.states}
                         label="State" 
                         Controller={Controller}
                         control={control}

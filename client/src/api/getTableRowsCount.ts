@@ -10,8 +10,9 @@
         keepPreviousData: true ,
         staleTime : 30000,
    });
-   if(data)
+   if(data && data.count > 0) {
       return data.count;
+   }
  };
  
  

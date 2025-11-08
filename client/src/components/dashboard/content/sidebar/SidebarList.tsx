@@ -1,7 +1,7 @@
 
 import { sidabarListData } from "./sidebarListData";
 import DropDownGroup from "./DropDownGroup";
-import { Flex, Text } from "@chakra-ui/react";
+import { Box, Flex, Text } from "@chakra-ui/react";
 import { useNavigate } from "react-router-dom";
 
 import useThemedColors from '../../../../hooks/useThemedColors';
@@ -24,12 +24,17 @@ const SidebarList = () => {
                className="btn"
                paddingX={1}
                onClick={() => navigate("/dashboard")}
-               fontSize={{ xssToXs: "15px", xsToXm: "18px", xmToSm: "22px" }}
+               fontSize={{ xssToXs: "15px", xsToXm: "18px", xmTo3xl: "22px" }}
             >
                Dashboard
             </Text>
          </Flex>
-         <DropDownGroup data={sidabarListData} />
+         {/* <Box
+            maxWidth={"100%"}
+            overflow={'hidden'}
+         > */}
+            <DropDownGroup data={sidabarListData} />
+         {/* </Box> */}
       </>
    );
 }

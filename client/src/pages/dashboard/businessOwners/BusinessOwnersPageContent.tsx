@@ -1,24 +1,19 @@
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useQuery, } from '@tanstack/react-query';
 import { getTableRowsCount } from '../../../api/getTableRowsCount';
 import { businessOwnerTableHeaderData } from "../../../components/dashboard/content/baseContent/tables/businessOwners/businessOwnerTableHeaderData.ts";
 import TableHeader from "../../../components/shared/tables/TableHeader.tsx"
-import BusinessOwnerTableHeader from '../../../components/dashboard/content/baseContent/tables/businessOwners/BusinessOwnerTableHeader';
 import BusinessOwnerTableBody from '../../../components/dashboard/content/baseContent/tables/businessOwners/BusinessOwnerTableBody';
-import { Box, HStack, Flex, Text } from '@chakra-ui/react';
-import { AiFillPlusCircle } from "react-icons/ai";
+import { Box, HStack, Flex, Text, VStack, Icon, } from '@chakra-ui/react';
 import useThemedColors from '../../../hooks/useThemedColors';
-import BackArrow from '../../../components/shared/BackArrow';
 import DataTable from '../../../components/shared/tables/DataTable.tsx';
 import DataTableControl from '../../../components/shared/tables/DataTableControl.tsx';
-import SearchBoxDialog from '../../../components/dashboard/content/sidebar/SearchBoxDialog';
-import BusinessOwnerSearchActions from '../../../components/dashboard/content/baseContent/tables/businessOwners/BusinessOwnerSearchActions';
-
 import { host } from '../../../constants/connection.ts';
 import PageHeadTitle from "../../../components/shared/PageHeadTitle";
-import TableRowsCountSelectBox from "../../../components/shared/tables/TableRowsCountSelectBox.tsx";
+import SkeletonLoader from '../../../components/shared/Skeleton.tsx';
+import { LuSearch } from 'react-icons/lu';
 
 const BusinessOwnersPageContent = () => {
 
@@ -39,9 +34,6 @@ const BusinessOwnersPageContent = () => {
       staleTime: 30000,
    });
 
-   if (businessOwnerDataIsLoading)
-      return <h1>Loading.......</h1>
-   if (businessOwnerData)
       return (
          <Box >
             {/* header line */}
@@ -49,13 +41,19 @@ const BusinessOwnersPageContent = () => {
                backButton={true}
                title={"Business Owners"}
             />
-
+            
             {/* upper control */}
             <HStack justifyContent={"start"} marginBottom={1}>
-               <SearchBoxDialog
-                  title={'serach for a business owner'}
-                  SearchActions={BusinessOwnerSearchActions}
-               />
+               <Flex flexDirection={'column'} justifyContent={'center'} paddingY={0} paddingX={1} onClick={() => navigate("/dashboard/business-owners/search")}>
+                  <Icon
+                     fontSize={{ xssToXs: "16px", xsToXm: "18px", xmToSm: "20px" }}
+                  >
+                     <LuSearch
+                        className='btn'
+                     />
+                  </Icon>
+               </Flex>
+               
                <Box className='btn' color={btnSecondary}>
                   <Text
                      onClick={() => navigate("/dashboard/business-owners/add")}
@@ -73,23 +71,41 @@ const BusinessOwnersPageContent = () => {
                smDown={{ maxWidth: '96vw' }}
                maxWidth={'98vw'}
                height={'70vh'}
-            >
-               <DataTable
-                  maxHeight={"560px"}
-                  data={businessOwnerData}
-                  TableHeader={
-                     <TableHeader headerData={businessOwnerTableHeaderData} />
-                  }
-                  TableBody={BusinessOwnerTableBody}
-                  search={false}
-               />
-               <DataTableControl
-                  currentpage={currentpage}
-                  setCurrentPage={setCurrentPage}
-                  completeDataCount={businessOwnersCount}
-                  pageSize={pageSize}
-               />
+               >
+              {
+               businessOwnerData && businessOwnerData.length > 0 ? (
+                 <>
+                     <DataTable
+                        maxHeight={"560px"}
+                        data={businessOwnerData}
+                        TableHeader={
+                           <TableHeader headerData={businessOwnerTableHeaderData} />
+                        }
+                        TableBody={BusinessOwnerTableBody}
+                        search={false}
+                     />
+                     <DataTableControl
+                        currentpage={currentpage}
+                        setCurrentPage={setCurrentPage}
+                        completeDataCount={businessOwnersCount}
+                        pageSize={pageSize}
+                     />
+                  </>
+               )
+               :(businessOwnerDataIsLoading) && 
+               (
+                  <VStack justifyContent={'center'} height={'50vh'}>
+                     <SkeletonLoader width='60%'/>
+                     <SkeletonLoader width='50%'/>
+                     <SkeletonLoader width='60%' />
+                     <SkeletonLoader width='50%' />
+                     <SkeletonLoader width='60%' />
+                     <SkeletonLoader  width='50%' />
+                  </VStack>
+               )
+              }
             </Flex>
+            
          </Box>
       );
 

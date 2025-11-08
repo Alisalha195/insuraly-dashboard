@@ -25,3 +25,9 @@
 /* .fix-height  {
    padding-bottom: calc(100% + 40px);
 } */
+ 
+/*stop scroliing in background of overlaybox*/
+/*add the class (no-doc-scroll) to scrolling background container*/
+/* :root:has(.no-doc-scroll) {
+   overflow:hidden;
+ } */

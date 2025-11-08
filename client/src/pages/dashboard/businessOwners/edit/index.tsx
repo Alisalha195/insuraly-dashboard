@@ -5,12 +5,7 @@ import { Box } from '@chakra-ui/react';
 import EditBusinessOwnerContent from './EditBusinessOwnerContent';
  const EditBusinessOwner = () => {
    return (
-      <Box maxHeight={'100vh'} >
-         
-         <PageContainer pageContent={ EditBusinessOwnerContent()} 
-         
-         />
-      </Box>
+      <EditBusinessOwnerContent />
    );
  }
  

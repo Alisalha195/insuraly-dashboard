@@ -4,10 +4,7 @@ import BusinessOwnerProfileContent from './BusinessOwnerProfileContent';
 import { Box } from '@chakra-ui/react';
  const BusinessOwnerProfile = () => {
    return (
-      <Box maxHeight={'100vh'} >
-         <PageContainer pageContent={ BusinessOwnerProfileContent()} 
-         />
-      </Box>
+     <BusinessOwnerProfileContent />
    );
  }
  

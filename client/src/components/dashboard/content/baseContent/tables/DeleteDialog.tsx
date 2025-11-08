@@ -10,10 +10,10 @@ const DeleteDialog = ({ item, msg, click, waiting, styles }) => {
 
    return (
       <Box >
-         <Dialog.Root role="alertdialog" >
+         <Dialog.Root role="alertdialog">
             <Dialog.Trigger asChild>
 
-               <Menu.Item
+               <Box
                   closeOnSelect={waiting}
                   fontSize={{ xssToXm: "14px", xmToSm: "15px" }}
                   marginBottom={1}
@@ -29,12 +29,12 @@ const DeleteDialog = ({ item, msg, click, waiting, styles }) => {
                      <item.icon />
                      <Text>{item.title}</Text>
                   </HStack>
-               </Menu.Item>
+               </Box>
             </Dialog.Trigger>
 
-            <Portal>
+            <Portal >
                <Dialog.Backdrop />
-               <Dialog.Positioner>
+               <Dialog.Positioner zIndex={2000}>
                   <Dialog.Content>
                      <Dialog.Header>
                         <Dialog.Title>

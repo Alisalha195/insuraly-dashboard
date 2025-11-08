@@ -5,7 +5,7 @@ import BaseContent from "./baseContent/BaseContent"
 const MainContent = () => {
   return (
     <Flex  >
-      <Sidebar />
+      {/* <Sidebar /> */}
       <BaseContent />
     </Flex>
   )

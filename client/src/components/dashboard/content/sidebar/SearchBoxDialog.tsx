@@ -8,7 +8,7 @@ const SearchBoxDialog = ({ title, SearchActions }) => {
 
    const ref = useRef<HTMLInputElement>(null)
 
-   const [searchValue, setSearchValue] = useState("")
+   const [searchValue, setSearchValue] = useState("");
 
    return (
       <Dialog.Root initialFocusEl={() => ref.current}>

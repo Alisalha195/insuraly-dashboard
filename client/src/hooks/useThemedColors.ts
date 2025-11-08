@@ -36,6 +36,17 @@ const useThemedColors: any = () => {
 
    const tableHead = useColorModeValue('gray.600', 'gray.300');
    const tableItem = useColorModeValue('gray.500', 'gray.400');
+   
+   const budgetText = useColorModeValue('#13b328', '#13d92b');
+   const budgetHover = useColorModeValue('#13b328', '#13d92b');
+   
+   const CountText = useColorModeValue('#22b99d', '#16c9a8');
+   
+   const iconGray = useColorModeValue('#8d8d8d', '#6b6b6b');
+   
+   const footerBg = useColorModeValue('#8d8d8d', '#6b6b6b');
+   
+   
 
    // ? background colors for dashboard Cards
    // const bgInfoCard = {
@@ -92,7 +103,11 @@ const useThemedColors: any = () => {
          tableItem,
          tableHead,
          textError,
-         textInput
+         textInput,
+         budgetText,
+         CountText,
+         iconGray,
+         footerBg
       }
    )
 }

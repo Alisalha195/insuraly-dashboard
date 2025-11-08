@@ -1,14 +1,9 @@
 
-import { Stack } from "@chakra-ui/react";
-import MainContent from "../../components/dashboard/content/MainContent";
-import Footer from "../../components/dashboard/footer/Footer";
+import DashboardContent from "./DashboardContent";
 
 const Dashboard = () => {
   return (
-   <Stack gap={0}  >
-      <MainContent />
-      <Footer />
-   </Stack>
+   <DashboardContent />
   )
 }
 
