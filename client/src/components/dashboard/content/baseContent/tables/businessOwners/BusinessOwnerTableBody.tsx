@@ -1,16 +1,18 @@
-import { Table, Text } from "@chakra-ui/react"
+import { Flex, Table, Text, VStack } from "@chakra-ui/react"
 import { useNavigate } from "react-router-dom";
 import BusinessOwnerTableActionsMenu from "./BusinessOwnerTableActionsMenu";
 import useThemedColors from '../../../../../../hooks/useThemedColors';
+import { TiEdit } from "react-icons/ti";
+import { RiDeleteBin2Line } from "react-icons/ri";
 
 const BusinessOwnerTableBody = ({ data, search = false }) => {
 
    const navigate = useNavigate();
-   const { tableItem } = useThemedColors();
+   const { tableItem,btnGreen, btnDanger } = useThemedColors();
 
    if (data && data?.length > 0) {
 
-      return (
+      return ( 
          <Table.Body>
             {data?.map((item, index) => (
                <Table.Row key={index} fontSize={{ xssToXs: "12px", xsToXm: "14px", xmToSm: "16px" }}>
@@ -30,12 +32,11 @@ const BusinessOwnerTableBody = ({ data, search = false }) => {
                   <Table.Cell fontSize={"20px"} textWrap={"nowrap"}>
                      <span
                         // className="[padding:4px_9px] "
-                        // color={tableItem}
-                        onClick={() => navigate(`${item.business_owner_id}`, { state: item })}
+                        onClick={() => navigate(`/dashboard/business-owners/${item.business_owner_id}`)}
                         
                         fontSize={{ xssToXs: "12px", xsToXm: "14px", xmToSm: "16px" }}
                         
-                     >
+                      >
                         <Text color={tableItem} _hover={{color:"#6666ff"}} className="btn hover:[color:#6666ff] [padding:4px_9px] "  fontSize={{ xssToXs: "12px", xsToXm: "14px", xmToSm: "16px" }}>
                            {item.personal_informations.first_name}
                         </Text>
@@ -67,7 +68,20 @@ const BusinessOwnerTableBody = ({ data, search = false }) => {
                      search
                         ?
                         <Table.Cell fontSize={"20px"} textWrap={"nowrap"}>
-
+                           <Flex gap={1}>
+                              <Text 
+                                 color={btnGreen}
+                                 className="btn"
+                              >
+                                 <TiEdit />
+                              </Text>
+                              <Text 
+                                 color={btnDanger}
+                                 className="btn"
+                              >
+                                 <RiDeleteBin2Line />
+                              </Text>
+                           </Flex>
                         </Table.Cell>
                         :
                         <Table.Cell color={tableItem} fontSize={"20px"} textWrap={"nowrap"}>

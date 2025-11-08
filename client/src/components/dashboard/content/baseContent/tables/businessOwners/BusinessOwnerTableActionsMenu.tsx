@@ -1,4 +1,4 @@
-import { HStack, Menu, Portal, Text } from "@chakra-ui/react"
+import { HStack, Menu, Portal, Text, Popover, Box } from "@chakra-ui/react"
 import { CiMenuKebab } from "react-icons/ci";
 import { tableMenuData } from "./TableActionsMenuData";
 import useThemedColors from "../../../../../../hooks/useThemedColors";
@@ -29,15 +29,65 @@ const BusinessOwnerTableActionsMenu = ({ itemId, itemData }) => {
       setWaiting(true);
       deleteBusinessOwner.mutate(itemId);
    }
+   // return (
+   //    <Menu.Root >
+   //       <Menu.Trigger asChild>
+   //          <CiMenuKebab className="btn" />
+   //       </Menu.Trigger>
+   //       <Portal>
+   //          <Menu.Positioner zIndex={1000}>
+   //             <Menu.Content >
+   //                {
+   //                   tableMenuData.map((item, index) => (
+   //                      item.title == 'delete'
+   //                         ?
+   //                         <DeleteDialog
+   //                            key={index}
+   //                            msg={""}
+   //                            click={handleDelete}
+   //                            item={item}
+   //                            waiting={waiting}
+   //                            styles={{
+   //                               marginTop: 2
+   //                            }}
+   //                         />
+   //                         :
+   //                         <Menu.Item
+   //                            key={index}
+   //                            fontSize={{ xssToXm: "14px", xmToSm: "15px", smToMd: "16px" }}
+   //                            marginTop={1}
+   //                            paddingY={0}
+   //                            paddingX={1}
+   //                            className="btn"
+   //                            value=""
+   //                            backgroundColor={'transparent'}
+   //                            _hover={{ backgroundColor: hovering }}
+   //                            onClick={() => navigate(item.clickLink, { state: itemData })}
+   //                         >
+   //                            <HStack  >
+   //                               <item.icon />
+   //                               <Text>{item.title}</Text>
+   //                            </HStack>
+   //                         </Menu.Item>
+   //                   ))
+   //                }
+   //             </Menu.Content>
+   //          </Menu.Positioner>
+   //       </Portal>
+   //    </Menu.Root>
+   // )
+   
    return (
-      <Menu.Root >
-         <Menu.Trigger asChild>
+      <Popover.Root >
+         <Popover.Trigger asChild>
             <CiMenuKebab className="btn" />
-         </Menu.Trigger>
+         </Popover.Trigger>
          <Portal>
-            <Menu.Positioner>
-               <Menu.Content >
+            <Popover.Positioner >
+               <Popover.Content >
+                  <Popover.Body>
                   {
+                     
                      tableMenuData.map((item, index) => (
                         item.title == 'delete'
                            ?
@@ -52,7 +102,7 @@ const BusinessOwnerTableActionsMenu = ({ itemId, itemData }) => {
                               }}
                            />
                            :
-                           <Menu.Item
+                           <Box
                               key={index}
                               fontSize={{ xssToXm: "14px", xmToSm: "15px", smToMd: "16px" }}
                               marginTop={1}
@@ -68,13 +118,14 @@ const BusinessOwnerTableActionsMenu = ({ itemId, itemData }) => {
                                  <item.icon />
                                  <Text>{item.title}</Text>
                               </HStack>
-                           </Menu.Item>
+                           </Box>
                      ))
                   }
-               </Menu.Content>
-            </Menu.Positioner>
+                  </Popover.Body>
+               </Popover.Content>
+            </Popover.Positioner>
          </Portal>
-      </Menu.Root>
+      </Popover.Root>
    )
 }
 

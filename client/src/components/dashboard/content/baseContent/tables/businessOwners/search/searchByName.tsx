@@ -1,5 +1,5 @@
 
-import { Button, CloseButton, Dialog, Flex, Portal, Text } from "@chakra-ui/react";
+import { Button, CloseButton, Dialog, Flex, Portal, Text, VStack } from "@chakra-ui/react";
 import useThemedColors from "../../../../../../../hooks/useThemedColors";
 import { useQuery } from "@tanstack/react-query";
 import { useState } from "react";
@@ -9,6 +9,7 @@ import BusinessOwnerTableHeader from "../BusinessOwnerTableHeader"
 import BusinessOwnerTableBody from "../BusinessOwnerTableBody"
 import SearchResults from "../../search/SearchResults";
 import { businessOwnerTableHeaderData } from "../businessOwnerTableHeaderData.ts"
+import SkeletonLoader from "../../../../../../shared/Skeleton.tsx";
 
 const SearchByName = ({ searchValue }) => {
 
@@ -46,6 +47,7 @@ const SearchByName = ({ searchValue }) => {
    const { data: businessOwnerResultData,
       error: businessOwnerResultDataError,
       isLoading: businessOwnerResultDataIsLoading,
+      isSuccess: businessOwnerResultDataIsSuccess
    } = useQuery({
       queryKey: ['business-owners-search-results-name', searchValue],
       queryFn: () => fetch(`${host}/businessOwners/get/name/`, {
@@ -61,49 +63,70 @@ const SearchByName = ({ searchValue }) => {
       staleTime: 30000,
    });
 
+   if(businessOwnerResultDataIsLoading) {
+      return (
+         <VStack>
+            <SkeletonLoader />
+            <SkeletonLoader />
+            <SkeletonLoader />
+         </VStack>
+      )
+   }
    return (
-      <Flex justifyContent={'center'}>
-         <Dialog.Root size="full" motionPreset="slide-in-bottom">
-            <Dialog.Trigger asChild >
-               <Button disabled={businessOwnerResultDataIsLoading} className='btn' backgroundColor={btnGreen} paddingX={{ xssToXmm: "5px", xmmTo2xl: "6px" }} borderRadius={6} paddingY={1} height={'auto'} lineHeight={1} color={textPrimary} marginBottom={{ xssToXmm: "7px" }} fontSize={{ xssToXm: "15px", xmToSm: "16px" }}>
-                  name
-               </Button>
-            </Dialog.Trigger>
-            <Portal>
-               <Dialog.Backdrop />
-               <Dialog.Positioner>
-                  <Dialog.Content>
-                     <Dialog.Header>
-                        <Dialog.Title>
-                           <Text fontSize={{ xssToXm: "16px", xmToSm: "18px" }}>
-                              search by name for :
-                           </Text>
-                           <Text textAlign={'center'}>
-                              {searchValue}
-                           </Text>
-                        </Dialog.Title>
-                     </Dialog.Header>
-                     <Dialog.CloseTrigger asChild>
-                        <CloseButton size="sm" />
-                     </Dialog.CloseTrigger>
-                     <Dialog.Body  >
-                        {
+      // <Flex justifyContent={'center'}>
+      //    <Dialog.Root size="full" motionPreset="slide-in-bottom">
+      //       <Dialog.Trigger asChild >
+      //          <Button disabled={businessOwnerResultDataIsLoading} className='btn' backgroundColor={btnGreen} paddingX={{ xssToXmm: "5px", xmmTo2xl: "6px" }} borderRadius={6} paddingY={1} height={'auto'} lineHeight={1} color={textPrimary} marginBottom={{ xssToXmm: "7px" }} fontSize={{ xssToXm: "15px", xmToSm: "16px" }}>
+      //             name
+      //          </Button>
+      //       </Dialog.Trigger>
+      //       <Portal>
+      //          <Dialog.Backdrop />
+      //          <Dialog.Positioner>
+      //             <Dialog.Content>
+      //                <Dialog.Header>
+      //                   <Dialog.Title>
+      //                      <Text fontSize={{ xssToXm: "16px", xmToSm: "18px" }}>
+      //                         search by name for :
+      //                      </Text>
+      //                      <Text textAlign={'center'}>
+      //                         {searchValue}
+      //                      </Text>
+      //                   </Dialog.Title>
+      //                </Dialog.Header>
+      //                <Dialog.CloseTrigger asChild>
+      //                   <CloseButton size="sm" />
+      //                </Dialog.CloseTrigger>
+      //                <Dialog.Body  >
+      //                   {
 
-                           businessOwnerResultData &&
-                           <Flex justifyContent={"center"}>
-                              < SearchResults
-                                 resultData={businessOwnerResultData}
-                                 headerData={businessOwnerTableHeaderData}
-                                 tableBody={BusinessOwnerTableBody}
-                              />
-                           </Flex>
+      //                      businessOwnerResultData &&
+      //                      <Flex justifyContent={"center"}>
+      //                         < SearchResults
+      //                            resultData={businessOwnerResultData}
+      //                            headerData={businessOwnerTableHeaderData}
+      //                            tableBody={BusinessOwnerTableBody}
+      //                         />
+      //                      </Flex>
 
-                        }
-                     </Dialog.Body>
-                  </Dialog.Content>
-               </Dialog.Positioner>
-            </Portal>
-         </Dialog.Root>
+      //                   }
+      //                </Dialog.Body>
+      //             </Dialog.Content>
+      //          </Dialog.Positioner>
+      //       </Portal>
+      //    </Dialog.Root>
+      // </Flex>
+      <Flex>
+         {
+            businessOwnerResultData &&
+
+            < SearchResults
+               resultData={businessOwnerResultData}
+               isSuccess={businessOwnerResultDataIsSuccess}
+               headerData={businessOwnerTableHeaderData}
+               tableBody={BusinessOwnerTableBody}
+            />
+         }
       </Flex>
    )
 }
