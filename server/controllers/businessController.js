@@ -5,6 +5,7 @@ import {
   businessStagesTable,
   businessCommercialTypesTable,
   businessStatusesTable,
+  employeeTable,
 } from "../db/tables.js";
 
 export const createBusiness = async (req, res, next) => {
@@ -109,11 +110,27 @@ export const removeEmployeeFromBusiness = async (req, res, next) => {
 
 export const getAllEmployeesInBusiness = async (req, res, next) => {
   const { businessId } = req.body;
-
-  const { data, error } = await supabase
-    .from(businessEmployeeTable)
-    .select()
-    .eq("business_id", businessId);
+   console.log("businessId :",businessId);
+  const { data , error } = await supabase
+   .from(businessEmployeeTable)
+   .select(`
+      employee_id,
+      Employees:employee_id(
+         personal_informations:personal_info_id(
+            *
+         )
+      )`
+   )
+   .eq("business_id",businessId)
+   ;
+   
+   if (data?.length < 1 || error) {
+      res.status(404).json({ msg: "something went wrong !" });
+    } else {
+      res.status(200).json(data);
+      return data;
+    }
+   
 };
 
 export const getBusinessesCount = async (req, res, next) => {

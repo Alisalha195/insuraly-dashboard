@@ -31,7 +31,7 @@ router.post(
 
 router.post("/remove-employee-from-business", removeEmployeeFromBusiness);
 
-router.post("/get-all-employees-in-business", getAllEmployeesInBusiness);
+router.post("/get-employees", getAllEmployeesInBusiness);
 
 router.get("/get", getPaginatedBusinesses);
 router.get("/get-count", getBusinessesCount);
