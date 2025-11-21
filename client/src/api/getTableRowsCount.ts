@@ -15,4 +15,18 @@
    }
  };
  
+ export const getEmployeesCountInBusiness = (businessId) => {
+   const {data} = useQuery({
+      queryKey: [`business`,`${businessId}`], 
+      queryFn: () => fetch(`${host}/business/get-employees-count/${businessId}`).then(res =>  res.json()),
+         refetchInterval : 5000,
+         keepPreviousData: true ,
+         staleTime : 30000,
+    });
+    if(data && data.count > 0) {
+      return data.count;
+   }
+    return data;
+ }
+ 
  

@@ -45,11 +45,23 @@ const BusinessTableActionsMenu = ({itemId, itemData}) => {
                     click={handleDelete} 
                     item={item}
                     waiting={waiting} 
+                    styles={{
+                     marginTop: 2
+                  }}
                   
                />
                :
-               <Menu.Item style={{fontSize:"clamp(16px, 20px , 36px)"}} key={index} marginBottom={1} paddingY={0} paddingX={1} className="btn" value="" backgroundColor={'transparent'} _hover={{backgroundColor:hovering}}
-               onClick={()=> navigate(item.clickLink , {state:itemData})}
+               <Menu.Item 
+                  fontSize={{ xssToXm: "14px", xmToSm: "15px", smToMd: "16px" }} 
+                  key={index} 
+                  marginBottom={1} 
+                  paddingY={0} 
+                  paddingX={1} 
+                  className="btn" 
+                  value="" 
+                  backgroundColor={'transparent'} 
+                  _hover={{backgroundColor:hovering}}
+                  onClick={()=> navigate(item.clickLink , {state:itemData})}
                >
                  <HStack  >
                     <item.icon />

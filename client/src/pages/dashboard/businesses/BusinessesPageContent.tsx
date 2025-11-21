@@ -6,7 +6,7 @@ import { useQuery } from "@tanstack/react-query";
 import DataTable from "../../../components/shared/tables/DataTable";
 import { getTableRowsCount } from "../../../api/getTableRowsCount";
 
-import { Box, Flex, HStack, Text } from "@chakra-ui/react";
+import { Box, Flex, HStack, Text, VStack } from "@chakra-ui/react";
 import { AiFillPlusCircle } from "react-icons/ai";
 import useThemedColors from "../../../hooks/useThemedColors";
 import BackArrow from "../../../components/shared/BackArrow";
@@ -19,6 +19,7 @@ import PageHeadTitle from "../../../components/shared/PageHeadTitle"
 import { businessTableHeaderData } from "../../../components/dashboard/content/baseContent/tables/businesses/businessTableHeaderData.ts";
 
 import TableHeader from "../../../components/shared/tables/TableHeader.tsx";
+import SkeletonLoader from "../../../components/shared/Skeleton.tsx";
 
 const BusinessesPageContent = () => {
 
@@ -43,7 +44,18 @@ const BusinessesPageContent = () => {
       staleTime: 30000,
    });
 
-   if (businessesDataIsLoading) return <h1>Loading.......</h1>;
+   if (businessesDataIsLoading) {
+      return (
+         <VStack justifyContent={'center'} height={'50vh'}>
+            <SkeletonLoader width='60%'/>
+            <SkeletonLoader width='50%'/>
+            <SkeletonLoader width='60%' />
+            <SkeletonLoader width='50%' />
+            <SkeletonLoader width='60%' />
+            <SkeletonLoader  width='50%' />
+         </VStack>
+      )
+   }
    if (businessesData)
       return (
          <Box>

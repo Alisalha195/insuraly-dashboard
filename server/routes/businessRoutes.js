@@ -12,6 +12,9 @@ import {
   getStatuses,
   getBusinessByInsuranceNumber,
   getBusinessByName,
+  getPaginatedEmployeesInBusiness,
+  getBusinessEmployeesCount,
+  getBusinessById,
 } from "../controllers/businessController.js";
 
 import { checkIfEmployee } from "../controllers/employeeController.js";
@@ -31,10 +34,13 @@ router.post(
 
 router.post("/remove-employee-from-business", removeEmployeeFromBusiness);
 
-router.post("/get-employees", getAllEmployeesInBusiness);
+router.post("/get-all-employees", getAllEmployeesInBusiness);
+router.get("/get-employees", getPaginatedEmployeesInBusiness);
 
 router.get("/get", getPaginatedBusinesses);
+router.get("/get/id",  getBusinessById);
 router.get("/get-count", getBusinessesCount);
+router.get("/get-employees-count/:businessId", getBusinessEmployeesCount);
 
 router.post("/get/insurance-number", getBusinessByInsuranceNumber);
 router.post("/get/name", getBusinessByName);

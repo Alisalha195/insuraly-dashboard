@@ -9,11 +9,9 @@ import {
 } from '@chakra-ui/react';
 
 const DataTable = ({ maxHeight, data, TableHeader, TableBody, search }) => {
-
    if (data?.status == 400 || data?.status == 404)
       return (<h1>No Data  Found!</h1>)
-   // if(!data)
-   //    return (<>loading</>)
+   
    return (
          <Box>
             <Table.ScrollArea borderWidth="1px" maxHeight={maxHeight}>

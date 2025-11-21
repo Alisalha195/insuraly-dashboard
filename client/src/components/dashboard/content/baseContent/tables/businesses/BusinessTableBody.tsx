@@ -18,11 +18,22 @@ const BusinessTableBody = ({data, search = false}) => {
                      {item.business_id}
                   </Text>
                </Table.Cell>
+               
+               
                <Table.Cell fontSize={"20px"} textWrap={"nowrap"}>
-                  <Text color={tableItem} fontSize={{ xssToXs: "12px", xsToXm: "14px", xmToSm: "16px" }}>
-                     {item.business_name}
-                  </Text>
+                  <span
+                     onClick={() => navigate(`${item.business_id}`, { state: item })}
+                     
+                     fontSize={{ xssToXs: "12px", xsToXm: "14px", xmToSm: "16px" }}
+                  >
+                     <Text color={tableItem}  _hover={{color:"#6666ff"}} className="btn hover:[color:#6666ff] [padding:4px_9px] " fontSize={{ xssToXs: "12px", xsToXm: "14px", xmToSm: "16px" }}>
+                        {item.business_name}
+                     </Text>
+                  </span>
                </Table.Cell>
+               
+               
+               
                <Table.Cell fontSize={"20px"}>
                   <Text color={tableItem} fontSize={{ xssToXs: "12px", xsToXm: "14px", xmToSm: "16px" }}>
                      {item.insurance_number}

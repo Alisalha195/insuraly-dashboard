@@ -9,16 +9,18 @@ import { capitalize } from "../../../../lib/capitalize.ts";
 import { host } from '../../../../constants/connection.ts';
 import ProfileHeadInfo from "../../../../components/shared/profile/businessOwner/ProfileHeadInfo.tsx";
 import Error from "../../../../components/shared/Error.tsx";
+import SkeletonLoader from "../../../../components/shared/Skeleton.tsx";
 
 const BusinessOwnerProfileContent = () => {
    const { textPrimary, textSecondary, textEmail } = useThemedColors();
    const params = useParams();
+   
    const {
       data: businessOwnerData,
       error: businessOwnerDataError,
       isLoading: businessOwnerDataIsLoading,
    } = useQuery({
-      queryKey: ["business-owner", params?.id],
+      queryKey: ["business-owner-profile", params?.id],
       queryFn: () =>
          fetch(
             `${host}/businessOwners/get/id?id=${params?.id}`
@@ -27,8 +29,18 @@ const BusinessOwnerProfileContent = () => {
       keepPreviousData: true,
       staleTime: 30000,
    });
+   
    if (businessOwnerDataIsLoading)
-      return <h1>Loading.......</h1>
+      return (
+         <VStack justifyContent={'center'} height={'50vh'}>
+            <SkeletonLoader width='60%'/>
+            <SkeletonLoader width='50%'/>
+            <SkeletonLoader width='60%' />
+            <SkeletonLoader width='50%' />
+            <SkeletonLoader width='60%' />
+            <SkeletonLoader  width='50%' />
+         </VStack>
+      )
    if(businessOwnerDataError) 
       return <Error message={"Error"} />
    if (businessOwnerData)

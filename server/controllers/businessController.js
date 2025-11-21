@@ -70,6 +70,33 @@ export const editBusiness = async (req, res, next) => {
   else res.status(200).json(data);
 };
 
+export const getBusinessById = async (req, res, next) => {
+   const { id } = req.query;
+   // console.log("businessId :",id);
+   
+   const { data, error } = await supabase
+     .from(businessTable)
+     .select(`
+        * ,
+        Business_owners:business_owner_id( * ,
+           personal_informations:personal_info_id(
+               *
+      )
+        )
+     `)
+     .eq("business_id", id);
+     
+      // console.log("business by id data :",data[0]?.Business_owners?.personal_informations);
+      
+      if(data.length < 1 || error) {
+        res.status(404).json({msg:"not found", status:404});
+      } else {
+        res.status(200).json({...data[0] , status:200});
+        next()
+      }
+        
+}
+
 export const addEmployeeToBusiness = async (req, res, next) => {
   const { businessId, employeeId } = req.body;
 
@@ -110,7 +137,7 @@ export const removeEmployeeFromBusiness = async (req, res, next) => {
 
 export const getAllEmployeesInBusiness = async (req, res, next) => {
   const { businessId } = req.body;
-   console.log("businessId :",businessId);
+   
   const { data , error } = await supabase
    .from(businessEmployeeTable)
    .select(`
@@ -121,8 +148,7 @@ export const getAllEmployeesInBusiness = async (req, res, next) => {
          )
       )`
    )
-   .eq("business_id",businessId)
-   ;
+   .eq("business_id",businessId);
    
    if (data?.length < 1 || error) {
       res.status(404).json({ msg: "something went wrong !" });
@@ -133,6 +159,34 @@ export const getAllEmployeesInBusiness = async (req, res, next) => {
    
 };
 
+export const getPaginatedEmployeesInBusiness = async (req, res, next) => {
+  const { page, pageSize,  businessId} = req.query;
+  const from = (page - 1) * pageSize;
+  const to = from + Number(pageSize) - 1;
+  
+  const { data , error } = await supabase
+  .from(businessEmployeeTable)
+  .select(`
+     employee_id,
+     Employees:employee_id(
+        personal_informations:personal_info_id(
+           *
+        )
+     )`
+  )
+  .eq("business_id",businessId)
+   .range(from, to);
+  
+  
+  if (data?.length < 1 || error) {
+     res.status(404).json({ msg: "something went wrong !" });
+   } else {
+     res.status(200).json(data);
+     return data;
+   }
+  
+};
+
 export const getBusinessesCount = async (req, res, next) => {
   const { count, error } = await supabase
     .from(businessTable)
@@ -141,6 +195,20 @@ export const getBusinessesCount = async (req, res, next) => {
   if (count > 0) res.status(200).json({ count });
   else if (count < 1) res.status(200).json({ count: 0 });
   else res.status(404).json({ msg: "something went wrong !" });
+};
+
+export const getBusinessEmployeesCount = async (req, res, next) => {
+   const {businessId} = req.params;
+   
+   const { data, error } = await supabase
+     .from(businessEmployeeTable)
+     .select()
+      .eq("business_id", businessId);
+      
+   if (data?.length > 0) res.status(200).json({count:data?.length});
+   else res.status(404).json({ msg: "something went wrong !" });
+   
+   
 };
 
 export const getPaginatedBusinesses = async (req, res, next) => {
