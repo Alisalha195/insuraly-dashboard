@@ -1,6 +1,6 @@
 import Header from './header/Header';
 import Sidebar from './content/sidebar/Sidebar';
-import { Box, Flex, HStack, Stack } from '@chakra-ui/react';
+import { Box, Flex, HStack, } from '@chakra-ui/react';
 import { useResizeObserver } from '../../hooks/useResizeObserver';
 import Footer from './footer/Footer';
 import { Outlet } from 'react-router-dom';
@@ -8,7 +8,7 @@ import { Outlet } from 'react-router-dom';
 const PageContainer = () => {
    
    const [headerRef, headerSize] = useResizeObserver();
-   
+
    return (
       <HStack className='[flex-grow:1] '  alignItems={'start'}  gap={0}>
          <Sidebar />

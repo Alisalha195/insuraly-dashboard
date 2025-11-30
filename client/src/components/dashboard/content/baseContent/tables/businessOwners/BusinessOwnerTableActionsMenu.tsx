@@ -112,7 +112,7 @@ const BusinessOwnerTableActionsMenu = ({ itemId, itemData }) => {
                               value=""
                               backgroundColor={'transparent'}
                               _hover={{ backgroundColor: hovering }}
-                              onClick={() => navigate(item.clickLink, { state: itemData })}
+                              onClick={() => navigate(item.clickLink, { state: itemData  })}
                            >
                               <HStack  >
                                  <item.icon />
