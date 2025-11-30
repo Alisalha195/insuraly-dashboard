@@ -4,8 +4,8 @@ import { authenticated } from "../middlewares/authenticated.js";
 import {createUser} from "../controllers/userController.js";
 
 const router = Router();  
-router.post("/signup", signup, createUser);
+router.post("/signup", signup);
 router.post("/login", login);
-router.post("/logout",authenticated, logout);
+router.post("/logout", logout);
 
 export default router;

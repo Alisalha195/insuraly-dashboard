@@ -1,7 +1,7 @@
 import express from 'express';
 const router = express.Router();
 
-// import authRoutes from "./authRoutes.js"
+import authRoutes from "./authRoutes.js"
 import userRoutes from "./userRoutes.js"
 import businessRoutes from "./businessRoutes.js"
 import businessOwnersRoutes from "./businessOwnersRoutes.js"
@@ -17,7 +17,7 @@ import unpaidVacationsRoutes from "./unpaidVacationsRoutes.js"
 import personalInformationsRoutes from "./personalInformationsRoutes.js"
 import retirementSalaryAuthorizedAcquireRoutes from "./retirementSalaryAuthorizedAcquireRoutes.js"
 
-// router.use("/auth", authRoutes)
+router.use("/auth", authRoutes)
 router.use("/user", userRoutes)
 router.use("/business", businessRoutes)
 router.use("/retirementIndemnification", retirementIndemnificationRoutes)
