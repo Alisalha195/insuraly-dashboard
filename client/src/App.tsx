@@ -1,7 +1,8 @@
 import './App.css';
-
+import Login from './pages/auth/Login';
+import Signup from './pages/auth/Signup';
 import { Toaster } from 'react-hot-toast';
-import { Routes, Route, useNavigate } from 'react-router-dom';
+import { Routes, Route, useNavigate, redirect, Navigate } from 'react-router-dom';
 import Dashboard from './pages/dashboard';
 import Businesses from './pages/dashboard/businesses';
 import BusinessOwners from './pages/dashboard/businessOwners';
@@ -21,43 +22,59 @@ import PageContainer from './components/dashboard/PageContainer';
 import BusinessEmployees from './pages/dashboard/businesses/employess';
 import SearchBusinessOwner from './pages/dashboard/businessOwners/search';
 
+import { useEffect, useState } from 'react';
+import { useAuthStore } from './store/useAuthStore';
+import ProtectedAuthRoute from './components/dashboard/ProtectedAuthRoute';
+import ProtectedRoute from './components/dashboard/ProtectedRoute';
+import AuthContextProvider from './providers/AuthContextProvider';
+import SearchBusiness from './pages/dashboard/businesses/search';
+import EditBusiness from './pages/dashboard/businesses/edit';
+
+
 
 function App() {
-   const navigate = useNavigate();
-   const queryClient = new QueryClient();
    
+   const queryClient = new QueryClient();
+
    return (
       <>
          <Toaster />
          <QueryClientProvider client={queryClient}>
-            {/* <PageContainer> */}
-            <Routes>
-               <Route path='/' element={<PageContainer />}>
-                  <Route index element={<Dashboard />} />
-                  {/* <Route path='/' element={<Dashboard />} /> */}
-                  <Route path='/dashboard' element={<Dashboard />} />
+            <AuthContextProvider>
+               <Routes>
+                  <Route path='/' element={<PageContainer />} >
+                     <Route path='/' element={<Navigate to="/dashboard" replace={true} />} />
+                     <Route path='/dashboard' element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
 
-                  {/* Business Routes */}
-                  <Route path='/dashboard/businesses' element={<Businesses />} />
-                  <Route path='/dashboard/businesses/add' element={<AddBusiness />} />
-                  <Route path='/dashboard/businesses/:id' element={<BusinessProfile />} />
-                  <Route path='/dashboard/businesses/:id/budget' element={<BusinessBudget />} />
-                  <Route path='/dashboard/businesses/:id/employees' element={<BusinessEmployees />} />
-                  
-                  {/* Business Owners Routes */}
-                  <Route path='/dashboard/business-owners' element={<BusinessOwners />} />
-                  <Route path='/dashboard/business-owners/search' element={<SearchBusinessOwner />} />
-                  <Route path='/dashboard/business-owners/:id' element={<BusinessOwnerProfile />} />
-                  <Route path='/dashboard/business-owners/add' element={<AddBusinessOwner />} />
-                  <Route path='/dashboard/business-owners/edit' element={<EditBusinessOwner />} />
+                     {/* Business Routes */}
+                     <Route path='/dashboard/businesses' element={<ProtectedRoute><Businesses /></ProtectedRoute>} />
+                     <Route path='/dashboard/businesses/search' element={<ProtectedRoute><SearchBusiness /></ProtectedRoute>} />
+                     <Route path='/dashboard/businesses/add' element={<ProtectedRoute><AddBusiness /></ProtectedRoute>} />
+                     <Route path='/dashboard/businesses/edit' element={<ProtectedRoute><EditBusiness /></ProtectedRoute>} />
+                     <Route path='/dashboard/businesses/:id' element={<ProtectedRoute><BusinessProfile /></ProtectedRoute>} />
+                     <Route path='/dashboard/businesses/:id/budget' element={<ProtectedRoute><BusinessBudget /></ProtectedRoute>} />
+                     <Route path='/dashboard/businesses/:id/employees' element={<ProtectedRoute><BusinessEmployees /></ProtectedRoute>} />
+                     
+                     {/* Business Owners Routes */}
+                     <Route path='/dashboard/business-owners' element={<ProtectedRoute><BusinessOwners /></ProtectedRoute>} />
+                     <Route path='/dashboard/business-owners/search' element={<ProtectedRoute><SearchBusinessOwner /></ProtectedRoute>} />
+                     <Route path='/dashboard/business-owners/:id' element={<ProtectedRoute><BusinessOwnerProfile /></ProtectedRoute>} />
+                     <Route path='/dashboard/business-owners/add' element={<ProtectedRoute><AddBusinessOwner /></ProtectedRoute>} />
+                     <Route path='/dashboard/business-owners/edit' element={<EditBusinessOwner />} />
 
-                  {/* claims Routes */}
-                  <Route path='/dashboard/claims' element={<Claims />} />
-                  {/* Retirements Routes */}
-                  <Route path='/dashboard/retirements' element={<Retirements />} />
+                     {/* claims Routes */}
+                     <Route path='/dashboard/claims' element={<ProtectedRoute><Claims /></ProtectedRoute>} />
+                     
+                     {/* Retirements Routes */}
+                     <Route path='/dashboard/retirements' element={<ProtectedRoute><Retirements /></ProtectedRoute>} />
                   </Route>
+                  
+                  {/* Auth Routes */}
+                  <Route path='/auth/login' element={<ProtectedAuthRoute><Login /></ProtectedAuthRoute> } />
+                  <Route path='/auth/signup' element={<ProtectedAuthRoute><Signup /></ProtectedAuthRoute>} />
+                  
                </Routes>
-            {/* </PageContainer> */}
+            </AuthContextProvider>
 
             {/* <ReactQueryDevtools initialIsOpen={false} /> */}
          </QueryClientProvider>
