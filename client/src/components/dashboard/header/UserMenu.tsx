@@ -3,9 +3,41 @@ import UserAvatar from "../../shared/UserAvatar";
 import { Link } from "@chakra-ui/react"
 import { userMenuListData } from "./userMenuListData";
 import useThemedColors from "../../../hooks/useThemedColors";
+import { logout } from "../../../api/auth";
+import { useAuthStore } from "../../../store/useAuthStore";
+import { useNavigate } from "react-router-dom";
+import toast from "react-hot-toast";
+import { authContext } from "../../../providers/AuthContextProvider";
+import { useContext } from "react";
 
 const UserMenu = () => {
    const { textPrimary, hovering } = useThemedColors();
+   
+   const navigate = useNavigate();
+   const {authState, setAuthState} = useContext(authContext);
+
+   const handleLogout = async () => {
+      // console.log("in handle logout");
+      setAuthState(prev => ({...prev, loading: true}));
+      const status = await logout(authState.token);
+      
+      if(status == 200) {
+         setAuthState({
+            user: null,
+            token: null,
+            isAuthenticated: false,
+            loading: false
+         });
+         localStorage.removeItem("auth");
+         navigate("/auth/login", {replace:true});
+
+         toast.success('logout Done!')
+      } else {
+         toast.error('unable to logout !')
+      }
+
+   }
+   if(authState.loading) return (<h1>Loading...</h1>)
    return (
       <Popover.Root>
          <Popover.Trigger asChild>
@@ -21,6 +53,19 @@ const UserMenu = () => {
                      {
                         userMenuListData.map((item, index) => (
 
+                           (item.text == 'logout') 
+                           ?
+                           <Flex key={index} _hover={{ backgroundColor: hovering }} className=" btn  [border-radius:7px] text-[24px]" justifyContent={'start'} marginY={2} paddingLeft={1}>
+
+                              <Box className="hover:[text-decoration:none] " outline={'none'} border={'none'}
+                              onClick={() => handleLogout()}
+                              >
+                                 <Icon marginRight={1}><item.icon /></Icon>
+                                 <Text>{item.text}</Text>
+                              </Box>
+
+                           </Flex>
+                           :
                            <Flex key={index} _hover={{ backgroundColor: hovering }} className=" btn  [border-radius:7px] text-[24px]" justifyContent={'start'} marginY={2} paddingLeft={1}>
 
                               <Link className="hover:[text-decoration:none] " href="www.google.com" outline={'none'} border={'none'}>

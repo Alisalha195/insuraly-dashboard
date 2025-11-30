@@ -23,7 +23,7 @@ const useThemedColors: any = () => {
 
    const hovering = useColorModeValue('gray.300', 'gray.600');
 
-   const btnPrimary = useColorModeValue('blue.400', 'blue.600');
+   const btnPrimary = useColorModeValue('blue.600', 'blue.500');
    // const btnSecondaryBorder = useColorModeValue('blue.400', 'blue.600');
    const btnSecondary = useColorModeValue('blue.400', 'blue.500');
    const btnDanger = useColorModeValue('red.400', 'red.500') ;
