@@ -18,36 +18,38 @@ export const createEmployee = async (req , res , next) => {
       
 }
 export const getEmployee = async (req , res , next) => {
-   const {infoData} = req.body;
+   const {personal_informations} = req.body;
    const { data, error } = await supabase
   .from(employeeTable)
   .select()
-  .eq("personal_info_id",  infoData.personal_info_id)
+  .eq("personal_info_id",  personal_informations.personal_info_id)
   
+//   console.log("data in get employee :",data);
   if(error) {
    res.status(404).json({msg: "Employee not found !"});
   } else {
    if(data.length < 1) {
       res.status(200).json({msg: "not an employee"});
    } else {
-      res.status(200).json({data:{...data[0], ...infoData}})
+      res.status(200).json({...data[0], ...personal_informations, status:200})
       next()
    }
   }
 }
 export const checkIfEmployee = async (req ,res , next) => {
-   const {employeeId} = req.body ;
+   const {employeeID} = req.body ;
    
    const {data , error } = await supabase
    .from(employeeTable)
    .select()
-   .eq("emp_id" , employeeId)
-   
+   .eq("emp_id" , employeeID);
    
    if((data?.length > 0) && (!error)) {
-      next()
+      next();
    }
-   else
-      res.status(404).json({msg:"not an employee"})
+   else {
+      res.status(404).json({msg:"not an employee", status:404});
+      return;
+   }
 }
 

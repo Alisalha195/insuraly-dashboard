@@ -66,7 +66,7 @@ const BusinessEmployeesContent = () => {
                
                <Box className='btn' color={btnSecondary}>
                   <Text
-                     onClick={() => navigate("/dashboard/business-owners/add")}
+                     onClick={() => navigate(`/dashboard/businesses/${params?.id}/employees/add` ,{state: {businessName: location?.state?.businessName , businessID: params?.id}})}
                      fontSize={{ xssToXs: "14px", xsToXm: "16px", xmToSm: "18px" }}
                      marginLeft={2}
                   >

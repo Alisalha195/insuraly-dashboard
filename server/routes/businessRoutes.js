@@ -29,7 +29,7 @@ router.post(
   checkIfEmployee,
   addEmployeeToBusiness,
   addService,
-  addServiceWages
+//   addServiceWages
 );
 
 router.post("/remove-employee-from-business", removeEmployeeFromBusiness);

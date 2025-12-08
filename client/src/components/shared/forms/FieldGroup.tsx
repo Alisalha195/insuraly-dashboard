@@ -41,7 +41,12 @@ const FieldGroup = ({ register, name, type, preInputText, invalid, label, placeh
 
                // }}
 
-               ps={(label == "phone number") ? "8ch" : ''}
+               ps={(label == "phone number") 
+                  ? "8ch" 
+                  : (label == 'initiate salary')
+                    ? "4ch"
+                    : ''
+               }
             />
          </InputGroup>
          {error &&

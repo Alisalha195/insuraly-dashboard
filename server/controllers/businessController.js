@@ -98,22 +98,47 @@ export const getBusinessById = async (req, res, next) => {
 }
 
 export const addEmployeeToBusiness = async (req, res, next) => {
-  const { businessId, employeeId } = req.body;
-
-  const { data, error } = await supabase
-    .from(businessEmployeeTable)
-    .insert({
-      business_id: businessId,
-      employee_id: employeeId,
-    })
-    .select();
-
-  if (data?.length > 0 && !error) {
-    req.body.business_employee_id = data[0].business_employee_id;
-    next();
+  const { businessID, employeeID } = req.body;
+  const businessIDAsNumber = Number(businessID);
+//   console.log("businessIDAsNumber :", businessIDAsNumber);
+//   console.log("employeeID :", employeeID);
+  
+  const {data:b_e, error:b_e_error} = await supabase
+  .from(businessEmployeeTable)
+  .select()
+  .eq("business_id", businessIDAsNumber)
+  .eq("employee_id", employeeID);
+  
+   //   check if already this resord exist
+  if(b_e?.length > 0 && !b_e_error)  {
+       console.log("employee already in business !");
+         req.body.business_employee_id = b_e[0].business_employee_id;
+         next();
+         return;
   } else {
-    res.status(404).json({ msg: "something went wrong...!" });
+   
+     const { data:businessEmployeeID, error } = await supabase
+       .from(businessEmployeeTable)
+       .insert({
+         business_id: businessIDAsNumber,
+         employee_id: employeeID,
+       })
+       .select("business_employee_id")
+       .single();
+     
+     if (businessEmployeeID && !error) {
+       console.log("inserted Success !");
+       req.body.business_employee_id = businessEmployeeID?.business_employee_id;
+       next();
+       return;
+     } else {
+         console.log("inserted faild !");
+         res.status(404).json({ msg: "something went wrong...!" });
+         return;
+     }
   }
+  
+
 };
 
 export const removeEmployeeFromBusiness = async (req, res, next) => {

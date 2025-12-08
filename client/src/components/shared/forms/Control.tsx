@@ -14,7 +14,7 @@ const Control = ({click}) => {
       >
          Cancel
       </Box>
-      <Box backgroundColor={btnPrimary} className='btn' paddingY={1} paddingX={3} border={`1px solid ${btnPrimary}`} color={textPrimary} marginRight={"30px"} borderRadius={5}
+      <Box backgroundColor={btnPrimary} className='btn' paddingY={1} paddingX={3} border={`1px solid ${btnPrimary}`} color={"#eee"} marginRight={"30px"} borderRadius={5}
       onClick={click }
       
       >
