@@ -6,6 +6,8 @@ import {
    getPersonalInfoByNationalNumber,
    getPersonalInfoByInsuranceNumber 
 } from "../controllers/personalInfoController.js";
+import { addEmployeeToBusiness } from "../controllers/businessController.js";
+import { addService } from "../controllers/servicesController.js";
 
 const router = Router();
 
@@ -16,6 +18,8 @@ router.post("/create", createPersonalInfoRecord ,createEmployee)
 router.post("/get/national-number", getPersonalInfoByNationalNumber, getEmployee)
 router.post("/get/name", getPersonalInfoByName , getEmployee)
 router.post("/get/insurance-number", getPersonalInfoByInsuranceNumber , getEmployee)
+
+router.post("/add-service", addEmployeeToBusiness, addService,)
 
 // router.put("/edit", ,editBusinessOwner)
 // router.delete("/delete", deleteBusinessOwner)

@@ -100,8 +100,8 @@ export const getBusinessById = async (req, res, next) => {
 export const addEmployeeToBusiness = async (req, res, next) => {
   const { businessID, employeeID } = req.body;
   const businessIDAsNumber = Number(businessID);
-//   console.log("businessIDAsNumber :", businessIDAsNumber);
-//   console.log("employeeID :", employeeID);
+   //   console.log("businessIDAsNumber :", businessIDAsNumber);
+   //   console.log("employeeID :", employeeID);
   
   const {data:b_e, error:b_e_error} = await supabase
   .from(businessEmployeeTable)
@@ -129,6 +129,7 @@ export const addEmployeeToBusiness = async (req, res, next) => {
      if (businessEmployeeID && !error) {
        console.log("inserted Success !");
        req.body.business_employee_id = businessEmployeeID?.business_employee_id;
+       req.params.businessID = businessIDAsNumber;
        next();
        return;
      } else {
@@ -141,20 +142,43 @@ export const addEmployeeToBusiness = async (req, res, next) => {
 
 };
 
+export const setBusinessEmployeesCount = async (req, res, next) => {
+   const businessEmployeesCount =  req.params.businessEmployeesCount;
+   
+   console.log("req.body :",req.body)
+   const {data, error} = await supabase  
+   .from(businessTable)
+   .update({
+      employees_count : Number(businessEmployeesCount)
+   })
+   .select()
+   .eq("business_id", Number(req.body.businessID));
+   // employees_count: supabase.raw('employees_count + 1')
+   console.log("setBusinessEmployeesCount data :",data);
+   
+   if(!error) {
+      next()
+   }
+   
+}
+
 export const removeEmployeeFromBusiness = async (req, res, next) => {
-  const { employeeId, businessId } = req.body;
+  const { employeeId, businessID } = req.body;
+  
+   //   console.log("removeEmployeeFromBusiness req.body :", req.body);
+  const businessIDAsNumber = Number(businessID);
+  
   const { data, error } = await supabase
     .from(businessEmployeeTable)
     .delete()
+    .select()
     .eq("employee_id", employeeId)
-    .eq("business_id", businessId);
+    .eq("business_id", businessIDAsNumber);
 
-  if (!error) {
-    // req.body.business_employee_id = data[0].business_employee_id;
-    // next();
+  if (data?.length > 0 && !error) {
     res
       .status(200)
-      .json({ msg: "employee removed from business successfuly  !" });
+      .json({ msg: "employee removed from business successfuly  !", status: 200 });
   } else {
     res.status(404).json({ msg: "something went wrong  !" });
   }
@@ -222,16 +246,45 @@ export const getBusinessesCount = async (req, res, next) => {
   else res.status(404).json({ msg: "something went wrong !" });
 };
 
-export const getBusinessEmployeesCount = async (req, res, next) => {
-   const {businessId} = req.params;
-   
+export const getBusinessEmployeesCountMiddleware = async (req, res, next) => {
+   const {businessID} = req.params;
+   // console.log("businessId :",businessID);
    const { data, error } = await supabase
      .from(businessEmployeeTable)
      .select()
-      .eq("business_id", businessId);
+      .eq("business_id", Number(businessID));
       
-   if (data?.length > 0) res.status(200).json({count:data?.length});
-   else res.status(404).json({ msg: "something went wrong !" });
+   if (data?.length > 0) {
+      // console.log("empolyee count is : ",data?.length)
+      req.params.businessEmployeesCount = data?.length;
+      next();
+   }
+   else {
+      // console.log("no employees")
+      res.status(404).json({ msg: "something went wrong !" ,status:404});
+   }
+   
+   
+};
+
+export const getBusinessEmployeesCount = async (req, res, next) => {
+   const {businessID} = req.params;
+   // console.log("businessId :",businessID);
+   const { data, error } = await supabase
+     .from(businessEmployeeTable)
+     .select()
+      .eq("business_id", Number(businessID));
+      
+   if (data?.length > 0) {
+      // console.log("empolyee count is : ",data?.length)
+      req.params.businessEmployeesCount = data?.length;
+      res.status(200).json({count:data?.length, status:200});
+      next();
+   }
+   else {
+      // console.log("no employees")
+      res.status(404).json({ msg: "something went wrong !" ,status:404});
+   }
    
    
 };

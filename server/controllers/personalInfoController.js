@@ -2,7 +2,7 @@ import {supabase} from "../db/connection.js";
 import { personalInfoTable } from "../db/tables.js"; 
 
 export const checkIfPersonalInfoRecordExistBeforeCreating =  async(req , res , next) => {
-   
+   // console.log("in checkIfPersonalInfoRecordExistBeforeCreating middleware", req.body);
    
    const { nationalNumber,
       firstName ,
@@ -18,25 +18,29 @@ export const checkIfPersonalInfoRecordExistBeforeCreating =  async(req , res , n
       phoneNumber
    } = req.body;
    
-   console.log("req.body :",req.body);
+   // console.log("req.body in check p_info :",req.body);
    
    const { data , error } = await supabase
      .from(personalInfoTable)
-     .select('national_number, email, phone_number')
+     .select()
+     .eq('first_name',firstName)
+     .eq('last_name',lastName)
+     .eq('father_name',fatherName)
+     .eq('mother_name',motherName)
+     .eq('birth_date',birthDate)
      .or(`national_number.eq.${nationalNumber},email.eq.${email},phone_number.eq.${phoneNumber}`)
      
       if(data?.length > 0) {
-         console.log("in check 400")
-         res.status(400).json({msg: "Duplicated" , status:400 , duplicatedColumns: duplicatedColumns});
+         console.log("Duplicated personal info record found:");
+         res.status(400).json({msg: "Duplicated" , status:400});
       }
       else if(error) {
-         console.log("in check 404")
+         // console.log("in check 404")
          res.status(404).json({msg: "error occured" , status:404});
       }
          
       else {
-         
-         next()
+            next();
       }
 
 }
@@ -153,7 +157,11 @@ export const getPersonalInfoByInsuranceNumber = async(req , res, next) => {
             res.status(400).json({msg:"repeated insurance number !",status:400});
          } else if(data.length == 1) {
             req.body.personal_informations = data[0];
-            next()
+            if(next())
+               next();
+            else
+               console.log("No next function provided");
+            
          }
          
       }

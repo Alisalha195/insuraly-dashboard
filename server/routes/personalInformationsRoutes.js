@@ -1,6 +1,6 @@
 
 import { Router } from "express";
-import {checkIfPersonalInfoRecordExistBeforeCreating, createPersonalInfoRecord , editPersonalInfoRecord,deletePersonalInfoRecord, checkIfPersonalInfoRecordExist} from "../controllers/personalInfoController.js";
+import {checkIfPersonalInfoRecordExistBeforeCreating, createPersonalInfoRecord , editPersonalInfoRecord,deletePersonalInfoRecord, checkIfPersonalInfoRecordExist, getPersonalInfoByInsuranceNumber} from "../controllers/personalInfoController.js";
 const router = Router();
 
 router.post("/create", checkIfPersonalInfoRecordExistBeforeCreating ,createPersonalInfoRecord);
@@ -9,5 +9,6 @@ router.delete("/delete", deletePersonalInfoRecord);
 
 router.post("/checkIfExist", checkIfPersonalInfoRecordExist );
 
+router.post("/get/insurance-number", getPersonalInfoByInsuranceNumber)
 
 export default router;

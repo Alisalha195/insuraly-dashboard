@@ -21,4 +21,6 @@ export const businessStagesTable = process.env.BUSINESS_STAGES
 export const businessCommercialTypesTable = process.env.BUSINESS_COMMERCIAL_TYPES
 export const businessStatusesTable = process.env.BUSINESS_STATUSES
 
+export const serviceFinishReasonsTable = process.env.SERVICE_FINISH_REASONS
+
 
