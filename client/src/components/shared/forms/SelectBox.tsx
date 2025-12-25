@@ -1,7 +1,7 @@
 import { Avatar, Box, Field, Portal, Select,createListCollection } from '@chakra-ui/react'
 import React from 'react'
 
-const SelectBox = ({Controller,control ,data, error,disabled, defaultValue}) => {
+const SelectBox = ({name , Controller,control ,data, error,disabled, defaultValue}) => {
    const collectionData = createListCollection({items:data})
    // console.log("collectionData",collectionData)
   return (
@@ -10,7 +10,7 @@ const SelectBox = ({Controller,control ,data, error,disabled, defaultValue}) => 
           
           <Controller
             control={control}
-            name="stages"
+            name={name}
             render={({ field }) => (
               <Select.Root
                 {...field}
@@ -41,14 +41,14 @@ const SelectBox = ({Controller,control ,data, error,disabled, defaultValue}) => 
                       {collectionData.items?.map((item, index) => (
                         <Select.Item item={item} key={index} justifyContent="flex-start">
                            
-                           { item.flag &&
+                           { item?.flag &&
                               <Avatar.Root shape={'full'} size="2xs">
-                               <Avatar.Image src={item.flag} alt={item.title} />
-                               <Avatar.Fallback name={item.title} />
+                               <Avatar.Image src={item?.flag} alt={item?.title} />
+                               <Avatar.Fallback name={item?.title} />
                              </Avatar.Root>
                            }
                           
-                          {item.title}
+                          {item?.title}
                           <Select.ItemIndicator />
                         </Select.Item>
                       ))}

@@ -14,6 +14,7 @@ const CountrySelectBox = ({label ,Controller,control ,data, error}) => {
               <Field.Label paddingBottom={2} fontSize={'22px'} color={textSecondary}>{label}</Field.Label>
            </Field.Root>
            <SelectBox 
+              name={"country"}
               disabled={true}
               data={countriesData}
               Controller={Controller}

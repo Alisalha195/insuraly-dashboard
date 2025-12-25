@@ -14,6 +14,7 @@ const StageSelectBox = ({label ,Controller,control ,data, error, defaultValue,di
          <Field.Label paddingBottom={2} fontSize={'22px'} color={textSecondary}>{label}</Field.Label>
       </Field.Root>
       <SelectBox 
+         name={"stage"}
          disabled={disabled}
          defaultValue={stagesData[0].value}
          data={stagesData}

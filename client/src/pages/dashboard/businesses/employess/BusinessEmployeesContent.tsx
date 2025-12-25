@@ -26,15 +26,16 @@ const BusinessEmployeesContent = () => {
    const { btnSecondary, textPrimary, bgSecondary } = useThemedColors();
    const [currentpage, setCurrentPage] = useState(1);
    const pageSize = 5;
-   const [employeesCount, setEmployeesCount] = useState(0);
+   // const [employeesCount, setEmployeesCount] = useState(0);
    const businessEmployeesCount = getEmployeesCountInBusiness(params?.id);
    
    const {
          data: employeesData,
          error: employeesDataError,
          isLoading: employeessDataIsLoading,
+         isSuccess: employeesDataIsSuccess,
       } = useQuery({
-         queryKey: ["employees", currentpage],
+         queryKey: ["employees-in-business", currentpage ,params?.id],
          queryFn: () =>
             fetch(
                `${host}/business/get-employees?page=${currentpage}&pageSize=${pageSize}&businessId=${params?.id}`
@@ -88,7 +89,7 @@ const BusinessEmployeesContent = () => {
                  <>
                      <DataTable
                         maxHeight={"560px"}
-                        data={employeesData}
+                        data={[employeesData, {businessID:params?.id}, {businessName:location?.state?.businessName}]}
                         TableHeader={
                            <TableHeader headerData={employeeTableHeaderData} />
                         }
@@ -104,7 +105,7 @@ const BusinessEmployeesContent = () => {
                   </>
                )
                :
-                  (employeessDataIsLoading) 
+                  (employeessDataIsLoading && !employeesDataIsSuccess) 
                   ?
                   (
                      <VStack justifyContent={'center'} height={'50vh'}>

@@ -35,6 +35,21 @@ const BusinessProfileContent = () => {
       staleTime: 30000,
    });
    
+   const {
+      data: businessEmployeesCount,
+      error: businessEmployeesCountError,
+      isLoading: businessEmployeesCountIsLoading,
+   } = useQuery({
+      queryKey: ["business-employees-count-in-profile", params?.id] ,
+      queryFn: () =>
+         fetch(
+            `${host}/business/get-employees-count/${params?.id}`
+         ).then((res) => res.json()),
+      refetchInterval: 5000,
+      keepPreviousData: true,
+      staleTime: 30000,
+   });
+   
    if (businessDataIsLoading) {
       return (
          <VStack justifyContent={'center'} height={'50vh'}>
@@ -115,7 +130,7 @@ const BusinessProfileContent = () => {
                   <Box onClick={()=>navigate(`/dashboard/businesses/${params?.id}/employees` , {state: {businessName: businessData?.business_name}})}>
                      <Count 
                         icon={<MdPeopleAlt />}
-                        amount={"24,250"}
+                        amount={businessEmployeesCount?.count || 0}
                      />
                   </Box>
                   

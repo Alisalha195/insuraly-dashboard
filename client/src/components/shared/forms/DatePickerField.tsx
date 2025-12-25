@@ -5,13 +5,11 @@ import { useRef, useState } from 'react';
 import DatePicker from 'react-datepicker';
 import "react-datepicker/dist/react-datepicker.css";
 import useThemedColors from '../../../hooks/useThemedColors';
-import { useForm } from 'react-hook-form';
 
 const DatePickerField = ({ register, label, Controller, control, error, name }) => {
 
    const { textPrimary, textSecondary, inputBorder, textError } = useThemedColors();
    const [date, setDate] = useState(new Date());
-
 
    return (
       <Field.Root >
@@ -21,7 +19,8 @@ const DatePickerField = ({ register, label, Controller, control, error, name }) 
                className='btn'
                control={control}
                name={name}
-               render={({ field }) => (
+               render={({ field, fieldState:{error: err} }) => (
+                  <>
                   <DatePicker
                      className='date-picker btn'
                      selected={field.value}
@@ -44,11 +43,12 @@ const DatePickerField = ({ register, label, Controller, control, error, name }) 
                            paddingX={2}
                            height={'auto'}
                            color={textSecondary}
-                           _selected={field.value}
+                           // _selected={field.value}
 
                            className='btn'
                            value={field.value}
-
+                           borderWidth={ (err || error) &&  1}
+                           borderColor={(err || error) &&  "#FF4444"}
                            onChange={(date) => {
 
                               field.onChange(date)
@@ -56,21 +56,30 @@ const DatePickerField = ({ register, label, Controller, control, error, name }) 
                         />
                      }
                   />
+                  {(err || error) &&
+                  <Text
+                     fontSize={{ xssToXs: "13px", xsToXm: "14px", xmToSm: "15px", smToMd: "17px", mdTo3xl: "18px" }}
+                     color={textError}
+                  >
+                     {err.message}
+                  </Text>
+                  }
+                  </>
                )}
             />
 
          </Box>
-         {error &&
+         {/* {error &&
             <Text
                fontSize={{ xssToXs: "13px", xsToXm: "14px", xmToSm: "15px", smToMd: "17px", mdTo3xl: "18px" }}
                color={textError}
             >
                {error.message}
             </Text>
-         }
+         } */}
          {/* <Field.ErrorText>{error}</Field.ErrorText> */}
       </Field.Root>
    )
 }
 
-export default DatePickerField
+export default DatePickerField;

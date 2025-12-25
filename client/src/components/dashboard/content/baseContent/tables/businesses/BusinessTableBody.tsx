@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import BusinessTableActionsMenu from "./BusinessTableActionsMenu";
 import useThemedColors from '../../../../../../hooks/useThemedColors';
 
-const BusinessTableBody = ({data, search = false}) => {
+const BusinessTableBody = ({data, search = false, }) => {
    
    const navigate = useNavigate();
    const { tableItem } = useThemedColors();
@@ -22,7 +22,7 @@ const BusinessTableBody = ({data, search = false}) => {
                
                <Table.Cell fontSize={"20px"} textWrap={"nowrap"}>
                   <span
-                     onClick={() => navigate(`${item.business_id}`, { state: item })}
+                     onClick={() => navigate(`/dashboard/businesses/${item.business_id}`, { state: item })}
                      
                      fontSize={{ xssToXs: "12px", xsToXm: "14px", xmToSm: "16px" }}
                   >

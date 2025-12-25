@@ -15,7 +15,7 @@ const DeleteDialog = ({ item, msg, click, waiting, styles }) => {
 
                <Box
                   closeOnSelect={waiting}
-                  fontSize={{ xssToXm: "14px", xmToSm: "15px" }}
+                  
                   marginBottom={1}
                   paddingY={0}
                   paddingX={1}
@@ -25,9 +25,9 @@ const DeleteDialog = ({ item, msg, click, waiting, styles }) => {
                   _hover={{ backgroundColor: hovering }}
                   {...styles}
                >
-                  <HStack  >
+                  <HStack  fontSize={{ xssToXm: "12px", xmToSm: "13px", smToMd: "14px" }}>
                      <item.icon />
-                     <Text>{item.title}</Text>
+                     <Text fontSize={{ xssToXm: "12px", xmToSm: "16px", smTo3xl: "19px" }}>{item.title}</Text>
                   </HStack>
                </Box>
             </Dialog.Trigger>

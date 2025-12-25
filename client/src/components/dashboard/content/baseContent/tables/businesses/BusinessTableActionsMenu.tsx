@@ -7,6 +7,7 @@ import DeleteDialog from "../DeleteDialog";
 import { useState } from "react";
 import { useMutation } from "@tanstack/react-query";
 import toast from "react-hot-toast";
+import { host } from "../../../../../../constants/connection";
 
 const BusinessTableActionsMenu = ({itemId, itemData}) => {
    const [waiting , setWaiting] = useState(false)
@@ -14,7 +15,7 @@ const BusinessTableActionsMenu = ({itemId, itemData}) => {
    const {hovering} = useThemedColors();
       
    const deleteBusiness = useMutation({
-      mutationFn : (itemId) => fetch("http://localhost:5000/business/delete",{method:'DELETE', headers: {'Content-Type' : 'application/json'}, body : JSON.stringify({businessId:itemId})}).then(res => res.json()) ,
+      mutationFn : (itemId) => fetch(`${host}/business/delete`,{method:'DELETE', headers: {'Content-Type' : 'application/json'}, body : JSON.stringify({businessId:itemId})}).then(res => res.json()) ,
       
       
       onSuccess: (data) => {
@@ -29,53 +30,53 @@ const BusinessTableActionsMenu = ({itemId, itemData}) => {
    }
   return (
    <Menu.Root >
-   <Menu.Trigger asChild>
-     <CiMenuKebab className="btn" />
-   </Menu.Trigger>
-   <Portal>
-     <Menu.Positioner>
-       <Menu.Content >
-         {
-            tableMenuData.map((item, index) => (
-               item.title == 'delete' 
-               ?
-               <DeleteDialog 
-                    key={index}
-                    msg={""}
-                    click={handleDelete} 
-                    item={item}
-                    waiting={waiting} 
-                    styles={{
-                     marginTop: 2
-                  }}
-                  
-               />
-               :
-               <Menu.Item 
-                  fontSize={{ xssToXm: "14px", xmToSm: "15px", smToMd: "16px" }} 
-                  key={index} 
-                  marginBottom={1} 
-                  paddingY={0} 
-                  paddingX={1} 
-                  className="btn" 
-                  value="" 
-                  backgroundColor={'transparent'} 
-                  _hover={{backgroundColor:hovering}}
-                  onClick={()=> navigate(item.clickLink , {state:itemData})}
-               >
-                 <HStack  >
-                    <item.icon />
-                    <Text>{item.title}</Text>
-                 </HStack>
-               </Menu.Item>
-            ))
-         }
-         
-         
-       </Menu.Content>
-     </Menu.Positioner>
-   </Portal>
- </Menu.Root>
+      <Menu.Trigger asChild>
+        <CiMenuKebab className="btn" />
+      </Menu.Trigger>
+      <Portal>
+        <Menu.Positioner>
+          <Menu.Content >
+            {
+               tableMenuData.map((item, index) => (
+                  item.title == 'delete' 
+                  ?
+                  <DeleteDialog 
+                       key={index}
+                       msg={""}
+                       click={handleDelete} 
+                       item={item}
+                       waiting={waiting} 
+                       styles={{
+                        marginTop: 2
+                     }}
+                     
+                  />
+                  :
+                  <Menu.Item 
+                     fontSize={{ xssToXm: "14px", xmToSm: "15px", smToMd: "16px" }} 
+                     key={index} 
+                     marginBottom={1} 
+                     paddingY={0} 
+                     paddingX={1} 
+                     className="btn" 
+                     value="" 
+                     backgroundColor={'transparent'} 
+                     _hover={{backgroundColor:hovering}}
+                     onClick={()=> navigate(item.clickLink , {state:itemData})}
+                  >
+                    <HStack  >
+                       <item.icon />
+                       <Text>{item.title}</Text>
+                    </HStack>
+                  </Menu.Item>
+               ))
+            }
+            
+            
+          </Menu.Content>
+        </Menu.Positioner>
+      </Portal>
+    </Menu.Root>
   )
 }
 

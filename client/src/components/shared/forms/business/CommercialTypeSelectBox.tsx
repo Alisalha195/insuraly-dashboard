@@ -15,6 +15,7 @@ const CommercialTypeSelectBox = ({label ,Controller,control ,data, error,default
            <Field.Label paddingBottom={2} fontSize={'22px'} color={textSecondary}>{label}</Field.Label>
         </Field.Root>
         <SelectBox 
+           name={"commercialType"}
            disabled={false}
            defaultValue={commercialTypesData[0].value}
            data={commercialTypesData}
