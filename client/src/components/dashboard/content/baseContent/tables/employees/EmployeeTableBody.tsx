@@ -7,6 +7,7 @@ import BusinessEmployeeActionsMenu from "./BusinessEmployeeActionsMenu";
 
 const EmployeeTableBody = ({ data, search = false }) => {
 
+   // console.log("data e body :" , data)
    
    const navigate = useNavigate();
    const { tableItem,btnGreen, btnDanger } = useThemedColors();

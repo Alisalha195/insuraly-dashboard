@@ -55,7 +55,7 @@ const BusinessEmployeesContent = () => {
          
          {/* upper control */}
          <HStack justifyContent={"start"} marginBottom={1}>
-               <Flex flexDirection={'column'} justifyContent={'center'} paddingY={0} paddingX={1} onClick={() => navigate("/dashboard/business-owners/search")}>
+               <Flex flexDirection={'column'} justifyContent={'center'} paddingY={0} paddingX={1} onClick={() =>  navigate(`/dashboard/businesses/${params?.id}/employees/search` ,{state: {businessName: location?.state?.businessName , businessID: params?.id}})}>
                   <Icon
                      fontSize={{ xssToXs: "16px", xsToXm: "18px", xmToSm: "20px" }}
                   >

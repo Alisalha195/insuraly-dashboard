@@ -2,7 +2,7 @@ import { Box, Flex, Tabs } from '@chakra-ui/react'
 
 import { LuUser } from "react-icons/lu";
 
-const SearchActions = ({searchContentData, searchValue}) => {
+const SearchActions = ({searchContentData, searchValue, ...params}) => {
   return (
     <Box width={"100%"} >
        <Flex justifyContent={'center'} paddingTop={2} textAlign={'center'} width={"100%"} >
@@ -20,7 +20,7 @@ const SearchActions = ({searchContentData, searchValue}) => {
              {searchContentData.map((tabItem,index)=>(
                 
                 <Tabs.Content value={tabItem.value}  >
-                   <tabItem.searchContent searchValue={searchValue} />
+                   <tabItem.searchContent searchValue={searchValue} {...params}/>
                 </Tabs.Content>
              ))}   
           </Tabs.Root>
