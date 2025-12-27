@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { createEmployee, getEmployee } from "../controllers/employeeController.js";
+import { createEmployee, getEmployee, getEmployeeByNames, getEmployeeByNamesInBusiness, getEmployeeInBusiness } from "../controllers/employeeController.js";
 import { 
    createPersonalInfoRecord,
    getPersonalInfoByName,
@@ -15,9 +15,9 @@ const router = Router();
 router.post("/create", createPersonalInfoRecord ,createEmployee)
 
 //? get business owner by one of three variables (after getting related personal information record)  
-router.post("/get/national-number", getPersonalInfoByNationalNumber, getEmployee)
-router.post("/get/name", getPersonalInfoByName , getEmployee)
-router.post("/get/insurance-number", getPersonalInfoByInsuranceNumber , getEmployee)
+router.post("/get/national-number", getPersonalInfoByNationalNumber, getEmployeeInBusiness)
+router.post("/get/name",  getEmployeeByNamesInBusiness)
+router.post("/get/insurance-number", getPersonalInfoByInsuranceNumber , getEmployeeInBusiness)
 
 router.post("/add-service", addEmployeeToBusiness, addService,)
 

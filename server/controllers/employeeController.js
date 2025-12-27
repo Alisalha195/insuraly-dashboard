@@ -1,5 +1,5 @@
 import {supabase} from "../db/connection.js";
-import { employeeTable } from "../db/tables.js";
+import { businessEmployeeTable, employeeTable } from "../db/tables.js";
 
 export const createEmployee = async (req , res , next) => {
    
@@ -50,7 +50,7 @@ export const getEmployee = async (req , res , next) => {
    if(data.length < 1) {
       res.status(200).json({msg: "not an employee"});
    } else {
-      res.status(200).json({...data[0], ...personal_informations, status:200})
+      res.status(200).json({data:{...data[0], ...personal_informations, status:200}})
       next()
    }
   }
@@ -72,4 +72,262 @@ export const checkIfEmployee = async (req ,res , next) => {
       return;
    }
 }
+
+export const getEmployeeByNames = async (req , res , next) => {
+    const {firstName, fatherName, motherName,lastName} = req.body;
+   //  console.log("reqqq name :",req.body);
+      
+      if(firstName && fatherName && motherName && lastName) {
+         const { data, error } = await supabase
+         .from(employeeTable)
+         .select(`
+            * ,
+            personal_informations!inner(
+               *
+            )
+         `)
+         .like('personal_informations.first_name' , `%${firstName}%`)
+         .like('personal_informations.father_name' , `%${fatherName}%`)
+         .like('personal_informations.mother_name' , `%${motherName}%`)
+         .like('personal_informations.last_name' , `%${lastName}%`)
+         
+         if(data?.length < 1 || error) {
+            res.status(404).json({msg:"something went wrong !",status:404});
+         } else {
+            res.status(200).json(data);
+            return data;
+         }
+      } else if(firstName && fatherName &&  lastName ) {
+         const { data, error } = await supabase
+         .from(employeeTable)
+         .select(`
+            * ,
+            personal_informations!inner(
+               *
+            )
+         `)
+         .like('personal_informations.first_name' , `%${firstName}%`)
+         .like('personal_informations.father_name' , `%${fatherName}%`)
+         .like('personal_informations.last_name' , `%${lastName}%`)
+         
+         if(data?.length < 1 || error) {
+            res.status(404).json({msg:"something went wrong !",status:404});
+         } else {
+            res.status(200).json(data);
+            return data;
+         }
+      } else if(firstName  &&  lastName ) {
+         const { data, error } = await supabase
+         .from(employeeTable)
+         .select(`
+            * ,
+            personal_informations!inner(
+               *
+            )
+         `)
+         .like('personal_informations.first_name' , `%${firstName}%`)
+         .like('personal_informations.last_name' , `%${lastName}%`)
+         
+         if(data?.length < 1 || error) {
+            res.status(404).json({msg:"something went wrong !",status:404});
+         } else {
+            res.status(200).json(data);
+            return data;
+         }
+      } else if(firstName ) {
+         const { data, error } = await supabase
+         .from(employeeTable)
+         .select(`
+            * ,
+            personal_informations!inner(
+               *
+            )
+         `)
+         .like('personal_informations.first_name' , `%${firstName}%`)
+         
+         if(data?.length < 1 || error) {
+            res.status(404).json({msg:"something went wrong !",status:404});
+         } else {
+            res.status(200).json(data);
+            return data;
+         }
+      } else {
+         res.status(404).json({msg:"something went wrong !",status:404});
+      }
+      
+}
+
+export const getEmployeeByNamesInBusiness = async (req , res , next) => {
+   const {firstName, fatherName, motherName,lastName, businessID, businessName} = req.body;
+   const business_id = Number(businessID);
+
+     if(firstName && fatherName && motherName && lastName) {
+      const { data, error } = await supabase
+      .from(businessEmployeeTable)
+      .select(`
+          employee_id,
+          Employees:employee_id(
+             personal_informations:personal_info_id(
+                *
+             )
+          )`
+       )
+       .eq('business_id', business_id)
+        .like('Employees.personal_informations.first_name' , `%${firstName}%`)
+        .like('Employees.personal_informations.father_name' , `%${fatherName}%`)
+        .like('Employees.personal_informations.mother_name' , `%${motherName}%`)
+        .like('Employees.personal_informations.last_name' , `%${lastName}%`)
+        
+        if(data?.length < 1 || error) {
+         res.status(404).json({msg:"something went wrong !",status:404});
+         console.log("data for names : error!!")
+         } else {
+             const filteredData = data.filter(item => item.Employees.personal_informations !== null);
+
+             const result = [
+                filteredData, 
+                {businessID:businessID} , 
+                {businessName:businessName}
+             ];
+             
+             res.status(200).json(result);
+         }
+     } else if(firstName && fatherName &&  lastName ) {
+      const { data, error } = await supabase
+      .from(businessEmployeeTable)
+      .select(`
+          employee_id,
+          Employees:employee_id(
+             personal_informations:personal_info_id(
+                *
+             )
+          )`
+       )
+       .eq('business_id', business_id)
+        .like('Employees.personal_informations.first_name' , `%${firstName}%`)
+        .like('Employees.personal_informations.father_name' , `%${fatherName}%`)
+        .like('Employees.personal_informations.last_name' , `%${lastName}%`)
+        
+        if(data?.length < 1 || error) {
+         res.status(404).json({msg:"something went wrong !",status:404});
+         console.log("data for names : error!!")
+         } else {
+             const filteredData = data.filter(item => item.Employees.personal_informations !== null);
+
+             const result = [
+                filteredData, 
+                {businessID:businessID} , 
+                {businessName:businessName}
+             ];
+             
+             res.status(200).json(result);
+         }
+     } else if(firstName  &&  lastName ) {
+         const { data, error } = await supabase
+         .from(businessEmployeeTable)
+         .select(`
+             employee_id,
+             Employees:employee_id(
+                personal_informations:personal_info_id(
+                   *
+                )
+             )`
+          )
+          .eq('business_id', business_id)
+        .like('Employees.personal_informations.first_name' , `%${firstName}%`)
+        .like('Employees.personal_informations.last_name' , `%${lastName}%`)
+        
+        if(data?.length < 1 || error) {
+            res.status(404).json({msg:"something went wrong !",status:404});
+            console.log("data for names : error!!")
+         } else {
+             const filteredData = data.filter(item => item.Employees.personal_informations !== null);
+
+             const result = [
+                filteredData, 
+                {businessID:businessID} , 
+                {businessName:businessName}
+             ];
+             
+             res.status(200).json(result);
+         }
+     } else if(firstName ) {
+        const { data, error } = await supabase
+        .from(businessEmployeeTable)
+        .select(`
+            employee_id,
+            Employees:employee_id(
+               personal_informations:personal_info_id(
+                  *
+               )
+            )`
+         )
+         .eq('business_id', business_id)
+         .like('Employees.personal_informations.first_name' , `%${firstName}%`)
+        
+        if(data?.length < 1 || error) {
+           res.status(404).json({msg:"something went wrong !",status:404});
+           console.log("data for names : error!!")
+        } else {
+            const filteredData = data.filter(item => item.Employees.personal_informations !== null);
+
+            const result = [
+               filteredData, 
+               {businessID:businessID} , 
+               {businessName:businessName}
+            ];
+            
+            res.status(200).json(result);
+        }
+     } else {
+        res.status(404).json({msg:"something went wrong !",status:404});
+     }
+}
+export const getEmployeeInBusiness = async (req, res , next) => {
+   
+   const {personal_informations, businessID, businessName} = req.body;
+   const business_id = Number(businessID);
+   
+   const { data:employeeData, error:employeeError } = await supabase
+   .from(employeeTable)
+   .select()
+   .eq("personal_info_id",  personal_informations.personal_info_id);
+   
+   if(employeeError || employeeData.length < 1) {
+      res.status(404).json({msg: "Employee not found !", status:404});
+     } else {
+      
+         const {data:businessEmployeeData , error:businessEmployeeError} = await supabase
+         .from(businessEmployeeTable)
+         .select()
+         .eq("business_id", business_id)
+         .eq('employee_id', employeeData[0].emp_id);
+         
+         if(businessEmployeeData.length > 0 && !businessEmployeeError) {
+            
+            
+            const result = [
+               [
+                  {
+                     employee_id : employeeData[0].emp_id ,
+                     Employees : {personal_informations : {
+                        ...personal_informations
+                      }
+                     }
+                     
+                  } 
+               ], 
+               {businessID:businessID} , 
+               {businessName:businessName}
+            ];
+            
+            res.status(200).json(result);
+            
+         } else {
+            res.status(404).json({msg: "Employee not found !", status:404});
+         }
+      }
+     }
+
+   
 
