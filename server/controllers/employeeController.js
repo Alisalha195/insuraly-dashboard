@@ -1,5 +1,5 @@
 import {supabase} from "../db/connection.js";
-import { businessEmployeeTable, employeeTable } from "../db/tables.js";
+import { businessEmployeeTable, employeeTable, servicesTable } from "../db/tables.js";
 
 export const createEmployee = async (req , res , next) => {
    
@@ -55,6 +55,61 @@ export const getEmployee = async (req , res , next) => {
    }
   }
 }
+
+export const getEmployeeByID = async (req , res , next) => {
+   const {id} = req.query;
+      
+      const { data, error } = await supabase
+      .from(employeeTable)
+      .select(`
+         * ,
+         personal_informations:personal_info_id(
+            *
+         )
+      `)
+      .eq('emp_id', id);
+      
+      if(error) {
+         res.status(404).json({msg:"employee not found !", status:404 });
+      } else {
+         if(data.length < 1) {
+            res.status(400).json({msg:"not an employee", status:400});
+         } else {
+            res.status(200).json({...data[0] , status:200});
+            next()
+         }
+      }
+}
+
+export const getEmployeeServices = async (req , res , next) => {
+   const {employeeID} = req.query;
+   const employeeIDAsNumber = Number(employeeID);
+   console.log("employeeID in getEmployeeServices :",employeeIDAsNumber);
+   const { data , error } = await supabase
+   .from(servicesTable)
+   .select(`
+      *,
+      Business_Employee:business_employee_id(
+         
+         *,
+         Businesses:business_id(
+            *
+         )
+      )`
+   )
+   .eq("Business_Employee.employee_id",employeeIDAsNumber);
+   
+   if (data?.length < 1 || error) {
+      console.log("services not found!! ");
+      res.status(404).json({ msg: "something went wrong !" });
+    } else {
+      const filteredData = data.filter(item => item.Business_Employee !== null);
+      console.log("services :",filteredData);
+      res.status(200).json(filteredData);
+      return data;
+    }
+}
+
 export const checkIfEmployee = async (req ,res , next) => {
    const {employeeID} = req.body ;
    // console.log("req.body :",req.body);

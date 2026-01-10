@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { createEmployee, getEmployee, getEmployeeByNames, getEmployeeByNamesInBusiness, getEmployeeInBusiness } from "../controllers/employeeController.js";
+import { createEmployee, getEmployee, getEmployeeByID, getEmployeeByNames, getEmployeeByNamesInBusiness, getEmployeeInBusiness, getEmployeeServices } from "../controllers/employeeController.js";
 import { 
    createPersonalInfoRecord,
    getPersonalInfoByName,
@@ -11,15 +11,19 @@ import { addService } from "../controllers/servicesController.js";
 
 const router = Router();
 
-//? create business owner after creation of related personal information  
-router.post("/create", createPersonalInfoRecord ,createEmployee)
+//? create employee after creation of related personal information  
+// router.post("/create", createPersonalInfoRecord ,createEmployee)
 
-//? get business owner by one of three variables (after getting related personal information record)  
+//? get employee by one of three variables (after getting related personal information record)  
+router.post("/add-service", addEmployeeToBusiness, addService,)
+
 router.post("/get/national-number", getPersonalInfoByNationalNumber, getEmployeeInBusiness)
 router.post("/get/name",  getEmployeeByNamesInBusiness)
 router.post("/get/insurance-number", getPersonalInfoByInsuranceNumber , getEmployeeInBusiness)
 
-router.post("/add-service", addEmployeeToBusiness, addService,)
+
+router.get("/get/id", getEmployeeByID);
+router.get("/services",getEmployeeServices);
 
 // router.put("/edit", ,editBusinessOwner)
 // router.delete("/delete", deleteBusinessOwner)

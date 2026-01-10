@@ -79,3 +79,20 @@ export const getFinishedWorkReasons = async (req , res , next) => {
       res.status(400).json({msg:"no reasons found", status:400});
 }
 
+export const deleteService = async (req , res , next) => {
+   const {serviceID} = req.body;
+   
+   
+   const { data, error } = await supabase
+   .from(servicesTable)
+   .delete()
+   .eq('service_id', serviceID);
+
+   if(error) {
+   res.status(404).json({msg:"something went wrong", status:404})
+   } else {
+     res.status(200).json({msg:"deleted successfuly", status:200})
+   }
+}
+
+
