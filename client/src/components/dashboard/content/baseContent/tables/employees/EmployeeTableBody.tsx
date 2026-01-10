@@ -35,7 +35,7 @@ const EmployeeTableBody = ({ data, search = false }) => {
                   <Table.Cell fontSize={"20px"} textWrap={"nowrap"}>
                      <span
                         // className="[padding:4px_9px] "
-                        onClick={() => navigate(`/dashboard/business-owners/${item.business_owner_id}`)}
+                        onClick={() => navigate(`/dashboard/employees/${item.employee_id}`)}
                         
                         fontSize={{ xssToXs: "12px", xsToXm: "14px", xmToSm: "16px" }}
                         

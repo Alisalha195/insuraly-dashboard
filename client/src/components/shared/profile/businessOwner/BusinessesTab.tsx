@@ -15,7 +15,6 @@ import { businessTableHeaderData } from "../../../dashboard/content/baseContent/
 
 const BusinessesTab = ({ businessOwnerId }) => {
 
-   console.log("businessOwnerId in BusinessesTab : ", businessOwnerId);
    const navigate = useNavigate();
    const { textPrimary, btnSecondary } = useThemedColors();
 

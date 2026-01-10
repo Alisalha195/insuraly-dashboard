@@ -7,7 +7,7 @@ import useThemedColors from "../../../../hooks/useThemedColors";
 import BusinessOwnerProfileTabs from "../../../../components/shared/profile/businessOwner/BusinessOwnerProfileTabs";
 import { capitalize } from "../../../../lib/capitalize.ts";
 import { host } from '../../../../constants/connection.ts';
-import ProfileHeadInfo from "../../../../components/shared/profile/businessOwner/ProfileHeadInfo.tsx";
+import ProfileHeadInfo from "../../../../components/shared/profile/ProfileHeadInfo.tsx";
 import Error from "../../../../components/shared/Error.tsx";
 import SkeletonLoader from "../../../../components/shared/Skeleton.tsx";
 

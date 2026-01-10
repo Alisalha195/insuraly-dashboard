@@ -33,6 +33,7 @@ import AddEmployee from './pages/dashboard/businesses/employess/add';
 import AddServiceAtBusiness from './pages/dashboard/businesses/employess/services/add/AddServiceAtBusiness';
 import CreateEmployee from './pages/dashboard/businesses/employess/create';
 import SearchEmployees from './pages/dashboard/businesses/employess/search';
+import EmployeeProfile from './pages/dashboard/businesses/employess/profile';
 
 
 
@@ -57,10 +58,13 @@ function App() {
                      <Route path='/dashboard/businesses/edit' element={<ProtectedRoute><EditBusiness /></ProtectedRoute>} />
                      <Route path='/dashboard/businesses/:id' element={<ProtectedRoute><BusinessProfile /></ProtectedRoute>} />
                      <Route path='/dashboard/businesses/:id/budget' element={<ProtectedRoute><BusinessBudget /></ProtectedRoute>} />  
+                     
                      <Route path='/dashboard/businesses/:id/employees' element={<ProtectedRoute><BusinessEmployees /></ProtectedRoute>} />
                      <Route path='/dashboard/businesses/:id/employees/add' element={<ProtectedRoute><AddEmployee /></ProtectedRoute>} />
-                     <Route path='/dashboard/businesses/:id/employees/create' element={<ProtectedRoute><CreateEmployee /></ProtectedRoute>} />
+                     <Route path='/dashboard/businesses/:id/employees/create' element={<ProtectedRoute><CreateEmployee /></ProtectedRoute>} />  
                      <Route path='/dashboard/businesses/:id/employees/search' element={<ProtectedRoute><SearchEmployees /></ProtectedRoute>} />
+                     
+                     <Route path='/dashboard/employees/:id' element={<ProtectedRoute><EmployeeProfile /></ProtectedRoute>} />
                      
                      {/* Services Routes */}
                      <Route path='/dashboard/businesses/:id/employees/:empId/services/add' element={<ProtectedRoute><AddServiceAtBusiness /></ProtectedRoute>} />
