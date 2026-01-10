@@ -1,0 +1,86 @@
+import React from 'react'
+import { useNavigate } from 'react-router-dom';
+import useThemedColors from '../../../../hooks/useThemedColors';
+import { host } from '../../../../constants/connection';
+import { useQuery } from '@tanstack/react-query';
+import { Box, Flex, HStack, Text, VStack } from '@chakra-ui/react';
+import SkeletonLoader from '../../Skeleton';
+import Error from '../../Error';
+import PageHeadTitle from '../../PageHeadTitle';
+import DataTable from '../../tables/DataTable';
+import { serviceTableHeaderData } from '../../../dashboard/content/baseContent/tables/services/serviceTableHeaderData';
+import ServiceTableBody from '../../../dashboard/content/baseContent/tables/services/ServiceTableBody';
+import TableHeader from '../../tables/TableHeader';
+
+const ServicesTab = ({employeeId}) => {
+   
+   const navigate = useNavigate();
+   const { textPrimary, btnSecondary } = useThemedColors();
+
+   const { data: servicesData,
+      error: servicesDataError,
+      isSuccess: servicesDataSuccess,
+      isLoading: servicesDataIsLoading,
+   } = useQuery({
+      queryKey: ['services-of-employee', employeeId],
+      queryFn: () => fetch(`${host}/employees/services?employeeID=${employeeId}`).then(res => res.json()),
+      refetchInterval: 5000,
+      keepPreviousData: true,
+      staleTime: 30000,
+   });
+  
+   
+   if (servicesDataIsLoading) {
+      return (
+         <VStack justifyContent={'center'} height={'50vh'}>
+            <SkeletonLoader width='60%'/>
+            <SkeletonLoader width='50%'/>
+            <SkeletonLoader width='60%' />
+            <SkeletonLoader width='50%' />
+            <SkeletonLoader width='60%' />
+            <SkeletonLoader width='50%' />
+         </VStack>
+      );
+   } 
+   else if (servicesDataError) {
+      return <Error message={"Error in services !"} />
+   } else if (!!servicesData && servicesDataSuccess) {
+      return (
+         <Box>
+            <HStack marginBottom={1} justifyContent={"start"}>
+               <Box className='btn' color={btnSecondary}>
+                  <Text onClick={() => navigate("/dashboard/businesses/add")} fontSize={{ xssToXm: "14px", xmToSm: "16px" }} marginLeft={2}
+                     marginBottom={1}
+                  >
+                     {/* <AiFillPlusCircle /> */}
+                     new service
+                  </Text>
+               </Box>
+            </HStack>
+
+            <Flex flexDirection={'column'}
+               smToMd={{ maxWidth: '70vw' }}
+               smDown={{ maxWidth: '96vw' }}
+               maxWidth={'98vw'}
+               height={'70vh'}
+
+            >
+               <DataTable
+                  maxHeight={"300px"}
+                  search={false}
+                  data={servicesData}
+                  // TableHeader={BusinessTableHeader}
+                  TableHeader={
+                     <TableHeader headerData={serviceTableHeaderData}
+                     />
+                  }
+                  TableBody={ServiceTableBody}
+               />
+
+            </Flex>
+         </Box>
+      );
+   }
+}
+
+export default ServicesTab
