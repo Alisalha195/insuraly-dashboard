@@ -30,10 +30,12 @@ import AuthContextProvider from './providers/AuthContextProvider';
 import SearchBusiness from './pages/dashboard/businesses/search';
 import EditBusiness from './pages/dashboard/businesses/edit';
 import AddEmployee from './pages/dashboard/businesses/employess/add';
-import AddServiceAtBusiness from './pages/dashboard/businesses/employess/services/add/AddServiceAtBusiness';
 import CreateEmployee from './pages/dashboard/businesses/employess/create';
 import SearchEmployees from './pages/dashboard/businesses/employess/search';
 import EmployeeProfile from './pages/dashboard/businesses/employess/profile';
+import AddServiceAtBusiness from './pages/dashboard/businesses/employess/services/add';
+import EditServiceAtBusiness from './pages/dashboard/businesses/employess/services/edit';
+import ServiceWages from './pages/dashboard/businesses/employess/services/wages';
 
 
 
@@ -68,6 +70,8 @@ function App() {
                      
                      {/* Services Routes */}
                      <Route path='/dashboard/businesses/:id/employees/:empId/services/add' element={<ProtectedRoute><AddServiceAtBusiness /></ProtectedRoute>} />
+                     <Route path='/dashboard/businesses/:id/employees/:empId/services/:serviceId/edit' element={<ProtectedRoute><EditServiceAtBusiness /></ProtectedRoute>} />
+                     <Route path='/dashboard/businesses/:id/employees/:empId/services/:serviceId/wages' element={<ProtectedRoute><ServiceWages /></ProtectedRoute>} />
                      
                      {/* Business Owners Routes */}
                      <Route path='/dashboard/business-owners' element={<ProtectedRoute><BusinessOwners /></ProtectedRoute>} />

@@ -61,6 +61,7 @@ const ServiceTableBody = ({ data }) => {
 
                         <Table.Cell color={tableItem} fontSize={"20px"} textWrap={"nowrap"}>
                            <ServiceActionsMenu 
+                             businessID={item?.Business_Employee?.business_id}
                              serviceID={item?.service_id}
                              employeeID={item?.Business_Employee?.employee_id}
                              itemData={item} 

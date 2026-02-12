@@ -1,14 +1,22 @@
 
 import { TiEdit } from "react-icons/ti";
 import { RiDeleteBin2Line } from "react-icons/ri";
+import { FaMoneyCheckDollar } from "react-icons/fa6";
 import { SiWikibooks } from "react-icons/si";
 
-export const tableMenuData = [
+export const tableMenuData = [ 
    {
       title : 'edit',
       icon: TiEdit ,
-      clickLink: (params) => `/dashboard/employee/${params?.employeeID}/services/${params?.serviceID}/edit`
+      clickLink: (params) => `/dashboard/businesses/${params?.businessID}/employees/${params?.employeeID}/services/${params?.serviceID}/edit`
    },
+   
+   {
+      title : 'wages',
+      icon: FaMoneyCheckDollar ,
+      clickLink: (params) => `/dashboard/businesses/${params?.businessID}/employees/${params?.employeeID}/services/${params?.serviceID}/wages`
+   },
+   
    // {
    //    title : 'new service',
    //    icon: SiWikibooks,

@@ -6,7 +6,7 @@ import DatePicker from 'react-datepicker';
 import "react-datepicker/dist/react-datepicker.css";
 import useThemedColors from '../../../hooks/useThemedColors';
 
-const DatePickerField = ({ register, label, Controller, control, error, name }) => {
+const DatePickerField = ({ register, label, Controller, control, error, name , ...props}) => {
 
    const { textPrimary, textSecondary, inputBorder, textError } = useThemedColors();
    const [date, setDate] = useState(new Date());
@@ -26,7 +26,18 @@ const DatePickerField = ({ register, label, Controller, control, error, name }) 
                      selected={field.value}
                      open={false}
                      onChange={(date) => {
-                        field.onChange(date)
+                        if(props.onChangeValue){
+                           // field.onChange(date);
+                           if(props?.index == 0)
+                               props.onChangeValue(date, props.index);
+                           else if(props.index)
+                              props.onChangeValue(date, props.index);
+                           else 
+                              props.onChangeValue(date,props.index);
+                        } 
+                        else
+                           field.onChange(date)
+                        
                      }}
                      showDateSelect
                      isClearable={false}
@@ -52,6 +63,7 @@ const DatePickerField = ({ register, label, Controller, control, error, name }) 
                            onChange={(date) => {
 
                               field.onChange(date)
+                              
                            }}
                         />
                      }
@@ -60,6 +72,9 @@ const DatePickerField = ({ register, label, Controller, control, error, name }) 
                   <Text
                      fontSize={{ xssToXs: "13px", xsToXm: "14px", xmToSm: "15px", smToMd: "17px", mdTo3xl: "18px" }}
                      color={textError}
+                     
+                     maxWidth={"100%"}
+                     textOverflow={"break-word"}
                   >
                      {err.message}
                   </Text>

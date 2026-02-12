@@ -9,7 +9,7 @@ import { tableMenuData } from './serviceActionsMenuData';
 import { host } from '../../../../../../constants/connection';
 import toast from 'react-hot-toast';
 
-const ServiceActionsMenu = ({serviceID, employeeID, itemData}) => {
+const ServiceActionsMenu = ({businessID, serviceID, employeeID, itemData}) => {
   
    const [waiting , setWaiting] = useState(false)
    const navigate = useNavigate();
@@ -66,7 +66,7 @@ const ServiceActionsMenu = ({serviceID, employeeID, itemData}) => {
                         value="" 
                         backgroundColor={'transparent'} 
                         _hover={{backgroundColor:hovering}}
-                        onClick={()=> navigate(item.clickLink({ employeeID:employeeID, serviceID:serviceID}) , {state:{...itemData,employeeID:employeeID}})}
+                        onClick={()=> navigate(item.clickLink({businessID:businessID  ,employeeID:employeeID, serviceID:serviceID}) , {state:{...itemData,employeeID:employeeID}})}
                      >
                        <HStack  >
                           <item.icon />

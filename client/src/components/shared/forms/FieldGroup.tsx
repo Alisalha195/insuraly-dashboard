@@ -4,7 +4,7 @@ import useThemedColors from '../../../hooks/useThemedColors';
 import { useState } from 'react';
 import { set } from 'react-hook-form';
 
-const FieldGroup = ({ register, name, type, preInputText, invalid, label, placeholder, error, onchangeValue }) => {
+const FieldGroup = ({ register, name, type, preInputText, invalid, label, placeholder, error, onchangeValue, ...props}) => {
 
    const { textSecondary, textError, textInput } = useThemedColors();
    ;
@@ -15,7 +15,7 @@ const FieldGroup = ({ register, name, type, preInputText, invalid, label, placeh
          <InputGroup startElement={preInputText ?? preInputText}>
             <Input type={type}
                placeholder={placeholder}
-
+               id={name}
                {...register(name, {
                   valueAsNumber: type == 'number' ? true : false,
                   onchange: async (e) => {
@@ -39,14 +39,17 @@ const FieldGroup = ({ register, name, type, preInputText, invalid, label, placeh
                //       e.target.value.length > 9 && (e.target.value = e.target.value.slice(0,9)) 
                //     }
 
-               // }}
+               // }} 
 
                ps={(label == "phone number") 
                   ? "8ch" 
                   : (label == 'initiate salary')
                     ? "4ch"
-                    : ''
+                    : (label == 'Amount')
+                        ? "4ch"
+                        : ""
                }
+               {...props}
             />
          </InputGroup>
          {error &&

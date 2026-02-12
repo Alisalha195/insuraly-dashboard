@@ -1,9 +1,9 @@
 
-import AddServiceAtBusiness from "./AddServiceAtBusiness"
-const AddEmployee = () => {
+import AddServiceAtBusinessContent from "./AddServiceAtBusinessContent"
+const AddServiceAtBusiness = () => {
   return (
-   <AddServiceAtBusiness />
+   <AddServiceAtBusinessContent />
 )
 }
 
-export default AddEmployee;
+export default AddServiceAtBusiness;

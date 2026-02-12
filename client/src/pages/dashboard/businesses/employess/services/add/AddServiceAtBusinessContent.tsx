@@ -18,7 +18,7 @@ import DatePickerField from "../../../../../../components/shared/forms/DatePicke
 import { getFinishedWorkReasons } from "../../../../../../api/services/getServicesRelatedData";
 import FisinshReasonsSelectBox from "../../../../../../components/shared/forms/services/FinishReasonsSelectBox";
 
-const AddServiceAtBusiness = () => {
+const AddServiceAtBusinessContent = () => {
    
    const navigate = useNavigate();
    const location =  useLocation();
@@ -373,4 +373,4 @@ const AddServiceAtBusiness = () => {
 
 }
 
-export default AddServiceAtBusiness;
+export default AddServiceAtBusinessContent;
