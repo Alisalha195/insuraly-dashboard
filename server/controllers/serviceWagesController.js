@@ -28,3 +28,133 @@ export const addServiceWages = async (req , res , next) => {
    }
    
 }
+
+export const updateServiceWages = async (req , res , next) => {
+   const {serviceID , wages} = req.body;
+   // console.log("serviceID and wages in saveWages controller :", serviceID , wages);
+}
+
+
+export const saveServiceWages = async (req , res , next) => {
+   const {serviceID , wages} = req.body;
+
+   // console.log("wages in saveWages controller :" , wages);
+   
+   const wagesInFormat = wages.map(wage => ({
+      service_id: serviceID,
+      service_wage_date: wage.wageDate,
+      wage_registration_number: wage.wage_registration_number || 1,
+      wage_registration_date: wage.wage_registration_date || new Date().toISOString(),
+      wage_amount: wage.wageAmount,
+      // is_initiative: wage.is_initiative
+      
+   }));
+   // console.log("wages in format to insert/update :" , wagesInFormat);
+   const {data: previuosWages , error:previuosWagesError} = await supabase
+   .from(servicesWagesTable)
+   .select()
+   .eq("service_id" , Number(serviceID));
+   
+   // console.log("previuosWages :",previuosWages)
+   // console.log("wagesToInsert :",wagesToInsert)
+   
+   const wagesToInsert = [...wagesInFormat];
+   const wagesToUpdate = [];
+   
+   if(previuosWages?.length > 0 ) {  // update existing wages
+      
+      wagesInFormat.forEach( (wageInFormat, index) => {
+         previuosWages.forEach( (previousWage, prevIndex) => {
+            // console.log("wage date :", new Date(wage?.service_wage_date));
+            // console.log("previous wage date :", new Date(previousWage?.service_wage_date));
+            
+            
+            if(new Date(wageInFormat?.service_wage_date).getFullYear() == new Date( previousWage?.service_wage_date).getFullYear()  ) 
+               if(new Date(wageInFormat?.service_wage_date).getMonth()+1 == new Date(previousWage?.service_wage_date).getMonth()+1)
+                  if(new Date(wageInFormat?.service_wage_date).getDate() == new Date(previousWage?.service_wage_date).getDate()) {
+                     
+                     wagesToInsert[index].alreadyExists = true; 
+                     
+                     wagesToUpdate.push({
+                        service_wage_id: previousWage.service_wage_id,
+                        service_id: wageInFormat.service_id || previousWage.service_id,
+                        service_wage_date: wageInFormat.service_wage_date || previousWage.service_wage_date,
+                        wage_registration_number: wageInFormat.wage_registration_number || previousWage.wage_registration_number,
+                        wage_registration_date: wageInFormat.wage_registration_date || previousWage.wage_rewage_registration_date || new Date().toISOString(),
+                        wage_amount: wageInFormat.wage_amount
+                     })
+                     
+                  }
+               // wage.wage_amount = previousWage.wage_amount;
+            
+         });
+      });
+      
+      const {data:updatedWages , error:updatedWagesError} = await supabase
+      .from(servicesWagesTable)
+      .upsert(wagesToUpdate)
+      .select();
+      
+      const wagesToActuallyInsert = wagesToInsert.filter(wage => !wage.alreadyExists);
+      
+      const {data:insertedWages , error:insertedWagesError} = await supabase
+      .from(servicesWagesTable)
+      .insert(wagesToActuallyInsert)
+      .select(); 
+      
+      let savingWages = false;
+      
+      if(wagesToUpdate.length > 0) {
+         if((updatedWages.length > 0) && (!updatedWagesError)) {
+            if(wagesToActuallyInsert.length > 0) {
+               if((insertedWages.length > 0) && (!insertedWagesError)) {
+                  savingWages = true;
+               } else {
+                  savingWages = false;
+               }
+            } else {
+               savingWages = true;
+            }
+            
+         } else {
+            savingWages = false;
+         }
+      } else {
+         if(wagesToActuallyInsert.length > 0) {
+            if((insertedWages.length > 0) && (!insertedWagesError)) {
+               savingWages = true;
+            } else {
+               savingWages = false;
+            }
+         } else {
+            savingWages = false;
+         }
+      }
+      
+      if(savingWages) {
+         console.log("wages inserted/updated successfully !");
+         res.status(200).json({msg : "service wages saved successfuly !", status:200});
+      } else {
+         res.status(400).json({msg : "something went wrong while inserting wages !", status:400});
+      }
+      
+   } else { // insert for first time
+      
+      
+      const {data:insertedWages , error:insertedWagesError} = await supabase
+      .from(servicesWagesTable)
+      .insert(wagesInFormat)
+      .select();  
+      
+      if((insertedWages.length > 0) && (!insertedWagesError)) {
+         console.log("wages inserted successfully !");
+         res.status(200).json({msg : "service wages saved successfuly !", status:200});
+      } else {
+         res.status(400).json({msg : "something went wrong while inserting wages !", status:400});
+      }
+      
+   }
+   
+   // console.log("wages to insert :", wagesToInsert);
+   // console.log("wages to update :", wagesToUpdate);
+}
