@@ -33,6 +33,8 @@ const totalWageSchema = z.object({
 const WagesOfService = () => {
    
    const [employeeName, setEmployeeName] = useState("");
+   // const [defaultWages, setDefaultWages] = useState([{ wageDate: null, wageAmount: 0 }]);
+   
    const  location = useLocation();
    const navigate = useNavigate();
    const {btnGreen, btnPrimary} = useThemedColors();
@@ -55,22 +57,38 @@ const WagesOfService = () => {
          error: previousWagesError,
          isLoading: previousWagesIsLoading,
          isSuccess: previousWagesIsSuccess,
-      } = useQuery({
-         queryKey: ["wages-for-service", location?.state?.service_id ,location?.state?.employeeID],
-         queryFn: () =>
-            fetch(
-               `${host}/business/get-employees?page=${currentpage}&pageSize=${pageSize}&businessId=${params?.id}`
-            ).then((res) => res.json()),
-         refetchInterval: 5000,
-         keepPreviousData: true,
-         staleTime: 30000,
-      });
+   } = useQuery({
+      queryKey: ["wages-for-service", location?.state?.service_id ,location?.state?.employeeID],
+      queryFn: () =>
+         fetch(
+            `${host}/servicesWages/getWagesByServiceID?serviceID=${location?.state?.service_id}`
+         ).then((res) => res.json()),
+      refetchInterval: 5000,
+      keepPreviousData: true,
+      staleTime: 30000,
+   });
+    
+   useEffect(() => {
+      if (previousWagesIsSuccess && previousWages?.wages) {
+         
+         // console.log("prev wages :",previousWages?.wages)
+         const formattedWages = previousWages.wages.map(wage => ({
+            wageDate: new Date(wage.service_wage_date),
+            wageAmount: wage.wage_amount
+         }));
+         
+         console.log("formated wages :",formattedWages);
+         setValue("wages", formattedWages);
+         // setDefaultWages(formattedWages);
+      }
+   }, [previousWages, previousWagesError, previousWagesIsLoading, previousWagesIsSuccess]);
+   
    type WageFormValues = z.infer<typeof totalWageSchema>;
 
    const form = useForm<WageFormValues>({
       resolver: zodResolver(totalWageSchema),
       defaultValues: {
-         wages: [{ wageDate: null, wageAmount: 10 }], // Initial default value
+         wages: [{ wageDate: null, wageAmount: 0 }], // Initial default value
        },
        mode: 'all'
    })
@@ -93,10 +111,10 @@ const WagesOfService = () => {
             
             toast(response?.msg || "somethng went wrong",{duration:2500, position:"top-center", style:{backgroundColor:"#FF5555", color:"#fff"}})
          } else if(response?.status == 200) {
-            // navigate(-1)
+            navigate(-1)
             setTimeout(() => {
                // toast.success('Employee Added Successfuly !');
-               toast(response?.msg || "saved successfuly",{duration:2500, position:"top-center", style:{backgroundColor:"#55ff55", color:"#fff"}})
+               toast(response?.msg || "saved successfuly",{duration:2500, position:"top-center", style:{backgroundColor:"#22bb22", color:"#fff"}})
             }, 1000);
          }
       },

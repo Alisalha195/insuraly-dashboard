@@ -84,7 +84,7 @@ export const getEmployeeByID = async (req , res , next) => {
 export const getEmployeeServices = async (req , res , next) => {
    const {employeeID} = req.query;
    const employeeIDAsNumber = Number(employeeID);
-   console.log("employeeID in getEmployeeServices :",employeeIDAsNumber);
+   // console.log("employeeID in getEmployeeServices :",employeeIDAsNumber);
    const { data , error } = await supabase
    .from(servicesTable)
    .select(`
@@ -104,7 +104,7 @@ export const getEmployeeServices = async (req , res , next) => {
       res.status(404).json({ msg: "something went wrong !" });
     } else {
       const filteredData = data.filter(item => item.Business_Employee !== null);
-      console.log("services :",filteredData);
+      // console.log("services :",filteredData);
       res.status(200).json(filteredData);
       return data;
     }
