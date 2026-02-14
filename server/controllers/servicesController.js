@@ -67,6 +67,55 @@ export const addService = async (req , res , next) => {
    
 }
 
+export const updateService = async (req , res , next) => {
+
+   const {
+      business_employee_id ,
+      serviceID ,
+      initiateDate ,
+      initiateSalary ,
+      initiateRegistrationDate ,
+      initiateRegistrationNumber ,
+      
+      finishDate ,
+      finishRegistrationDate,
+      finishRegistrationNumber,
+      finishReason
+      
+   } = req.body;
+   
+   console.log("data in updateService :", req.body);
+   
+   const {data:service , error:serviceError } = await supabase
+   .from(servicesTable)
+   .update({
+      // business_employee_id :business_employee_id,
+      initiate_start_date :initiateDate ,
+      apply_salary : initiateSalary ,
+      initiate_registration_date :initiateRegistrationDate,
+      initiate_registration_number: initiateRegistrationNumber ,
+      
+      finish_date : finishDate ? finishDate : null,
+      finish_registration_date : finishRegistrationDate? finishRegistrationDate: null,
+      finish_registration_number :finishRegistrationNumber ? finishRegistrationNumber : null,
+      finish_reason :finishReason ? finishReason : null,
+      
+   })
+   .eq("service_id", serviceID)
+   .select();
+   
+   if((service?.length > 0) && (!serviceError)) {
+      // req.body.service_id = service[0].service_id;
+      // console.log(" with id :", req.body.service_id);
+      res.status(200).json({msg:"service updated successfully", status:200});
+      // next();
+   }  else {
+      res.status(400).json({msg:"failed to update service", status:400});
+   }
+   
+      
+}
+
 export const getFinishedWorkReasons = async (req , res , next) => {
    const { data:reasons , error:reasonsError } = await supabase
    .from(serviceFinishReasonsTable)

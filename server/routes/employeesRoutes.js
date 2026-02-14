@@ -7,7 +7,7 @@ import {
    getPersonalInfoByInsuranceNumber 
 } from "../controllers/personalInfoController.js";
 import { addEmployeeToBusiness } from "../controllers/businessController.js";
-import { addService } from "../controllers/servicesController.js";
+import { addService, updateService } from "../controllers/servicesController.js";
 
 const router = Router();
 
@@ -15,7 +15,8 @@ const router = Router();
 // router.post("/create", createPersonalInfoRecord ,createEmployee)
 
 //? get employee by one of three variables (after getting related personal information record)  
-router.post("/add-service", addEmployeeToBusiness, addService,)
+router.post("/add-service", addEmployeeToBusiness, addService,);
+router.post("/edit-service",updateService);
 
 router.post("/get/national-number", getPersonalInfoByNationalNumber, getEmployeeInBusiness)
 router.post("/get/name",  getEmployeeByNamesInBusiness)
