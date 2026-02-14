@@ -172,8 +172,8 @@ const AddServiceAtBusinessContent = () => {
       
    },[initiateDate, initiateRegistrationDate , finishDate, finishRegistrationDate ]);
       
-   const saveEmployee = useMutation({
-      mutationFn : (employee) => fetch(`${host}/employees/add-service`,{method:'POST', headers: {'Content-Type' : 'application/json'}, body : JSON.stringify(employee)}).then(res => res.json()) ,
+   const saveService = useMutation({
+      mutationFn : (service) => fetch(`${host}/employees/add-service`,{method:'POST', headers: {'Content-Type' : 'application/json'}, body : JSON.stringify(service)}).then(res => res.json()) ,
       
       onError : (error) => {
          console.log("error occured ! :",error)
@@ -181,16 +181,16 @@ const AddServiceAtBusinessContent = () => {
       onSuccess: (response) => {
          if(response?.status == 404 || response?.status == 400){
             
-            toast.error(response?.msg || "somethng went wrong");
+            toast(response?.msg || "somethng went wrong",{duration:2500, position:"top-center", style:{backgroundColor:"#FF5555", color:"#fff"}});
          } else if(response?.status == 200) {
             navigate(-1)
             setTimeout(() => {
-               toast.success('Service Added Successfuly !');
+               toast(response?.msg || "Service Added Successfuly !",{duration:2500, position:"top-center", style:{backgroundColor:"#22bb22", color:"#fff"}})
             }, 1000);
          }
       },
    })
-   const handleSaveEmployee = (data) => {
+   const handleSaveService = (data) => {
       // setValue( "employeeID",employee?.emp_id)
       
       data.finishReason = serviceFinish ? data.finishReason : null ;
@@ -198,7 +198,7 @@ const AddServiceAtBusinessContent = () => {
       data.finishRegistrationDate = serviceFinish ? data.finishRegistrationDate : null ;
       data.finishRegistrationNumber = serviceFinish ? data.finishRegistrationNumber : null ;
       
-      saveEmployee.mutate({...data, businessID : location?.state?.businessID || 0, employeeID:location?.state?.employeeID});
+      saveService.mutate({...data, businessID : location?.state?.businessID || 0, employeeID:location?.state?.employeeID});
    }
       
 //   const handleViewEmployeeName = async(val) => {
@@ -367,7 +367,7 @@ const AddServiceAtBusinessContent = () => {
                />
             </Grid>
          </Box>
-          <Control click = {handleSubmit(handleSaveEmployee)} />
+          <Control click = {handleSubmit(handleSaveService)} />
     </Box>
   )
 

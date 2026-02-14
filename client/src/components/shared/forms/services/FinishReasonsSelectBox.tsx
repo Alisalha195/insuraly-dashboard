@@ -19,7 +19,7 @@ const FisinshReasonsSelectBox = ({label ,Controller,control ,data, error,default
          Controller={Controller}
          control={control}
          error={error}
-         defaultValue={finishReasonsData[0].value}
+         defaultValue={defaultValue || finishReasonsData[0].value}
          disabled={disabled}
       />
     </Flex>

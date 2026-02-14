@@ -194,9 +194,9 @@ const WagesOfService = () => {
       // prompt("Wage date updated successfully.");
       update(index, { wageDate: new Date(date), wageAmount: fields[index]?.wageAmount || 0 });
       // console.log("updated fields :" , form.getValues("wages"));
-      // setTimeout(() => {
-      //    handleSortByDate();
-      // }, 1000);
+      setTimeout(() => {
+         handleSortByDate();
+      }, 1000);
    }
    
    const handleSortByDate = () => {
