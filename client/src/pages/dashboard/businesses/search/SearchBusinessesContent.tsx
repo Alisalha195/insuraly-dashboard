@@ -9,7 +9,7 @@ const SearchBusinessesContent = () => {
    
    const searchInputRef = useRef<HTMLInputElement>(null);
    const [searchValue, setSearchValue] = useState("");
-   const { textPrimary} = useThemedColors();
+   const { textPrimary, textSecondary} = useThemedColors();
    
    useEffect(()=>{
       // setInterval(() => {
@@ -25,7 +25,7 @@ const SearchBusinessesContent = () => {
       <BackArrow />
       
       <VStack >
-         <Text>
+         <Text color={textSecondary} fontWeight={500}>
             Search for Businesses
          </Text>
          <Box width={{xssToXmm:"90%", xmmTo3xl:"60%"}}>

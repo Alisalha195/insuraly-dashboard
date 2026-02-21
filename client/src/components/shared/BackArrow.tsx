@@ -4,11 +4,11 @@ import { useNavigate } from 'react-router-dom';
 
 import React from 'react'
 
-const BackArrow = () => {
+const BackArrow = ({...props}) => {
    const navigate = useNavigate();
    return (
       <Flex>
-         <HStack className='btn' gap={0} onClick={() => navigate(-1)}>
+         <HStack ref={props?.ref ?? null} className='btn' gap={0} onClick={() => navigate(-1)}>
             <Text fontSize={{ xssToXs: "0.7rem", xsToXm: "0.8rem", xmToSm: "0.9rem" }}>
                <IoIosArrowBack />
             </Text>

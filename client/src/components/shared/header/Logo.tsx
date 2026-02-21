@@ -3,8 +3,9 @@ import {  Box , Flex, HStack, Span, Text } from "@chakra-ui/react"
 import useThemedColors from "../../../hooks/useThemedColors"
 import { useEffect, useState } from "react";
 import { getScrollBarWidth } from "../../../lib/helpers";
+import LogoBasic from "./LogoBasic";
 
-const Logo = ({ref,containerRef}) => {
+const Logo = ({ref,containerRef, ...props}) => {
    const { logoText, logoBackground} = useThemedColors();
    
    const[footerWidth , setFooterWidth] = useState({
@@ -18,43 +19,16 @@ const Logo = ({ref,containerRef}) => {
          mdTo3xl : (0.2 * window.innerWidth) - (getScrollBarWidth(containerRef) + getScrollBarWidth(containerRef) / 4 )
       })
    },[window.innerWidth, getScrollBarWidth(containerRef)]);
-      
+   
    return (
       <Box 
          ref={ref} 
          width={{xssToMd: `${footerWidth.xmToMd}px` , mdTo3xl:`${footerWidth.mdTo3xl}px`}}
          position={'fixed'}
          // backgroundColor={"#f0f"}
+         display={props?.hidden ? "none" : "block"}
       >
-         <Flex 
-            justifyContent={'center'}
-         >
-            <Span
-               backgroundColor={"#999"}
-               borderTopLeftRadius={"8px"}
-               borderBottomRightRadius={"8px"}
-            >
-               <Span
-                  fontSize={{xmDown:"19px"}} 
-                  className="btn [font-style:italic] [font-weight:bold]" 
-                  // color={logoText}
-                  maxWidth={'auto'}
-                  maxHeight={'auto'}
-                  // backgroundColor={logoBackground}
-                  // borderWidth={1}   
-                  // borderColor={logoText} 
-                  paddingX={2}
-                  // borderRadius="5px 12px 5px 12px"
-                  borderTopLeftRadius={"80px"}
-                  borderBottomRightRadius={"80px"}
-                  background="linear-gradient(90deg, #4A90E2, #50E3C2)"
-                  // color={"#555"}
-               >
-                  
-                  INSURALY
-               </Span>
-            </Span>
-         </Flex>
+         <LogoBasic /> 
       </Box>
    )
    

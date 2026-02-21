@@ -9,10 +9,10 @@ import EmailField from './EmailField';
 const ContactFields = ({ register, errors, Controller, control }) => {
 
    // const {dataObject, setPhoneNumber, setEmail} = data
-   const { textPrimary, textSecondary, titleTextSecondary, borderSecondary } = useThemedColors();
+   const { textPrimary, textSecondary, titleTextSecondary, borderSecondary, inputContainerBg } = useThemedColors();
 
    return (
-      <Box padding={1} marginY={2} borderWidth={1} borderColor={borderSecondary}>
+      <Box padding={1} marginY={2} borderWidth={1} borderColor={borderSecondary} backgroundColor={inputContainerBg}>
          <Text fontSize={{ xssToXs: "16px", xsToXm: "17px", xmToSm: "18px", smToMd: "20px", mdTo3xl: "22px" }} marginBottom={1} color={titleTextSecondary}>Contact</Text>
          <Grid className=' ' templateColumns={{ mdTo2xl: "repeat(2, 1fr)" }} padding={2} gap={2}>
             <PhoneNumberField

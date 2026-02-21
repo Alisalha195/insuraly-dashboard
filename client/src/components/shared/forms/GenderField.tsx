@@ -7,7 +7,7 @@ import { useState } from "react";
 const GenderField = ({register,Controller, control,error}) => {
    
    const [gender , setGender] = useState("1")
-   const { textSecondary,textError} = useThemedColors();
+   const { textSecondary,textError, textPrimary} = useThemedColors();
   return (
    <Flex  flexDirection={'column'}  justify={'space-between'}>
       
@@ -24,14 +24,14 @@ const GenderField = ({register,Controller, control,error}) => {
 
                   <RadioGroup.Item key={"1"}     value={"1"} className="btn">
                      <RadioGroup.ItemHiddenInput />
-                     <RadioGroup.ItemIndicator className="btn" color={"#77f"} backgroundColor={"transparent"} />
-                     <RadioGroup.ItemText fontSize={{ xssToXs: "14px", xsToXm: "15px", xmToSm: "16px", smToMd: "18px", mdTo3xl: "20px" }}>Male</RadioGroup.ItemText>
+                     <RadioGroup.ItemIndicator className="btn" color={"#77f"} backgroundColor={"transparent"} borderColor={"#77f"} />
+                     <RadioGroup.ItemText fontSize={{ xssToXs: "14px", xsToXm: "15px", xmToSm: "16px", smToMd: "18px", mdTo3xl: "20px" }}color={textSecondary} >Male</RadioGroup.ItemText>
                   </RadioGroup.Item>
 
                   <RadioGroup.Item key={"0"}    value={"0"} className="btn">
                      <RadioGroup.ItemHiddenInput />
-                     <RadioGroup.ItemIndicator className="btn" color={"#f88"} backgroundColor={"transparent"} />
-                     <RadioGroup.ItemText fontSize={{ xssToXs: "14px", xsToXm: "15px", xmToSm: "16px", smToMd: "18px", mdTo3xl: "20px" }}>Female</RadioGroup.ItemText>
+                     <RadioGroup.ItemIndicator className="btn" color={"#f88"} backgroundColor={"transparent"} borderColor={"#f88"} />
+                     <RadioGroup.ItemText fontSize={{ xssToXs: "14px", xsToXm: "15px", xmToSm: "16px", smToMd: "18px", mdTo3xl: "20px" }} color={textSecondary}>Female</RadioGroup.ItemText>
                   </RadioGroup.Item>
                </HStack>
             </RadioGroup.Root>

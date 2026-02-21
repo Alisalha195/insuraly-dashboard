@@ -6,7 +6,7 @@ import { getTableRowsCount } from '../../../api/getTableRowsCount';
 import { businessOwnerTableHeaderData } from "../../../components/dashboard/content/baseContent/tables/businessOwners/businessOwnerTableHeaderData.ts";
 import TableHeader from "../../../components/shared/tables/TableHeader.tsx"
 import BusinessOwnerTableBody from '../../../components/dashboard/content/baseContent/tables/businessOwners/BusinessOwnerTableBody';
-import { Box, HStack, Flex, Text, VStack, Icon, } from '@chakra-ui/react';
+import { Box, HStack, Flex, Text, VStack, Icon, Span, } from '@chakra-ui/react';
 import useThemedColors from '../../../hooks/useThemedColors';
 import DataTable from '../../../components/shared/tables/DataTable.tsx';
 import DataTableControl from '../../../components/shared/tables/DataTableControl.tsx';
@@ -20,7 +20,7 @@ const BusinessOwnersPageContent = () => {
    const navigate = useNavigate();
    const [currentpage, setCurrentPage] = useState(1);
    const pageSize = 5;
-   const { btnSecondary, textPrimary, bgSecondary } = useThemedColors();
+   const { btnSecondary, textPrimary, bgSecondary, textSecondary } = useThemedColors();
    const businessOwnersCount = getTableRowsCount('businessOwners');
 
    const { data: businessOwnerData,
@@ -38,8 +38,8 @@ const BusinessOwnersPageContent = () => {
          <Box >
             {/* header line */}
             <PageHeadTitle
-               backButton={true}
-               title={"Business Owners"}
+               backButton={true} 
+               title={<Span fontWeight={500} color={textSecondary}>Business Owners </Span>}
             />
             
             {/* upper control */}

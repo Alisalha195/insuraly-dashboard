@@ -1,4 +1,4 @@
-import { Box, Flex, HStack, Icon,  Text, VStack } from '@chakra-ui/react';
+import { Box, Flex, HStack, Icon,  Span,  Text, VStack } from '@chakra-ui/react';
 import React, { useState } from 'react'
 import BackArrow from '../../../../components/shared/BackArrow';
 import PageHeadTitle from '../../../../components/shared/PageHeadTitle';
@@ -23,7 +23,7 @@ const BusinessEmployeesContent = () => {
    const navigate = useNavigate();
    const location =  useLocation();
    
-   const { btnSecondary, textPrimary, bgSecondary } = useThemedColors();
+   const { btnSecondary, textPrimary, bgSecondary, textSecondary } = useThemedColors();
    const [currentpage, setCurrentPage] = useState(1);
    const pageSize = 5;
    // const [employeesCount, setEmployeesCount] = useState(0);
@@ -47,9 +47,14 @@ const BusinessEmployeesContent = () => {
    
   return (
       <Box>
-         {/* header line */}
+         {/* header line */} 
          <PageHeadTitle 
-            title={` ${ capitalize(location?.state?.businessName)  || "Business"} Employees`}
+            title={<><Span fontWeight={700} color={textSecondary}>
+               { capitalize(location?.state?.businessName)  || "Business"}
+               </Span>
+               <Span fontWeight={500} color={textSecondary}> Employees</Span>
+               </>
+               }
             backButton={true}
          />
          

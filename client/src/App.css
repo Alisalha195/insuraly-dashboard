@@ -4,6 +4,9 @@
 .btn-disabled {
   cursor: no-drop;
 }
+.chakra-theme-light {
+   background-color: #666 !important ;
+}
 
 @media (min-width: 473px) and (max-width: 840px) {
   .xs-to-sm-container {
@@ -20,6 +23,11 @@
   background-color: transparent;
   outline: none;
   color: #666;
+}
+
+.collapsed {
+   width: 60px !important;
+   /* transition: width 0.3s ease-out; */
 }
 
 /* .fix-height  {

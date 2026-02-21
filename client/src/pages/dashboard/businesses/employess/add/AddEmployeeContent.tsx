@@ -1,4 +1,4 @@
-import { Box, Flex, Grid, HStack, Icon, Text, VStack, Switch, Center  } from "@chakra-ui/react";
+import { Box, Flex, Grid, HStack, Icon, Text, VStack, Switch, Center, Span  } from "@chakra-ui/react";
 import PageHeadTitle from "../../../../../components/shared/PageHeadTitle";
 import { useLocation, useNavigate } from "react-router-dom";
 import { capitalize } from "../../../../../lib/capitalize";
@@ -29,7 +29,7 @@ const AddEmployeeContent = () => {
    const [serviceFinish, setServiceFinish] = useState(false);
    const [employeeName ,setEmployeeName] = useState("");
    
-   const { textPrimary, textSecondary, btnSecondary, titleTextSecondary, borderSecondary } = useThemedColors();
+   const { textPrimary, textSecondary, btnSecondary, titleTextSecondary, borderSecondary, inputContainerBg, switchBtnBgOff, switchBtnBgOn  } = useThemedColors();
    
    const {reasonsData, isSuccessReasonsData, isLoadingReasonsData} = getFinishedWorkReasons();
    
@@ -254,16 +254,17 @@ const AddEmployeeContent = () => {
         return isEmployee ;
   }
    
-  return (
+  return ( 
     <Flex flexDirection={'column'} maxHeight={'100vh'} overflowY={'auto'}>
       <PageHeadTitle 
-         title={`Add New Employee To 
-            ${ 
-            (location?.state?.businessName && location?.state?.businessName != undefined)
-            ? capitalize(location?.state?.businessName)
-            : capitalize(location?.state?.businessName) 
-            }` || "Add Employee"
-         } 
+         title={<><Span fontWeight={"500"} color={textSecondary}>
+            Add New Employee To </Span>
+            <Span fontWeight={"700"} color={textSecondary}>
+               {(location?.state?.businessName && location?.state?.businessName != undefined)
+               && capitalize(location?.state?.businessName) || "Add Employee"}
+            </Span>
+            
+         </>} 
          backButton={true}
       />
       
@@ -295,7 +296,7 @@ const AddEmployeeContent = () => {
          
          {/* Employee insurance number */}
          <Box  padding={1} marginY={1} borderWidth={1} borderColor={borderSecondary}
-            paddingBottom={2}
+            paddingBottom={2} backgroundColor={inputContainerBg}
          >
             <Text marginBottom={4} color={titleTextSecondary}
                fontSize={{ xssToXs: "16px", xsToXm: "17px", xmToSm: "18px", smToMd: "20px", mdTo3xl: "22px" }}
@@ -337,7 +338,7 @@ const AddEmployeeContent = () => {
 
          {/* work initiate  */}
          <Box  padding={1} marginY={2} borderWidth={1} borderColor={borderSecondary}
-            paddingBottom={2}
+            paddingBottom={2} backgroundColor={inputContainerBg}
          >
             <Text marginBottom={4} color={titleTextSecondary}
                fontSize={{ xssToXs: "16px", xsToXm: "17px", xmToSm: "18px", smToMd: "20px", mdTo3xl: "22px" }}
@@ -396,7 +397,7 @@ const AddEmployeeContent = () => {
          
          {/* work finish  */}
          <Box  padding={1} marginY={2} borderWidth={1} borderColor={borderSecondary}
-         paddingBottom={2}
+         paddingBottom={2} backgroundColor={inputContainerBg}
          >
             <Flex justifyContent={'start'} alignItems={"center"}  marginBottom={4}>
 
@@ -409,11 +410,15 @@ const AddEmployeeContent = () => {
                checked={serviceFinish}
                onCheckedChange={(e) => setServiceFinish(e.checked)}
                size={"sm"}
+               colorPalette={"gray"}
+               
+               
+               // borderSecondary
             >
                <Switch.HiddenInput />
-               <Switch.Control>
-                  <Switch.Thumb />
-               </Switch.Control>
+               <Switch.Control    backgroundColor={!serviceFinish ? switchBtnBgOff : switchBtnBgOn } >
+                  <Switch.Thumb  backgroundColor={"#fff"}/>
+               </Switch.Control >
                <Switch.Label />
             </Switch.Root>
             </Flex>

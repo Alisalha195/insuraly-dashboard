@@ -1,4 +1,4 @@
-import { Box, Flex, Heading, HStack, Text, VStack } from "@chakra-ui/react";
+import { Box, Flex, Heading, HStack, Span, Text, VStack } from "@chakra-ui/react";
 import BusinessLogo from "../../../../components/shared/profile/business/BusinessLogo";
 import Budget from "../../../../components/shared/Budget";
 import Count from "../../../../components/shared/Count";
@@ -65,9 +65,9 @@ const BusinessProfileContent = () => {
       return (
          <Flex
             flexDirection={'column'}
-         >
+         > 
             <PageHeadTitle 
-            title={capitalize(businessData?.business_name) || "Business Profile"}
+            title={<Span fontWeight={500} color={textSecondary}>{capitalize(businessData?.business_name) || "Business Profile"}</Span>}
             backButton={true}
             />
 

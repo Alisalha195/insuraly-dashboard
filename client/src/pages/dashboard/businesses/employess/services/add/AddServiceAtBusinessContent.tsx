@@ -1,4 +1,4 @@
-import { Box, Flex, Grid, HStack, Switch, Text, VStack } from "@chakra-ui/react";
+import { Box, Flex, Grid, HStack, Span, Switch, Text, VStack } from "@chakra-ui/react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useForm, Controller } from "react-hook-form";
 import { z } from "zod";
@@ -24,7 +24,7 @@ const AddServiceAtBusinessContent = () => {
    const location =  useLocation();
    const [serviceFinish, setServiceFinish] = useState(false);
    
-   const { textPrimary, textSecondary, titleTextSecondary, borderSecondary } = useThemedColors();
+   const { textPrimary, textSecondary, titleTextSecondary, borderSecondary , inputContainerBg, switchBtnBgOff , switchBtnBgOn} = useThemedColors();
    
    const {reasonsData, isSuccessReasonsData, isLoadingReasonsData} = getFinishedWorkReasons();
    
@@ -215,17 +215,28 @@ const AddServiceAtBusinessContent = () => {
 //      }
 //         return isEmployee ;
 //   }
-   
+
   return (
     <Box>
       <PageHeadTitle 
-         title={`Add Service at 
-            ${ 
+         title={<>
+         <Span fontWeight={"500"} color={textSecondary} >Add Service at </Span> 
+            <Span
+               fontWeight={"700"} color={textSecondary}
+            > { 
             (location?.state?.businessName && location?.state?.businessName != undefined)
-            ? capitalize(location?.state?.businessName)
+            ? 
+               capitalize(location?.state?.businessName)
+              
             : "business" 
-            } for ${location?.state?.employeeName}` || "Add Service"
-         } 
+            } 
+            </Span>
+            <Span> for </Span> 
+            <Span fontWeight={"700"} color={textSecondary}>
+            {location?.state?.employeeName || "Add Service"}
+           </Span>
+           </>
+           } 
          backButton={true}
       />
       
@@ -234,8 +245,7 @@ const AddServiceAtBusinessContent = () => {
 
          {/* work initiate  */}
          <Box  padding={1} marginY={2} borderWidth={1} borderColor={borderSecondary}
-            paddingBottom={2}
-         >
+            paddingBottom={2} backgroundColor={inputContainerBg} >
             <Text marginBottom={4} color={titleTextSecondary}
                fontSize={{ xssToXs: "16px", xsToXm: "17px", xmToSm: "18px", smToMd: "20px", mdTo3xl: "22px" }}
             >
@@ -293,7 +303,7 @@ const AddServiceAtBusinessContent = () => {
          
          {/* work finish  */}
          <Box  padding={1} marginY={2} borderWidth={1} borderColor={borderSecondary}
-         paddingBottom={2}
+         paddingBottom={2} backgroundColor={inputContainerBg}
          >
             <Flex justifyContent={'start'} alignItems={"center"}  marginBottom={4}>
 
@@ -308,8 +318,8 @@ const AddServiceAtBusinessContent = () => {
                size={"sm"}
             >
                <Switch.HiddenInput />
-               <Switch.Control>
-                  <Switch.Thumb />
+               <Switch.Control backgroundColor={!serviceFinish ? switchBtnBgOff : switchBtnBgOn }>
+                  <Switch.Thumb backgroundColor={"#fff"} />
                </Switch.Control>
                <Switch.Label />
             </Switch.Root>

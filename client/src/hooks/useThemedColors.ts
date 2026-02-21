@@ -16,11 +16,17 @@ const useThemedColors: any = () => {
    const textInput = useColorModeValue('#777', '#aaa');
 
    const textError = useColorModeValue('red.500', 'red.400');
-
-   const inputBorder = useColorModeValue("#e4e4e7", "#27272a")
+   
+   const switchBtnBgOff = useColorModeValue("#ccc", "#aaa");
+   const switchBtnBgOn = useColorModeValue("#858585", "#27272a");
+   
+   const inputBorder = useColorModeValue("#ccc", "#27272a");
+   const inputContainerBg = useColorModeValue('#f1f1f1', 'transparent');
+   
    const bgPrimary = useColorModeValue('gray.100', 'gray.900');
    const bgSecondary = useColorModeValue('gray.100', 'gray.800');
 
+   const headerBackground = useColorModeValue("gray.100","linear-gradient(90deg, #000, #210e29)");
    const hovering = useColorModeValue('gray.300', 'gray.600');
 
    const btnPrimary = useColorModeValue('blue.600', 'blue.500');
@@ -30,10 +36,12 @@ const useThemedColors: any = () => {
    const btnGreen = useColorModeValue('green.400', 'green.500');
    const btnGray = useColorModeValue('#888', 'gray.300');
    
-   const InfoCardBorder = useColorModeValue('gray.200', 'gray.600');
+   const InfoCardBorder = useColorModeValue('#ccc', 'gray.800');
 
-   const borderSecondary = useColorModeValue('gray.100', 'gray.900');
+   const borderSecondary = useColorModeValue('#fff', 'gray.900');
 
+   
+   const tableHeaderBg = useColorModeValue('#d6d6d6', "#0c0214");
    const tableHead = useColorModeValue('gray.600', 'gray.300');
    const tableItem = useColorModeValue('gray.500', 'gray.400');
    
@@ -46,8 +54,10 @@ const useThemedColors: any = () => {
    
    const footerBg = useColorModeValue('#8d8d8d', '#6b6b6b');
    
+   const searchBoxBorder = useColorModeValue('#999', '#6b6b6b');
    
-
+   const iconInSidebar = useColorModeValue('#444', '#bbb');
+   const brand = useColorModeValue('#210e29', '#fff');
    // ? background colors for dashboard Cards
    // const bgInfoCard = {
    //    blue: useColorModeValue('blue.300', 'blue.500'),
@@ -75,7 +85,8 @@ const useThemedColors: any = () => {
       yellow: useColorModeValue('green.400', 'green.400'),
    };
 
-   const cardBasicColor = useColorModeValue('gray.200', 'gray.800');
+   const cardBasicColor = useColorModeValue('#f7f7f7', "linear-gradient(to left,#131313 ,#210e29 )");
+   
    return (
       {
          textPrimary,
@@ -107,7 +118,16 @@ const useThemedColors: any = () => {
          budgetText,
          CountText,
          iconGray,
-         footerBg
+         footerBg,
+         inputContainerBg ,
+         switchBtnBgOff, 
+         switchBtnBgOn ,
+         headerBackground, 
+         tableHeaderBg,
+         searchBoxBorder,
+         iconInSidebar,
+         brand
+         
       }
    )
 }

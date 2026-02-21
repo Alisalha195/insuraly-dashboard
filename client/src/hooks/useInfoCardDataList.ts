@@ -25,13 +25,6 @@ const useInfoCardDataList = () => {
          icon: MdOutlineBusinessCenter
       },
       {
-         title: "Claims",
-         amount: claimsCount,
-         basicColor: 'orange',
-         page: 'claims',
-         icon: FaDollarSign
-      },
-      {
          title: "Owners",
          amount: businessOwnerCount,
          basicColor: 'yellow',
@@ -44,6 +37,13 @@ const useInfoCardDataList = () => {
          basicColor: 'purple',
          page: 'retirements',
          icon: MdOutlineElderly
+      },
+      {
+         title: "Claims",
+         amount: claimsCount,
+         basicColor: 'orange',
+         page: 'claims',
+         icon: FaDollarSign
       },
    ];
    return infoCardDataList

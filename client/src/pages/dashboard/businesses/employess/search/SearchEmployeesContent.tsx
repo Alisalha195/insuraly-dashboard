@@ -10,7 +10,7 @@ const SearchEmployeesContent = ({businessName , businessID}) => {
    
    const searchInputRef = useRef<HTMLInputElement>(null);
    const [searchValue, setSearchValue] = useState("");
-   const { textPrimary} = useThemedColors();
+   const { textPrimary, textSecondary} = useThemedColors();
    
    useEffect(()=>{
       // setInterval(() => {
@@ -26,7 +26,7 @@ const SearchEmployeesContent = ({businessName , businessID}) => {
       <BackArrow />
       
       <VStack >
-         <Text>
+         <Text fontWeight={"500"} color={textSecondary}>
             Search for Employees 
          </Text>
          <Box width={{xssToXmm:"90%", xmmTo3xl:"60%"}}>

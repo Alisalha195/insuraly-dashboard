@@ -7,10 +7,10 @@ import useBusinessOwnerStore from '../../../store/useAddBusinessOwnerStore';
 import Control from './Control';
 
 const BirthFields = ({ register, Controller, control, errors }) => {
-   const { textPrimary, textSecondary, titleTextSecondary, borderSecondary } = useThemedColors();
+   const { textPrimary, textSecondary, titleTextSecondary, borderSecondary, inputContainerBg } = useThemedColors();
    // const { dataObject, setBirthDate, setBirthLocation} = data;
    return (
-      <Box padding={1} marginY={2} borderWidth={1} borderColor={borderSecondary}>
+      <Box padding={1} marginY={2} borderWidth={1} borderColor={borderSecondary} backgroundColor={inputContainerBg}>
          <Text marginBottom={1} fontSize={{ xssToXs: "16px", xsToXm: "17px", xmToSm: "18px", smToMd: "20px", mdTo3xl: "22px" }} color={titleTextSecondary}>Birth</Text>
          <Grid className=' ' templateColumns={{ mdTo2xl: "repeat(2, 1fr)" }} padding={2} gap={2}>
             <FieldGroup

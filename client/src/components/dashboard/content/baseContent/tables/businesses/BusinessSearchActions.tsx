@@ -1,7 +1,7 @@
 import SearchActions from '../../../../../shared/tables/SearchActions';
 import { BusinessSearchData } from './search/BusinessSerachData';
 
-const BusinessOwnerSearchActions = ({ searchValue }) => {
+const BusinessSearchActions = ({ searchValue }) => {
 
    return (
       <SearchActions
@@ -11,4 +11,4 @@ const BusinessOwnerSearchActions = ({ searchValue }) => {
    )
 }
 
-export default BusinessOwnerSearchActions;
+export default BusinessSearchActions;

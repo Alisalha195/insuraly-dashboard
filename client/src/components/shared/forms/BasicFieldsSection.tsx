@@ -10,11 +10,11 @@ import LimitedFieldGroup from './LimitedFieldGroup';
 import { nationalNumberLimit } from '../../../constants/forms';
 
 const BasicFieldsSection = ({ register, Controller, control, errors }) => {
-   const { textPrimary, textSecondary, titleTextSecondary, borderSecondary } = useThemedColors();
+   const { textPrimary, textSecondary, titleTextSecondary, borderSecondary, inputContainerBg } = useThemedColors();
 
    return (
-      <Box padding={1} marginY={2} borderWidth={1} borderColor={borderSecondary}>
-         <Text marginBottom={1} color={titleTextSecondary}
+      <Box padding={1} marginY={2} borderWidth={1} borderColor={borderSecondary} backgroundColor={inputContainerBg}>
+         <Text marginBottom={1} color={titleTextSecondary} 
             fontSize={{ xssToXs: "16px", xsToXm: "17px", xmToSm: "18px", smToMd: "20px", mdTo3xl: "22px" }}
          >
             Full Name

@@ -59,7 +59,7 @@ const DatePickerField = ({ register, label, Controller, control, error, name , .
                            className='btn'
                            value={field.value}
                            borderWidth={ (err || error) &&  1}
-                           borderColor={(err || error) &&  "#FF4444"}
+                           borderColor={(err || error) ?  "#FF4444" : inputBorder }
                            onChange={(date) => {
 
                               field.onChange(date)

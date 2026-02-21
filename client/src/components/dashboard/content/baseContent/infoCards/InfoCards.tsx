@@ -11,7 +11,7 @@ const InfoCards = () => {
       <Grid
          // className=' xs-to-sm-container' 
          templateColumns={{ xmToMd: "repeat(2, 1fr)", mdTo2xl: "repeat(4, 1fr)" }}
-         padding={2} xssToXmm={{ gap: 1 }} gap={2}
+         padding={{xssToSm:2, smToMd:5, mdTo3xl:2}} gap={{xssToXmm:2 , xmmToMd:3, mdTo3xl:4}}
       >
          {
             infoCardDataList.map((item, index) => (

@@ -1,8 +1,10 @@
 import { Avatar, Box, Field, Portal, Select,createListCollection } from '@chakra-ui/react'
 import React from 'react'
+import useThemedColors from '../../../hooks/useThemedColors';
 
 const SelectBox = ({name , Controller,control ,data, error,disabled, defaultValue}) => {
    const collectionData = createListCollection({items:data})
+   const { inputBorder } = useThemedColors();
    // console.log("collectionData",collectionData)
   return (
     <Box>
@@ -22,6 +24,9 @@ const SelectBox = ({name , Controller,control ,data, error,disabled, defaultValu
                 onInteractOutside={() => field.onBlur()}
                 defaultValue={defaultValue}
                 collection={collectionData}
+                
+                borderColor={inputBorder}
+               borderWidth={2}
               >
                 <Select.HiddenSelect />
                 <Select.Control>

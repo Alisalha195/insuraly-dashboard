@@ -3,7 +3,7 @@ import { getScrollBarWidth } from "../../../lib/helpers";
 import { useEffect, useState } from "react";
 import useThemedColors from "../../../hooks/useThemedColors";
 
-const Footer = ({ref,containerRef}) => {
+const Footer = ({ref,containerRef, collabsed}) => {
    
    const { footerBg} = useThemedColors();
    
@@ -19,6 +19,9 @@ const Footer = ({ref,containerRef}) => {
       })
    },[window.innerWidth, getScrollBarWidth(containerRef)]);
    
+   if(collabsed){
+      return null;
+   }
    return (
       <Box 
          ref={ref}

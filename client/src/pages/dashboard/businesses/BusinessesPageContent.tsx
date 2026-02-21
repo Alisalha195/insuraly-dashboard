@@ -6,7 +6,7 @@ import { useQuery } from "@tanstack/react-query";
 import DataTable from "../../../components/shared/tables/DataTable";
 import { getTableRowsCount } from "../../../api/getTableRowsCount";
 
-import { Box, Flex, HStack, Icon, Text, VStack } from "@chakra-ui/react";
+import { Box, Flex, HStack, Icon, Span, Text, VStack } from "@chakra-ui/react";
 import { AiFillPlusCircle } from "react-icons/ai";
 import useThemedColors from "../../../hooks/useThemedColors";
 import BackArrow from "../../../components/shared/BackArrow";
@@ -27,7 +27,7 @@ const BusinessesPageContent = () => {
    const navigate = useNavigate();
    const [currentpage, setCurrentPage] = useState(1);
    const pageSize = 5;
-   const { btnSecondary, textPrimary, bgSecondary } = useThemedColors();
+   const { btnSecondary, textPrimary, bgSecondary, textSecondary } = useThemedColors();
    const businessesCount = getTableRowsCount("business");
 
    const {
@@ -63,7 +63,7 @@ const BusinessesPageContent = () => {
             {/* header line */}
             <PageHeadTitle
                backButton={true}
-               title={"Businesses"}
+               title={<Span fontWeight={500} color={textSecondary}>Businesses</Span>}
             />
 
             {/* upper control */}

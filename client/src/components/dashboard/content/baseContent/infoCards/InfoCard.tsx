@@ -14,8 +14,8 @@ const InfoCard = ({ data }) => {
       <Box
          // _hover={{ backgroundColor: bgInfoCardHover[data.bgColor] }} 
          // backgroundColor={bgInfoCard[data.bgColor]}
-         backgroundColor={cardBasicColor}
-         borderWidth={2}
+         background={cardBasicColor}
+         borderWidth={1}
          borderColor={InfoCardBorder}
          borderRadius={6}
          direction='column'

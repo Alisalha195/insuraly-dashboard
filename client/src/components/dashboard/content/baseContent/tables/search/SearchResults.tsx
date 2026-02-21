@@ -9,14 +9,14 @@ const SearchResults = ({ resultData, isSuccess,headerData, tableBody }) => {
       <Flex flexDirection={'column'}
          smToMd={{ maxWidth: '70vw' }}
          smDown={{ maxWidth: '96vw' }}
-         maxWidth={'98vw'}
-         height={'40vh'}
+         Width={'98vw'}
+         maxHeight={'50vh'}
          overflowY={'auto'}
          
       >
 
          <DataTable
-            maxHeight={"70vh"}
+            maxHeight={"50vh"}
             data={resultData}
             TableHeader={
                <TableHeader headerData={headerData} />

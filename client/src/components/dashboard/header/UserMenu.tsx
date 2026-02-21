@@ -55,18 +55,20 @@ const UserMenu = () => {
 
                            (item.text == 'logout') 
                            ?
-                           <Flex key={index} _hover={{ backgroundColor: hovering }} className=" btn  [border-radius:7px] text-[24px]" justifyContent={'start'} marginY={2} paddingLeft={1}>
+                           <Flex key={index} _hover={{ backgroundColor: hovering }} className=" btn  [border-radius:7px] text-[24px]" justifyContent={'start'} marginY={2} paddingLeft={1} paddingY={1}>
 
                               <Box className="hover:[text-decoration:none] " outline={'none'} border={'none'}
                               onClick={() => handleLogout()}
                               >
-                                 <Icon marginRight={1}><item.icon /></Icon>
-                                 <Text>{item.text}</Text>
+                                  <Flex alignItems={'center'} gapX={1}>
+                                    <Icon marginRight={1}><item.icon /></Icon>
+                                    <Text>{item.text}</Text>
+                                 </Flex>
                               </Box>
 
                            </Flex>
                            :
-                           <Flex key={index} _hover={{ backgroundColor: hovering }} className=" btn  [border-radius:7px] text-[24px]" justifyContent={'start'} marginY={2} paddingLeft={1}>
+                           <Flex key={index} _hover={{ backgroundColor: hovering }} className=" btn  [border-radius:7px] text-[24px]" justifyContent={'start'} marginY={2} paddingLeft={1} paddingY={1}>
 
                               <Link className="hover:[text-decoration:none] " href="www.google.com" outline={'none'} border={'none'}>
                                  <Icon marginRight={1}><item.icon /></Icon>

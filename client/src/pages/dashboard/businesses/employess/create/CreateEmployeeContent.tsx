@@ -1,4 +1,4 @@
-import { Box, Flex, Grid, Switch, Text } from "@chakra-ui/react";
+import { Box, Flex, Grid, Span, Switch, Text } from "@chakra-ui/react";
 import BackArrow from "../../../../../components/shared/BackArrow";
 import BasicFieldsSection from "../../../../../components/shared/forms/BasicFieldsSection";
 import BirthFields from "../../../../../components/shared/forms/BirthFields";
@@ -21,6 +21,7 @@ import DatePickerField from "../../../../../components/shared/forms/DatePickerFi
 import { useEffect, useState } from "react";
 import { getFinishedWorkReasons } from "../../../../../api/services/getServicesRelatedData";
 import FisinshReasonsSelectBox from "../../../../../components/shared/forms/services/FinishReasonsSelectBox";
+import { capitalize } from "../../../../../lib/capitalize";
 
 const CreateEmployeeContent = () => {
    
@@ -31,7 +32,7 @@ const CreateEmployeeContent = () => {
    
    const [serviceFinish, setServiceFinish] = useState(false);
    const location = useLocation();
-   const { textPrimary, textSecondary, borderSecondary, titleTextSecondary } = useThemedColors();
+   const { textPrimary, textSecondary, borderSecondary, titleTextSecondary, inputContainerBg, switchBtnBgOff , switchBtnBgOn } = useThemedColors();
    
       const {reasonsData, isSuccessReasonsData, isLoadingReasonsData} = getFinishedWorkReasons();
    
@@ -240,11 +241,13 @@ const CreateEmployeeContent = () => {
          saveEmployee.mutate({...data, businessID : location?.state?.businessID || 0});
       }
 
-   return (
+   return ( 
       <Flex flexDirection={'column'} maxHeight={'100vh'} overflowY={'scroll'}>
          <BackArrow />
          <Text color={textSecondary} textAlign={'center'} fontWeight={"500"}>
-            New Employee for {location?.state?.businessName}
+            <Span>New Employee for </Span> 
+            <Span fontWeight={"700"}>{capitalize(location?.state?.businessName)}
+               </Span> 
          </Text>
 
          <BasicFieldsSection
@@ -276,7 +279,7 @@ const CreateEmployeeContent = () => {
 
          {/* work initiate  */}
          <Box  padding={1} marginY={2} borderWidth={1} borderColor={borderSecondary}
-            paddingBottom={2}
+            paddingBottom={2} backgroundColor={inputContainerBg}
          >
             <Text marginBottom={4} color={titleTextSecondary}
                fontSize={{ xssToXs: "16px", xsToXm: "17px", xmToSm: "18px", smToMd: "20px", mdTo3xl: "22px" }}
@@ -335,7 +338,7 @@ const CreateEmployeeContent = () => {
 
          {/* work finish  */}
          <Box  padding={1} marginY={2} borderWidth={1} borderColor={borderSecondary}
-         paddingBottom={2}
+         paddingBottom={2} backgroundColor={inputContainerBg}
          >
             <Flex justifyContent={'start'} alignItems={"center"}  marginBottom={4}>
 
@@ -348,10 +351,11 @@ const CreateEmployeeContent = () => {
                checked={serviceFinish}
                onCheckedChange={(e) => setServiceFinish(e.checked)}
                size={"sm"}
+               colorPalette={"gray"}
             >
                <Switch.HiddenInput />
-               <Switch.Control>
-                  <Switch.Thumb />
+               <Switch.Control backgroundColor={!serviceFinish ? switchBtnBgOff : switchBtnBgOn }>
+                  <Switch.Thumb backgroundColor={"#fff"} />
                </Switch.Control>
                <Switch.Label />
             </Switch.Root>

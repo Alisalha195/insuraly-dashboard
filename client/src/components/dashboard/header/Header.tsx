@@ -7,20 +7,45 @@ import Logo from "../../shared/header/Logo";
 import FixGrowBox from "../../shared/FixGrowBox";
 import SidebarDrawer from "../content/sidebar/SidebarDrawer";
 import { useEffect, useRef } from "react";
+import { useResizeObserver } from "../../../hooks/useResizeObserver";
+import LogoBasic from "../../shared/header/LogoBasic";
 
-const Header = ({ref}) => {
-   const {bgPrimary} = useThemedColors();
+const Header = ({ref, SidebarSize , ...props}) => {
+   
+   const [logoRef, logoSize] = useResizeObserver();
+   
+   const {bgPrimary, borderSecondary, textSecondary, headerBackground} = useThemedColors();
     
   return (
-    <HStack zIndex={1000} ref={ref}  position={'fixed'} width={{xssToSm:"100%", smToMd:"70%", mdTo3xl:"80%"}}   flexGrow={1}   paddingX={1} gap={{xmTo2xl:2}}  bg={bgPrimary} justifyContent={'space-between'} >
+    <HStack 
+      zIndex={1000} 
+      ref={ref}  
+      position={'fixed'} 
+      width={{xssToSm:"100%", smTo3xl: `calc(100% - ${SidebarSize?.width}px)`}}
+      flexGrow={1}   
+      paddingX={1} 
+      gap={{xmTo2xl:2}}  
+      bg={headerBackground} 
+      justifyContent={'space-between'} 
+      backgroundColor={headerBackground} 
+   >
       <Flex className="flex w-full" paddingBottom={0}  
        xmTo3xl={{padding:1 , paddingTop:'8px'}}>
-         <Flex smDown={{display:'none'}} flexDirection='column' justifyContent='center' >
-            <SearchBox ref={null} isFull={false} large={false}/>
+         
+         {
+            (props?.logo)
+            ?  <Flex  flexDirection='column' justifyContent='center' marginRight={5}>
+                  <LogoBasic />
+               </Flex>
+            : null
+         }
+         
+         
+         <Flex smDown={{display:'none'}} flexDirection='column' justifyContent='center' 
+         >
+            <SearchBox setSearchValue={()=>{}} ref={null} isFull={false} large={false}/>
          </Flex>
-         <Flex sm={{display:"none"}} flexDirection='column' justifyContent='center' >
-            <Logo />
-         </Flex>
+         
          
          <FixGrowBox />
          
@@ -46,4 +71,4 @@ const Header = ({ref}) => {
   )
 }
 
-export default Header
+export default Header;

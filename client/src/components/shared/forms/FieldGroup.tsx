@@ -6,7 +6,7 @@ import { set } from 'react-hook-form';
 
 const FieldGroup = ({ register, name, type, preInputText, invalid, label, placeholder, error, onchangeValue, ...props}) => {
 
-   const { textSecondary, textError, textInput } = useThemedColors();
+   const { textSecondary, textError, textInput, inputBorder } = useThemedColors();
    ;
    return (
       <Field.Root invalid={invalid} >
@@ -31,7 +31,8 @@ const FieldGroup = ({ register, name, type, preInputText, invalid, label, placeh
                paddingX={2}
                height={'auto'}
                color={textInput}
-
+               borderColor={inputBorder}
+               borderWidth={2}
                // onChange={(e)=>{
                //     if(name == "nationalNumber") {
                //        e.target.value.length > 11 && (e.target.value = e.target.value.slice(0,11)) 

@@ -4,12 +4,12 @@ import useThemedColors from '../../../hooks/useThemedColors';
 
 const TableHeader = ({ headerData }) => {
 
-   const { tableHead } = useThemedColors();
+   const { tableHead, tableHeaderBg } = useThemedColors();
    return (
       <Table.Header>
-         <Table.Row>
+         <Table.Row backgroundColor={tableHeaderBg}>
             {headerData?.map((item, index) => (
-               <Table.ColumnHeader key={index} fontSize={{ xssToXs: "13px", xsToXm: "15px", xmToSm: "16px" }} textWrap={"nowrap"}>
+               <Table.ColumnHeader key={index} fontSize={{ xssToXs: "13px", xsToXm: "15px", xmToSm: "16px" }} textWrap={"nowrap"} >
                   <Text color={tableHead}>
                      {item}
                   </Text>

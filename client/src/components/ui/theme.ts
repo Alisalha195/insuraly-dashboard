@@ -1,6 +1,17 @@
 import { createSystem, defaultConfig, defineConfig,  } from "@chakra-ui/react";
 
 const config = defineConfig({
+   globalCss: {
+      body: {
+         bg: {
+            default: "white",
+            // _dark: "#0f0f0f",
+            _dark: "linear-gradient(90deg, #000, #210e29)",
+            _light: "#eaeaea",
+         },
+         
+      },
+   },
    theme: {
       tokens: {
          colors: {
@@ -47,6 +58,12 @@ const config = defineConfig({
          sizes : {
             "xss" : {value: "4px"}
          } ,
+         // colors: {
+         //    background: {
+         //       default: { value: "{colors.background.light}" },
+         //       _dark: { value: "{colors.background.light}" },
+         //    },
+         // },
       },
       
    },

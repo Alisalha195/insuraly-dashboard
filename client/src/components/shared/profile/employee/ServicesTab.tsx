@@ -47,16 +47,19 @@ const ServicesTab = ({employeeId}) => {
    } else if (!!servicesData && servicesDataSuccess) {
       return (
          <Box>
-            <HStack marginBottom={1} justifyContent={"start"}>
+            {/* <HStack marginBottom={1} justifyContent={"start"}>
                <Box className='btn' color={btnSecondary}>
+                  
                   <Text onClick={() => navigate("/dashboard/businesses/add")} fontSize={{ xssToXm: "14px", xmToSm: "16px" }} marginLeft={2}
                      marginBottom={1}
-                  >
+                  > */}
+                     
                      {/* <AiFillPlusCircle /> */}
-                     new service
-                  </Text>
+                     {/* new service */}
+                     
+                  {/* </Text>
                </Box>
-            </HStack>
+            </HStack> */}
 
             <Flex flexDirection={'column'}
                smToMd={{ maxWidth: '70vw' }}

@@ -16,7 +16,7 @@ const LimitedFieldGroup = ({
    control,
    limit,
 }) => {
-   const { textSecondary, textError, textInput } = useThemedColors();
+   const { textSecondary, textError, textInput, inputBorder } = useThemedColors();
    //   const [invalid2, setInvalid2] = useState(false);
 
    return (
@@ -50,6 +50,9 @@ const LimitedFieldGroup = ({
                      height={"auto"}
                      color={textInput}
                      ps={label == "phone number" ? "8ch" : ""}
+                     
+                     borderColor={inputBorder}
+                     borderWidth={2}
                   />
                </InputGroup>
             )}
