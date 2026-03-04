@@ -36,6 +36,7 @@ import EmployeeProfile from './pages/dashboard/businesses/employess/profile';
 import AddServiceAtBusiness from './pages/dashboard/businesses/employess/services/add';
 import EditServiceAtBusiness from './pages/dashboard/businesses/employess/services/edit';
 import ServiceWages from './pages/dashboard/businesses/employess/services/wages';
+import Profile from './pages/profile';
 
 
 
@@ -85,11 +86,15 @@ function App() {
                      
                      {/* Retirements Routes */}
                      <Route path='/dashboard/retirements' element={<ProtectedRoute><Retirements /></ProtectedRoute>} />
+                     
+                     {/* profile */}
+                     <Route path='/profile/:personId' element={<ProtectedRoute><Profile /></ProtectedRoute>} />
                   </Route>
                   
                   {/* Auth Routes */}
                   <Route path='/auth/login' element={<ProtectedAuthRoute><Login /></ProtectedAuthRoute> } />
                   <Route path='/auth/signup' element={<ProtectedAuthRoute><Signup /></ProtectedAuthRoute>} />
+                  
                   
                </Routes>
             </AuthContextProvider>
