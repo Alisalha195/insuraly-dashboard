@@ -17,6 +17,7 @@ import {
   getBusinessById,
   setBusinessEmployeesCount,
   getBusinessEmployeesCountMiddleware,
+  getBusinessBudgetByID,
 } from "../controllers/businessController.js";
 
 import { checkIfEmployee, createEmployee } from "../controllers/employeeController.js";
@@ -68,5 +69,7 @@ router.get("/stages", getStages);
 router.get("/statuses", getStatuses);
 
 router.put("/edit", editBusiness);
+
+router.get("/get-budget", getBusinessBudgetByID);
 
 export default router;

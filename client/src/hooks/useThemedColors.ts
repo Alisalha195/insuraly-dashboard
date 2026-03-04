@@ -78,6 +78,12 @@ const useThemedColors: any = () => {
       purple: useColorModeValue('#a7226f', '#a7226f'),
       yellow: useColorModeValue('#ebbf00', '#f7dc68'),
    };
+   const InfoCardsBackgroundColors = {
+      blue: useColorModeValue('#f7f7f7', "linear-gradient(180deg,#131313 ,#2e959966 )"),
+      orange: useColorModeValue('#f7f7f7', "linear-gradient(180deg,#131313 ,#f46c3f66 )"),
+      purple: useColorModeValue('#f7f7f7', "linear-gradient(180deg ,#131313 ,#a7226f66 )"),
+      yellow: useColorModeValue('#f7f7f7', "linear-gradient(180deg ,#131313 ,#f7dc6866 )"),
+   };
    const InfoCardsColorsHover = {
       blue: useColorModeValue('blue.400', 'blue.400'),
       orange: useColorModeValue('red.400', 'red.400'),
@@ -126,7 +132,8 @@ const useThemedColors: any = () => {
          tableHeaderBg,
          searchBoxBorder,
          iconInSidebar,
-         brand
+         brand,
+         InfoCardsBackgroundColors
          
       }
    )

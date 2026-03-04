@@ -7,8 +7,9 @@ export const getPersonalInfoByInsuranceNumber = async (value) => {
   });
 
   const personData = await person.json();
+//   console.log("person Data :", personData);
   
   if (personData?.status == "200") {
-    return personData;
+    return personData?.person;
   } else return null;
 };

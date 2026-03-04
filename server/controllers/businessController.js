@@ -98,11 +98,21 @@ export const getBusinessById = async (req, res, next) => {
 }
 
 export const addEmployeeToBusiness = async (req, res, next) => {
-  const { businessID, employeeID } = req.body;
+  let { businessID, employeeID , personID } = req.body;
   const businessIDAsNumber = Number(businessID);
-   //   console.log("businessIDAsNumber :", businessIDAsNumber);
-   //   console.log("employeeID :", employeeID);
-  
+
+  if(employeeID == 0 && personID ) {
+   const { data, error } = await supabase
+     .from(employeeTable)
+     .insert({ 
+         personal_info_id : Number(personID)
+      })
+      .select("emp_id");
+      
+      console.log("data in add :", data);
+      
+      employeeID = data[0].emp_id; 
+  }
   const {data:b_e, error:b_e_error} = await supabase
   .from(businessEmployeeTable)
   .select()
@@ -384,3 +394,22 @@ export const getBusinessByName = async (req, res, next) => {
   if (data?.length > 0) res.status(200).json(data);
   else res.status(404).json({ msg: "something went wrong !", status: 404 });
 };
+
+export const getBusinessBudgetByID = async (req, res, next) => {
+   const { id } = req.query;
+   console.log("businessId in getBusinessBudgetByID :",id);
+   
+   const { data, error } = await supabase
+     .from(businessTable)
+     .select(`
+        financial_balance
+     `)
+     .eq("business_id", Number(id));
+     
+      if(data.length < 1 || error) {
+        res.status(404).json({msg:"not found", status:404});
+      } else {
+        res.status(200).json({...data[0] , status:200});
+        next()
+      }
+}

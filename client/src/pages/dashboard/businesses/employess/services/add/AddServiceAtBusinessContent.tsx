@@ -17,19 +17,24 @@ import Control from "../../../../../../components/shared/forms/Control";
 import DatePickerField from "../../../../../../components/shared/forms/DatePickerField";
 import { getFinishedWorkReasons } from "../../../../../../api/services/getServicesRelatedData";
 import FisinshReasonsSelectBox from "../../../../../../components/shared/forms/services/FinishReasonsSelectBox";
+import { getEmployeeServices } from "../../../../../../api/employees/getEmployeeServices";
+import { checkServiceInitiateDateValidation } from "../../../../../../lib/helpers";
 
 const AddServiceAtBusinessContent = () => {
    
    const navigate = useNavigate();
    const location =  useLocation();
+
    const [serviceFinish, setServiceFinish] = useState(false);
+   // const [checkServiceValidation, setCheckServiceValidation] = useState(false);
+   const [serviceValidation , setServiceValidation] = useState({state: 0, msg:""});
    
    const { textPrimary, textSecondary, titleTextSecondary, borderSecondary , inputContainerBg, switchBtnBgOff , switchBtnBgOn} = useThemedColors();
    
    const {reasonsData, isSuccessReasonsData, isLoadingReasonsData} = getFinishedWorkReasons();
    
    const formSchema = z.object({
-
+      
       // employeeID : z.number(),
       // employeeInsuranceNumber : z.number().nonnegative()
       // .refine(async(val) => await handleViewEmployeeName(val) , {
@@ -67,9 +72,10 @@ const AddServiceAtBusinessContent = () => {
       handleSubmit ,
       watch ,
       setValue,
+      getValues,
       setError ,
       clearErrors ,
-      formState : {errors},
+      formState : {errors, isDirty},
       control ,
       trigger
    } = useForm<FormValues>({
@@ -78,6 +84,8 @@ const AddServiceAtBusinessContent = () => {
          // businessID : location?.state?.businessID || 0,
          initiateDate : new Date(Date.now()),
          initiateRegistrationDate : new Date(),
+         initiateRegistrationNumber:0,
+         initiateSalary:0,
          finishDate :new Date(Date.now()),
          finishRegistrationDate : new Date(Date.now()),
          finishRegistrationNumber : 0,
@@ -171,7 +179,35 @@ const AddServiceAtBusinessContent = () => {
       }
       
    },[initiateDate, initiateRegistrationDate , finishDate, finishRegistrationDate ]);
+   
+   useEffect(()=>{
+
+      const handleCheckValidInitiateDate = async () => {
+         const employeeServices = await getEmployeeServices( location?.state?.Employees?.personal_informations?.personal_info_id, location?.state?.businessID);
+         
+         let isValidService = true;
+         // compare initiate date in all services with the included one for new service
+         if(employeeServices?.success) {
+            
+            isValidService = checkServiceInitiateDateValidation(employeeServices.services, getValues().initiateDate, getValues().finishDate, serviceFinish);
+            
+            if(isDirty ) {
+               if(!isValidService || errors.initiateDate || errors.finishDate) {
+                  toast.error("service is not accepted");
+                  setServiceValidation({state:0, msg:"not accepted"});
+               } else {
+                  setServiceValidation({state:1, msg:"accepted"});
+                  toast.success("service accepted");
+               }
+            }
+         }
+         
+      }
+      handleCheckValidInitiateDate();
       
+
+   },[getValues().initiateDate, getValues().finishDate]);
+   
    const saveService = useMutation({
       mutationFn : (service) => fetch(`${host}/employees/add-service`,{method:'POST', headers: {'Content-Type' : 'application/json'}, body : JSON.stringify(service)}).then(res => res.json()) ,
       
@@ -197,8 +233,13 @@ const AddServiceAtBusinessContent = () => {
       data.finishDate = serviceFinish ? data.finishDate : null ;
       data.finishRegistrationDate = serviceFinish ? data.finishRegistrationDate : null ;
       data.finishRegistrationNumber = serviceFinish ? data.finishRegistrationNumber : null ;
-      
-      saveService.mutate({...data, businessID : location?.state?.businessID || 0, employeeID:location?.state?.employeeID});
+      if(serviceValidation.state == 1) {
+         toast.loading("saving service ..", {position:"top-center", style:{backgroundColor:"#22bb22", color:"#fff"}})
+         saveService.mutate({...data, businessID : location?.state?.businessID || 0, employeeID:location?.state?.employeeID});
+      } else {
+         toast.error("service is not accepted, can not save !", {position:"top-center", style:{backgroundColor:"#FF5555", color:"#fff"}})
+      }
+         // saveService.mutate({...data, businessID : location?.state?.businessID || 0, employeeID:location?.state?.employeeID});
    }
       
 //   const handleViewEmployeeName = async(val) => {
@@ -215,6 +256,30 @@ const AddServiceAtBusinessContent = () => {
 //      }
 //         return isEmployee ;
 //   }
+
+   // const handleCheckValidInitiateDate = async () => {
+      // const employeeServices = await getEmployeeServices( location?.state?.Employees?.personal_informations?.personal_info_id, location?.state?.businessID);
+      
+      // let isValidService = true;
+      // let waiting = true;
+      // // compare initiate date in all services with the included one for new service
+      // if(employeeServices?.success) {
+         
+      //    // console.log("initiateDate ::",getValues().initiateDate);
+      //    // console.log("finishDate ::",getValues().finishDate);
+         
+      //    isValidService = checkServiceInitiateDateValidation(employeeServices.services, getValues().initiateDate, getValues().finishDate, serviceFinish);
+         
+      //    waiting = false;
+      // }
+      
+      // console.log("isValidService in handleCheckValidInitiateDate ::",isValidService); 
+      
+      // if(!waiting) {
+      //    setCheckServiceValidation(isValidService)
+      //    return isValidService;
+      // }
+   // }
 
   return (
     <Box>
@@ -249,7 +314,7 @@ const AddServiceAtBusinessContent = () => {
             <Text marginBottom={4} color={titleTextSecondary}
                fontSize={{ xssToXs: "16px", xsToXm: "17px", xmToSm: "18px", smToMd: "20px", mdTo3xl: "22px" }}
             >
-               initiate Work Details
+               initiate Work Details {serviceValidation.state == 1 && <Span color={"#22bb22"}>{serviceValidation.msg}</Span>} {serviceValidation.state == 0 && <Span color={"#FF5555"}>{serviceValidation.msg}</Span>}
             </Text>
             <Grid   
                className=' ' 

@@ -6,7 +6,7 @@ import InfoCardBody from './InfoCardBody';
 import { Suspense } from 'react';
 
 const InfoCard = ({ data }) => {
-   const { InfoCardsColors, InfoCardsColorsHover, InfoCardBorder, cardBasicColor } = useThemedColors();
+   const { InfoCardsColors, InfoCardsColorsHover, InfoCardBorder, cardBasicColor ,InfoCardsBackgroundColors } = useThemedColors();
    return (
        <Suspense
         fallback={<div>loading</div>}>
@@ -14,7 +14,7 @@ const InfoCard = ({ data }) => {
       <Box
          // _hover={{ backgroundColor: bgInfoCardHover[data.bgColor] }} 
          // backgroundColor={bgInfoCard[data.bgColor]}
-         background={cardBasicColor}
+         background={InfoCardsBackgroundColors[data.basicColor]}
          borderWidth={1}
          borderColor={InfoCardBorder}
          borderRadius={6}

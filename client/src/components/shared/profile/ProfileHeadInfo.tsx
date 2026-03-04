@@ -21,11 +21,11 @@ const ProfileHeadInfo = ({ data }) => {
                fontWeight={'500'}
                fontSize={{xssToXs:"18px", xsToXm:"21px", xmToSm:"23px", smToMd:"25px"}}
             >
-               { (data?.personal_informations?.first_name && data?.personal_informations?.last_name) ?
+               { (data?.first_name && data?.last_name) ?
                `${capitalize(
-                  data?.personal_informations?.first_name
+                  data?.first_name
                )} ${capitalize(
-                  data?.personal_informations?.last_name
+                  data?.last_name
                )}`
                : "User Name Unavailable"
                }
@@ -45,8 +45,8 @@ const ProfileHeadInfo = ({ data }) => {
                </Text>
             </Flex>
             <Text marginLeft={1} lineHeight={"normal"} fontSize={{ xssToXm: "14px", xmToSm:"16px" }} color={textEmail} lineBreak={'anywhere'} overflow={'hidden'}>
-               {data?.personal_informations?.email 
-                  ? emailFormat(data?.personal_informations?.email, 20)
+               {data?.email 
+                  ? emailFormat(data?.email, 20)
                   : "unavailable"
                }
             </Text>
@@ -65,8 +65,8 @@ const ProfileHeadInfo = ({ data }) => {
             </HStack>
             <Text marginLeft={1} lineHeight={"normal"} fontSize={{ xssToXm: "14px",  xmToSm:"16px" }} color={textEmail} lineBreak={'anywhere'}>
                {
-                  data?.personal_informations?.phone_number 
-                  ? data?.personal_informations?.phone_number
+                  data?.phone_number 
+                  ? data?.phone_number
                   : "unavailable"
                   
                }

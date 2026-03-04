@@ -17,7 +17,7 @@ const Budget = ({amount}) => {
     >
       <Text
          color={iconGray}
-         // fontSize={{xssToXs:"20px"}}
+         fontSize={{xssToXmm:"24px", xmmTo3xl:"28px"}}
       >
          <FaDollarSign />
       </Text>

@@ -6,7 +6,7 @@ import { FaDollarSign } from "react-icons/fa6";
 import useThemedColors from "../../../../../hooks/useThemedColors";
 import FieldGroup from "../../../../../components/shared/forms/FieldGroup";
 import { useForm, Controller } from "react-hook-form";
-import { z } from "zod";
+import { success, z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useEffect, useState } from "react";
 import { getEmployeeByInsuranceNumber } from "../../../../../api/employees/getEmployeeByInsuranceNumber";
@@ -19,7 +19,9 @@ import { LuSearch } from "react-icons/lu";
 import FixBottomArea from "../../../../../components/shared/FixBottomArea";
 import { getFinishedWorkReasons } from "../../../../../api/services/getServicesRelatedData";
 import FisinshReasonsSelectBox from "../../../../../components/shared/forms/services/FinishReasonsSelectBox";
-import { checkZodErrors } from "../../../../../lib/helpers";
+import { checkServiceInitiateDateValidation, checkZodErrors } from "../../../../../lib/helpers";
+import { getPersonalInfoByInsuranceNumber } from "../../../../../api/personalInormation/getPersonalInfoByInsuranceNumber";
+import { getEmployeeServices } from "../../../../../api/employees/getEmployeeServices";
 
 const AddEmployeeContent = () => {
    
@@ -28,6 +30,7 @@ const AddEmployeeContent = () => {
 
    const [serviceFinish, setServiceFinish] = useState(false);
    const [employeeName ,setEmployeeName] = useState("");
+   const [serviceValidation , setServiceValidation] = useState({state: 0, msg:""});
    
    const { textPrimary, textSecondary, btnSecondary, titleTextSecondary, borderSecondary, inputContainerBg, switchBtnBgOff, switchBtnBgOn  } = useThemedColors();
    
@@ -35,15 +38,20 @@ const AddEmployeeContent = () => {
    
    // zod....
    const formSchema = z.object({
-      employeeID : z.number(),
+      // employeeID : z.number(),
+      personID : z.number(), 
       employeeInsuranceNumber : z.number().nonnegative()
-      .refine(async(val) => await handleViewEmployeeName(val) , {
+      .refine(async(val) => await handleViewPersonName(val) , {
          message: "not an employee"
       }),
       // businessID : z.number(),
       initiateDate : z.date().refine((date) => date <= new Date(), {
          message: "initiate date can not be in the future",
       }),
+      // .refine(async(val) => await handleCheckValidInitiateDate(val) , {
+      //    message: "not accepted"
+      // }),
+      
       initiateSalary : z.number().nonnegative(),
       initiateRegistrationDate :  z.date().refine((date) => date <= new Date(), {
          message: "initiate registration date can not be in the future",
@@ -54,6 +62,9 @@ const AddEmployeeContent = () => {
       finishDate : z.date().optional().refine((date) => date <= new Date(), {
          message: "finish date can not be in the future",
       }),
+      // .refine(async(val) => await handleCheckValidInitiateDate(val) , {
+      //    message: "not accepted"
+      // }),
       finishRegistrationDate :  z.date().optional().refine((date) => date <= new Date(), {
          message: "finish registration date can not be in the future",
       }),
@@ -61,7 +72,7 @@ const AddEmployeeContent = () => {
       
    });
       
-    const partialFormSchema = formSchema.partial({
+   const partialFormSchema = formSchema.partial({
       finishRegistrationDate: true,
       finishDate:true,
       finishRegistrationNumber:true,
@@ -76,7 +87,8 @@ const AddEmployeeContent = () => {
       setValue,
       setError ,
       clearErrors ,
-      formState : {errors},
+      getValues,
+      formState : {errors,isDirty},
       control ,
       trigger
    } = useForm<FormValues>({
@@ -84,10 +96,13 @@ const AddEmployeeContent = () => {
       defaultValues : {
          initiateDate : new Date(Date.now()),
          initiateRegistrationDate : new Date(),
+         initiateRegistrationNumber:0,
+         initiateSalary:0,
          finishDate :new Date(Date.now()),
          finishRegistrationDate : new Date(Date.now()),
          finishRegistrationNumber : 0,
-         employeeID : 0,
+         // employeeID : 0,
+         personID : 0 ,
          finishReason : "age"
       },
       mode:'all'
@@ -99,7 +114,6 @@ const AddEmployeeContent = () => {
    const finishRegistrationDate = watch('finishRegistrationDate');
    
    useEffect(()=> {
-    
       if(initiateDate && initiateRegistrationDate) {
          const initDate =  new Date( initiateDate );
          const initRegDate = new Date ( initiateRegistrationDate );
@@ -177,37 +191,36 @@ const AddEmployeeContent = () => {
       }
       
    },[initiateDate, initiateRegistrationDate , finishDate, finishRegistrationDate ]);
-      
-   // useEffect(()=> {
-      
-   //    if(finishDate && finishRegistrationDate) {
-   //       const finDate =  new Date( finishDate );
-   //       const finishRegDate = new Date ( finishRegistrationDate );
+   
+   useEffect(()=>{
+
+      const handleCheckValidInitiateDate = async () => {
          
-   //       finDate.setHours(0,0,0,0);
-   //       finishRegDate.setHours(0,0,0,0);
+         const employeeServices = await getEmployeeServices( getValues().personID, location?.state?.businessID);
          
-   //       if(finishRegDate < finDate ) {
-               
-   //          clearErrors(['finishDate']);
-   //          // prompt("error here")
-   //          setTimeout(() => {
-   //             setError('finishDate', {
-   //                // type: 'manual',
-   //                message:"finish registration date can not be before finish date"
-   //             }, {shouldFocus:false});
-   //          }, 600);
+         let isValidService = true;
+         // compare initiate date in all services with the included one for new service
+         if(employeeServices?.success) {
             
-   //       } else {
-   //          if(finishDate <= new Date() ) {
-   //             clearErrors(['finishDate']);
-   //          }
-   //          if(finishRegistrationDate <= new Date()) {
-   //             clearErrors(['finishRegistrationDate']);
-   //          }
-   //       }
-   //    }
-   // },[finishDate, finishRegistrationDate ]);
+            isValidService = checkServiceInitiateDateValidation(employeeServices.services, getValues().initiateDate, getValues().finishDate, serviceFinish);
+            
+            if(isDirty ) {
+               if(!isValidService || errors.initiateDate || errors.finishDate) {
+                  toast.error("service is not accepted");
+                  setServiceValidation({state:0, msg:"not accepted"});
+               } else {
+                  setServiceValidation({state:1, msg:"accepted"});
+                  toast.success("service accepted");
+               }
+            }
+         }
+         
+      }
+      handleCheckValidInitiateDate();
+      
+
+   },[getValues().initiateDate, getValues().finishDate]);
+      
    
    const saveEmployee = useMutation({
       mutationFn : (employee) => fetch(`${host}/business/add-employee-to-business`,{method:'POST', headers: {'Content-Type' : 'application/json'}, body : JSON.stringify(employee)}).then(res => res.json()) ,
@@ -239,20 +252,36 @@ const AddEmployeeContent = () => {
 
    }
       
-  const handleViewEmployeeName = async(val) => {
-     let isEmployee = false;
-     const employee = await getEmployeeByInsuranceNumber(val);
-     if(employee)  {
-      setEmployeeName(`${employee?.first_name} ${employee?.father_name} ${employee?.last_name}`)
-      setValue( "employeeID",employee?.emp_id)
+//   const handleViewEmployeeName = async(val) => {
+//      let isEmployee = false;
+//      const employee = await getEmployeeByInsuranceNumber(val);
+//      if(employee)  {
+//       setEmployeeName(`${employee?.first_name} ${employee?.father_name} ${employee?.last_name}`)
+//       setValue( "employeeID",employee?.emp_id)
 
-        isEmployee = true;
+//         isEmployee = true;
+//      }
+//      else {
+//          setEmployeeName("");
+//      }
+//         return isEmployee ;
+//   }
+  
+   const handleViewPersonName = async (val) => {
+     let isPerson = false;
+     const person = await getPersonalInfoByInsuranceNumber(val);
+     if(person)  {
+      setEmployeeName(`${person?.first_name} ${person?.father_name} ${person?.last_name}`)
+      setValue( "personID" , person?.personal_info_id);
+      // console.log("person?.personal_info_id :",person?.personal_info_id)
+
+      isPerson = true;
      }
      else {
          setEmployeeName("");
      }
-        return isEmployee ;
-  }
+        return isPerson ;
+   }
    
   return ( 
     <Flex flexDirection={'column'} maxHeight={'100vh'} overflowY={'auto'}>
@@ -270,15 +299,6 @@ const AddEmployeeContent = () => {
       
          {/* upper control */}
          <HStack justifyContent={"start"} >
-            <Flex flexDirection={'column'} justifyContent={'center'} paddingY={0} paddingX={1} onClick={() => navigate("/dashboard/business-owners/search")}>
-               <Icon
-                  fontSize={{ xssToXs: "16px", xsToXm: "18px", xmToSm: "20px" }}
-               >
-                  <LuSearch
-                     className='btn'
-                  />
-               </Icon>
-            </Flex>
             
             <Box className='btn' color={btnSecondary}>
                <Text
@@ -301,7 +321,7 @@ const AddEmployeeContent = () => {
             <Text marginBottom={4} color={titleTextSecondary}
                fontSize={{ xssToXs: "16px", xsToXm: "17px", xmToSm: "18px", smToMd: "20px", mdTo3xl: "22px" }}
             >
-               Employee Insurance Number
+               Person Insurance Number
             </Text>
             <Flex flexDirection={{xssToMd:"column", mdTo3xl:'row'}}
                justifyContent={'space-between'}
@@ -343,7 +363,7 @@ const AddEmployeeContent = () => {
             <Text marginBottom={4} color={titleTextSecondary}
                fontSize={{ xssToXs: "16px", xsToXm: "17px", xmToSm: "18px", smToMd: "20px", mdTo3xl: "22px" }}
             >
-               initiate Work Details
+               initiate Work Details  {serviceValidation.state == 1 && <Span color={"#22bb22"}>{serviceValidation.msg}</Span>} {serviceValidation.state == 0 && <Span color={"#FF5555"}>{serviceValidation.msg}</Span>}
             </Text>
             <Grid   
                className=' ' 

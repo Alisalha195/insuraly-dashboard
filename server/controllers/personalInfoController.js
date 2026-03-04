@@ -1,5 +1,5 @@
 import {supabase} from "../db/connection.js";
-import { personalInfoTable } from "../db/tables.js"; 
+import { businessOwnerTable, employeeTable, personalInfoTable } from "../db/tables.js"; 
 
 export const checkIfPersonalInfoRecordExistBeforeCreating =  async(req , res , next) => {
    // console.log("in checkIfPersonalInfoRecordExistBeforeCreating middleware", req.body);
@@ -144,6 +144,8 @@ export const getPersonalInfoByInsuranceNumber = async(req , res, next) => {
    const {searchValue} = req.body;
    const serachAsNumber = Number(searchValue);
    
+   // console.log("serachAsNumber ::",serachAsNumber)
+   
    const {data , error} = await supabase
       .from(personalInfoTable) 
       .select()
@@ -160,10 +162,31 @@ export const getPersonalInfoByInsuranceNumber = async(req , res, next) => {
             if(next())
                next();
             else
-               console.log("No next function provided");
+               res.status(200).json({ status:200, person:data[0]})
             
          }
          
+      }
+}
+
+export const getPersonalInfoById = async(req , res, next) => {
+   const {id} = req.query;
+   // const idAsNumber =  Number(id);
+   // console.log("req.query :",req.query);
+   
+   // console.log("serachAsNumber ::",serachAsNumber)
+   
+   const {data , error} = await supabase
+      .from(personalInfoTable) 
+      .select()
+      .eq("personal_info_id",Number(id));
+      
+      if(error || data?.length < 1) {
+         res.status(404).json({msg:"person not found", status:404});
+         
+      } else if((data?.length > 0) && (!error)) {
+         // console.log("datadata::",data)
+         res.status(200).json({ status:200, person:data[0]})
       }
 }
 
@@ -255,4 +278,45 @@ export const checkIfPersonalInfoRecordExist =  async(req , res , next) => {
           res.status(200).json({msg: "Not Duplicated" , status:200});
       }
 
+}
+
+export const getPersonRules = async (req, res, next) => {
+   const {personId} = req.query;
+   // console.log("req.query :",req.query.personId)
+   const rules = {};
+   
+   const {data:personData , error:personDataError} = await supabase
+   .from(personalInfoTable)
+   .select()
+   .eq("personal_info_id", Number(personId));
+   
+   console.log("personData :",personData);
+   
+   if(personData?.length > 0 &&  !personDataError) {
+      
+      const {data:employeeRuleData , error:employeeRuleError} = await supabase
+      .from(employeeTable)
+      .select("emp_id")
+      .eq("personal_info_id", Number(personId));
+      
+      if((employeeRuleData?.length > 0 ) && (!employeeRuleError)) {
+         // rules.push({employee: employeeRuleData[0].emp_id});
+         rules.employee = employeeRuleData[0].emp_id ;
+      } 
+      
+      const {data:ownerRuleData , error:ownerRuleError} = await supabase
+      .from(businessOwnerTable)
+      .select("business_owner_id")
+      .eq("personal_info_id", Number(personId));
+      
+      if((ownerRuleData?.length > 0 ) && (!ownerRuleError)) {
+         // rules.push({owner: ownerRuleData[0].business_owner_id});
+         rules.owner = ownerRuleData[0].business_owner_id;
+      } 
+      
+      res.status(200).json({ rules : rules, status:200});
+   } else {
+      res.status(400).json({ rules : null, status:400});
+   }
+   
 }

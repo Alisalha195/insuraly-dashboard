@@ -1,5 +1,6 @@
 import { Box, Flex, Heading, HStack, Text, VStack } from "@chakra-ui/react";
 import useThemedColors from "../../hooks/useThemedColors";
+import SkeletonLoader from "./Skeleton";
 
 const Count = ({icon , amount}) => {
    const {CountText, iconGray} = useThemedColors();
@@ -16,16 +17,30 @@ const Count = ({icon , amount}) => {
       >
        <Text
           color={iconGray}
-          fontSize={{xssToXmm:"20px", xmmTo3xl:"21px"}}
+          fontSize={{xssToXmm:"24px", xmmTo3xl:"28px"}}
        >
           {icon}
        </Text>
-       <Text
+       {
+            // if amount is null or undefined show skeleton loader
+         amount === null || amount === undefined 
+         ? 
+            <SkeletonLoader width="20px" height="8px"/> 
+         : (
+            <Text
+               fontWeight={"500"}
+               color={CountText}
+            >  
+               {amount}
+            </Text>
+         )  
+       }
+       {/* <Text
           fontWeight={"500"}
           color={CountText}
        >
           {amount}
-       </Text>
+       </Text> */}
       </HStack>
    )
 }

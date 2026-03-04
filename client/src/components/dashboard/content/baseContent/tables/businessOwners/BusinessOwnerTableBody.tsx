@@ -32,7 +32,7 @@ const BusinessOwnerTableBody = ({ data, search = false }) => {
                   <Table.Cell fontSize={"20px"} textWrap={"nowrap"}>
                      <span
                         // className="[padding:4px_9px] "
-                        onClick={() => navigate(`/dashboard/business-owners/${item.business_owner_id}`)}
+                        onClick={() => navigate(`/profile/${item.personal_informations.personal_info_id}`)}
                         
                         fontSize={{ xssToXs: "12px", xsToXm: "14px", xmToSm: "16px" }}
                         

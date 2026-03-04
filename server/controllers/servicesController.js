@@ -1,5 +1,5 @@
 import {supabase} from "../db/connection.js";
-import { businessEmployeeTable, serviceFinishReasonsTable, servicesTable } from "../db/tables.js";
+import { businessEmployeeTable, serviceFinishReasonsTable, servicesSubscribtionTable, servicesTable } from "../db/tables.js";
 
 export const addService = async (req , res , next) => {
    const {
@@ -35,6 +35,28 @@ export const addService = async (req , res , next) => {
    
    if((service?.length > 0) && (!serviceError)) {
       req.body.service_id = service[0].service_id;
+      
+      const {data:subscribtion_data, error:subscribtion_error} = await supabase
+      .from(servicesSubscribtionTable)
+      .insert({
+         subscribtion_wage_date: initiateDate,
+         service_id: service[0].service_id,
+         owner_share: Number( initiateSalary) * 0.147 ,
+         employee_share : Number(initiateSalary) * 0.07 ,
+      })
+      .select();
+      
+      if((subscribtion_data?.length < 1) || (subscribtion_error)) {
+         const { data:deleted_service, error:deleted__service_error } = await supabase
+        .from(servicesTable)
+        .delete()
+        .select()
+        .eq('service_id', service[0].service_id);
+        
+        res.status(400).json({msg:"failed to add service", status:400});
+        return;
+      }
+      
       console.log("service added successfully with id :", req.body.service_id);
       res.status(200).json({msg:"service added successfully", status:200});
       // next();
@@ -57,6 +79,7 @@ export const addService = async (req , res , next) => {
         .delete()
         .select()
         .eq('business_employee_id', business_employee_id);
+        
         console.log("deleted_b_e in addService rollback :", deleted_b_e);
         if((deleted_b_e?.length > 0) && (!deleted_b_e_error)) {
            console.log("rolled back business_employee with id :", business_employee_id);

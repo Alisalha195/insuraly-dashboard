@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { createEmployee, getEmployee, getEmployeeByID, getEmployeeByNames, getEmployeeByNamesInBusiness, getEmployeeInBusiness, getEmployeeServices } from "../controllers/employeeController.js";
+import { createEmployee, getEmployee, getEmployeeByID, getEmployeeByNames, getEmployeeByNamesInBusiness, getEmployeeInBusiness, getEmployeeServices, getEmployeeServicesByPersonID } from "../controllers/employeeController.js";
 import { 
    createPersonalInfoRecord,
    getPersonalInfoByName,
@@ -25,6 +25,7 @@ router.post("/get/insurance-number", getPersonalInfoByInsuranceNumber , getEmplo
 
 router.get("/get/id", getEmployeeByID);
 router.get("/services",getEmployeeServices);
+router.get("/servicesByPersonID",getEmployeeServicesByPersonID);
 
 // router.put("/edit", ,editBusinessOwner)
 // router.delete("/delete", deleteBusinessOwner)

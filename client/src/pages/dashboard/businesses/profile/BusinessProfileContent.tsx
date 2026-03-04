@@ -121,7 +121,7 @@ const BusinessProfileContent = () => {
                   gap={{xssToXm:"8px" , xmTo3xl:"12px"}}
                   paddingTop={{xssToXmm:"28px", xmmTo3xl:0}}
                >
-                  <Box onClick={()=>navigate("/dashboard/businesses/5/budget")}>
+                  <Box onClick={()=>navigate(`/dashboard/businesses/${params?.id}/budget`)}>
                      <Budget 
                         amount={"300,240"}
                      />
@@ -130,7 +130,7 @@ const BusinessProfileContent = () => {
                   <Box onClick={()=>navigate(`/dashboard/businesses/${params?.id}/employees` , {state: {businessName: businessData?.business_name}})}>
                      <Count 
                         icon={<MdPeopleAlt />}
-                        amount={businessEmployeesCount?.count || 0}
+                        amount={businessEmployeesCount?.count}
                      />
                   </Box>
                   

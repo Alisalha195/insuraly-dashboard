@@ -81,10 +81,44 @@ export const getEmployeeByID = async (req , res , next) => {
       }
 }
 
+export const getEmployeeServicesByPersonID = async (req, res, next) => {
+   const {personID} = req.query;
+   const personIDAsNumber = Number(personID);
+   // console.log("personID in getEmployeeServicesByPersonID :",personIDAsNumber);
+   const { data, error } = await supabase
+   .from(servicesTable)
+   .select(`
+      *,
+      Business_Employee!inner(
+         *,
+         Employees!inner(
+            *,
+            personal_informations!inner(
+               *
+            )
+         ),
+         Businesses!inner(
+            *
+         )
+      )
+   `)
+   .eq("Business_Employee.Employees.personal_informations.personal_info_id", personIDAsNumber);
+
+   if (data?.length < 1 || error) {
+      // console.log("services not found!! ");
+      res.status(404).json({ msg: "something went wrong !" , status:404});
+    } else {
+
+      res.status(200).json({data, status:200});
+      return data;
+    }
+}
+
 export const getEmployeeServices = async (req , res , next) => {
    const {employeeID} = req.query;
    const employeeIDAsNumber = Number(employeeID);
    // console.log("employeeID in getEmployeeServices :",employeeIDAsNumber);
+   
    const { data , error } = await supabase
    .from(servicesTable)
    .select(`
@@ -92,38 +126,50 @@ export const getEmployeeServices = async (req , res , next) => {
       Business_Employee:business_employee_id(
          
          *,
+         Employees:employee_id(
+            *
+         ),
          Businesses:business_id(
             *
          )
       )`
    )
-   .eq("Business_Employee.employee_id",employeeIDAsNumber);
+   .eq("Business_Employee.employee_id",employeeIDAsNumber)
+   .not("Business_Employee", "is", null);
+   
+   
+   console.log("data in getEmployeeServices :",data);
    
    if (data?.length < 1 || error) {
       console.log("services not found!! ");
       res.status(404).json({ msg: "something went wrong !" });
     } else {
-      const filteredData = data.filter(item => item.Business_Employee !== null);
+      // const filteredData = data.filter(item => item.Business_Employee !== null);
       // console.log("services :",filteredData);
-      res.status(200).json(filteredData);
+      res.status(200).json(data);
       return data;
     }
 }
 
 export const checkIfEmployee = async (req ,res , next) => {
-   const {employeeID} = req.body ;
+   const {personID} = req.body ;
    // console.log("req.body :",req.body);
    
    const {data , error } = await supabase
    .from(employeeTable)
-   .select()
-   .eq("emp_id" , employeeID);
+   .select("emp_id")
+   .eq("personal_info_id" , Number(personID));
    
    if((data?.length > 0) && (!error)) {
+      req.body.employeeID = data[0].emp_id;
+      next();
+   }
+   else if((data?.length < 1) && (!error)) {
+      req.body.employeeID = 0;
       next();
    }
    else {
-      res.status(404).json({msg:"not an employee", status:404});
+      res.status(404).json({msg:"something went wrong", status:404});
       return;
    }
 }
