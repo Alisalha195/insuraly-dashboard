@@ -37,6 +37,7 @@ import AddServiceAtBusiness from './pages/dashboard/businesses/employess/service
 import EditServiceAtBusiness from './pages/dashboard/businesses/employess/services/edit';
 import ServiceWages from './pages/dashboard/businesses/employess/services/wages';
 import Profile from './pages/profile';
+import EditProfile from './pages/profile/edit';
 
 
 
@@ -79,7 +80,7 @@ function App() {
                      <Route path='/dashboard/business-owners/search' element={<ProtectedRoute><SearchBusinessOwner /></ProtectedRoute>} />
                      <Route path='/dashboard/business-owners/:id' element={<ProtectedRoute><BusinessOwnerProfile /></ProtectedRoute>} />
                      <Route path='/dashboard/business-owners/add' element={<ProtectedRoute><AddBusinessOwner /></ProtectedRoute>} />
-                     <Route path='/dashboard/business-owners/edit' element={<EditBusinessOwner />} />
+                     {/* <Route path='/dashboard/business-owners/edit' element={<EditBusinessOwner />} /> */}
 
                      {/* claims Routes */}
                      <Route path='/dashboard/claims' element={<ProtectedRoute><Claims /></ProtectedRoute>} />
@@ -89,6 +90,8 @@ function App() {
                      
                      {/* profile */}
                      <Route path='/profile/:personId' element={<ProtectedRoute><Profile /></ProtectedRoute>} />
+                     
+                     <Route path='/profile/:personId/edit' element={<ProtectedRoute><EditProfile /></ProtectedRoute>} />
                   </Route>
                   
                   {/* Auth Routes */}

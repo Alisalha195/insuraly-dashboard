@@ -77,7 +77,8 @@ const EmployeeTableBody = ({ data, search = false }) => {
                         </Table.Cell>
                         :
                         <Table.Cell color={tableItem} fontSize={"20px"} textWrap={"nowrap"}>
-                           <BusinessEmployeeActionsMenu 
+                           <BusinessEmployeeActionsMenu
+                             personalInfoId={item?.Employees?.personal_informations?.personal_info_id} 
                              employeeId={item?.employee_id}
                              itemData={{...item, 
                               businessName:data[2]?.businessName, employeeName:`${item?.Employees?.personal_informations?.first_name} ${item?.Employees?.personal_informations?.last_name}`}} 

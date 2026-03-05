@@ -6,7 +6,8 @@ export const tableMenuData = [
    {
       title : 'edit',
       icon: TiEdit ,
-      clickLink: '/dashboard/business-owners/edit'
+      // clickLink: '/dashboard/business-owners/edit'
+      clickLink: (personID) => `/profile/${personID}/edit`
    },
    {
       title : 'delete',

@@ -27,7 +27,7 @@ const AboutTab = ({personData}) => {
        <Box maxHeight={"400px"} overflowY={'scroll'} paddingBottom={5}>
          <Flex>
             <Span backgroundColor={btnGreen } className="btn" paddingX={2} borderRadius={5}  
-            onClick={()=> navigate("/personalInformations/edit",{state:personData})}
+            onClick={()=> navigate(`/profile/${personData?.personal_info_id}/edit`,{state:personData})}
             >
                edit
             </Span>

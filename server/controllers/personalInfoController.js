@@ -191,7 +191,8 @@ export const getPersonalInfoById = async(req , res, next) => {
 }
 
 export const editPersonalInfoRecord = async (req, res, next) => {
-   
+   const {personID} = req.query;
+   // console.log("personID in edit ::",personID);
    const { nationalNumber,
       firstName ,
       lastName ,
@@ -205,7 +206,6 @@ export const editPersonalInfoRecord = async (req, res, next) => {
       email,
       phoneNumber,
       
-      personalId
    } = req.body;
    
    // console.log("req.body:: ::",req.body);
@@ -226,7 +226,7 @@ export const editPersonalInfoRecord = async (req, res, next) => {
       phone_number:phoneNumber ,
       email:email
    })
-  .eq('personal_info_id', personalId)
+  .eq('personal_info_id', Number(personID))
   .select();
   
   if(error) {
