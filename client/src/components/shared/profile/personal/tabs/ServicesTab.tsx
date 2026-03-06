@@ -1,33 +1,50 @@
 import React from 'react'
 import { useNavigate } from 'react-router-dom';
-import useThemedColors from '../../../../hooks/useThemedColors';
-import { host } from '../../../../constants/connection';
-import { useQuery } from '@tanstack/react-query';
 import { Box, Flex, HStack, Text, VStack } from '@chakra-ui/react';
-import SkeletonLoader from '../../Skeleton';
-import Error from '../../Error';
-import PageHeadTitle from '../../PageHeadTitle';
-import DataTable from '../../tables/DataTable';
-import { serviceTableHeaderData } from '../../../dashboard/content/baseContent/tables/services/serviceTableHeaderData';
-import ServiceTableBody from '../../../dashboard/content/baseContent/tables/services/ServiceTableBody';
-import TableHeader from '../../tables/TableHeader';
+import useThemedColors from '../../../../../hooks/useThemedColors';
+import { useCustomQuery } from '../../../../../hooks/useCustomQuery';
+import { host } from '../../../../../constants/connection';
+import SkeletonLoader from '../../../Skeleton';
+import Error from '../../../Error';
+import DataTable from '../../../tables/DataTable';
+import { serviceTableHeaderData } from '../../../../dashboard/content/baseContent/tables/services/serviceTableHeaderData';
+import ServiceTableBody from '../../../../dashboard/content/baseContent/tables/services/ServiceTableBody';
+import TableHeader from '../../../tables/TableHeader';
+// import useThemedColors from '../../../../hooks/useThemedColors';
+// import { host } from '../../../../constants/connection';
+// import SkeletonLoader from '../../Skeleton';
+// import Error from '../../Error';
+// import DataTable from '../../tables/DataTable';
+// import { serviceTableHeaderData } from '../../../dashboard/content/baseContent/tables/services/serviceTableHeaderData';
+// import ServiceTableBody from '../../../dashboard/content/baseContent/tables/services/ServiceTableBody';
+// import TableHeader from '../../tables/TableHeader';
+// import { useCustomQuery } from '../../../../hooks/useCustomQuery';
 
 const ServicesTab = ({employeeId}) => {
    
    const navigate = useNavigate();
    const { textPrimary, btnSecondary } = useThemedColors();
 
-   const { data: servicesData,
-      error: servicesDataError,
-      isSuccess: servicesDataSuccess,
-      isLoading: servicesDataIsLoading,
-   } = useQuery({
-      queryKey: ['services-of-employee', employeeId],
-      queryFn: () => fetch(`${host}/employees/services?employeeID=${employeeId}`).then(res => res.json()),
-      refetchInterval: 5000,
-      keepPreviousData: true,
-      staleTime: 30000,
-   });
+   // const { data: servicesData,
+   //    error: servicesDataError,
+   //    isSuccess: servicesDataSuccess,
+   //    isLoading: servicesDataIsLoading,
+   // } = useQuery({
+   //    queryKey: ['services-of-employee', employeeId],
+   //    queryFn: () => fetch(`${host}/employees/services?employeeID=${employeeId}`).then(res => res.json()),
+   //    refetchInterval: 5000,
+   //    keepPreviousData: true,
+   //    staleTime: 30000,
+   // });
+   
+   const { data: servicesData, 
+      error : servicesDataError, 
+      isSuccess : servicesDataSuccess,
+      isLoading : servicesDataIsLoading
+   } = useCustomQuery(
+      ['services-of-employee', employeeId] ,
+      `${host}/employees/services?employeeID=${employeeId}`
+   ) ;
   
    
    if (servicesDataIsLoading) {

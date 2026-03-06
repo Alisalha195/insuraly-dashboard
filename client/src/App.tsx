@@ -14,7 +14,7 @@ import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 import AddBusinessOwner from './pages/dashboard/businessOwners/add';
 import EditBusinessOwner from './pages/dashboard/businessOwners/edit';
 import AddBusiness from './pages/dashboard/businesses/add';
-import BusinessOwnerProfile from './pages/dashboard/businessOwners/profile';
+// import BusinessOwnerProfile from './pages/dashboard/businessOwners/profile';
 import BusinessProfile from './pages/dashboard/businesses/profile';
 
 import BusinessBudget from './pages/dashboard/businesses/budget';
@@ -32,7 +32,7 @@ import EditBusiness from './pages/dashboard/businesses/edit';
 import AddEmployee from './pages/dashboard/businesses/employess/add';
 import CreateEmployee from './pages/dashboard/businesses/employess/create';
 import SearchEmployees from './pages/dashboard/businesses/employess/search';
-import EmployeeProfile from './pages/dashboard/businesses/employess/profile';
+// import EmployeeProfile from './pages/dashboard/businesses/employess/profile';
 import AddServiceAtBusiness from './pages/dashboard/businesses/employess/services/add';
 import EditServiceAtBusiness from './pages/dashboard/businesses/employess/services/edit';
 import ServiceWages from './pages/dashboard/businesses/employess/services/wages';
@@ -68,7 +68,7 @@ function App() {
                      <Route path='/dashboard/businesses/:id/employees/create' element={<ProtectedRoute><CreateEmployee /></ProtectedRoute>} />  
                      <Route path='/dashboard/businesses/:id/employees/search' element={<ProtectedRoute><SearchEmployees /></ProtectedRoute>} />
                      
-                     <Route path='/dashboard/employees/:id' element={<ProtectedRoute><EmployeeProfile /></ProtectedRoute>} />
+                     {/* <Route path='/dashboard/employees/:id' element={<ProtectedRoute><EmployeeProfile /></ProtectedRoute>} /> */}
                      
                      {/* Services Routes */}
                      <Route path='/dashboard/businesses/:id/employees/:empId/services/add' element={<ProtectedRoute><AddServiceAtBusiness /></ProtectedRoute>} />
@@ -78,7 +78,7 @@ function App() {
                      {/* Business Owners Routes */}
                      <Route path='/dashboard/business-owners' element={<ProtectedRoute><BusinessOwners /></ProtectedRoute>} />
                      <Route path='/dashboard/business-owners/search' element={<ProtectedRoute><SearchBusinessOwner /></ProtectedRoute>} />
-                     <Route path='/dashboard/business-owners/:id' element={<ProtectedRoute><BusinessOwnerProfile /></ProtectedRoute>} />
+                     {/* <Route path='/dashboard/business-owners/:id' element={<ProtectedRoute><BusinessOwnerProfile /></ProtectedRoute>} /> */}
                      <Route path='/dashboard/business-owners/add' element={<ProtectedRoute><AddBusinessOwner /></ProtectedRoute>} />
                      {/* <Route path='/dashboard/business-owners/edit' element={<EditBusinessOwner />} /> */}
 
