@@ -1,10 +1,14 @@
 import { Flex, Span } from '@chakra-ui/react'
 import React from 'react'
+import { useNavigate } from 'react-router-dom'
 
 const LogoBasic = () => {
+   
+   const navigate = useNavigate();
   return (
       <Flex 
        justifyContent={'center'}
+       onClick={()=>navigate("/dashboard")}
       >
        <Span
           backgroundColor={"#999"}

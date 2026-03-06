@@ -159,10 +159,10 @@ export const getPersonalInfoByInsuranceNumber = async(req , res, next) => {
             res.status(400).json({msg:"repeated insurance number !",status:400});
          } else if(data.length == 1) {
             req.body.personal_informations = data[0];
-            if(next())
+            // if(next())
                next();
-            else
-               res.status(200).json({ status:200, person:data[0]})
+            // else
+            //    res.status(200).json({ status:200, person:data[0]})
             
          }
          
