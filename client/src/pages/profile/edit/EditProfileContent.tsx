@@ -31,12 +31,7 @@ const EditProfileContent = () => {
    // const itemData = location.state;
    
    const {data, error, isLoading, isSuccess } = useCustomQuery([`personalInfo-${params?.personId}`], 
-      () => fetch(`${host}/personalInformations/get/id?id=${params?.personId}`).then(res => res.json()) , 
-      {
-         refetchInterval: 5000,
-         keepPreviousData: true,
-         staleTime: 30000,
-   });
+      `${host}/personalInformations/get/id?id=${params?.personId}`, );
    
    console.log("data", data?.person);
    

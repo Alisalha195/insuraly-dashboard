@@ -10,6 +10,7 @@ import BusinessOwnerTableBody from "../BusinessOwnerTableBody"
 import SearchResults from "../../search/SearchResults";
 import { businessOwnerTableHeaderData } from "../businessOwnerTableHeaderData.ts"
 import SkeletonLoader from "../../../../../../shared/Skeleton.tsx";
+import { usePostCustomQuery } from "../../../../../../../hooks/useCustomQuery.ts";
 
 const SearchByName = ({ searchValue }) => {
 
@@ -44,24 +45,40 @@ const SearchByName = ({ searchValue }) => {
       }
    }
 
-   const { data: businessOwnerResultData,
-      error: businessOwnerResultDataError,
-      isLoading: businessOwnerResultDataIsLoading,
-      isSuccess: businessOwnerResultDataIsSuccess
-   } = useQuery({
-      queryKey: ['business-owners-search-results-name', searchValue],
-      queryFn: () => fetch(`${host}/businessOwners/get/name/`, {
-         method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({
-            firstName: fullName.firstName,
-            fatherName: fullName.fatherName,
-            motherName: fullName.motherName,
-            lastName: fullName.lastName,
-         })
-      }).then(res => res.json()),
-      refetchInterval: 5000,
-      keepPreviousData: true,
-      staleTime: 30000,
-   });
+   // const { data: businessOwnerResultData,
+   //    error: businessOwnerResultDataError,
+   //    isLoading: businessOwnerResultDataIsLoading,
+   //    isSuccess: businessOwnerResultDataIsSuccess
+   // } = useQuery({
+   //    queryKey: ['business-owners-search-results-name', searchValue],
+   //    queryFn: () => fetch(`${host}/businessOwners/get/name/`, {
+   //       method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({
+   //          firstName: fullName.firstName,
+   //          fatherName: fullName.fatherName,
+   //          motherName: fullName.motherName,
+   //          lastName: fullName.lastName,
+   //       })
+   //    }).then(res => res.json()),
+   //    refetchInterval: 5000,
+   //    keepPreviousData: true,
+   //    staleTime: 30000,
+   // });
+   
+   const { 
+      data:businessOwnerResultData, 
+      error:businessOwnerResultDataError, 
+      isSuccess :businessOwnerResultDataIsSuccess,
+      isLoading :businessOwnerResultDataIsLoading
+   } = usePostCustomQuery(
+      ['business-owners-search-results-name', searchValue] ,
+     `${host}/businessOwners/get/name/`, 
+     {
+         firstName: fullName.firstName,
+         fatherName: fullName.fatherName,
+         motherName: fullName.motherName,
+         lastName: fullName.lastName,
+      }
+   );
 
    if(businessOwnerResultDataIsLoading) {
       return (

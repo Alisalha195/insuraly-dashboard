@@ -10,21 +10,33 @@ import BusinessOwnerTableBody from "../BusinessOwnerTableBody"
 import SearchResults from "../../search/SearchResults";
 import { businessOwnerTableHeaderData } from "../businessOwnerTableHeaderData.ts"
 import SkeletonLoader from "../../../../../../shared/Skeleton.tsx";
+import { usePostCustomQuery } from "../../../../../../../hooks/useCustomQuery.ts";
 
 const SearchByInsuranceNumber = ({ searchValue }) => {
    const { btnGreen, textPrimary } = useThemedColors();
 
-   const { data: businessOwnerResultData,
-      error: businessOwnerResultDataError,
-      isLoading: businessOwnerResultDataIsLoading,
-      isSuccess: businessOwnerResultDataIsSuccess
-   } = useQuery({
-      queryKey: ['business-owners-search-results-insurance', searchValue],
-      queryFn: () => fetch(`${host}/businessOwners/get/insurance-number`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ searchValue: searchValue }) }).then(res => res.json()),
-      refetchInterval: 5000,
-      keepPreviousData: true,
-      staleTime: 30000,
-   });
+   // const { data: businessOwnerResultData,
+   //    error: businessOwnerResultDataError,
+   //    isLoading: businessOwnerResultDataIsLoading,
+   //    isSuccess: businessOwnerResultDataIsSuccess
+   // } = useQuery({
+   //    queryKey: ['business-owners-search-results-insurance', searchValue],
+   //    queryFn: () => fetch(`${host}/businessOwners/get/insurance-number`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ searchValue: searchValue }) }).then(res => res.json()),
+   //    refetchInterval: 5000,
+   //    keepPreviousData: true,
+   //    staleTime: 30000,
+   // });
+   
+   const { 
+      data:businessOwnerResultData, 
+      error:businessOwnerResultDataError, 
+      isSuccess :businessOwnerResultDataIsSuccess,
+      isLoading :businessOwnerResultDataIsLoading
+   } = usePostCustomQuery(
+      ['business-owners-search-results-insurance', searchValue] ,
+      `${host}/businessOwners/get/insurance-number`, 
+      { searchValue: searchValue } 
+   );
    
    if(businessOwnerResultDataIsLoading) {
       return (

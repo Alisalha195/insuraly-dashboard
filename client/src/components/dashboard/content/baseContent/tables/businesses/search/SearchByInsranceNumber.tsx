@@ -10,21 +10,33 @@ import BusinessTableBody from "../BusinessTableBody"
 import SearchResults from "../../search/SearchResults";
 import { businessTableHeaderData } from "../businessTableHeaderData.ts"
 import SkeletonLoader from "../../../../../../shared/Skeleton.tsx";
+import { useCustomQuery, usePostCustomQuery } from "../../../../../../../hooks/useCustomQuery.ts";
 
 const SearchByInsuranceNumber = ({ searchValue }) => {
    const { btnGreen, textPrimary } = useThemedColors();
 
-   const { data: businessResultData,
-      error: businessResultDataError,
-      isLoading: businessResultDataIsLoading,
-      isSuccess: businessResultDataIsSuccess
-   } = useQuery({
-      queryKey: ['business-search-results-insurance', searchValue],
-      queryFn: () => fetch(`${host}/business/get/insurance-number`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ searchValue: searchValue }) }).then(res => res.json()),
-      refetchInterval: 5000,
-      keepPreviousData: true,
-      staleTime: 30000,
-   });
+   // const { data: businessResultData,
+   //    error: businessResultDataError,
+   //    isLoading: businessResultDataIsLoading,
+   //    isSuccess: businessResultDataIsSuccess
+   // } = useQuery({
+   //    queryKey: ['business-search-results-insurance', searchValue],
+   //    queryFn: () => fetch(`${host}/business/get/insurance-number`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ searchValue: searchValue }) }).then(res => res.json()),
+   //    refetchInterval: 5000,
+   //    keepPreviousData: true,
+   //    staleTime: 30000,
+   // });
+   
+   const { 
+      data:businessResultData, 
+      error:businessResultDataError, 
+      isSuccess :businessResultDataIsSuccess,
+      isLoading :businessResultDataIsLoading
+   } = usePostCustomQuery(
+      ['business-search-results-insurance', searchValue] ,
+      `${host}/business/get/insurance-number`, 
+      { searchValue: searchValue } 
+   );
    
    if(businessResultDataIsLoading) {
       return (

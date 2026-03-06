@@ -13,6 +13,7 @@ import { host } from "../../../../constants/connection";
 import SkeletonLoader from "../../../../components/shared/Skeleton";
 import Error from "../../../../components/shared/Error";
 import { capitalize } from "../../../../lib/capitalize";
+import { useCustomQuery } from "../../../../hooks/useCustomQuery";
 
 const BusinessProfileContent = () => {
    
@@ -35,20 +36,30 @@ const BusinessProfileContent = () => {
       staleTime: 30000,
    });
    
-   const {
-      data: businessEmployeesCount,
-      error: businessEmployeesCountError,
-      isLoading: businessEmployeesCountIsLoading,
-   } = useQuery({
-      queryKey: ["business-employees-count-in-profile", params?.id] ,
-      queryFn: () =>
-         fetch(
+   // const {
+   //    data: businessEmployeesCount,
+   //    error: businessEmployeesCountError,
+   //    isLoading: businessEmployeesCountIsLoading,
+   // } = useQuery({
+   //    queryKey: ["business-employees-count-in-profile", params?.id] ,
+   //    queryFn: () =>
+   //       fetch(
+   //          `${host}/business/get-employees-count/${params?.id}`
+   //       ).then((res) => res.json()),
+   //    refetchInterval: 5000,
+   //    keepPreviousData: true,
+   //    staleTime: 30000,
+   // });
+   
+         const { 
+            data:businessEmployeesCount, 
+            error:businessEmployeesCountError, 
+            isSuccess ,
+            isLoading :businessEmployeesCountIsLoading
+         } = useCustomQuery(
+            ["business-employees-count-in-profile", params?.id] ,
             `${host}/business/get-employees-count/${params?.id}`
-         ).then((res) => res.json()),
-      refetchInterval: 5000,
-      keepPreviousData: true,
-      staleTime: 30000,
-   });
+         );
    
    if (businessDataIsLoading) {
       return (

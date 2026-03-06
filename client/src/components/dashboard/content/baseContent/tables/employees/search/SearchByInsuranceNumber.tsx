@@ -8,21 +8,35 @@ import SkeletonLoader from "../../../../../../shared/Skeleton.tsx";
 
 import { employeeTableHeaderData } from "../employeeTableHeaderData.ts";
 import EmployeeTableBody from "../EmployeeTableBody.tsx";
+import { usePostCustomQuery } from "../../../../../../../hooks/useCustomQuery.ts";
 
 const SearchByInsuranceNumber = ({ searchValue , businessName , businessID}) => {
    const { btnGreen, textPrimary } = useThemedColors();
 
-   const { data: employeeResultData,
-      error: employeeResultDataError,
-      isLoading: employeeResultDataIsLoading,
-      isSuccess: employeeResultDataIsSuccess
-   } = useQuery({
-      queryKey: ['employees-search-results-insurance', searchValue],
-      queryFn: () => fetch(`${host}/employees/get/insurance-number`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ searchValue: searchValue, businessName:businessName, businessID:businessID }) }).then(res => res.json()),
-      refetchInterval: 5000,
-      keepPreviousData: true,
-      staleTime: 30000,
-   });
+   // const { data: employeeResultData,
+   //    error: employeeResultDataError,
+   //    isLoading: employeeResultDataIsLoading,
+   //    isSuccess: employeeResultDataIsSuccess
+   // } = useQuery({
+   //    queryKey: ['employees-search-results-insurance', searchValue],
+   //    queryFn: () => fetch(`${host}/employees/get/insurance-number`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ searchValue: searchValue, businessName:businessName, businessID:businessID }) }).then(res => res.json()),
+   //    refetchInterval: 5000,
+   //    keepPreviousData: true,
+   //    staleTime: 30000,
+   // });
+   
+   const { 
+      data:employeeResultData, 
+      error:employeeResultDataError, 
+      isSuccess :employeeResultDataIsSuccess,
+      isLoading :employeeResultDataIsLoading
+   } = usePostCustomQuery(
+      ['employees-search-results-insurance', searchValue] ,
+      `${host}/employees/get/insurance-number`, 
+      { searchValue: searchValue, businessName:businessName, businessID:businessID } 
+   );
+   
+   console.log("employeeResultData :",employeeResultData);
    
    if(employeeResultDataIsLoading) {
       return (

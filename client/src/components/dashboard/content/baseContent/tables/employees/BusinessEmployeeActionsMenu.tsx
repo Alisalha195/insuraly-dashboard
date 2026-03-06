@@ -10,7 +10,7 @@ import { useMutation } from "@tanstack/react-query";
 import toast from "react-hot-toast";
 import { host } from "../../../../../../constants/connection";
 
-const BusinessEmployeeActionsMenu = ({employeeId, itemData , businessID}:{employeeId:number, itemData:any , businessID:number}) => {
+const BusinessEmployeeActionsMenu = ({personalInfoId ,employeeId, itemData , businessID}:{personalInfoId:number, employeeId:number, itemData:any , businessID:number}) => {
    
    const [waiting , setWaiting] = useState(false)
    const navigate = useNavigate();
@@ -66,7 +66,7 @@ const BusinessEmployeeActionsMenu = ({employeeId, itemData , businessID}:{employ
                      value="" 
                      backgroundColor={'transparent'} 
                      _hover={{backgroundColor:hovering}}
-                     onClick={()=> navigate(item.clickLink({businessID, employeeID:employeeId}) , {state:{...itemData, businessID:Number(businessID),employeeID:employeeId}})}
+                     onClick={()=> navigate(item.clickLink({personalInfoId, businessID, employeeID:employeeId}) , {state:{...itemData, businessID:Number(businessID),employeeID:employeeId}})}
                   >
                     <HStack  >
                        <item.icon />

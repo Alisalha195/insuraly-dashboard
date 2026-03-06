@@ -14,6 +14,7 @@ import { host } from '../../../constants/connection.ts';
 import PageHeadTitle from "../../../components/shared/PageHeadTitle";
 import SkeletonLoader from '../../../components/shared/Skeleton.tsx';
 import { LuSearch } from 'react-icons/lu';
+import { useCustomQuery } from '../../../hooks/useCustomQuery.ts';
 
 const BusinessOwnersPageContent = () => {
 
@@ -23,16 +24,26 @@ const BusinessOwnersPageContent = () => {
    const { btnSecondary, textPrimary, bgSecondary, textSecondary } = useThemedColors();
    const businessOwnersCount = getTableRowsCount('businessOwners');
 
-   const { data: businessOwnerData,
-      error: businessOwnerDataError,
-      isLoading: businessOwnerDataIsLoading,
-   } = useQuery({
-      queryKey: ['business-owners', currentpage],
-      queryFn: () => fetch(`${host}/businessOwners/get?page=${currentpage}&pageSize=${pageSize}`).then(res => res.json()),
-      refetchInterval: 5000,
-      keepPreviousData: true,
-      staleTime: 30000,
-   });
+   // const { data: businessOwnerData,
+   //    error: businessOwnerDataError,
+   //    isLoading: businessOwnerDataIsLoading,
+   // } = useQuery({
+   //    queryKey: ['business-owners', currentpage],
+   //    queryFn: () => fetch(`${host}/businessOwners/get?page=${currentpage}&pageSize=${pageSize}`).then(res => res.json()),
+   //    refetchInterval: 5000,
+   //    keepPreviousData: true,
+   //    staleTime: 30000,
+   // });
+   
+   const { 
+      data:businessOwnerData, 
+      error:businessOwnerDataError, 
+      isSuccess ,
+      isLoading :businessOwnerDataIsLoading
+   } = useCustomQuery(
+      ['business-owners', currentpage] ,
+      `${host}/businessOwners/get?page=${currentpage}&pageSize=${pageSize}`
+   );
 
       return (
          <Box >

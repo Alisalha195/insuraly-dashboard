@@ -42,7 +42,7 @@ const EditBusinessOwnerContent = () => {
    const navigate = useNavigate();
    const location = useLocation();
    const itemData = location.state;
-   
+   console.log("itemData::", itemData);
    const {textPrimary, textSecondary} = useThemedColors();
    
    const formSchema = z.object({

@@ -15,6 +15,7 @@ import TableHeader from '../../../../components/shared/tables/TableHeader';
 import { getEmployeesCountInBusiness } from '../../../../api/getTableRowsCount';
 import EmployeeTableBody from '../../../../components/dashboard/content/baseContent/tables/employees/EmployeeTableBody';
 import { capitalize } from '../../../../lib/capitalize';
+import { useCustomQuery } from '../../../../hooks/useCustomQuery';
 
 const BusinessEmployeesContent = () => {
    
@@ -29,21 +30,31 @@ const BusinessEmployeesContent = () => {
    // const [employeesCount, setEmployeesCount] = useState(0);
    const businessEmployeesCount = getEmployeesCountInBusiness(params?.id);
    
-   const {
-         data: employeesData,
-         error: employeesDataError,
-         isLoading: employeessDataIsLoading,
-         isSuccess: employeesDataIsSuccess,
-      } = useQuery({
-         queryKey: ["employees-in-business", currentpage ,params?.id],
-         queryFn: () =>
-            fetch(
-               `${host}/business/get-employees?page=${currentpage}&pageSize=${pageSize}&businessId=${params?.id}`
-            ).then((res) => res.json()),
-         refetchInterval: 5000,
-         keepPreviousData: true,
-         staleTime: 30000,
-      });
+   // const {
+   //       data: employeesData,
+   //       error: employeesDataError,
+   //       isLoading: employeessDataIsLoading,
+   //       isSuccess: employeesDataIsSuccess,
+   //    } = useQuery({
+   //       queryKey: ["employees-in-business", currentpage ,params?.id],
+   //       queryFn: () =>
+   //          fetch(
+   //             `${host}/business/get-employees?page=${currentpage}&pageSize=${pageSize}&businessId=${params?.id}`
+   //          ).then((res) => res.json()),
+   //       refetchInterval: 5000,
+   //       keepPreviousData: true,
+   //       staleTime: 30000,
+   //    });
+      
+      const { 
+         data:employeesData, 
+         error:employeesDataError, 
+         isSuccess:employeesDataIsSuccess ,
+         isLoading :employeessDataIsLoading
+      } = useCustomQuery(
+         ["employees-in-business", currentpage ,params?.id] ,
+         `${host}/business/get-employees?page=${currentpage}&pageSize=${pageSize}&businessId=${params?.id}`
+      )
    
   return (
       <Box>

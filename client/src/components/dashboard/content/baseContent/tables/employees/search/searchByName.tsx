@@ -9,6 +9,7 @@ import SearchResults from "../../search/SearchResults";
 
 import { employeeTableHeaderData } from "../employeeTableHeaderData.ts";
 import EmployeeTableBody from "../EmployeeTableBody.tsx";
+import { usePostCustomQuery } from "../../../../../../../hooks/useCustomQuery.ts";
 
 const SearchByName = ({ searchValue , businessName , businessID}) => {
 
@@ -43,26 +44,44 @@ const SearchByName = ({ searchValue , businessName , businessID}) => {
       }
    }
 
-   const { data: employeeResultData,
-      error: employeeResultDataError,
-      isLoading: employeeResultDataIsLoading,
-      isSuccess: employeeResultDataIsSuccess
-   } = useQuery({
-      queryKey: ['employees-search-results-name', searchValue],
-      queryFn: () => fetch(`${host}/employees/get/name/`, {
-         method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({
-            firstName: fullName.firstName,
-            fatherName: fullName.fatherName,
-            motherName: fullName.motherName,
-            lastName: fullName.lastName,
-            businessName: businessName,
-            businessID: businessID
-         })
-      }).then(res => res.json()),
-      refetchInterval: 5000,
-      keepPreviousData: true,
-      staleTime: 30000,
-   });
+   // const { data: employeeResultData,
+   //    error: employeeResultDataError,
+   //    isLoading: employeeResultDataIsLoading,
+   //    isSuccess: employeeResultDataIsSuccess
+   // } = useQuery({
+   //    queryKey: ['employees-search-results-name', searchValue],
+   //    queryFn: () => fetch(`${host}/employees/get/name/`, {
+   //       method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({
+   //          firstName: fullName.firstName,
+   //          fatherName: fullName.fatherName,
+   //          motherName: fullName.motherName,
+   //          lastName: fullName.lastName,
+   //          businessName: businessName,
+   //          businessID: businessID
+   //       })
+   //    }).then(res => res.json()),
+   //    refetchInterval: 5000,
+   //    keepPreviousData: true,
+   //    staleTime: 30000,
+   // });
+   
+   const { 
+      data:employeeResultData, 
+      error:employeeResultDataError, 
+      isSuccess :employeeResultDataIsSuccess,
+      isLoading :employeeResultDataIsLoading
+   } = usePostCustomQuery(
+      ['employees-search-results-name', searchValue] ,
+      `${host}/employees/get/name/`, 
+      {
+         firstName: fullName.firstName,
+         fatherName: fullName.fatherName,
+         motherName: fullName.motherName,
+         lastName: fullName.lastName,
+         businessName: businessName,
+         businessID: businessID
+      } 
+   );
 
    if(employeeResultDataIsLoading) {
       return (

@@ -8,6 +8,7 @@ import SkeletonLoader from "../../../../../../shared/Skeleton.tsx";
 
 import { employeeTableHeaderData } from "../employeeTableHeaderData.ts";
 import EmployeeTableBody from "../EmployeeTableBody.tsx";
+import { usePostCustomQuery } from "../../../../../../../hooks/useCustomQuery.ts";
 
 
 const SearchByNationalNumber = ({ searchValue , businessName , businessID }) => {
@@ -15,17 +16,28 @@ const SearchByNationalNumber = ({ searchValue , businessName , businessID }) => 
    const { btnGreen, textPrimary } = useThemedColors();
 
    
-   const { data: employeeResultData,
-      error: employeeResultDataError,
-      isLoading: employeeResultDataIsLoading,
-      isSuccess: employeeResultDataIsSuccess
-   } = useQuery({
-      queryKey: ['employees-search-results-national', searchValue],
-      queryFn: () => fetch(`${host}/employees/get/national-number`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ searchValue: searchValue, businessName: businessName , businessID:businessID }) }).then(res => res.json()),
-      refetchInterval: 5000,
-      keepPreviousData: true,
-      staleTime: 30000,
-   });
+   // const { data: employeeResultData,
+   //    error: employeeResultDataError,
+   //    isLoading: employeeResultDataIsLoading,
+   //    isSuccess: employeeResultDataIsSuccess
+   // } = useQuery({
+   //    queryKey: ['employees-search-results-national', searchValue],
+   //    queryFn: () => fetch(`${host}/employees/get/national-number`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ searchValue: searchValue, businessName: businessName , businessID:businessID }) }).then(res => res.json()),
+   //    refetchInterval: 5000,
+   //    keepPreviousData: true,
+   //    staleTime: 30000,
+   // });
+   
+   const { 
+      data:employeeResultData, 
+      error:employeeResultDataError, 
+      isSuccess :employeeResultDataIsSuccess,
+      isLoading :employeeResultDataIsLoading
+   } = usePostCustomQuery(
+      ['employees-search-results-national', searchValue] ,
+      `${host}/employees/get/national-number`, 
+      { searchValue: searchValue, businessName: businessName , businessID:businessID } 
+   );
 
    if(employeeResultDataIsLoading) {
       return (

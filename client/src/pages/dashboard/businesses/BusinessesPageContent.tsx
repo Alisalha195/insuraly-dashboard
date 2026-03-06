@@ -21,6 +21,7 @@ import { businessTableHeaderData } from "../../../components/dashboard/content/b
 import TableHeader from "../../../components/shared/tables/TableHeader.tsx";
 import SkeletonLoader from "../../../components/shared/Skeleton.tsx";
 import { LuSearch } from "react-icons/lu";
+import { useCustomQuery } from "../../../hooks/useCustomQuery.ts";
 
 const BusinessesPageContent = () => {
 
@@ -30,20 +31,29 @@ const BusinessesPageContent = () => {
    const { btnSecondary, textPrimary, bgSecondary, textSecondary } = useThemedColors();
    const businessesCount = getTableRowsCount("business");
 
-   const {
-      data: businessesData,
-      error: businessOwnerDataError,
-      isLoading: businessesDataIsLoading,
-   } = useQuery({
-      queryKey: ["businesses", currentpage],
-      queryFn: () =>
-         fetch(
-            `${host}/business/get?page=${currentpage}&pageSize=${pageSize}`
-         ).then((res) => res.json()),
-      refetchInterval: 5000,
-      keepPreviousData: true,
-      staleTime: 30000,
-   });
+   // const {
+   //    data: businessesData,
+   //    error: businessOwnerDataError,
+   //    isLoading: businessesDataIsLoading,
+   // } = useQuery({
+   //    queryKey: ["businesses", currentpage],
+   //    queryFn: () =>
+   //       fetch(
+   //          `${host}/business/get?page=${currentpage}&pageSize=${pageSize}`
+   //       ).then((res) => res.json()),
+   //    refetchInterval: 5000,
+   //    keepPreviousData: true,
+   //    staleTime: 30000,
+   // });
+   const { 
+      data:businessesData, 
+      error:businessOwnerDataError, 
+      isSuccess ,
+      isLoading :businessesDataIsLoading
+   } = useCustomQuery(
+      ["businesses", currentpage] ,
+      `${host}/business/get?page=${currentpage}&pageSize=${pageSize}`
+   );
 
    if (businessesDataIsLoading) {
       return (

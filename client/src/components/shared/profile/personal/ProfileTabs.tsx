@@ -1,9 +1,11 @@
 import { Box, Tabs } from '@chakra-ui/react'
 import React from 'react'
 import { LuFolder, LuUser } from 'react-icons/lu'
-import BusinessesTab from '../businessOwner/BusinessesTab';
-import ServicesTab from '../employee/ServicesTab';
+// import BusinessesTab from '../businessOwner/BusinessesTab';
+// import ServicesTab from '../employee/ServicesTab';
 import AboutTab from './AboutTab';
+import ServicesTab from './tabs/ServicesTab';
+import BusinessesTab from './tabs/BusinessesTab';
 
 const ProfileTabs = ({personData, personRules}) => {
    console.log("personRules :",personRules);
