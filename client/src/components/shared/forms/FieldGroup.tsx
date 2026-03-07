@@ -15,6 +15,7 @@ const FieldGroup = ({ register, name, type, preInputText, invalid, label, placeh
          <InputGroup startElement={preInputText ?? preInputText}>
             <Input type={type}
                placeholder={placeholder}
+               disabled={props?.disabled ? props.disabled : false}
                id={name}
                {...register(name, {
                   valueAsNumber: type == 'number' ? true : false,

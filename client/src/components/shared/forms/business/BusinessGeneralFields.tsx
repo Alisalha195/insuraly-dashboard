@@ -8,7 +8,7 @@ import { getBusinessStages, getBusinessCommercialTypes,getBusinessStatuses } fro
 import CommercialTypeSelectBox from './CommercialTypeSelectBox';
 import StatusSelectBox from './StatusSelectBox';
 
-const BusinessGeneralFields = ({setContentLoaded, register, errors, Controller, control, onChangeBusinessOwner, businessOwnerName}) => {
+const BusinessGeneralFields = ({setContentLoaded, register, errors, Controller, control, onChangeBusinessOwner, ...props }) => {
    const {textPrimary, textSecondary,titleTextSecondary} = useThemedColors();
    
    const {stagesData , isSuccessStages} = getBusinessStages();
@@ -50,7 +50,7 @@ const BusinessGeneralFields = ({setContentLoaded, register, errors, Controller, 
                   error = {errors.bOwnerInsuranceNumber}
                   preInputText={null}
                   onchangeValue={onChangeBusinessOwner}
-                  
+                  disabled={props?.disabledFields?.includes('bOwnerInsuranceNumber') ? true : false}
                />
                
                <CommercialTypeSelectBox 

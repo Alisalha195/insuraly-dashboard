@@ -144,7 +144,7 @@ export const getPersonalInfoByInsuranceNumber = async(req , res, next) => {
    const {searchValue} = req.body;
    const serachAsNumber = Number(searchValue);
    
-   // console.log("serachAsNumber ::",serachAsNumber)
+   console.log("serachAsNumber ::",serachAsNumber)
    
    const {data , error} = await supabase
       .from(personalInfoTable) 
@@ -159,8 +159,10 @@ export const getPersonalInfoByInsuranceNumber = async(req , res, next) => {
             res.status(400).json({msg:"repeated insurance number !",status:400});
          } else if(data.length == 1) {
             req.body.personal_informations = data[0];
-            // if(next())
                next();
+               
+            // if(next())
+               // next();
             // else
             //    res.status(200).json({ status:200, person:data[0]})
             
@@ -319,4 +321,9 @@ export const getPersonRules = async (req, res, next) => {
       res.status(400).json({ rules : null, status:400});
    }
    
+}
+
+export const getPersonalRecord = async (req, res, next) => {
+   const {personal_informations} = req.body;
+   res.status(200).json({ status:200, person:personal_informations})
 }
