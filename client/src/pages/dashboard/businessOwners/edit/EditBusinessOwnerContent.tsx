@@ -19,7 +19,7 @@ import {
  
  import * as z from 'zod';
  import {zodResolver} from '@hookform/resolvers/zod';
-  import {useForm, Controller} from 'react-hook-form';
+ import {useForm, Controller} from 'react-hook-form';
  import { checkPersonExist } from '../../../../api/checkPersonExist';
  import { host } from '../../../../constants/connection.ts';
  
@@ -35,6 +35,7 @@ import useBusinessOwnerStore from '../../../../store/useAddBusinessOwnerStore';
 
 import toast from 'react-hot-toast' ;
 import BackArrow from '../../../../components/shared/BackArrow';
+import { BusinessOwnerSchema, BusinessOwnerSchemaFormData } from '../../../../utils/businessOwnerSchema.ts';
 
 
 const EditBusinessOwnerContent = () => {
@@ -45,70 +46,72 @@ const EditBusinessOwnerContent = () => {
    console.log("itemData::", itemData);
    const {textPrimary, textSecondary} = useThemedColors();
    
-   const formSchema = z.object({
-      firstName: z.string().nonempty('first name can not be empty !'),
-      lastName: z.string().nonempty('last name can not be empty !'),
-      fatherName: z.string().nonempty('father name can not be empty !'),
-      motherName: z.string().nonempty('mother name can not be empty !'),
+   // const formSchema = z.object({
+   //    firstName: z.string().nonempty('first name can not be empty !'),
+   //    lastName: z.string().nonempty('last name can not be empty !'),
+   //    fatherName: z.string().nonempty('father name can not be empty !'),
+   //    motherName: z.string().nonempty('mother name can not be empty !'),
       
-      nationalNumber : z.number().refine((val) => val.toString().length === 11, {
-         message: 'national number must be 11 digits !'
-      })
-      .refine(async(val) =>  {
-         if(itemData.personal_informations.national_number != val) {
-            const personExist =  await checkPersonExist('national_number',val);
-            return personExist;
-         }
-         return true;
+   //    nationalNumber : z.number().refine((val) => val.toString().length === 11, {
+   //       message: 'national number must be 11 digits !'
+   //    })
+   //    .refine(async(val) =>  {
+   //       if(itemData.personal_informations.national_number != val) {
+   //          const personExist =  await checkPersonExist('national_number',val);
+   //          return personExist;
+   //       }
+   //       return true;
            
-      } , {
-         message: 'national number is used by another person !'
-      }),
+   //    } , {
+   //       message: 'national number is used by another person !'
+   //    }),
       
-      gender: z.string() ,
+   //    gender: z.string() ,
       
-      birthDate: z.date() ,
-      birthLocation: z.string().nonempty('birth location can not be empty !') ,
-      registrationLocation : z.string().nonempty('registration location can not be empty !') ,
-      registrationDigit : z.string().nonempty('registration digit can not be empty !') ,
+   //    birthDate: z.date() ,
+   //    birthLocation: z.string().nonempty('birth location can not be empty !') ,
+   //    registrationLocation : z.string().nonempty('registration location can not be empty !') ,
+   //    registrationDigit : z.string().nonempty('registration digit can not be empty !') ,
       
-      phoneNumber: z.number().refine((val) => val.toString().length === 9, {
-         message: 'phone number must be 9 digits !'
-      }).refine(async(val) => { 
-         if(itemData.personal_informations.phone_number != val) {
-            const personExist =  await checkPersonExist('phone_number',val);
-            return personExist;
-         }
-         return true;
+   //    phoneNumber: z.number().refine((val) => val.toString().length === 9, {
+   //       message: 'phone number must be 9 digits !'
+   //    }).refine(async(val) => { 
+   //       if(itemData.personal_informations.phone_number != val) {
+   //          const personExist =  await checkPersonExist('phone_number',val);
+   //          return personExist;
+   //       }
+   //       return true;
          
-      } , {
-      message: 'phone number is used by another person !'
-      }),
+   //    } , {
+   //    message: 'phone number is used by another person !'
+   //    }),
       
       
-      email : z.string().email({
-         message: 'please enter a valid email address !'
-      }).nonempty('email can not be empty !').refine(async(val) => { 
-         if(itemData.personal_informations.email != val ) {
-            const personExist = await checkPersonExist('email',val);
-            return personExist;
-         }
-         return true;
+   //    email : z.string().email({
+   //       message: 'please enter a valid email address !'
+   //    }).nonempty('email can not be empty !').refine(async(val) => { 
+   //       if(itemData.personal_informations.email != val ) {
+   //          const personExist = await checkPersonExist('email',val);
+   //          return personExist;
+   //       }
+   //       return true;
          
-         } , {
-         message: 'email is used by another person !'
-      }),
+   //       } , {
+   //       message: 'email is used by another person !'
+   //    }),
 
-   });
+   // });
    
-   type FormValues = z.infer<typeof formSchema>;
+   const businessOwnerSchema = BusinessOwnerSchema({checkPersonExist});
+   
+   // type FormValues = z.infer<typeof formSchema>;
    const {
       register,
       handleSubmit ,
       formState : {errors},
       control
-   } = useForm<FormValues>({
-      resolver : zodResolver(formSchema) ,
+   } = useForm<BusinessOwnerSchemaFormData>({
+      resolver : zodResolver(businessOwnerSchema) ,
       defaultValues : {
          firstName:itemData.personal_informations.first_name ,
          lastName:itemData.personal_informations.last_name ,

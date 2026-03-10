@@ -1,38 +1,24 @@
-import {useMutation } from '@tanstack/react-query';
-import {host} from "../../../../constants/connection.ts";
-import {
-   Box,
-   Button,
-   Field,
-   Fieldset,
-   Flex,
-   For,
-   HStack,
-   IconButton,
-   Input,
-   NativeSelect,
-   Stack,
-   Text,
-   Textarea,
-   VStack,
- } from "@chakra-ui/react";
- 
- 
- import * as z from 'zod';
- import {zodResolver} from '@hookform/resolvers/zod';
-  import {useForm, Controller} from 'react-hook-form';
-//  import { checkPersonExist } from '../../../../api/checkPersonExist';
- 
-import { useNavigate, useLocation } from 'react-router-dom';
-import useThemedColors from '../../../../hooks/useThemedColors';
-import FixBottomArea from '../../../../components/shared/FixBottomArea';
-import Control from '../../../../components/shared/forms/Control';
-import toast from 'react-hot-toast' ;
-import BackArrow from '../../../../components/shared/BackArrow';
-import { getBusinessOwnerByInsuranceNumber } from '../../../../api/businessOwner/getBusinessOwnerByInsuranceNumber';
-import { useState } from 'react';
-import BusinessGeneralFields from '../../../../components/shared/forms/business/BusinessGeneralFields';
-import AddressFields from '../../../../components/shared/forms/business/AddressFields';
+//--imports--
+   import {useMutation } from '@tanstack/react-query';
+   import {host} from "../../../../constants/connection.ts";
+   import { Box,Flex,Text} from "@chakra-ui/react";
+   import * as z from 'zod';
+   import {zodResolver} from '@hookform/resolvers/zod';
+   import {useForm, Controller} from 'react-hook-form';
+   import { useNavigate, useLocation } from 'react-router-dom';
+   import useThemedColors from '../../../../hooks/useThemedColors';
+   import FixBottomArea from '../../../../components/shared/FixBottomArea';
+   import Control from '../../../../components/shared/forms/Control';
+   import toast from 'react-hot-toast' ;
+   import BackArrow from '../../../../components/shared/BackArrow';
+   import { getBusinessOwnerByInsuranceNumber } from '../../../../api/businessOwner/getBusinessOwnerByInsuranceNumber';
+   import { useState } from 'react';
+   import BusinessGeneralFields from '../../../../components/shared/forms/business/BusinessGeneralFields';
+   import AddressFields from '../../../../components/shared/forms/business/AddressFields';
+   import {  BusinessSchema } from '../../../../utils/businessSchema.ts';
+import PageHeadTitle from '../../../../components/shared/PageHeadTitle.tsx';
+   
+   
 const EditBusinessContent = () => {
    
    const navigate = useNavigate();
@@ -47,26 +33,47 @@ const EditBusinessContent = () => {
    
    const {textPrimary, textSecondary} = useThemedColors();
    
-   const formSchema = z.object({
-      businessName: z.string().nonempty("business name can not be empty !"),
-      commercialType: z.string().nonempty('commercial type can not be empty !'),
-      stage: z.string().nonempty('stage can not be empty !'),
-      status: z.string().nonempty('status can not be empty !'),
-      lawInitiativeDate: z.date() ,
+   // const formSchema = z.object({
+   //    businessName: z.string().nonempty("business name can not be empty !"),
+   //    commercialType: z.string().nonempty('commercial type can not be empty !'),
+   //    stage: z.string().nonempty('stage can not be empty !'),
+   //    status: z.string().nonempty('status can not be empty !'),
+   //    lawInitiativeDate: z.date() ,
       
-      bOwnerInsuranceNumber : z.number().nonnegative()
-      .min(1,{message:"can not be empty"}).refine(async(val) => await handleViewBusinessOwnerName(val) , {
-         message: "not a business owner"
-      }),
+   //    bOwnerInsuranceNumber : z.number().nonnegative()
+   //    .min(1,{message:"can not be empty"}).refine(async(val) => await handleViewBusinessOwnerName(val) , {
+   //       message: "not a business owner"
+   //    }),
       
-      country: z.string().nonempty('country can not be empty !'),
-      city: z.string().nonempty('city can not be empty !'),
+   //    country: z.string().nonempty('country can not be empty !'),
+   //    city: z.string().nonempty('city can not be empty !'),
       
-      businessOwnerId :z.number(),
+   //    businessOwnerId :z.number(),
 
-   });
+   // });
    
-   type FormValues = z.infer<typeof formSchema>;
+   const handleViewBusinessOwnerName = async(val) => {
+      
+      let isBusinessOwner = false;
+      const businessOwner = await getBusinessOwnerByInsuranceNumber(val);
+      if(businessOwner)  {
+         setBusinessOwnerName(`${businessOwner?.personal_informations?.first_name} ${businessOwner?.personal_informations?.father_name} ${businessOwner?.personal_informations?.last_name}`)
+         
+         setValue('businessOwnerId' ,businessOwner?.business_owner_id
+         );
+         console.log("businessOwner :",businessOwner?.business_owner_id);
+         
+         isBusinessOwner = true;
+      }
+      else {
+         setBusinessOwnerName("");
+      }
+         return isBusinessOwner ;
+   }
+   
+   const businessSchema = BusinessSchema({handleViewBusinessOwnerName});
+   
+   type FormValues = z.infer<typeof businessSchema>;
    const {
       register,
       handleSubmit ,
@@ -74,7 +81,7 @@ const EditBusinessContent = () => {
       formState : {errors},
       control
    } = useForm<FormValues>({
-      resolver : zodResolver(formSchema) ,
+      resolver : zodResolver(businessSchema) ,
       defaultValues : {
          
          businessName: itemData.business_name,
@@ -92,7 +99,6 @@ const EditBusinessContent = () => {
          
       }
    });
-   
    
    const saveBusiness = useMutation({
       mutationFn : (business) => fetch(`${host}/business/edit`,{method:'PUT', headers: {'Content-Type' : 'application/json'}, body : JSON.stringify(business)}).then(res => res.json()) ,
@@ -115,31 +121,17 @@ const EditBusinessContent = () => {
       saveBusiness.mutate(dataWithId);
    }
    
-   const handleViewBusinessOwnerName = async(val) => {
-      
-      let isBusinessOwner = false;
-      const businessOwner = await getBusinessOwnerByInsuranceNumber(val);
-      if(businessOwner)  {
-         setBusinessOwnerName(`${businessOwner?.personal_informations?.first_name} ${businessOwner?.personal_informations?.father_name} ${businessOwner?.personal_informations?.last_name}`)
-         
-         setValue('businessOwnerId' ,businessOwner?.business_owner_id
-         );
-         console.log("businessOwner :",businessOwner?.business_owner_id);
-         
-         isBusinessOwner = true;
-      }
-      else {
-         setBusinessOwnerName("");
-      }
-         return isBusinessOwner ;
-   }
    return (
       <Flex flexDirection={'column'} maxHeight={'100vh'} overflowY={'scroll'}>
          
-         <BackArrow />
+         <PageHeadTitle
+            backButton={true}
+            title={"Edit Business"}
+         />
+         {/* <BackArrow />
          <Text color={textSecondary} textAlign={'center'} fontWeight={"500"}>
             Edit Business
-         </Text>
+         </Text> */}
          <Box>
             <Flex flexDirection={'row'} justifyContent={'center'} fontSize={'16px'}>
                
@@ -159,7 +151,7 @@ const EditBusinessContent = () => {
             Controller={Controller}
             control={control}
             onChangeBusinessOwner={handleViewBusinessOwnerName}
-            businessOwnerName={businessOwnerName}
+            disabledFields={['bOwnerInsuranceNumber']}
          />
          <AddressFields 
             setContentLoaded={setContentLoaded}

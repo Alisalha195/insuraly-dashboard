@@ -15,6 +15,7 @@ import toast from "react-hot-toast";
 import { useAuthStore } from "../../store/useAuthStore";
 import { useContext, useEffect } from "react";
 import { authContext } from "../../providers/AuthContextProvider";
+import { loginSchema } from "../../utils/authSchema";
 // import { useAuthContext } from "../../providers/AuthContextProvider";
 
 const Login = () => {
@@ -36,32 +37,15 @@ const Login = () => {
          
    //    } 
    // },[JSON.parse( localStorage.getItem('auth'))]);
-   
-   
-   
-   
-   const formSchema = z.object({
 
-      email: z.string().email({
-         message: 'please enter a valid email address !'
-      }).nonempty('email can not be empty !')
-      // .refine(async (val) => await checkPersonExist('email', val), {
-      //    message: 'email is used by another person !'
-      // })
-      ,
-      
-      password : z.string().min(6, 'password must be at least 6 characters !')
-
-   })
-
-   type FormValues = z.infer<typeof formSchema>;
+   type FormValues = z.infer<typeof loginSchema>;
    const {
       register,
       handleSubmit,
       formState: { errors },
       control
    } = useForm<FormValues>({
-      resolver: zodResolver(formSchema),
+      resolver: zodResolver(loginSchema),
       // defaultValues: {
       //    birthDate: new Date(Date.now())
       // },

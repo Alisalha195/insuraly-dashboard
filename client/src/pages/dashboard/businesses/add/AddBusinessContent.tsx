@@ -1,73 +1,64 @@
-import {useMutation } from '@tanstack/react-query';
-import * as z from 'zod';
-import {zodResolver} from '@hookform/resolvers/zod';
-import { checkPersonExist } from '../../../../api/checkPersonExist';
-import { host } from '../../../../constants/connection.ts';
+//--imports--
+   import {useMutation } from '@tanstack/react-query';
+   import * as z from 'zod';
+   import {zodResolver} from '@hookform/resolvers/zod';
+   import { host } from '../../../../constants/connection.ts';
+   import { Box,  Flex, Span, Text, VStack,} from "@chakra-ui/react";
+   import { useNavigate, useNavigation } from 'react-router-dom';
+   import {useForm, Controller} from 'react-hook-form';
+   import useThemedColors from '../../../../hooks/useThemedColors';
+   import FixBottomArea from '../../../../components/shared/FixBottomArea';
+   import Control from '../../../../components/shared/forms/Control';
+   import toast from 'react-hot-toast' ;
+   import {  useState } from 'react';
+   import BackArrow from '../../../../components/shared/BackArrow';
+   import BusinessGeneralFields from '../../../../components/shared/forms/business/BusinessGeneralFields';
+   import AddressFields from '../../../../components/shared/forms/business/AddressFields';
+   import { getBusinessOwnerByInsuranceNumber } from '../../../../api/businessOwner/getBusinessOwnerByInsuranceNumber';
+   import { BusinessSchema } from '../../../../utils/businessSchema.ts';
+   import PageHeadTitle from '../../../../components/shared/PageHeadTitle.tsx';
+   import { capitalize } from '../../../../lib/capitalize.ts';
+   import SkeletonLoader from '../../../../components/shared/Skeleton.tsx';
 
-import {
-   Box,
-   Button,
-   Field,
-   Fieldset,
-   Flex,
-   For,
-   HStack,
-   Input,
-   NativeSelect,
-   Stack,
-   Text,
-   Textarea,
-   VStack,
- } from "@chakra-ui/react";
- import { useNavigate } from 'react-router-dom';
- import {useForm, Controller} from 'react-hook-form';
-import useThemedColors from '../../../../hooks/useThemedColors';
-import BirthFields from '../../../../components/shared/forms/BirthFields';
-import FixBottomArea from '../../../../components/shared/FixBottomArea';
-import BirthRegistrationFields from '../../../../components/shared/forms/BirthRegistrationFields';
-import ContactFields from '../../../../components/shared/forms/ContactFields';
-import Control from '../../../../components/shared/forms/Control';
-import BasicFieldsSection from '../../../../components/shared/forms/BasicFieldsSection';
-import useAddBusinessOwnerStore from '../../../../store/useAddBusinessOwnerStore';
-
-import toast from 'react-hot-toast' ;
-import { useEffect, useState } from 'react';
-import BackArrow from '../../../../components/shared/BackArrow';
-import BusinessGeneralFields from '../../../../components/shared/forms/business/BusinessGeneralFields';
-import AddressFields from '../../../../components/shared/forms/business/AddressFields';
-import { getBusinessOwnerByInsuranceNumber } from '../../../../api/businessOwner/getBusinessOwnerByInsuranceNumber';
 
 const AddBusinessContent = () => {
    
+   const navigate = useNavigate();
    const [contentLoaded , setContentLoaded] = useState({
       businessGeneralFields : false ,
       addressFields : false ,
    })
    
+   const [businessOwner ,setBusinessOwner] = useState({});
    const [businessOwnerName ,setBusinessOwnerName] = useState("");
-   const {textPrimary, textSecondary} = useThemedColors();
+   const {textPrimary, textSecondary, btnGreen} = useThemedColors();
    
-   const formSchema = z.object({
-      businessName: z.string().nonempty("business name can not be empty !"),
-      commercialType: z.string().nonempty('commercial type can not be empty !'),
-      stage: z.string().nonempty('stage can not be empty !'),
-      status: z.string().nonempty('status can not be empty !'),
-      lawInitiativeDate: z.date().refine((date) => date <= new Date(), {
-         message: "law initiative date can not be in the future",
-      }), 
+   const handleViewBusinessOwnerName = async(val) => {
       
-      bOwnerInsuranceNumber : z.number().nonnegative()
-      .min(1,{message:"can not be empty"}).refine(async(val) => await handleViewBusinessOwnerName(val) , {
-         message: "not a business owner"
-      }),
-      
-      country: z.string().nonempty('country can not be empty !'),
-      city: z.string().nonempty('city can not be empty !'),
-      
-      businessOwnerId :z.number(),
-   })
+      let isBusinessOwner = false;
+      const businessOwner = await getBusinessOwnerByInsuranceNumber(val);
+      if(businessOwner)  {
+         
+         setBusinessOwnerName(`${capitalize(businessOwner?.personal_informations?.first_name)} ${capitalize(businessOwner?.personal_informations?.father_name)} ${capitalize(businessOwner?.personal_informations?.last_name)}`)
+         
+         setBusinessOwner(businessOwner);
+         
+         setValue('businessOwnerId' ,businessOwner?.business_owner_id
+         );
+         console.log("businessOwner :",businessOwner?.business_owner_id);
+         
+         isBusinessOwner = true;
+      }
+      else {
+         setBusinessOwnerName("");
+         setBusinessOwner({});
+      }
+         return isBusinessOwner ;
+   }
    
-   type FormValues = z.infer<typeof formSchema>;
+   const businessSchema = BusinessSchema({handleViewBusinessOwnerName});
+   
+   type FormValues = z.infer<typeof businessSchema>;
    const {
       register,
       handleSubmit ,
@@ -77,7 +68,7 @@ const AddBusinessContent = () => {
       control ,
       trigger
    } = useForm<FormValues>({
-      resolver : zodResolver(formSchema) ,
+      resolver : zodResolver(businessSchema) ,
       defaultValues : {
          lawInitiativeDate: new Date(Date.now()),
          country: "Syria",
@@ -88,8 +79,6 @@ const AddBusinessContent = () => {
       },
       mode:'onChange'
    });
-   
-   const navigate = useNavigate();
    
    const saveBusiness = useMutation({
       mutationFn : (business) => fetch(`${host}/business/create`,{method:'POST', headers: {'Content-Type' : 'application/json'}, body : JSON.stringify(business)}).then(res => res.json()) ,
@@ -115,78 +104,69 @@ const AddBusinessContent = () => {
       saveBusiness.mutate(data);
    }
    
-   const handleViewBusinessOwnerName = async(val) => {
+  return (
+   <Flex flexDirection={'column'} maxHeight={'100vh'} overflowY={'scroll'}>
       
-      let isBusinessOwner = false;
-      const businessOwner = await getBusinessOwnerByInsuranceNumber(val);
-      if(businessOwner)  {
-         setBusinessOwnerName(`${businessOwner?.personal_informations?.first_name} ${businessOwner?.personal_informations?.father_name} ${businessOwner?.personal_informations?.last_name}`)
-         
-         setValue('businessOwnerId' ,businessOwner?.business_owner_id
-         );
-         console.log("businessOwner :",businessOwner?.business_owner_id);
-         
-         isBusinessOwner = true;
-      }
-      else {
-         setBusinessOwnerName("");
-      }
-         return isBusinessOwner ;
-   }
-     return (
-      <Flex flexDirection={'column'} maxHeight={'100vh'} overflowY={'scroll'}>
-         
-         {
-            (contentLoaded.businessGeneralFields && contentLoaded.addressFields)
-            ? 
-            <>
-               <BackArrow />
-               <Text color={textSecondary} textAlign={'center'} fontWeight={"500"}>
-                  New Business
-               </Text>
-            
-            </>
-            : <p>Loading....</p>
-         }
-         
-         <Box>
-            <Flex flexDirection={'row'} justifyContent={'center'} fontSize={'16px'}>
-               
-               <Text fontSize={'16px'} fontWeight={"500"}>
-                  {businessOwnerName}
-               </Text> 
-            </Flex>
-            <Flex textAlign={'center'}  >
-               
-            </Flex>
-         </Box>
-         
-         <BusinessGeneralFields 
-            setContentLoaded={setContentLoaded}
-            register={register}
-            errors={errors}
-            Controller={Controller}
-            control={control}
-            onChangeBusinessOwner={handleViewBusinessOwnerName}
-            businessOwnerName={businessOwnerName}
-         />
-         <AddressFields 
-            setContentLoaded={setContentLoaded}
-            errors={errors}
-            Controller={Controller}
-            control={control}
-         />
-         
-         {
+      {
          (contentLoaded.businessGeneralFields && contentLoaded.addressFields)
-         &&
-         <Control click = {handleSubmit(handleSaveBusiness)} />
-         }
-    
-         <FixBottomArea />
+         ? 
+         <>
+            <PageHeadTitle
+               backButton={true}
+               title={"New Business"}
+            />
          
-      </Flex> 
-     )
+         </>
+         :    <VStack justifyContent={'center'} height={'50vh'}>
+                  <SkeletonLoader width='60%'/>
+                  <SkeletonLoader width='50%'/>
+               </VStack>
+      }
+      
+      <Box>
+         <Flex flexDirection={'row'}  fontSize={'16px'}>
+            <Span marginRight={1} >owner :</Span>
+            <Text className='btn' 
+               // _hover={{color : "#F00"}}
+               fontSize={'16px'} 
+               fontWeight={"500"} 
+               color={btnGreen} 
+               onClick={()=> navigate(`/profile/${businessOwner?.personal_informations?.personal_info_id}`)}
+            >
+                {businessOwnerName} 
+            </Text> 
+         </Flex>
+         <Flex textAlign={'center'}  >
+            
+         </Flex>
+      </Box>
+      
+      <BusinessGeneralFields 
+         setContentLoaded={setContentLoaded}
+         register={register}
+         errors={errors}
+         Controller={Controller}
+         control={control}
+         onChangeBusinessOwner={handleViewBusinessOwnerName}
+         businessOwnerName={businessOwnerName}
+      />
+      <AddressFields 
+         setContentLoaded={setContentLoaded}
+         errors={errors}
+         Controller={Controller}
+         control={control}
+      />
+      
+      {
+      (contentLoaded.businessGeneralFields && contentLoaded.addressFields)
+      &&
+      <Control click = {handleSubmit(handleSaveBusiness)} />
+      }
+ 
+      <FixBottomArea />
+      
+   </Flex> 
+  )
 
 }
 

@@ -21,20 +21,29 @@ const BusinessProfileContent = () => {
    const params = useParams();
    const {textPrimary, textSecondary} = useThemedColors();
    
-   const {
-      data: businessData,
-      error: businessDataError,
-      isLoading: businessDataIsLoading,
-   } = useQuery({
-      queryKey: ["business-profile", params?.id] ,
-      queryFn: () =>
-         fetch(
-            `${host}/business/get/id?id=${params?.id}`
-         ).then((res) => res.json()),
-      refetchInterval: 5000,
-      keepPreviousData: true,
-      staleTime: 30000,
-   });
+   // const {
+   //    data: businessData,
+   //    error: businessDataError,
+   //    isLoading: businessDataIsLoading,
+   // } = useQuery({
+   //    queryKey: ["business-profile", params?.id] ,
+   //    queryFn: () =>
+   //       fetch(
+   //          `${host}/business/get/id?id=${params?.id}`
+   //       ).then((res) => res.json()),
+   //    refetchInterval: 5000,
+   //    keepPreviousData: true,
+   //    staleTime: 30000,
+   // });
+   
+   const { 
+      data:businessData, 
+      error:businessDataError, 
+      isLoading :businessDataIsLoading
+   } = useCustomQuery(
+      ["business-profile", params?.id] ,
+      `${host}/business/get/id?id=${params?.id}`
+   );
    
    // const {
    //    data: businessEmployeesCount,

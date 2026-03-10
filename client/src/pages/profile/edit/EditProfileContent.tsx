@@ -20,6 +20,7 @@ import { checkPersonExist } from '../../../api/checkPersonExist';
 import { useCustomQuery } from '../../../hooks/useCustomQuery';
 import SkeletonLoader from '../../../components/shared/Skeleton';
 import Error from '../../../components/shared/Error';
+import { PersonalSchemaFormData, PersonalSchema } from '../../../utils/personalSchema';
 
 const EditProfileContent = () => {
    
@@ -30,84 +31,87 @@ const EditProfileContent = () => {
    // const location = useLocation();
    // const itemData = location.state;
    
-   const {data, error, isLoading, isSuccess } = useCustomQuery([`personalInfo-${params?.personId}`], 
-      `${host}/personalInformations/get/id?id=${params?.personId}`, );
+   const {data, error, isLoading, isSuccess } = useCustomQuery(
+      [`personalInfo-${params?.personId}`], 
+      `${host}/personalInformations/get/id?id=${params?.personId}` 
+   );
    
-   console.log("data", data?.person);
+   console.log("data", data?.person);  
+   const personalSchema = PersonalSchema({checkPersonExist});
    
-   const formSchema = z.object({
-      firstName: z.string().nonempty('first name can not be empty !'),
-      lastName: z.string().nonempty('last name can not be empty !'),
-      fatherName: z.string().nonempty('father name can not be empty !'),
-      motherName: z.string().nonempty('mother name can not be empty !'),
+   // const formSchema = z.object({
+   //    firstName: z.string().nonempty('first name can not be empty !'),
+   //    lastName: z.string().nonempty('last name can not be empty !'),
+   //    fatherName: z.string().nonempty('father name can not be empty !'),
+   //    motherName: z.string().nonempty('mother name can not be empty !'),
       
-      nationalNumber : z.number().refine((val) => val.toString().length === 11, {
-         message: 'national number must be 11 digits !'
-      })
-      .refine(async(val) =>  {
-         if(data?.person.national_number != val) {
-            const personExist =  await checkPersonExist('national_number',val);
-            return personExist;
-         }
-         return true;
+   //    nationalNumber : z.number().refine((val) => val.toString().length === 11, {
+   //       message: 'national number must be 11 digits !'
+   //    })
+   //    .refine(async(val) =>  {
+   //       if(data?.person.national_number != val) {
+   //          const personExist =  await checkPersonExist('national_number',val);
+   //          return personExist;
+   //       }
+   //       return true;
            
-      } , {
-         message: 'national number is used by another person !'
-      }),
+   //    } , {
+   //       message: 'national number is used by another person !'
+   //    }),
       
-      gender: z.string() ,
+   //    gender: z.string() ,
       
-      birthDate: z.date() ,
-      birthLocation: z.string().nonempty('birth location can not be empty !') ,
-      registrationLocation : z.string().nonempty('registration location can not be empty !') ,
-      registrationDigit : z.string().nonempty('registration digit can not be empty !') ,
+   //    birthDate: z.date() ,
+   //    birthLocation: z.string().nonempty('birth location can not be empty !') ,
+   //    registrationLocation : z.string().nonempty('registration location can not be empty !') ,
+   //    registrationDigit : z.string().nonempty('registration digit can not be empty !') ,
       
-      phoneNumber: z.number().refine((val) => val.toString().length === 9, {
-         message: 'phone number must be 9 digits !'
-      }).refine(async(val) => { 
-         if(data?.person.phone_number != val) {
-            const personExist =  await checkPersonExist('phone_number',val);
-            return personExist;
-         }
-         return true;
+   //    phoneNumber: z.number().refine((val) => val.toString().length === 9, {
+   //       message: 'phone number must be 9 digits !'
+   //    }).refine(async(val) => { 
+   //       if(data?.person.phone_number != val) {
+   //          const personExist =  await checkPersonExist('phone_number',val);
+   //          return personExist;
+   //       }
+   //       return true;
          
-      } , {
-      message: 'phone number is used by another person !'
-      }),
+   //    } , {
+   //    message: 'phone number is used by another person !'
+   //    }),
       
       
-      email : z.string().email({
-         message: 'please enter a valid email address !'
-      }).nonempty('email can not be empty !').refine(async(val) => { 
-         if(data?.person.email != val ) {
-            const personExist = await checkPersonExist('email',val);
-            return personExist;
-         }
-         return true;
+   //    email : z.string().email({
+   //       message: 'please enter a valid email address !'
+   //    }).nonempty('email can not be empty !').refine(async(val) => { 
+   //       if(data?.person.email != val ) {
+   //          const personExist = await checkPersonExist('email',val);
+   //          return personExist;
+   //       }
+   //       return true;
          
-         } , {
-         message: 'email is used by another person !'
-      }),
+   //       } , {
+   //       message: 'email is used by another person !'
+   //    }),
 
-   });
+   // });
    
-   type FormValues = z.infer<typeof formSchema>;
+   // type FormValues = z.infer<typeof formSchema>;
    const {
       register,
       handleSubmit,
       formState: { errors },
       control
-   } = useForm<FormValues>({
-      resolver: zodResolver(formSchema),
-      values: isSuccess && data?.person ? {
-         firstName: data?.person?.first_name || "",
-         lastName: data?.person?.last_name || "",
+   } = useForm<PersonalSchemaFormData>({
+      resolver: zodResolver(personalSchema),
+      defaultValues: {
+         firstName: data?.person?.first_name ,
+         lastName: data?.person?.last_name ,
          fatherName: data?.person?.father_name,
          motherName: data?.person?.mother_name,
          
          nationalNumber: data?.person?.national_number,
          
-         birthDate: new Date(data?.person?.birth_date),
+         birthDate: new Date(data?.person?.birth_date || Date.now()),
          birthLocation: data?.person?.birth_location,
          
          registrationLocation: data?.person?.birth_registration_place,
@@ -117,7 +121,8 @@ const EditProfileContent = () => {
          phoneNumber: data?.person?.phone_number,
          email: data?.person?.email,
          gender: data?.person?.gender,
-      } : {}
+      } ,
+       mode: 'onChange'
    });
    
    const saveInfo = useMutation({

@@ -1,64 +1,37 @@
-import { Box, Flex, Grid, HStack, Switch, Text, VStack } from "@chakra-ui/react";
-import { useLocation, useNavigate } from "react-router-dom";
-import { useForm, Controller } from "react-hook-form";
-import { z } from "zod";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useEffect, useState } from "react";
-import { useMutation } from "@tanstack/react-query";
-import toast from "react-hot-toast";
-import { FaDollarSign } from "react-icons/fa6";
-import useThemedColors from "../../../../../../hooks/useThemedColors";
-import PageHeadTitle from "../../../../../../components/shared/PageHeadTitle";
-import { capitalize } from "../../../../../../lib/capitalize";
-import { getEmployeeByInsuranceNumber } from "../../../../../../api/employees/getEmployeeByInsuranceNumber";
-import FieldGroup from "../../../../../../components/shared/forms/FieldGroup";
-import { host } from "../../../../../../constants/connection";
-import Control from "../../../../../../components/shared/forms/Control";
-import DatePickerField from "../../../../../../components/shared/forms/DatePickerField";
-import { getFinishedWorkReasons } from "../../../../../../api/services/getServicesRelatedData";
-import FisinshReasonsSelectBox from "../../../../../../components/shared/forms/services/FinishReasonsSelectBox";
-import { getEmployeeByID } from "../../../../../../api/employees/getEmployeeByID";
+//--imports--
+   import { Box, Flex, Grid, HStack, Switch, Text, VStack } from "@chakra-ui/react";
+   import { useLocation, useNavigate } from "react-router-dom";
+   import { useForm, Controller } from "react-hook-form";
+   import { z } from "zod";
+   import { zodResolver } from "@hookform/resolvers/zod";
+   import { useEffect, useState } from "react";
+   import { useMutation } from "@tanstack/react-query";
+   import toast from "react-hot-toast";
+   import { FaDollarSign } from "react-icons/fa6";
+   import useThemedColors from "../../../../../../hooks/useThemedColors";
+   import PageHeadTitle from "../../../../../../components/shared/PageHeadTitle";
+   import { capitalize } from "../../../../../../lib/capitalize";
+   import { getEmployeeByInsuranceNumber } from "../../../../../../api/employees/getEmployeeByInsuranceNumber";
+   import FieldGroup from "../../../../../../components/shared/forms/FieldGroup";
+   import { host } from "../../../../../../constants/connection";
+   import Control from "../../../../../../components/shared/forms/Control";
+   import DatePickerField from "../../../../../../components/shared/forms/DatePickerField";
+   import { getFinishedWorkReasons } from "../../../../../../api/services/getServicesRelatedData";
+   import FisinshReasonsSelectBox from "../../../../../../components/shared/forms/services/FinishReasonsSelectBox";
+   import { getEmployeeByID } from "../../../../../../api/employees/getEmployeeByID";
+   import { ServiceSchema, ServiceSchemaFormData } from "../../../../../../utils/employeeSchema";
 
 const EditServiceAtBusinessContent = () => {
    
    const navigate = useNavigate();
    const location =  useLocation();
-   console.log("location state : ", location?.state);
    const [serviceFinish, setServiceFinish] = useState(false);
    const [employeeName, setEmployeeName] = useState("");
-   
    const { textPrimary, textSecondary, titleTextSecondary, borderSecondary } = useThemedColors();
-   
    const {reasonsData, isSuccessReasonsData, isLoadingReasonsData} = getFinishedWorkReasons();
    
-   const formSchema = z.object({
-
-      initiateDate : z.date().refine((date) => date <= new Date(), {
-         message: "initiate date can not be in the future",
-      }),
-      initiateSalary : z.number().nonnegative(),
-      initiateRegistrationDate :  z.date().refine((date) => date <= new Date(), {
-         message: "initiate registration date can not be in the future",
-      }),
-      initiateRegistrationNumber: z.number().nonnegative() , 
-      finishReason : z.string().optional(),
-      finishDate : z.date().optional().refine((date) => date <= new Date(), {
-         message: "finish date can not be in the future",
-      }),
-      finishRegistrationDate :  z.date().optional().refine((date) => date <= new Date(), {
-         message: "finish registration date can not be in the future",
-      }),
-      finishRegistrationNumber: z.number().nonnegative().optional(),
-   });
-   
-   const partialFormSchema = formSchema.partial({
-      finishRegistrationDate: true,
-      finishDate:true,
-      finishRegistrationNumber:true,
-      finishReason:true
-   });
+   const serviceSchema = ServiceSchema();
       
-   type FormValues = z.infer<typeof partialFormSchema>;
    const {
       register,
       handleSubmit ,
@@ -69,8 +42,8 @@ const EditServiceAtBusinessContent = () => {
       formState : {errors},
       control ,
       trigger
-   } = useForm<FormValues>({
-      resolver : zodResolver(partialFormSchema) ,
+   } = useForm<ServiceSchemaFormData>({
+      resolver : zodResolver(serviceSchema) ,
       defaultValues : {
          // businessID : location?.state?.businessID || 0,
          initiateDate : new Date(location?.state?.initiate_start_date),

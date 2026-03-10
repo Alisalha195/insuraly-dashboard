@@ -16,21 +16,27 @@ import { getEmployeeByID } from '../../../../../../api/employees/getEmployeeByID
 import { useMutation, useQuery } from '@tanstack/react-query';
 import { host } from '../../../../../../constants/connection';
 import toast from 'react-hot-toast';
+import {  WagesSchema, WagesSchemaFormData } from '../../../../../../utils/employeeSchema';
+import { useCustomQuery } from '../../../../../../hooks/useCustomQuery';
 
 
-const wageSchema = z.object({
+// const wageSchema = z.object({
    
-   wageDate : z.date().refine((date) => date <= new Date(), {
-      message: "wage date can not be in the future",
-   }),
-   wageAmount : z.number().min(0, "Amount must be a positive number")
-});
+//    wageDate : z.date().refine((date) => date <= new Date(), {
+//       message: "wage date can not be in the future",
+//    }),
+//    wageAmount : z.number().min(0, "Amount must be a positive number")
+// });
 
-const totalWageSchema = z.object({
-   wages: z.array(wageSchema).min(1, "At least one wage entry is required"),
-});
+// const totalWageSchema = z.object({
+//    wages: z.array(wageSchema).min(1, "At least one wage entry is required"),
+// });
+
+// type WageFormValues = z.infer<typeof totalWageSchema>;
 
 const WagesOfService = () => {
+   
+   const wagesSchema = WagesSchema();
    
    const [employeeName, setEmployeeName] = useState("");
    // const [defaultWages, setDefaultWages] = useState([{ wageDate: null, wageAmount: 0 }]);
@@ -52,21 +58,30 @@ const WagesOfService = () => {
    },[location.state]);
    
    
-   const {
-         data: previousWages,
-         error: previousWagesError,
-         isLoading: previousWagesIsLoading,
-         isSuccess: previousWagesIsSuccess,
-   } = useQuery({
-      queryKey: ["wages-for-service", location?.state?.service_id ,location?.state?.employeeID],
-      queryFn: () =>
-         fetch(
-            `${host}/servicesWages/getWagesByServiceID?serviceID=${location?.state?.service_id}`
-         ).then((res) => res.json()),
-      refetchInterval: 5000,
-      keepPreviousData: true,
-      staleTime: 30000,
-   });
+   // const {
+   //       data: previousWages,
+   //       error: previousWagesError,
+   //       isLoading: previousWagesIsLoading,
+   //       isSuccess: previousWagesIsSuccess,
+   // } = useQuery({
+   //    queryKey: ["wages-for-service", location?.state?.service_id ,location?.state?.employeeID],
+   //    queryFn: () =>
+   //       fetch(
+   //          `${host}/servicesWages/getWagesByServiceID?serviceID=${location?.state?.service_id}`
+   //       ).then((res) => res.json()),
+   //    refetchInterval: 5000,
+   //    keepPreviousData: true,
+   //    staleTime: 30000,
+   // });
+   
+   const { data : previousWages, 
+           error:previousWagesError, 
+           isSuccess : previousWagesIsSuccess ,
+           isLoading : previousWagesIsLoading
+         } = useCustomQuery(
+      ["wages-for-service", location?.state?.service_id ,location?.state?.employeeID],
+      `${host}/servicesWages/getWagesByServiceID?serviceID=${location?.state?.service_id}`
+   );
     
    useEffect(() => {
       if (previousWagesIsSuccess && previousWages?.wages) {
@@ -83,10 +98,9 @@ const WagesOfService = () => {
       }
    }, [previousWages, previousWagesError, previousWagesIsLoading, previousWagesIsSuccess]);
    
-   type WageFormValues = z.infer<typeof totalWageSchema>;
 
-   const form = useForm<WageFormValues>({
-      resolver: zodResolver(totalWageSchema),
+   const form = useForm<WagesSchemaFormData>({
+      resolver: zodResolver(wagesSchema),
       defaultValues: {
          wages: [{ wageDate: null, wageAmount: 0 }], // Initial default value
        },

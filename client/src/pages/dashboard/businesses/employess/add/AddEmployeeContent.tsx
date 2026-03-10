@@ -1,85 +1,56 @@
-import { Box, Flex, Grid, HStack, Icon, Text, VStack, Switch, Center, Span  } from "@chakra-ui/react";
-import PageHeadTitle from "../../../../../components/shared/PageHeadTitle";
-import { useLocation, useNavigate } from "react-router-dom";
-import { capitalize } from "../../../../../lib/capitalize";
-import { FaDollarSign } from "react-icons/fa6";
-import useThemedColors from "../../../../../hooks/useThemedColors";
-import FieldGroup from "../../../../../components/shared/forms/FieldGroup";
-import { useForm, Controller } from "react-hook-form";
-import { success, z } from "zod";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useEffect, useState } from "react";
-import { getEmployeeByInsuranceNumber } from "../../../../../api/employees/getEmployeeByInsuranceNumber";
-import DatePickerField from "../../../../../components/shared/forms/DatePickerField";
-import Control from "../../../../../components/shared/forms/Control";
-import { useMutation } from "@tanstack/react-query";
-import { host } from "../../../../../constants/connection";
-import toast from "react-hot-toast";
-import { LuSearch } from "react-icons/lu";
-import FixBottomArea from "../../../../../components/shared/FixBottomArea";
-import { getFinishedWorkReasons } from "../../../../../api/services/getServicesRelatedData";
-import FisinshReasonsSelectBox from "../../../../../components/shared/forms/services/FinishReasonsSelectBox";
-import { checkServiceInitiateDateValidation, checkZodErrors } from "../../../../../lib/helpers";
-import { getPersonalInfoByInsuranceNumber } from "../../../../../api/personalInormation/getPersonalInfoByInsuranceNumber";
-import { getEmployeeServices } from "../../../../../api/employees/getEmployeeServices";
+//--imports--
+   import { Box, Flex, Grid, HStack, Icon, Text, VStack, Switch, Center, Span  } from "@chakra-ui/react";
+   import PageHeadTitle from "../../../../../components/shared/PageHeadTitle";
+   import { useLocation, useNavigate } from "react-router-dom";
+   import { capitalize } from "../../../../../lib/capitalize";
+   import { FaDollarSign } from "react-icons/fa6";
+   import useThemedColors from "../../../../../hooks/useThemedColors";
+   import FieldGroup from "../../../../../components/shared/forms/FieldGroup";
+   import { useForm, Controller } from "react-hook-form";
+   import { zodResolver } from "@hookform/resolvers/zod";
+   import { useEffect, useState } from "react";
+   import { getEmployeeByInsuranceNumber } from "../../../../../api/employees/getEmployeeByInsuranceNumber";
+   import DatePickerField from "../../../../../components/shared/forms/DatePickerField";
+   import Control from "../../../../../components/shared/forms/Control";
+   import { useMutation } from "@tanstack/react-query";
+   import { host } from "../../../../../constants/connection";
+   import toast from "react-hot-toast";
+   import { LuSearch } from "react-icons/lu";
+   import FixBottomArea from "../../../../../components/shared/FixBottomArea";
+   import { getFinishedWorkReasons } from "../../../../../api/services/getServicesRelatedData";
+   import FisinshReasonsSelectBox from "../../../../../components/shared/forms/services/FinishReasonsSelectBox";
+   import { checkServiceInitiateDateValidation, checkZodErrors } from "../../../../../lib/helpers";
+   import { getPersonalInfoByInsuranceNumber } from "../../../../../api/personalInormation/getPersonalInfoByInsuranceNumber";
+   import { getEmployeeServices } from "../../../../../api/employees/getEmployeeServices";
+   import { EmployeeSchema, EmployeeSchemaFormData } from "../../../../../utils/employeeSchema";
 
 const AddEmployeeContent = () => {
    
    const navigate = useNavigate();
    const location = useLocation();
-
    const [serviceFinish, setServiceFinish] = useState(false);
    const [employeeName ,setEmployeeName] = useState("");
    const [serviceValidation , setServiceValidation] = useState({state: 0, msg:""});
-   
    const { textPrimary, textSecondary, btnSecondary, titleTextSecondary, borderSecondary, inputContainerBg, switchBtnBgOff, switchBtnBgOn  } = useThemedColors();
-   
    const {reasonsData, isSuccessReasonsData, isLoadingReasonsData} = getFinishedWorkReasons();
    
-   // zod....
-   const formSchema = z.object({
-      // employeeID : z.number(),
-      personID : z.number(), 
-      employeeInsuranceNumber : z.number().nonnegative()
-      .refine(async(val) => await handleViewPersonName(val) , {
-         message: "not an employee"
-      }),
-      // businessID : z.number(),
-      initiateDate : z.date().refine((date) => date <= new Date(), {
-         message: "initiate date can not be in the future",
-      }),
-      // .refine(async(val) => await handleCheckValidInitiateDate(val) , {
-      //    message: "not accepted"
-      // }),
-      
-      initiateSalary : z.number().nonnegative(),
-      initiateRegistrationDate :  z.date().refine((date) => date <= new Date(), {
-         message: "initiate registration date can not be in the future",
-      }),
-      initiateRegistrationNumber: z.number().nonnegative(),
-
-      finishReason : z.string().optional(),
-      finishDate : z.date().optional().refine((date) => date <= new Date(), {
-         message: "finish date can not be in the future",
-      }),
-      // .refine(async(val) => await handleCheckValidInitiateDate(val) , {
-      //    message: "not accepted"
-      // }),
-      finishRegistrationDate :  z.date().optional().refine((date) => date <= new Date(), {
-         message: "finish registration date can not be in the future",
-      }),
-      finishRegistrationNumber: z.number().nonnegative().optional(),
-      
-   });
-      
-   const partialFormSchema = formSchema.partial({
-      finishRegistrationDate: true,
-      finishDate:true,
-      finishRegistrationNumber:true,
-      finishReason:true
-   });
-      
-   type FormValues = z.infer<typeof partialFormSchema>;
+   const handleViewPersonName = async (val) => {
+      let isPerson = false;
+      const person = await getPersonalInfoByInsuranceNumber(val);
+      if(person)  {
+       setEmployeeName(`${person?.first_name} ${person?.father_name} ${person?.last_name}`)
+       setValue( "personID" , person?.personal_info_id);
+       // console.log("person?.personal_info_id :",person?.personal_info_id)
+ 
+       isPerson = true;
+      }
+      else {
+          setEmployeeName("");
+      }
+         return isPerson ;
+   }
+   
+   const employeeSchema = EmployeeSchema({handleViewPersonName});
    const {
       register,
       handleSubmit ,
@@ -90,9 +61,8 @@ const AddEmployeeContent = () => {
       getValues,
       formState : {errors,isDirty},
       control ,
-      trigger
-   } = useForm<FormValues>({
-      resolver : zodResolver(partialFormSchema) ,
+   } = useForm<EmployeeSchemaFormData>({
+      resolver : zodResolver(employeeSchema) ,
       defaultValues : {
          initiateDate : new Date(Date.now()),
          initiateRegistrationDate : new Date(),
@@ -252,37 +222,6 @@ const AddEmployeeContent = () => {
 
    }
       
-//   const handleViewEmployeeName = async(val) => {
-//      let isEmployee = false;
-//      const employee = await getEmployeeByInsuranceNumber(val);
-//      if(employee)  {
-//       setEmployeeName(`${employee?.first_name} ${employee?.father_name} ${employee?.last_name}`)
-//       setValue( "employeeID",employee?.emp_id)
-
-//         isEmployee = true;
-//      }
-//      else {
-//          setEmployeeName("");
-//      }
-//         return isEmployee ;
-//   }
-  
-   const handleViewPersonName = async (val) => {
-     let isPerson = false;
-     const person = await getPersonalInfoByInsuranceNumber(val);
-     if(person)  {
-      setEmployeeName(`${person?.first_name} ${person?.father_name} ${person?.last_name}`)
-      setValue( "personID" , person?.personal_info_id);
-      // console.log("person?.personal_info_id :",person?.personal_info_id)
-
-      isPerson = true;
-     }
-     else {
-         setEmployeeName("");
-     }
-        return isPerson ;
-   }
-   
   return ( 
     <Flex flexDirection={'column'} maxHeight={'100vh'} overflowY={'auto'}>
       <PageHeadTitle 
@@ -311,9 +250,6 @@ const AddEmployeeContent = () => {
                </Text>
             </Box>
          </HStack>
-         
-         
-         
          {/* Employee insurance number */}
          <Box  padding={1} marginY={1} borderWidth={1} borderColor={borderSecondary}
             paddingBottom={2} backgroundColor={inputContainerBg}
@@ -355,7 +291,6 @@ const AddEmployeeContent = () => {
                </VStack>
             </Flex>
          </Box>
-
          {/* work initiate  */}
          <Box  padding={1} marginY={2} borderWidth={1} borderColor={borderSecondary}
             paddingBottom={2} backgroundColor={inputContainerBg}
@@ -431,8 +366,6 @@ const AddEmployeeContent = () => {
                onCheckedChange={(e) => setServiceFinish(e.checked)}
                size={"sm"}
                colorPalette={"gray"}
-               
-               
                // borderSecondary
             >
                <Switch.HiddenInput />
@@ -444,11 +377,9 @@ const AddEmployeeContent = () => {
             </Flex>
             <Grid   
                display={!serviceFinish ? "none" :"grid"}
-               
                templateColumns={{  mdTo2xl:"repeat(2, 1fr)"}}    
                gapX={{ base:"30px" , md:"80px"}}
                gapY={{ base:5 , md:"40px"}}
-               
             >
                { (reasonsData && isSuccessReasonsData && !isLoadingReasonsData)
                ?
@@ -463,7 +394,6 @@ const AddEmployeeContent = () => {
                   />
                : <>Loading..</>
                }
-               
                <DatePickerField 
                   name={"finishDate"}
                   register={register}
@@ -472,7 +402,6 @@ const AddEmployeeContent = () => {
                   control={control}
                   error={errors.finishDate}
                />
-                  
                <FieldGroup
                   onchangeValue={null}
                   register={register}
@@ -484,7 +413,6 @@ const AddEmployeeContent = () => {
                   error={errors.finishRegistrationNumber}
                   preInputText={null}
                />
-                  
                <DatePickerField 
                   name={"finishRegistrationDate"}
                   register={register}
