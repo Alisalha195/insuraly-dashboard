@@ -11,21 +11,11 @@ import SearchResults from "../../search/SearchResults";
 import { businessOwnerTableHeaderData } from "../businessOwnerTableHeaderData.ts"
 import SkeletonLoader from "../../../../../../shared/Skeleton.tsx";
 import { usePostCustomQuery } from "../../../../../../../hooks/useCustomQuery.ts";
+import DataTable from "../../../../../../shared/tables/DataTable.tsx";
+import TableHeader from "../../../../../../shared/tables/TableHeader.tsx";
 
 const SearchByInsuranceNumber = ({ searchValue }) => {
    const { btnGreen, textPrimary } = useThemedColors();
-
-   // const { data: businessOwnerResultData,
-   //    error: businessOwnerResultDataError,
-   //    isLoading: businessOwnerResultDataIsLoading,
-   //    isSuccess: businessOwnerResultDataIsSuccess
-   // } = useQuery({
-   //    queryKey: ['business-owners-search-results-insurance', searchValue],
-   //    queryFn: () => fetch(`${host}/businessOwners/get/insurance-number`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ searchValue: searchValue }) }).then(res => res.json()),
-   //    refetchInterval: 5000,
-   //    keepPreviousData: true,
-   //    staleTime: 30000,
-   // });
    
    const { 
       data:businessOwnerResultData, 
@@ -49,18 +39,25 @@ const SearchByInsuranceNumber = ({ searchValue }) => {
    }
       
    return (
-
       <Flex>
-         {
-            businessOwnerResultData &&
+      {
+         (businessOwnerResultData && businessOwnerResultData.length > 0) ?
 
-            < SearchResults
-               resultData={businessOwnerResultData}
-               isSuccess={businessOwnerResultDataIsSuccess}
-               headerData={businessOwnerTableHeaderData}
-               tableBody={BusinessOwnerTableBody}
+         < SearchResults>
+            <DataTable
+               TableHeader={
+                  
+                  <TableHeader headerData={businessOwnerTableHeaderData}  />
+               }
+               TableBody={
+                  <BusinessOwnerTableBody data={businessOwnerResultData} />
+               }
+               maxHeight={"560px"}
             />
-         }
+         </SearchResults>
+         
+         : <Text>No Results Found!</Text>
+      }
       </Flex>
    )
 }

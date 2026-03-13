@@ -38,7 +38,7 @@ const BusinessOwnersPageContent = () => {
    const { 
       data:businessOwnerData, 
       error:businessOwnerDataError, 
-      isSuccess ,
+      isSuccess:businessOwnerDataSuccess ,
       isLoading :businessOwnerDataIsLoading
    } = useCustomQuery(
       ['business-owners', currentpage] ,
@@ -87,13 +87,14 @@ const BusinessOwnersPageContent = () => {
                businessOwnerData && businessOwnerData.length > 0 ? (
                  <>
                      <DataTable
-                        maxHeight={"560px"}
-                        data={businessOwnerData}
                         TableHeader={
                            <TableHeader headerData={businessOwnerTableHeaderData} />
                         }
-                        TableBody={BusinessOwnerTableBody}
-                        search={false}
+                        TableBody={
+                           <BusinessOwnerTableBody data={businessOwnerData} search={false} />
+                        }
+                        maxHeight={"560px"}
+                        successful={!!businessOwnerDataSuccess}
                      />
                      <DataTableControl
                         currentpage={currentpage}

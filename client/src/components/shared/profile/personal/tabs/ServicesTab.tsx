@@ -23,19 +23,7 @@ import TableHeader from '../../../tables/TableHeader';
 const ServicesTab = ({employeeId}) => {
    
    const navigate = useNavigate();
-   const { textPrimary, btnSecondary } = useThemedColors();
-
-   // const { data: servicesData,
-   //    error: servicesDataError,
-   //    isSuccess: servicesDataSuccess,
-   //    isLoading: servicesDataIsLoading,
-   // } = useQuery({
-   //    queryKey: ['services-of-employee', employeeId],
-   //    queryFn: () => fetch(`${host}/employees/services?employeeID=${employeeId}`).then(res => res.json()),
-   //    refetchInterval: 5000,
-   //    keepPreviousData: true,
-   //    staleTime: 30000,
-   // });
+   const { textPrimary,textSecondary, btnSecondary } = useThemedColors();
    
    const { data: servicesData, 
       error : servicesDataError, 
@@ -85,17 +73,22 @@ const ServicesTab = ({employeeId}) => {
                height={'70vh'}
 
             >
-               <DataTable
-                  maxHeight={"300px"}
-                  search={false}
-                  data={servicesData}
-                  // TableHeader={BusinessTableHeader}
-                  TableHeader={
-                     <TableHeader headerData={serviceTableHeaderData}
+               {
+                  (servicesData && servicesData.length > 0) ?
+                  <Flex>
+                     <DataTable
+                        TableHeader={
+                           <TableHeader headerData={serviceTableHeaderData}  />
+                        }
+                        TableBody={
+                           <ServiceTableBody data={servicesData} />
+                        }
+                        maxHeight={"240px"}
                      />
-                  }
-                  TableBody={ServiceTableBody}
-               />
+                  </Flex>
+                  :
+                  <Text color={textSecondary}>No Businesses Found!</Text>
+               }
 
             </Flex>
          </Box>

@@ -104,13 +104,14 @@ const BusinessEmployeesContent = () => {
                ? (
                  <>
                      <DataTable
-                        maxHeight={"560px"}
-                        data={[employeesData, {businessID:params?.id}, {businessName:location?.state?.businessName}]}
                         TableHeader={
                            <TableHeader headerData={employeeTableHeaderData} />
                         }
-                        TableBody={EmployeeTableBody}
-                        search={false}
+                        TableBody={
+                           <EmployeeTableBody data={[employeesData, {businessID:params?.id}, {businessName:location?.state?.businessName}]} search={false} />
+                        }
+                        maxHeight={"560px"}
+                        successful={employeesDataError ? false : true}
                      />
                      <DataTableControl
                         currentpage={currentpage}

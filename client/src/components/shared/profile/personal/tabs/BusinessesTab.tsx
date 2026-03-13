@@ -25,19 +25,8 @@ import TableHeader from '../../../tables/TableHeader';
 const BusinessesTab = ({ businessOwnerId }) => {
 
    const navigate = useNavigate();
-   const { textPrimary, btnSecondary } = useThemedColors();
+   const { textPrimary, textSecondary, btnSecondary } = useThemedColors();
 
-   // const { data: businessesData,
-   //    error: businessDataError,
-   //    isSuccess: businessDataSuccess,
-   //    isLoading: businessesDataIsLoading,
-   // } = useQuery({
-   //    queryKey: ['businesses-of-owner', businessOwnerId],
-   //    queryFn: () => fetch(`${host}/businessOwners/businesses?ownerId=${businessOwnerId}`).then(res => res.json()),
-   //    refetchInterval: 5000,
-   //    keepPreviousData: true,
-   //    staleTime: 30000,
-   // });
    
    const { data: businessesData, 
       error : businessDataError, 
@@ -82,17 +71,23 @@ const BusinessesTab = ({ businessOwnerId }) => {
                height={'70vh'}
 
             >
-               <DataTable
-                  maxHeight={"300px"}
-                  search={false}
-                  data={businessesData}
-                  // TableHeader={BusinessTableHeader}
-                  TableHeader={
-                     <TableHeader headerData={businessTableHeaderData}
+               
+               {
+                  (businessesData && businessesData.length > 0) ?
+                  <Flex>
+                     <DataTable
+                        TableHeader={
+                           <TableHeader headerData={businessTableHeaderData}  />
+                        }
+                        TableBody={
+                           <BusinessTableBody data={businessesData} />
+                        }
+                        maxHeight={"240px"}
                      />
-                  }
-                  TableBody={BusinessTableBody}
-               />
+                  </Flex>
+                  :
+                  <Text color={textSecondary}>No Businesses Found!</Text>
+               }
 
             </Flex>
          </Box>

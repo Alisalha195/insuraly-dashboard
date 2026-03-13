@@ -10,6 +10,8 @@ import SearchResults from "../../search/SearchResults";
 import { businessOwnerTableHeaderData } from "../businessOwnerTableHeaderData.ts"
 import SkeletonLoader from "../../../../../../shared/Skeleton.tsx";
 import { usePostCustomQuery } from "../../../../../../../hooks/useCustomQuery.ts";
+import TableHeader from "../../../../../../shared/tables/TableHeader.tsx";
+import DataTable from "../../../../../../shared/tables/DataTable.tsx";
 
 
 const SearchByNationalNumber = ({ searchValue }) => {
@@ -50,16 +52,24 @@ const SearchByNationalNumber = ({ searchValue }) => {
    }
    return (
       <Flex>
-         {
-            businessOwnerResultData &&
+      {
+         (businessOwnerResultData && businessOwnerResultData.length > 0) ?
 
-            < SearchResults
-               resultData={businessOwnerResultData}
-               isSuccess={businessOwnerResultDataIsSuccess}
-               headerData={businessOwnerTableHeaderData}
-               tableBody={BusinessOwnerTableBody}
+         < SearchResults>
+            <DataTable
+               TableHeader={
+                  
+                  <TableHeader headerData={businessOwnerTableHeaderData}  />
+               }
+               TableBody={
+                  <BusinessOwnerTableBody data={businessOwnerResultData} />
+               }
+               maxHeight={"560px"}
             />
-         }
+         </SearchResults>
+         
+         : <Text>No Results Found!</Text>
+      }
       </Flex>
    )
 }

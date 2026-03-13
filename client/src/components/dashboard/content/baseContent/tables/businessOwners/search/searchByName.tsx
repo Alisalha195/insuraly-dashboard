@@ -11,6 +11,8 @@ import SearchResults from "../../search/SearchResults";
 import { businessOwnerTableHeaderData } from "../businessOwnerTableHeaderData.ts"
 import SkeletonLoader from "../../../../../../shared/Skeleton.tsx";
 import { usePostCustomQuery } from "../../../../../../../hooks/useCustomQuery.ts";
+import DataTable from "../../../../../../shared/tables/DataTable.tsx";
+import TableHeader from "../../../../../../shared/tables/TableHeader.tsx";
 
 const SearchByName = ({ searchValue }) => {
 
@@ -44,25 +46,6 @@ const SearchByName = ({ searchValue }) => {
          fullName.lastName = searchList[3];
       }
    }
-
-   // const { data: businessOwnerResultData,
-   //    error: businessOwnerResultDataError,
-   //    isLoading: businessOwnerResultDataIsLoading,
-   //    isSuccess: businessOwnerResultDataIsSuccess
-   // } = useQuery({
-   //    queryKey: ['business-owners-search-results-name', searchValue],
-   //    queryFn: () => fetch(`${host}/businessOwners/get/name/`, {
-   //       method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({
-   //          firstName: fullName.firstName,
-   //          fatherName: fullName.fatherName,
-   //          motherName: fullName.motherName,
-   //          lastName: fullName.lastName,
-   //       })
-   //    }).then(res => res.json()),
-   //    refetchInterval: 5000,
-   //    keepPreviousData: true,
-   //    staleTime: 30000,
-   // });
    
    const { 
       data:businessOwnerResultData, 
@@ -134,16 +117,24 @@ const SearchByName = ({ searchValue }) => {
       //    </Dialog.Root>
       // </Flex>
       <Flex>
-         {
-            businessOwnerResultData &&
+      {
+         (businessOwnerResultData && businessOwnerResultData.length > 0) ?
 
-            < SearchResults
-               resultData={businessOwnerResultData}
-               isSuccess={businessOwnerResultDataIsSuccess}
-               headerData={businessOwnerTableHeaderData}
-               tableBody={BusinessOwnerTableBody}
+         < SearchResults>
+            <DataTable
+               TableHeader={
+                  
+                  <TableHeader headerData={businessOwnerTableHeaderData}  />
+               }
+               TableBody={
+                  <BusinessOwnerTableBody data={businessOwnerResultData} />
+               }
+               maxHeight={"560px"}
             />
-         }
+         </SearchResults>
+         
+         : <Text>No Results Found!</Text>
+      }
       </Flex>
    )
 }

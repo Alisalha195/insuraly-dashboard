@@ -10,6 +10,8 @@ import SearchResults from "../../search/SearchResults";
 import { employeeTableHeaderData } from "../employeeTableHeaderData.ts";
 import EmployeeTableBody from "../EmployeeTableBody.tsx";
 import { usePostCustomQuery } from "../../../../../../../hooks/useCustomQuery.ts";
+import TableHeader from "../../../../../../shared/tables/TableHeader.tsx";
+import DataTable from "../../../../../../shared/tables/DataTable.tsx";
 
 const SearchByName = ({ searchValue , businessName , businessID}) => {
 
@@ -44,27 +46,6 @@ const SearchByName = ({ searchValue , businessName , businessID}) => {
       }
    }
 
-   // const { data: employeeResultData,
-   //    error: employeeResultDataError,
-   //    isLoading: employeeResultDataIsLoading,
-   //    isSuccess: employeeResultDataIsSuccess
-   // } = useQuery({
-   //    queryKey: ['employees-search-results-name', searchValue],
-   //    queryFn: () => fetch(`${host}/employees/get/name/`, {
-   //       method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({
-   //          firstName: fullName.firstName,
-   //          fatherName: fullName.fatherName,
-   //          motherName: fullName.motherName,
-   //          lastName: fullName.lastName,
-   //          businessName: businessName,
-   //          businessID: businessID
-   //       })
-   //    }).then(res => res.json()),
-   //    refetchInterval: 5000,
-   //    keepPreviousData: true,
-   //    staleTime: 30000,
-   // });
-   
    const { 
       data:employeeResultData, 
       error:employeeResultDataError, 
@@ -82,6 +63,8 @@ const SearchByName = ({ searchValue , businessName , businessID}) => {
          businessID: businessID
       } 
    );
+   
+   console.log("employeeResultData in Name Search :",employeeResultData);
 
    if(employeeResultDataIsLoading) {
       return (
@@ -95,14 +78,22 @@ const SearchByName = ({ searchValue , businessName , businessID}) => {
    return (
       <Flex>
          {
-            employeeResultData &&
+            (employeeResultData && employeeResultData.length > 0) ?
 
-            < SearchResults
-               resultData={employeeResultData}
-               isSuccess={employeeResultDataIsSuccess}
-               headerData={employeeTableHeaderData}
-               tableBody={EmployeeTableBody}
-            />
+            < SearchResults>
+               <DataTable
+                  TableHeader={
+                     
+                     <TableHeader headerData={employeeTableHeaderData}  />
+                  }
+                  TableBody={
+                     <EmployeeTableBody data={employeeResultData} />
+                  }
+                  maxHeight={"560px"}
+               />
+            </SearchResults>
+            
+            : <Text>No Results Found!</Text>
          }
       </Flex>
    )

@@ -1,5 +1,5 @@
 
-import { Button, CloseButton, Dialog, Flex, Portal, Text, VStack } from "@chakra-ui/react";
+import { Box, Button, CloseButton, Dialog, Flex, Portal, Text, VStack } from "@chakra-ui/react";
 import useThemedColors from "../../../../../../../hooks/useThemedColors";
 import { useQuery } from "@tanstack/react-query";
 import { host } from "../../../../../../../constants/connection.ts";
@@ -9,21 +9,11 @@ import SkeletonLoader from "../../../../../../shared/Skeleton.tsx";
 import { employeeTableHeaderData } from "../employeeTableHeaderData.ts";
 import EmployeeTableBody from "../EmployeeTableBody.tsx";
 import { usePostCustomQuery } from "../../../../../../../hooks/useCustomQuery.ts";
+import TableHeader from "../../../../../../shared/tables/TableHeader.tsx";
+import DataTable from "../../../../../../shared/tables/DataTable.tsx";
 
 const SearchByInsuranceNumber = ({ searchValue , businessName , businessID}) => {
-   const { btnGreen, textPrimary } = useThemedColors();
-
-   // const { data: employeeResultData,
-   //    error: employeeResultDataError,
-   //    isLoading: employeeResultDataIsLoading,
-   //    isSuccess: employeeResultDataIsSuccess
-   // } = useQuery({
-   //    queryKey: ['employees-search-results-insurance', searchValue],
-   //    queryFn: () => fetch(`${host}/employees/get/insurance-number`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ searchValue: searchValue, businessName:businessName, businessID:businessID }) }).then(res => res.json()),
-   //    refetchInterval: 5000,
-   //    keepPreviousData: true,
-   //    staleTime: 30000,
-   // });
+   const { btnGreen, textPrimary, textSecondary } = useThemedColors();
    
    const { 
       data:employeeResultData, 
@@ -47,21 +37,33 @@ const SearchByInsuranceNumber = ({ searchValue , businessName , businessID}) => 
          </VStack>
       )
    }
-      
+   if(employeeResultData?.length < 1) {
+      return (
+         <Text color={textSecondary} >No Results Found !</Text>
+      )
+   }
    return (
-
+      
       <Flex>
-         {
-            employeeResultData &&
+      {
+         (employeeResultData && employeeResultData.length > 0) ?
 
-            < SearchResults
-               resultData={employeeResultData}
-               isSuccess={employeeResultDataIsSuccess}
-               headerData={employeeTableHeaderData}
-               tableBody={EmployeeTableBody}
+         < SearchResults>
+            <DataTable
+               TableHeader={
+                  
+                  <TableHeader headerData={employeeTableHeaderData}  />
+               }
+               TableBody={
+                  <EmployeeTableBody data={employeeResultData} />
+               }
+               maxHeight={"560px"}
             />
-         }
-      </Flex>
+         </SearchResults>
+         
+         : <Text>No Results Found!</Text>
+      }
+   </Flex>
    )
 }
 

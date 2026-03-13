@@ -7,17 +7,24 @@ import {
    Button,
    Select,
 } from '@chakra-ui/react';
+import React from 'react';
+import useThemedColors from '../../../hooks/useThemedColors';
 
-const DataTable = ({ maxHeight, data, TableHeader, TableBody, search }) => {
-   if (data?.status == 400 || data?.status == 404)
-      return (<h1>No Data  Found!</h1>)
-   
-   return (
+type DataRableType = {
+   TableHeader: React.ReactNode,
+   TableBody: React.ReactNode,
+   maxHeight?: String,
+}
+
+const DataTable = ({ TableHeader, TableBody, ...props }: DataRableType): React.ReactNode => {
+   const { textSecondary } = useThemedColors();
+
+    return (
          <Box>
-            <Table.ScrollArea borderWidth="1px" maxHeight={maxHeight}>
+            <Table.ScrollArea borderWidth="1px" maxHeight={props?.maxHeight || "300px"} overflowX={'auto'} >
                <Table.Root size="sm" stickyHeader interactive showColumnBorder>
                   {TableHeader}
-                  <TableBody data={data} search={search} />
+                  {TableBody}
                </Table.Root>
             </Table.ScrollArea>
          </Box>

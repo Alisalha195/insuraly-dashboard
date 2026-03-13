@@ -45,30 +45,15 @@ const BusinessProfileContent = () => {
       `${host}/business/get/id?id=${params?.id}`
    );
    
-   // const {
-   //    data: businessEmployeesCount,
-   //    error: businessEmployeesCountError,
-   //    isLoading: businessEmployeesCountIsLoading,
-   // } = useQuery({
-   //    queryKey: ["business-employees-count-in-profile", params?.id] ,
-   //    queryFn: () =>
-   //       fetch(
-   //          `${host}/business/get-employees-count/${params?.id}`
-   //       ).then((res) => res.json()),
-   //    refetchInterval: 5000,
-   //    keepPreviousData: true,
-   //    staleTime: 30000,
-   // });
-   
-         const { 
-            data:businessEmployeesCount, 
-            error:businessEmployeesCountError, 
-            isSuccess ,
-            isLoading :businessEmployeesCountIsLoading
-         } = useCustomQuery(
-            ["business-employees-count-in-profile", params?.id] ,
-            `${host}/business/get-employees-count/${params?.id}`
-         );
+   const { 
+      data:businessEmployeesCount, 
+      error:businessEmployeesCountError, 
+      isSuccess ,
+      isLoading :businessEmployeesCountIsLoading
+   } = useCustomQuery(
+      ["business-employees-count-in-profile", params?.id] ,
+      `${host}/business/get-employees-count/${params?.id}`
+   );
    
    if (businessDataIsLoading) {
       return (

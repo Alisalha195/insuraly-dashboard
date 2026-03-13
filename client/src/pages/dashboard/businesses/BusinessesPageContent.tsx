@@ -31,24 +31,11 @@ const BusinessesPageContent = () => {
    const { btnSecondary, textPrimary, bgSecondary, textSecondary } = useThemedColors();
    const businessesCount = getTableRowsCount("business");
 
-   // const {
-   //    data: businessesData,
-   //    error: businessOwnerDataError,
-   //    isLoading: businessesDataIsLoading,
-   // } = useQuery({
-   //    queryKey: ["businesses", currentpage],
-   //    queryFn: () =>
-   //       fetch(
-   //          `${host}/business/get?page=${currentpage}&pageSize=${pageSize}`
-   //       ).then((res) => res.json()),
-   //    refetchInterval: 5000,
-   //    keepPreviousData: true,
-   //    staleTime: 30000,
-   // });
+
    const { 
       data:businessesData, 
       error:businessOwnerDataError, 
-      isSuccess ,
+      isSuccess : businessOwnerDataSuccess ,
       isLoading :businessesDataIsLoading
    } = useCustomQuery(
       ["businesses", currentpage] ,
@@ -108,14 +95,14 @@ const BusinessesPageContent = () => {
                height={"70vh"}
             >
                <DataTable
-                  maxHeight={"560px"}
-                  search={false}
-                  data={businessesData}
-                  // TableHeader={BusinessTableHeader}
                   TableHeader={
                      <TableHeader headerData={businessTableHeaderData} />
                   }
-                  TableBody={BusinessTableBody}
+                  TableBody={
+                     <BusinessTableBody data={businessesData} search={false} />
+                  }
+                  maxHeight={"560px"}
+                  successful={!!businessOwnerDataSuccess}
                />
                <DataTableControl
                   currentpage={currentpage}

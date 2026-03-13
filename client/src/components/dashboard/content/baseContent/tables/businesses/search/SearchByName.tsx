@@ -11,25 +11,13 @@ import SearchResults from "../../search/SearchResults";
 import { businessTableHeaderData } from "../businessTableHeaderData.ts"
 import SkeletonLoader from "../../../../../../shared/Skeleton.tsx";
 import { usePostCustomQuery } from "../../../../../../../hooks/useCustomQuery.ts";
+import TableHeader from "../../../../../../shared/tables/TableHeader.tsx";
+import DataTable from "../../../../../../shared/tables/DataTable.tsx";
 
 const SearchByName = ({ searchValue }) => {
 
    const { btnGreen, textPrimary } = useThemedColors();
 
-   // const { data: businessResultData,
-   //    error: businessResultDataError,
-   //    isLoading: businessResultDataIsLoading,
-   //    isSuccess: businessResultDataIsSuccess
-   // } = useQuery({
-   //    queryKey: ['business-search-results-name', searchValue],
-   //    queryFn: () => fetch(`${host}/business/get/name/`, {
-   //       method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({searchValue: searchValue})
-   //    }).then(res => res.json()),
-   //    refetchInterval: 5000,
-   //    keepPreviousData: true,
-   //    staleTime: 30000,
-   // });
-   
       const { 
          data:businessResultData, 
          error:businessResultDataError, 
@@ -52,16 +40,24 @@ const SearchByName = ({ searchValue }) => {
    }
    return (
       <Flex>
-         {
-            businessResultData &&
+      {
+         (businessResultData && businessResultData.length > 0) ?
 
-            < SearchResults
-               resultData={businessResultData}
-               isSuccess={businessResultDataIsSuccess}
-               headerData={businessTableHeaderData}
-               tableBody={BusinessTableBody}
+         < SearchResults>
+            <DataTable
+               TableHeader={
+                  
+                  <TableHeader headerData={businessTableHeaderData}  />
+               }
+               TableBody={
+                  <BusinessTableBody data={businessResultData} />
+               }
+               maxHeight={"300px"}
             />
-         }
+         </SearchResults>
+         
+         : <Text>No Results Found!</Text>
+      }
       </Flex>
    )
 }
