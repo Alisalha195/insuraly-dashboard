@@ -1,7 +1,8 @@
+import ClaimsPageContent from "./ClaimsPageContent"
 
 const Claims = () => {
    return (
-     <div>Claims</div>
+     <ClaimsPageContent />
    )
  }
  

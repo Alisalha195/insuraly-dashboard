@@ -2,9 +2,12 @@ import { Table, Text } from "@chakra-ui/react";
 
 import useThemedColors from '../../../hooks/useThemedColors';
 
-const TableHeader = ({ headerData }) => {
+const TableHeader = ({ headerData, ...props}:{headerData:string[]}) => {
 
    const { tableHead, tableHeaderBg } = useThemedColors();
+   // if(!props?.display) {
+   //    return null;
+   // }
    return (
       <Table.Header>
          <Table.Row backgroundColor={tableHeaderBg}>

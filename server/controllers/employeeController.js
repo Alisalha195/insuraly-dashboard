@@ -267,8 +267,8 @@ export const getEmployeeByNamesInBusiness = async (req , res , next) => {
       .from(businessEmployeeTable)
       .select(`
           employee_id,
-          Employees:employee_id(
-             personal_informations:personal_info_id(
+          Employees!inner(
+             personal_informations!inner(
                 *
              )
           )`
@@ -298,8 +298,8 @@ export const getEmployeeByNamesInBusiness = async (req , res , next) => {
       .from(businessEmployeeTable)
       .select(`
           employee_id,
-          Employees:employee_id(
-             personal_informations:personal_info_id(
+          Employees!inner(
+             personal_informations!inner(
                 *
              )
           )`
@@ -328,8 +328,8 @@ export const getEmployeeByNamesInBusiness = async (req , res , next) => {
          .from(businessEmployeeTable)
          .select(`
              employee_id,
-             Employees:employee_id(
-                personal_informations:personal_info_id(
+             Employees!inner(
+                personal_informations!inner(
                    *
                 )
              )`
@@ -357,8 +357,8 @@ export const getEmployeeByNamesInBusiness = async (req , res , next) => {
         .from(businessEmployeeTable)
         .select(`
             employee_id,
-            Employees:employee_id(
-               personal_informations:personal_info_id(
+            Employees!inner(
+               personal_informations!inner(
                   *
                )
             )`

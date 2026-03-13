@@ -376,21 +376,26 @@ export const getBusinessByInsuranceNumber = async (req, res, next) => {
 
 export const getBusinessByName = async (req, res, next) => {
   const { searchValue } = req.body;
+  if(!searchValue || searchValue.trim() === "") {
+     res.status(404).json({ msg: "something went wrong !", status: 404 });
+     return;
+  }
+
   const { data, error } = await supabase
     .from(businessTable)
     .select(
       `
       * ,
-      Business_owners:business_owner_id(
+      Business_owners!inner(
          business_owner_id,
-         personal_informations:personal_info_id(
+         personal_informations!inner(
             *
          )
       )
    `
     )
     .like("business_name", `%${searchValue}%`);
-
+   
   if (data?.length > 0) res.status(200).json(data);
   else res.status(404).json({ msg: "something went wrong !", status: 404 });
 };
