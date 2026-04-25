@@ -26,7 +26,8 @@ const useThemedColors: any = () => {
    const bgPrimary = useColorModeValue('gray.100', 'gray.900');
    const bgSecondary = useColorModeValue('gray.100', 'gray.800');
 
-   const headerBackground = useColorModeValue("gray.100","linear-gradient(90deg, #000, #210e29)");
+   // const headerBackground = useColorModeValue("gray.100","linear-gradient(90deg, #000, #210e29)");
+   const headerBackground = useColorModeValue("gray.100",'transparent');
    const hovering = useColorModeValue('gray.300', 'gray.600');
 
    const btnPrimary = useColorModeValue('blue.600', 'blue.500');

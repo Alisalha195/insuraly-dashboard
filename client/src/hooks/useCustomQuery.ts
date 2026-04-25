@@ -2,9 +2,9 @@ import { useQuery } from "@tanstack/react-query";
 
 
 export const useCustomQuery = (queryKey:string|number[], url:string, 
-   options:any={refetchInterval: 2000,
+   options:any={refetchInterval: 5000,
       keepPreviousData: true,
-      staleTime: 30000,}
+      staleTime: 3000,}
 ) => {
    const { data, error, isLoading, isSuccess, refetch } = useQuery({
       queryKey: queryKey, 
@@ -18,7 +18,7 @@ export const useCustomQuery = (queryKey:string|number[], url:string,
 export const usePostCustomQuery = (queryKey:string|number[], url:string,
    stringified:object[] | object , 
    options:any={refetchInterval: 5000,
-      keepPreviousData: true,
+      keepPreviousData: false,
       staleTime: 30000,} ,
     
    ) => {

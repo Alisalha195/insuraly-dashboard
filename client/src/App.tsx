@@ -1,7 +1,7 @@
 import './App.css';
 import Login from './pages/auth/Login';
 import Signup from './pages/auth/Signup';
-import { Toaster } from 'react-hot-toast';
+import { Toaster } from 'react-hot-toast'; 
 import { Routes, Route, useNavigate, redirect, Navigate } from 'react-router-dom';
 import Dashboard from './pages/dashboard';
 import Businesses from './pages/dashboard/businesses';
@@ -38,6 +38,9 @@ import EditServiceAtBusiness from './pages/dashboard/businesses/employess/servic
 import ServiceWages from './pages/dashboard/businesses/employess/services/wages';
 import Profile from './pages/profile';
 import EditProfile from './pages/profile/edit';
+import MonthlyClaims from './pages/dashboard/claims/monthly';
+import AnnualClaims from './pages/dashboard/claims/annual';
+import RetardedClaims from './pages/dashboard/claims/retarded';
 
 
 
@@ -84,6 +87,9 @@ function App() {
 
                      {/* claims Routes */}
                      <Route path='/dashboard/claims' element={<ProtectedRoute><Claims /></ProtectedRoute>} />
+                     <Route path='/dashboard/claims/monthly/:year/:month' element={<ProtectedRoute><MonthlyClaims /></ProtectedRoute>} />
+                     <Route path='/dashboard/claims/annual/:year' element={<ProtectedRoute><AnnualClaims /></ProtectedRoute>} />
+                     <Route path='/dashboard/claims/retarded' element={<ProtectedRoute><RetardedClaims /></ProtectedRoute>} />
                      
                      {/* Retirements Routes */}
                      <Route path='/dashboard/retirements' element={<ProtectedRoute><Retirements /></ProtectedRoute>} />

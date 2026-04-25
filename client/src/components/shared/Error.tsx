@@ -1,15 +1,21 @@
-import { HStack,Text } from "@chakra-ui/react"
+import { Box, Center, HStack,Text, VStack } from "@chakra-ui/react"
+import BackArrow from "./BackArrow";
 
 const Error = ({message}) => {
    return (
-      <HStack 
-         width={"100vw"}
+      <Center 
+         width={"100%"}
          height={"100vh"}
       >
-         <Text>
-            {message}
-         </Text>
-      </HStack>
+         <VStack>
+            <Text>
+               {message}
+            </Text>
+            <Box>
+               <BackArrow />
+            </Box>
+         </VStack>
+      </Center>
    );
 };
 export default Error; 
