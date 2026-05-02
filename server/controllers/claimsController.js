@@ -247,4 +247,169 @@ export const getClaimsStats = async (req, res, next) => {
    
    
 }
+
+export const getClaimsByBusinessName = async (req, res, next) => {
+   const { searchValue, month } = req.body;
+   
+   // console.log("searchValue  :",searchValue);
+   // console.log("month  :",month);
+   
+   const { data, error } = await supabase
+   .from(claimsTable)
+   .select(
+      `* , Service_Subscribtion!inner(
+         *, Services!inner(
+            *, Business_Employee!inner(
+                  *, Businesses!inner(
+                     *
+                  )
+               )
+            )
+         )
+      `
+   )
+   .eq('month',month)
+   .like("Service_Subscribtion.Services.Business_Employee.Businesses.business_name", `%${searchValue}%`);
+   
+   // console.log("results  :",data?.length);
+   
+   if(error || data?.length < 1) {
+      res.status(404).json({msg:"something went wrong !"});
+   } else if(searchValue) {
+      res.status(200).json({data});
+   }
+}
+
+export const getClaimsByBusinessInsuranceNumber = async (req, res, next) => {
+   
+   const { searchValue, month } = req.body;
+   
+   // console.log("searchValue  :",searchValue);
+   // console.log("month  :",month);
+   
+   const { data, error } = await supabase
+   .from(claimsTable)
+   .select(
+      `* , Service_Subscribtion!inner(
+         *, Services!inner(
+            *, Business_Employee!inner(
+                  *, Businesses!inner(
+                     *
+                  )
+               )
+            )
+         )
+      `
+   )
+   .eq('month',month)
+   .eq("Service_Subscribtion.Services.Business_Employee.Businesses.insurance_number", searchValue);
+   
+   // console.log("results  :",data?.length);
+   
+   if(error || data?.length < 1) {
+      res.status(404).json({msg:"something went wrong !"});
+   } else if(searchValue) {
+      res.status(200).json({data});
+   }
+}
+
+export const getRetardedClaimsByBusinessName = async (req, res, next) => {
+   const { searchValue } = req.body;
+   const currentDate = new Date(Date.now());
+   // console.log("page :",page);
+   // console.log("pageSize :",pageSize);
+   // console.log("month :",month);
+   // console.log("year :",year);
+   
+   const { data, error } = await supabase
+   .from(claimsTable)
+   .select(
+      `* , Service_Subscribtion!inner(
+         *, Services!inner(
+            *, Business_Employee!inner(
+                  *, Businesses!inner(
+                     *
+                  )
+               )
+            )
+         )
+      `
+   )
+   // .eq('month',month)
+   // .eq('year',year)
+   .lt('must_deliver_before', currentDate.toISOString())
+   .like("Service_Subscribtion.Services.Business_Employee.Businesses.business_name", `%${searchValue}%`);
+   
+   // console.log("from  :",from); 
+   // console.log("to  :",to);
+   // console.log("data  :",data);
+   
+   const { count, error:countError } = await supabase
+   .from(claimsTable)
+   .select("*", { count: "exact", head: true })
+   // .eq('month',month)
+   // .eq('year',year);
+   .lt('must_deliver_before', currentDate.toISOString());
+   
+   if(error) {
+      res.status(404).json({msg:"something went wrong !"});
+   }
+   else if(data?.length < 1 ) {
+      res.status(200).json({data:[], dataCount:0});
+   } else if(searchValue){
+      // console.log("count  :",data.length);
+      res.status(200).json({data, dataCount:count});
+      // return data;
+   }
+}
+
+export const getRetardedClaimsByBusinessInsuranceNumber = async (req, res, next) => {
+   const { searchValue } = req.body;
+   const currentDate = new Date(Date.now());
+   // console.log("page :",page);
+   // console.log("pageSize :",pageSize);
+   // console.log("month :",month);
+   // console.log("year :",year);
+   
+   const { data, error } = await supabase
+   .from(claimsTable)
+   .select(
+      `* , Service_Subscribtion!inner(
+         *, Services!inner(
+            *, Business_Employee!inner(
+                  *, Businesses!inner(
+                     *
+                  )
+               )
+            )
+         )
+      `
+   )
+   // .eq('month',month)
+   // .eq('year',year)
+   .lt('must_deliver_before', currentDate.toISOString())
+   .eq("Service_Subscribtion.Services.Business_Employee.Businesses.insurance_number", searchValue);
+   
+   // console.log("from  :",from); 
+   // console.log("to  :",to);
+   // console.log("data  :",data);
+   
+   const { count, error:countError } = await supabase
+   .from(claimsTable)
+   .select("*", { count: "exact", head: true })
+   // .eq('month',month)
+   // .eq('year',year);
+   .lt('must_deliver_before', currentDate.toISOString());
+   
+   if(error) {
+      res.status(404).json({msg:"something went wrong !"});
+   }
+   else if(data?.length < 1 ) {
+      res.status(200).json({data:[], dataCount:0});
+   } else {
+      // console.log("count  :",data.length);
+      res.status(200).json({data, dataCount:count});
+      // return data;
+   }
+}
    

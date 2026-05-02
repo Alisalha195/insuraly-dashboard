@@ -1,4 +1,4 @@
-import { Box, Center, Flex, Span,  Text,  VStack } from '@chakra-ui/react';
+import { Box, Center, Flex, HStack, Icon, Span,  Text,  VStack } from '@chakra-ui/react';
 import PageHeadTitle from '../../../../components/shared/PageHeadTitle';
 import { getMonthNames } from '../../../../lib/helpers';
 import useThemedColors from '../../../../hooks/useThemedColors';
@@ -11,13 +11,15 @@ import SkeletonLoader from '../../../../components/shared/Skeleton';
 import { monthlyClaimsTableHeaderData } from '../../../../components/dashboard/content/baseContent/tables/claims/monthly/monthlyClaimsTableHeaderData';
 import TableHeader from '../../../../components/shared/tables/TableHeader';
 import MonthlyClaimsTableBody from '../../../../components/dashboard/content/baseContent/tables/claims/monthly/MonthlyClaimsTableBody';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import Error from '../../../../components/shared/Error';
 import BackArrow from '../../../../components/shared/BackArrow';
+import { LuSearch } from 'react-icons/lu';
 
 const MonthlyClaimsPageContent = () => {
    
-   const {textSecondary} = useThemedColors();
+   const navigate = useNavigate();
+   const {textSecondary, btnSecondary} = useThemedColors();
    const [currentpage, setCurrentPage] = useState(1);
    const pageSize = 5;
    const params = useParams();
@@ -34,8 +36,8 @@ const MonthlyClaimsPageContent = () => {
    );
    
    
-   console.log("monthlyClaimsDataIsLoading :",monthlyClaimsDataIsLoading)
-   console.log("monthlyClaimsData :",monthlyClaimsData)
+   // console.log("monthlyClaimsDataIsLoading :",monthlyClaimsDataIsLoading)
+   // console.log("monthlyClaimsData :",monthlyClaimsData)
    if(monthlyClaimsData?.data && monthlyClaimsData?.data?.length > 0) {
 
      return (
@@ -44,7 +46,20 @@ const MonthlyClaimsPageContent = () => {
             title={<Span fontWeight={500} color={textSecondary}>{`This Month (${getMonthNames()[params?.month-1]})`} </Span>}
             backButton={true}
          />
-         <VStack>
+         
+         {/* upper control */}
+         <HStack justifyContent={"start"} marginBottom={2}>
+            <Flex flexDirection={'column'} justifyContent={'center'} paddingY={0} paddingX={1} onClick={() => navigate("/dashboard/claims/monthly/search", { state: { month: params?.month } })}>
+               <Icon
+                  fontSize={{ xssToXs: "16px", xsToXm: "18px", xmToSm: "20px" }}
+               >
+                  <LuSearch
+                     className='btn'
+                  />
+               </Icon>
+            </Flex>
+         </HStack>
+         
             <Flex  
                flexDirection={'column'}
                smToMd={{ maxWidth: '70vw' }}
@@ -70,7 +85,6 @@ const MonthlyClaimsPageContent = () => {
                   />
 
             </Flex>
-         </VStack>
          
        </Box>
      )

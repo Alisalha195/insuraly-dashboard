@@ -1,10 +1,10 @@
 import { Box, Center, Flex, Text, VStack } from '@chakra-ui/react'
 import PageHeadTitle from '../../../components/shared/PageHeadTitle'
-import DataTable from '../../../components/shared/tables/DataTable'
-import DataTableControl from '../../../components/shared/tables/DataTableControl'
-import TableHeader from '../../../components/shared/tables/TableHeader'
-import { monthlyClaimsTableHeaderData } from '../../../components/dashboard/content/baseContent/tables/claims/monthly/monthlyClaimsTableHeaderData'
-import MonthlyClaimsTableBody from '../../../components/dashboard/content/baseContent/tables/claims/monthly/MonthlyClaimsTableBody'
+// import DataTable from '../../../components/shared/tables/DataTable'
+// import DataTableControl from '../../../components/shared/tables/DataTableControl'
+// import TableHeader from '../../../components/shared/tables/TableHeader'
+// import { monthlyClaimsTableHeaderData } from '../../../components/dashboard/content/baseContent/tables/claims/monthly/monthlyClaimsTableHeaderData'
+// import MonthlyClaimsTableBody from '../../../components/dashboard/content/baseContent/tables/claims/monthly/MonthlyClaimsTableBody'
 import Card from '../../../components/ui/Card/Card'
 import { useNavigate } from 'react-router-dom'
 import useThemedColors from '../../../hooks/useThemedColors'
@@ -32,7 +32,7 @@ const ClaimsPageContent = () => {
          `${host}/claims/getClaimsStats?month=${thisDate.getMonth()+1}&year=${thisDate.getFullYear()}`
       );
       
-      console.log("data::",claimsStats)
+      // console.log("data::",claimsStats)
    if(claimsStats && claimsStats?.annualStats?.length > 0) {
       
    

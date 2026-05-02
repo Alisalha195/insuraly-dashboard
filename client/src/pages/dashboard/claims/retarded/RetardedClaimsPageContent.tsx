@@ -1,8 +1,8 @@
-import { Box, Center, Flex, Span, Text, VStack } from '@chakra-ui/react';
+import { Box, Center, Flex, HStack, Icon, Span, Text, VStack } from '@chakra-ui/react';
 import React, { useState } from 'react'
 import PageHeadTitle from '../../../../components/shared/PageHeadTitle';
 import useThemedColors from '../../../../hooks/useThemedColors';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import DataTable from '../../../../components/shared/tables/DataTable';
 import DataTableControl from '../../../../components/shared/tables/DataTableControl';
 import TableHeader from '../../../../components/shared/tables/TableHeader';
@@ -12,6 +12,7 @@ import { useCustomQuery } from '../../../../hooks/useCustomQuery';
 import { host } from '../../../../constants/connection';
 import SkeletonLoader from '../../../../components/shared/Skeleton';
 import Error from '../../../../components/shared/Error';
+import { LuSearch } from 'react-icons/lu';
 
 const RetardedClaimsPageContent = () => {
    
@@ -19,6 +20,7 @@ const RetardedClaimsPageContent = () => {
    const [currentpage, setCurrentPage] = useState(1);
    const pageSize = 5;
    const params = useParams();
+   const navigate = useNavigate();
    
    const date = new Date();
    const seconds = date.getMilliseconds();
@@ -43,33 +45,45 @@ const RetardedClaimsPageContent = () => {
                    title={<Span fontWeight={500} color={textSecondary}>{"Retarded"} </Span>}
                    backButton={true}
                 />
-                <VStack>
-                   <Flex  
-                      flexDirection={'column'}
-                      smToMd={{ maxWidth: '70vw' }}
-                      smDown={{ maxWidth: '96vw' }}
-                      maxWidth={'98vw'}
-                      height={'70vh'}
-                   >
-       
-                         <DataTable
-                            TableHeader={
-                               <TableHeader headerData={retardedClaimsTableHeaderData} />
-                            }
-                            TableBody={
-                               <RetardedClaimsTableBody data={retardedClaimsData?.data} search={false} />
-                            }
-                            maxHeight={"560px"}
+                
+                {/* upper control */}
+                <HStack justifyContent={"start"} marginBottom={2}>
+                   <Flex flexDirection={'column'} justifyContent={'center'} paddingY={0} paddingX={1} onClick={() => navigate("/dashboard/claims/retarded/search", { state: { month: params?.month } })}>
+                      <Icon
+                         fontSize={{ xssToXs: "16px", xsToXm: "18px", xmToSm: "20px" }}
+                      >
+                         <LuSearch
+                            className='btn'
                          />
-                         <DataTableControl
-                            currentpage={currentpage}
-                            setCurrentPage={setCurrentPage}
-                            completeDataCount={retardedClaimsData?.dataCount}
-                            pageSize={pageSize}
-                         />
-       
+                      </Icon>
                    </Flex>
-                </VStack>
+                </HStack>
+                
+                <Flex  
+                   flexDirection={'column'}
+                   smToMd={{ maxWidth: '70vw' }}
+                   smDown={{ maxWidth: '96vw' }}
+                   maxWidth={'98vw'}
+                   height={'70vh'}
+                >
+    
+                      <DataTable
+                         TableHeader={
+                            <TableHeader headerData={retardedClaimsTableHeaderData} />
+                         }
+                         TableBody={
+                            <RetardedClaimsTableBody data={retardedClaimsData?.data} search={false} />
+                         }
+                         maxHeight={"560px"}
+                      />
+                      <DataTableControl
+                         currentpage={currentpage}
+                         setCurrentPage={setCurrentPage}
+                         completeDataCount={retardedClaimsData?.dataCount}
+                         pageSize={pageSize}
+                      />
+    
+                </Flex>
                 
               </Box>
       )
