@@ -1,7 +1,8 @@
+import RetirementsPageContent from "./RetirementsPageContent"
 
 const Retirements = () => {
    return (
-     <div>Retirements</div>
+     <RetirementsPageContent />
    )
  }
  

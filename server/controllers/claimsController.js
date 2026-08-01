@@ -85,7 +85,8 @@ export const getPaginatedRetardedClaims = async(req, res, next) => {
    // .eq('month',month)
    // .eq('year',year)
    .lt('must_deliver_before', currentDate.toISOString())
-   .range(from , to);
+   .range(from , to)
+   .neq("delivered", true);
    
    // console.log("from  :",from); 
    // console.log("to  :",to);
@@ -96,7 +97,8 @@ export const getPaginatedRetardedClaims = async(req, res, next) => {
    .select("*", { count: "exact", head: true })
    // .eq('month',month)
    // .eq('year',year);
-   .lt('must_deliver_before', currentDate.toISOString());
+   .lt('must_deliver_before', currentDate.toISOString())
+   .neq("delivered", true);
    
    if(error) {
       res.status(404).json({msg:"something went wrong !"});

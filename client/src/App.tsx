@@ -43,6 +43,8 @@ import AnnualClaims from './pages/dashboard/claims/annual';
 import RetardedClaims from './pages/dashboard/claims/retarded';
 import SearchMonthlyClaims from './pages/dashboard/claims/monthly/search';
 import SearchRetardedClaims from './pages/dashboard/claims/retarded/search';
+import AnnualRetirements from './pages/dashboard/retirements/annual';
+import MonthlyRetirements from './pages/dashboard/retirements/monthly';
 
 
 
@@ -98,6 +100,9 @@ function App() {
                      
                      {/* Retirements Routes */}
                      <Route path='/dashboard/retirements' element={<ProtectedRoute><Retirements /></ProtectedRoute>} />
+                     <Route path='/dashboard/retirements/annual/:type/:year' element={<ProtectedRoute><AnnualRetirements /></ProtectedRoute>} />
+                     <Route path='/dashboard/retirements/monthly/:type/:year/:month' element={<ProtectedRoute><MonthlyRetirements /></ProtectedRoute>} />
+                     
                      
                      {/* profile */}
                      <Route path='/profile/:personId' element={<ProtectedRoute><Profile /></ProtectedRoute>} />

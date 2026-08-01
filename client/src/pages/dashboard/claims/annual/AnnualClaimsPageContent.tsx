@@ -1,6 +1,6 @@
 import { Box, Center, Flex, Span,  Text,  VStack } from '@chakra-ui/react';
 import PageHeadTitle from '../../../../components/shared/PageHeadTitle';
-import { getAnnulaClaimsShapedData, getClaimsGroupedByMonthes } from '../../../../lib/helpers';
+import { getAnnulaClaimsShapedData, getDataGroupedByMonthes } from '../../../../lib/helpers';
 import useThemedColors from '../../../../hooks/useThemedColors';
 import { useCustomQuery } from '../../../../hooks/useCustomQuery';
 // import { useEffect, useState } from 'react';
@@ -53,7 +53,7 @@ const AnuualClaimsPageContent = () => {
                        <TableHeader headerData={annualClaimsTableHeaderData} />
                     }
                     TableBody={
-                       <AnnualClaimsTableBody data={getAnnulaClaimsShapedData(getClaimsGroupedByMonthes(annualClaimsData.data ), params?.year) } search={false} />
+                       <AnnualClaimsTableBody data={getAnnulaClaimsShapedData(getDataGroupedByMonthes(annualClaimsData.data ), params?.year) } search={false} />
                     }
                     maxHeight={"450px"}
                  />

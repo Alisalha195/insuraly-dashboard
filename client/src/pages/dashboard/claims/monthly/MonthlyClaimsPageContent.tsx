@@ -25,6 +25,8 @@ const MonthlyClaimsPageContent = () => {
    const params = useParams();
    const date = new Date();
    const seconds = date.getMilliseconds();
+   const thisMonth = date.getMonth() + 1;
+   
    const { 
       data:monthlyClaimsData, 
       error:monthlyClaimsDataError, 
@@ -43,7 +45,7 @@ const MonthlyClaimsPageContent = () => {
      return (
        <Box> 
          <PageHeadTitle 
-            title={<Span fontWeight={500} color={textSecondary}>{`This Month (${getMonthNames()[params?.month-1]})`} </Span>}
+            title={<Span fontWeight={500} color={textSecondary}>{`${(thisMonth == Number(params?.month)) ? "This Month" : "Month"} (${getMonthNames()[params?.month-1]})`} </Span>}
             backButton={true}
          />
          
