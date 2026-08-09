@@ -43,7 +43,7 @@ export const getEmployee = async (req , res , next) => {
   .select()
   .eq("personal_info_id",  personal_informations.personal_info_id)
   
-   //   console.log("data in get employee :",data);
+     console.log("data in get employee :",data);
   if(error) {
    res.status(404).json({msg: "Employee not found !"});
   } else {

@@ -6,7 +6,7 @@ import useThemedColors from '../../../../hooks/useThemedColors';
 const CommercialTypeSelectBox = ({label ,Controller,control ,data, error,defaultValue}) => {
    
    const commercialTypesData = data.map(item => ({...item , value : item.title, title:item.title})) ;
-   
+   // console.log("commercialTypesData in CommercialTypeSelectBox :", commercialTypesData)
    const {textSecondary} = useThemedColors();
    
    return (

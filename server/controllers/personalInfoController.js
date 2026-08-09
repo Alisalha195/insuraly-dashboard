@@ -159,6 +159,7 @@ export const getPersonalInfoByInsuranceNumber = async(req , res, next) => {
             res.status(400).json({msg:"repeated insurance number !",status:400});
          } else if(data.length == 1) {
             req.body.personal_informations = data[0];
+            // console.log("data in personal info by insurance number :",data[0])
                next();
                
             // if(next())

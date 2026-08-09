@@ -4,6 +4,7 @@ import useThemedColors from '../../../hooks/useThemedColors';
 import { useState } from 'react';
 import { set } from 'react-hook-form';
 
+const cashFields = ["children share", "wife share", "accumulations", "indemnification", "salary", "initiate salary"];
 const FieldGroup = ({ register, name, type, preInputText, invalid, label, placeholder, error, onchangeValue, ...props}) => {
 
    const { textSecondary, textError, textInput, inputBorder } = useThemedColors();
@@ -43,9 +44,9 @@ const FieldGroup = ({ register, name, type, preInputText, invalid, label, placeh
 
                // }} 
 
-               ps={(label == "phone number") 
+               ps={(label == "phone number" ) 
                   ? "8ch" 
-                  : (label == 'initiate salary')
+                  : (cashFields.includes(label))
                     ? "4ch"
                     : (label == 'Amount')
                         ? "4ch"

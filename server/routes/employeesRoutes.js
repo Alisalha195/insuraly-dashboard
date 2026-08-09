@@ -22,6 +22,8 @@ router.post("/get/national-number", getPersonalInfoByNationalNumber, getEmployee
 router.post("/get/name",  getEmployeeByNamesInBusiness)
 router.post("/get/insurance-number", getPersonalInfoByInsuranceNumber , getEmployeeInBusiness)
 
+router.post("/get/insurance-number/forRetirement", getPersonalInfoByInsuranceNumber , getEmployee)
+
 
 router.get("/get/id", getEmployeeByID);
 router.get("/services",getEmployeeServices);

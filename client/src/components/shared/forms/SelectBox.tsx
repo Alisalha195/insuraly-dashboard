@@ -5,7 +5,6 @@ import useThemedColors from '../../../hooks/useThemedColors';
 const SelectBox = ({name , Controller,control ,data, error,disabled, defaultValue}) => {
    const collectionData = createListCollection({items:data})
    const { inputBorder } = useThemedColors();
-   // console.log("collectionData",collectionData)
   return (
     <Box>
       <Field.Root invalid={!!error} >
@@ -20,7 +19,7 @@ const SelectBox = ({name , Controller,control ,data, error,disabled, defaultValu
                 size={'xs'}
                 name={field.name}
                 value={field.item}
-                onValueChange={({ value }) => field.onChange(value)}
+                onValueChange={({ value }) => field.onChange(value) }
                 onInteractOutside={() => field.onBlur()}
                 defaultValue={defaultValue}
                 collection={collectionData}
