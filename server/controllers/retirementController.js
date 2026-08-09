@@ -1,5 +1,26 @@
 import {supabase} from "../db/connection.js";
-import { retirementSalaryTable, retirementTable } from "../db/tables.js";
+import { retirementSalaryReceiptCenter, retirementSalaryTable, retirementTable, retirementFamilyFileTable , retirementAccumulationsTable, retirementIndemnificationTable } from "../db/tables.js";
+
+
+export const createRetirement = async (req, res , next) => {
+   const { employeeID, reason} = req.body;
+   // console.log("employeeID :", employeeID);
+   // console.log("reason :", reason);
+   console.log("req.body :", req.body);
+   
+    const { data, error } = await supabase
+       .from(retirementTable)
+       .insert({
+         employee_id: Number(employeeID),
+         reason : reason
+       })
+       .select();
+       
+     console.log("data :", data[0]);
+     if (error || data?.length < 1)
+       res.status(400).json({ msg: "error occured", status: 400 });
+     else res.status(200).json({ ...data[0], status: 200 });
+}
 
 export const getRetirementCount = async (req, res , next) => {
    const { count, error } = await supabase
@@ -311,7 +332,7 @@ export const getAnnualRetirementCount = async (req, res , next) => {
 
 export const deleteRetirement = async (req, res , next) => {
    
-   const {retirementID} = req.body;
+   const {retirementID} = req.query;
    
    const { data, error } = await supabase
   .from(retirementTable)
@@ -323,4 +344,78 @@ export const deleteRetirement = async (req, res , next) => {
   } else {
      res.status(200).json({msg:"deleted successfuly"})
   }
+}
+
+export const getSalaryReceiptCenters = async (req, res , next) => {
+   
+   const { data:receiptCenters , error:receiptCentersError } = await supabase
+   .from(retirementSalaryReceiptCenter)
+   .select();
+   
+   // console.log("data in reasons :",reasons);
+   if(receiptCenters?.length > 0 && !receiptCentersError)
+      res.status(200).json({data:receiptCenters, status:200});
+   else
+      res.status(400).json({msg:"no receipt centers found", status:400});
+}
+
+export const createRetirementExtending = async (req, res , next) => {
+   console.log("extendings req.body :", req.body);
+   
+   const { salary, salaryReceiptCenter, salaryInitiateDate, accumulations, indemnification, wifeShare , childrenShare, retirementID} = req.body;
+   
+   const expireDate = new Date(salaryInitiateDate);
+   expireDate.setFullYear(expireDate.getFullYear() + 3);
+   
+   const { data, error } = await supabase
+   .from(retirementSalaryTable)
+   .insert({
+      retirement_id: Number(retirementID),
+      salary_amount: Number(salary),
+      receipt_center_number: salaryReceiptCenter,
+      initiate_date: salaryInitiateDate,
+      activation_expire_date: expireDate,
+   }).select();
+   
+   // console.log("data in createRetirementExtending :", data, count);
+   if(error || data[0]?.length < 1) {
+      res.status(400).json({msg:"something went wrong !", status:400});
+   } else {
+      const { data, error } = await supabase
+      .from(retirementAccumulationsTable)
+      .insert({
+         amount: Number(accumulations),
+         retirement_id: Number(retirementID),
+      }).select();
+      
+      
+      if(error || data[0]?.length < 1) {
+         res.status(400).json({msg:"something went wrong !", status:400});
+      } else {
+         const { data,count , error } = await supabase
+         .from(retirementIndemnificationTable)
+         .insert({
+            amount: Number(indemnification),
+            retirement_id: Number(retirementID),
+         }).select();
+         
+         if(error ||  data[0]?.length < 1) {
+            res.status(400).json({msg:"something went wrong !", status:400});
+         } else {
+            const { data,count , error } = await supabase
+            .from(retirementFamilyFileTable)
+            .insert({
+               retirement_id: Number(retirementID),
+               wife_share: Number(wifeShare),
+               children_share: Number(childrenShare),
+            }).select();
+            
+            if(error ||  data[0]?.length < 1) {
+               res.status(400).json({msg:"something went wrong !", status:400});
+            } else {
+               res.status(200).json({msg:"retirement extending created successfuly", status:200});
+            }
+         }
+      }
+   }
 }

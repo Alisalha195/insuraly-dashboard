@@ -9,11 +9,15 @@ export const businessOwnerTable = process.env.BUSINESS_OWNERS_TABLE
 export const usersTable = process.env.USERS_TABLE
 export const businessEmployeeTable = process.env.BUSINESS_EMPLOYEE_TABLE
 export const claimsTable = process.env.CLAIMS_TABLE
+
 export const retirementTable = process.env.RETIREMENT_TABLE
 export const retirementIndemnificationTable = process.env.RETIREMENT_INDEMNIFICATION_TABLE
 export const retirementSalaryTable = process.env.RETIREMENT_SALARY_TABLE
 export const retirementSalaryAuthorizedTable = process.env. RETIREMENT_SALARY_AUTHORIZED_TABLE
 export const retirementSalarySuccessorTable = process.env.RETIREMENT_SALARY_SUCCESSOR_TABLE
+export const retirementFamilyFileTable = process.env.RETIREMENT_FAMILY_FILE_TABLE
+export const retirementAccumulationsTable = process.env.RETIREMENT_ACCUMULATIONS_TABLE
+
 export const servicesTable = process.env.SERVICES_TABLE
 export const servicesWagesTable = process.env.SERVICES_WAGES_TABLE
 export const servicesSubscribtionTable = process.env.SERVICES_SUBSCRIBTION_TABLE
@@ -23,5 +27,6 @@ export const businessCommercialTypesTable = process.env.BUSINESS_COMMERCIAL_TYPE
 export const businessStatusesTable = process.env.BUSINESS_STATUSES
 
 export const serviceFinishReasonsTable = process.env.SERVICE_FINISH_REASONS
+export const retirementSalaryReceiptCenter = process.env.RETIREMENT_SALARY_RECEIPT_CENTER
 
 

@@ -32,9 +32,11 @@ const RetirementsPageContent = () => {
          backButton={true} 
       />
       
-      <Box>
-         <Flex width={"100%"} justifyContent={"end"} paddingX={"40px"}>
-            <Span className='btn' color={btnGreen} width={"auto"} paddingX={"8px"} paddingY={"3px"}>New Retirement Profile</Span>
+      <Box marginBottom={4}>
+         <Flex width={"100%"} justifyContent={"end"} paddingX={"40px"} >
+            <Span className='btn' color={btnGreen} width={"auto"} paddingX={"8px"} paddingY={"3px"}
+            onClick={()=> navigate("/dashboard/retirements/new")}
+            >New Retirement Profile</Span>
          </Flex>
       </Box>
       
