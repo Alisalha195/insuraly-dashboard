@@ -2,7 +2,7 @@ import { Field, Flex } from '@chakra-ui/react'
 import SelectBox from '../SelectBox'
 import useThemedColors from '../../../../hooks/useThemedColors';
 
-const SalaryReceiptCentersSelectBox = ({label ,Controller,control ,data, error,disabled}) => {
+const SalaryReceiptCentersSelectBox = ({label ,Controller,control ,data, error,disabled, defaultValue}) => {
    const receiptCentersData = data.map(item => ({...item , value : item.center_name, title:item.center_name})) ;
 
    const {textSecondary} = useThemedColors();
@@ -18,7 +18,7 @@ const SalaryReceiptCentersSelectBox = ({label ,Controller,control ,data, error,d
          Controller={Controller}
          control={control}
          error={error}
-         defaultValue={receiptCentersData[0].value}
+         defaultValue={defaultValue || receiptCentersData[0].value}
          disabled={disabled}
       />
     </Flex>

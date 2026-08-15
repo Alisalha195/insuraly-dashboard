@@ -62,7 +62,7 @@ const AnnualRetirementsPageContent = () => {
                     </Flex>
                     <Box className='btn' color={btnSecondary}>
                        <Text
-                          onClick={() => navigate("/dashboard/businesses/add")}
+                          onClick={() => navigate("/dashboard/retirements/new")}
                           fontSize={{ xssToXs: "14px", xsToXm: "16px", xmToSm: "18px" }}
                           marginLeft={2}
                        >

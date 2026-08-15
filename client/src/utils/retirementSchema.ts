@@ -19,6 +19,7 @@ export const RetirementSchema = (vars:{
      
 }
 
+
 export const RetirementExtindingSchema = z.object({
 
    salary: z.number().nonnegative(),
@@ -42,6 +43,20 @@ export const ExtindingSchema = () => {
    return RetirementExtindingSchema;
 }
 
+export const EditRetirementSchema = (vars:{
+   handleViewEmployeedName: (val: any) => Promise<boolean>
+}) => {
+   const editRetirementSchema = z.object({
+      
+      ...RetirementSchema(vars).omit({employeeInsuranceNumber:true}).shape,
+      ...RetirementExtindingSchema.shape
+      
+   });
+   
+   return editRetirementSchema;
+}
+
 export type RetirementSchemaFormData = z.infer<ReturnType<typeof RetirementSchema>>;
 export type RetirementExtindingSchemaFormData = z.infer<ReturnType<typeof ExtindingSchema>>;
+export type EditRetirementSchemaFormData = z.infer<ReturnType<typeof EditRetirementSchema>>;
 

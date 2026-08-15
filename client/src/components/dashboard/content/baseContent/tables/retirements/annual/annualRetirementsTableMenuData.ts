@@ -6,7 +6,7 @@ export const tableMenuData = [
    {
       title : 'edit',
       icon: TiEdit ,
-      clickLink: (params) => `/Retirements/${params?.retirementID}/edit`
+      clickLink: (params) => `/dashboard/retirements/${params?.retirementID}/edit`
    },
   
    {

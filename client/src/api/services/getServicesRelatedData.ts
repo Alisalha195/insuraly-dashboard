@@ -8,6 +8,7 @@ export const getFinishedWorkReasons = () => {
       data: reasonsData,
       isLoading: isLoadingReasonsData,
       isSuccess: isSuccessReasonsData,
+      error : isErrorReasonsData
     } = useQuery({
       queryKey: ["reasons-data"],
       queryFn: () => fetch(`${host}/services/reasons`).then((res) => res.json()),
@@ -17,5 +18,5 @@ export const getFinishedWorkReasons = () => {
     });
 
    //  console.log("data in func :",reasonsData)
-    return { reasonsData, isSuccessReasonsData, isLoadingReasonsData };
+    return { reasonsData, isSuccessReasonsData, isLoadingReasonsData, isErrorReasonsData };
 }

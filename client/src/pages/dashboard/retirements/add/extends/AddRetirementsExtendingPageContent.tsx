@@ -24,6 +24,9 @@ const AddRetirementsExtendingPageContent = () => {
    const location = useLocation();
    // console.log("location.state :",location.state); 
    
+   if(!location?.state?.retirementID) {
+      navigate("/dashboard/retirements/new");
+   }
    const wifeShareAmount = 3500;
    const childrenShareAmount = 2500;
    

@@ -1,6 +1,36 @@
 import {supabase} from "../db/connection.js";
 import { retirementSalaryReceiptCenter, retirementSalaryTable, retirementTable, retirementFamilyFileTable , retirementAccumulationsTable, retirementIndemnificationTable } from "../db/tables.js";
 
+export const getRetirementById = async(req, res, next) => {
+   const {id} = req.query;
+   
+   const { data ,error } = await supabase
+   .from(retirementSalaryTable)
+   .select(
+      `* , Retirement!inner (
+         *, Retirement_Indemnification!inner (
+               *
+            ) , 
+            Retirements_Accumulations!inner (
+               *
+            ) ,
+            Retirement_Family_File (
+               *
+            )
+         )
+      `
+    )
+   .eq('Retirement.retirement_id',Number(id));
+   
+   // console.log("dataaaa :",data);
+   
+   if(data?.length < 1 || error) {
+      res.status(404).json({msg:"something went wrong !"});
+   } else {
+      res.status(200).json(data);
+      // return data;
+   }
+}
 
 export const createRetirement = async (req, res , next) => {
    const { employeeID, reason} = req.body;
@@ -20,6 +50,35 @@ export const createRetirement = async (req, res , next) => {
      if (error || data?.length < 1)
        res.status(400).json({ msg: "error occured", status: 400 });
      else res.status(200).json({ ...data[0], status: 200 });
+}
+
+export const updateRetirement = async (req, res, next) => {
+   const {accumulations,finishReason , childrenShare, indemnification, salary, salaryInitiateDate, salaryReceiptCenter , wifeShare, retirementId} = req.body;
+   
+   const expireDate = new Date(salaryInitiateDate);
+   expireDate.setFullYear(expireDate.getFullYear() + 3);
+      // console.log("req.body : ",req.body);
+
+   const  {data, error} = await supabase.rpc('update_retirement_info', {
+      retirementid: retirementId,
+      retirementreason: finishReason ,
+      receiptcenter : salaryReceiptCenter ,
+      expire_date : new Date(expireDate) ,
+      initiatedate : new Date(salaryInitiateDate),
+      salaryamount : salary ,
+      indemnificaion_amount : indemnification ,
+      accumulations_amount : accumulations ,
+      wifeshare : wifeShare ,
+      childrenshare : childrenShare
+   });
+
+   console.log("data response from rpc : ", data, error);
+   
+   if(data) 
+      res.status(200).json({executed: true});
+   else 
+      res.status(200).json({executed: false});
+
 }
 
 export const getRetirementCount = async (req, res , next) => {
@@ -391,6 +450,8 @@ export const createRetirementExtending = async (req, res , next) => {
       
       if(error || data[0]?.length < 1) {
          res.status(400).json({msg:"something went wrong !", status:400});
+         
+         //! delete salary record from retirementSalaryTable
       } else {
          const { data,count , error } = await supabase
          .from(retirementIndemnificationTable)
@@ -401,6 +462,9 @@ export const createRetirementExtending = async (req, res , next) => {
          
          if(error ||  data[0]?.length < 1) {
             res.status(400).json({msg:"something went wrong !", status:400});
+            
+            //! delete salary record from retirementSalaryTable
+            //! delete salary record from retirementIndemnificationTable
          } else {
             const { data,count , error } = await supabase
             .from(retirementFamilyFileTable)
@@ -412,6 +476,11 @@ export const createRetirementExtending = async (req, res , next) => {
             
             if(error ||  data[0]?.length < 1) {
                res.status(400).json({msg:"something went wrong !", status:400});
+               
+               //! delete salary record from retirementSalaryTable
+               //! delete salary record from retirementIndemnificationTable
+               //! delete salary record from retirementFamilyFileTable
+            
             } else {
                res.status(200).json({msg:"retirement extending created successfuly", status:200});
             }

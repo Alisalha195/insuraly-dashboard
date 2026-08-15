@@ -9,9 +9,9 @@ const FisinshReasonsSelectBox = ({label ,Controller,control ,data, error,default
    const {textSecondary} = useThemedColors();
    
   return (
-    <Flex flexDirection={'column'}>
+    <Flex flexDirection={'column'} >
       <Field.Root>
-         <Field.Label paddingBottom={2} fontSize={'22px'} color={textSecondary}>{label}</Field.Label>
+         <Field.Label  paddingBottom={2} fontSize={'20px'} color={textSecondary}>{label}</Field.Label>
       </Field.Root>
       <SelectBox 
          name={"finishReason"}

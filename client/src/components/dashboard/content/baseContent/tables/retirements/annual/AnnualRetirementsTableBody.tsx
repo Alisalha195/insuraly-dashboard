@@ -15,10 +15,20 @@ const AnnualRetirementsTableBody = ({data, search = false, }) => {
            {data?.map((item , index) => (  
               <Table.Row key={index} fontSize={{ xssToXs: "12px", xsToXm: "14px", xmToSm: "16px" }}>
                  <Table.Cell fontSize={"20px"} textWrap={"nowrap"}>
-                    <Text color={tableItem} fontSize={{ xssToXs: "12px", xsToXm: "14px", xmToSm: "16px" }}>
+                    <span
+                       // className="[padding:4px_9px] "
+                       onClick={() => navigate(`/profile/${item.Retirement?.Employees?.personal_informations?.personal_info_id}`)}
+                       
+                       fontSize={{ xssToXs: "12px", xsToXm: "14px", xmToSm: "16px" }}
+                       
+                     >
+                       <Text color={tableItem} _hover={{color:"#6666ff"}} className="btn hover:[color:#6666ff] [padding:4px_9px] "  fontSize={{ xssToXs: "12px", xsToXm: "14px", xmToSm: "16px" }}>
                        {item.Retirement?.Employees?.personal_informations?.first_name}
-                    </Text>
+                       </Text>
+                       
+                    </span>
                  </Table.Cell>
+                 
                  
                  <Table.Cell fontSize={"20px"}>
                     <Text color={tableItem} fontSize={{ xssToXs: "12px", xsToXm: "14px", xmToSm: "16px" }}>

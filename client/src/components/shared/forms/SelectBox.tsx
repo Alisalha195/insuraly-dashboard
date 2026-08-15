@@ -6,7 +6,7 @@ const SelectBox = ({name , Controller,control ,data, error,disabled, defaultValu
    const collectionData = createListCollection({items:data})
    const { inputBorder } = useThemedColors();
   return (
-    <Box>
+    <Box >
       <Field.Root invalid={!!error} >
           
           <Controller
@@ -25,7 +25,7 @@ const SelectBox = ({name , Controller,control ,data, error,disabled, defaultValu
                 collection={collectionData}
                 
                 borderColor={inputBorder}
-               borderWidth={2}
+               borderWidth={1}
               >
                 <Select.HiddenSelect />
                 <Select.Control>
