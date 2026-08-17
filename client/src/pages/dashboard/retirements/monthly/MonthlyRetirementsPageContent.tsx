@@ -46,15 +46,15 @@ const MonthlyRetirementsPageContent = () => {
            
               {/* upper control */}
               <HStack justifyContent={"start"} marginBottom={1}>
-                 <Flex flexDirection={'column'} justifyContent={'center'} paddingY={0} paddingX={1} onClick={() => navigate("/dashboard/businesses/search")}>
-                    <Icon
-                       fontSize={{ xssToXs: "16px", xsToXm: "18px", xmToSm: "20px" }}
-                    >
-                       <LuSearch
-                          className='btn'
-                       />
-                    </Icon>
-                 </Flex>
+                  <Flex flexDirection={'column'} justifyContent={'center'} paddingY={0} paddingX={1} onClick={() => navigate("/dashboard/retirements/search")}>
+                      <Icon
+                         fontSize={{ xssToXs: "16px", xsToXm: "18px", xmToSm: "20px" }}
+                      >
+                         <LuSearch
+                            className='btn'
+                         />
+                      </Icon>
+                   </Flex>
                  <Box className='btn' color={btnSecondary}>
                     <Text
                        onClick={() => navigate("/dashboard/retirements/new")}

@@ -16,13 +16,18 @@ export const getRetirementById = async(req, res, next) => {
             ) ,
             Retirement_Family_File (
                *
+            ) , 
+            Employees!inner (
+                *,personal_informations!inner(
+                    *
+                )  
             )
          )
       `
     )
    .eq('Retirement.retirement_id',Number(id));
    
-   // console.log("dataaaa :",data);
+   console.log("dataaaa :",data);
    
    if(data?.length < 1 || error) {
       res.status(404).json({msg:"something went wrong !"});
@@ -487,4 +492,103 @@ export const createRetirementExtending = async (req, res , next) => {
          }
       }
    }
+}
+
+export const getRetirementsByNationalNumber = async (req, res, next) => {
+   
+    const {searchValue} = req.body;
+
+    const { data ,error } = await supabase
+    .from(retirementSalaryTable)
+    .select(
+       `* , Retirement!inner (
+          *, Employees!inner (
+             *,personal_informations!inner(
+                *
+              ), Business_Employee!inner(
+                * , Services!inner (
+                   *
+                   ) 
+                ) 
+             )
+          )
+       `
+     )
+     .eq("Retirement.Employees.personal_informations.national_number",Number(searchValue));
+    
+    if(data?.length < 1 || error) {
+       res.status(404).json({msg:"something went wrong !"});
+    } else {
+       res.status(200).json(data);
+    }
+       
+    
+}
+
+export const getRetirementsByName = async (req, res, next) => {
+   
+   const {firstName, fatherName, motherName, lastName} = req.body;
+   // console.log("req.body :::::: ", req.body);
+   const { data ,error } = await supabase
+   .from(retirementSalaryTable)
+   .select(
+      `* , Retirement!inner (
+         *, Employees!inner (
+            *,personal_informations!inner(
+               *
+             ), Business_Employee!inner(
+               * , Services!inner (
+                  *
+                  ) 
+               ) 
+            )
+         )
+      `
+    )
+   .like('Retirement.Employees.personal_informations.first_name' , `%${firstName}%`)
+   .like('Retirement.Employees.personal_informations.father_name' , `%${fatherName}%`)
+   .like('Retirement.Employees.personal_informations.mother_name' , `%${motherName}%`)
+   .like('Retirement.Employees.personal_informations.last_name' , `%${lastName}%`);
+   
+   // console.log("data for NAME :",data)
+       
+    if(data?.length < 1 || error) {
+       res.status(404).json({msg:"something went wrong !"});
+    } else {
+       res.status(200).json(data);
+    }
+       
+    
+}
+
+export const getRetirementsByInsuranceNumber = async (req, res, next) => {
+   
+   const {searchValue} = req.body;
+   
+   const { data ,error } = await supabase
+   .from(retirementSalaryTable)
+   .select(
+      `* , Retirement!inner (
+         *, Employees!inner (
+            *,personal_informations!inner(
+               *
+             ), Business_Employee!inner(
+               * , Services!inner (
+                  *
+                  ) 
+               ) 
+            )
+         )
+      `
+    )
+    .eq("Retirement.Employees.personal_informations.insurance_number",Number(searchValue));
+       
+    if(data?.length < 1 || error) {
+       res.status(404).json({msg:"something went wrong !"});
+    } else {
+       res.status(200).json(data);
+       // return data;
+    }
+       
+    
 }

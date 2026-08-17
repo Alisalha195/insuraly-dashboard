@@ -1,5 +1,5 @@
-import { Box, Center, Flex, Grid, Span, Text, VStack } from '@chakra-ui/react'
-import React, { useState } from 'react'
+import { Box, Center, Flex, Grid, Icon, Span, Text, VStack } from '@chakra-ui/react'
+import React, { useEffect, useState } from 'react'
 import PageHeadTitle from '../../../../components/shared/PageHeadTitle'
 import { useNavigate, useParams } from 'react-router-dom';
 import useThemedColors from '../../../../hooks/useThemedColors';
@@ -23,6 +23,7 @@ import SalaryReceiptCentersSelectBox from '../../../../components/shared/forms/r
 import DatePickerField from '../../../../components/shared/forms/DatePickerField';
 import FixBottomArea from '../../../../components/shared/FixBottomArea';
 import { useCustomQuery } from '../../../../hooks/useCustomQuery';
+import { CgProfile } from "react-icons/cg";
 
 const EditRetirementPageContent = () => {
   
@@ -63,6 +64,8 @@ const EditRetirementPageContent = () => {
       }
          return isEmployee ;
    }
+   
+   
 
    // data retreving
    const {data , error, isLoading, isSuccess } = useCustomQuery(
@@ -70,6 +73,16 @@ const EditRetirementPageContent = () => {
       `${host}/retirement/get/id?id=${params?.id}`
    );
    
+   // .....show retired name......
+
+   useEffect(()=>{
+      if(data && data?.length > 0) {
+         setEmployeeName(`${capitalize(data[0]?.Retirement?.Employees?.personal_informations?.first_name)} ${capitalize(data[0]?.Retirement?.Employees?.personal_informations?.father_name)} ${capitalize(data[0]?.Retirement?.Employees?.personal_informations?.last_name)}`)
+      }
+   },[isLoading,isSuccess]);
+   
+   
+   console.log("data in edit :::",data);
    const serviceSchema = EditRetirementSchema({handleViewEmployeedName});
 
    const {
@@ -145,6 +158,14 @@ const EditRetirementPageContent = () => {
                   title={<Text fontSize={30}>Edit Retirement Profile</Text>}
                   backButton={true} 
                />
+               <Flex >
+                  <Flex flexDirection={'column'} justifyContent={'center'}>
+                     <CgProfile />
+                  </Flex>
+                  <Text className='btn' onClick={()=>navigate(`/profile/${data[0]?.Retirement?.Employees?.personal_informations?.personal_info_id}`)} color={btnGreen} paddingX={1}>
+                     {employeeName}
+                  </Text>
+               </Flex>
             </Box>
             
             {/* <Box>

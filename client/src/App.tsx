@@ -48,6 +48,7 @@ import MonthlyRetirements from './pages/dashboard/retirements/monthly';
 import AddRetirement from './pages/dashboard/retirements/add';
 import AddRetirementsExtending from './pages/dashboard/retirements/add/extends';
 import EditRetirement from './pages/dashboard/retirements/edit';
+import SearchRetirement from './pages/dashboard/retirements/search';
 
 
 
@@ -108,6 +109,7 @@ function App() {
                      <Route path='/dashboard/retirements/new/extending' element={<ProtectedRoute><AddRetirementsExtending /></ProtectedRoute>} />
                      <Route path='/dashboard/retirements/annual/:type/:year' element={<ProtectedRoute><AnnualRetirements /></ProtectedRoute>} />
                      <Route path='/dashboard/retirements/monthly/:type/:year/:month' element={<ProtectedRoute><MonthlyRetirements /></ProtectedRoute>} />
+                     <Route path='/dashboard/retirements/search' element={<ProtectedRoute><SearchRetirement /></ProtectedRoute>} />
                      
                      
                      {/* profile */}

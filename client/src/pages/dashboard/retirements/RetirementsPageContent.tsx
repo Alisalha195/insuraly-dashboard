@@ -1,4 +1,4 @@
-import { Box,  Flex, Span, Text } from '@chakra-ui/react';
+import { Box,  Flex, Icon, Span, Text } from '@chakra-ui/react';
 import React from 'react'
 import PageHeadTitle from '../../../components/shared/PageHeadTitle';
 import useThemedColors from '../../../hooks/useThemedColors';
@@ -6,6 +6,7 @@ import Card from '../../../components/ui/Card/Card';
 import { useNavigate } from 'react-router-dom';
 import { getAnnualRetirementsCount } from '../../../api/retirements/getAnnualRetirementsCount';
 import { getMonthlyRetirementsCount } from '../../../api/retirements/getMonthlylRetirementsCount';
+import { LuSearch } from 'react-icons/lu';
 
 const RetirementsPageContent = () => {
    
@@ -33,10 +34,24 @@ const RetirementsPageContent = () => {
       />
       
       <Box marginBottom={4}>
-         <Flex width={"100%"} justifyContent={"end"} paddingX={"40px"} >
-            <Span className='btn' color={btnGreen} width={"auto"} paddingX={"8px"} paddingY={"3px"}
-            onClick={()=> navigate("/dashboard/retirements/new")}
-            >New Retirement Profile</Span>
+         
+          <Flex flexDirection={'row'} justifyContent={'end'} paddingY={0} paddingX={5} >
+            
+            <Flex onClick={() => navigate("/dashboard/retirements/search")} alignItems={'center'} marginRight={4} paddingX={1}>
+               <Icon
+                    fontSize={{ xssToXs: "16px", xsToXm: "18px", xmToSm: "20px" }}
+                 >
+                    <LuSearch
+                       className='btn'
+                    />
+                 </Icon>
+            </Flex>
+              
+           <Flex>
+               <Span className='btn' color={btnGreen} width={"auto"} paddingX={"8px"} paddingY={"3px"}
+               onClick={()=> navigate("/dashboard/retirements/new")}
+               >New Retirement Profile</Span>
+            </Flex>
          </Flex>
       </Box>
       
