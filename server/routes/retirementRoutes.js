@@ -23,7 +23,7 @@ router.post("/create-retirement", createRetirement);
 router.post("/create-retirement-extending", createRetirementExtending);
 router.post("/update-retirement", updateRetirement);
 
-router.delete("/delete", deleteRetirement); 
+router.delete("/delete-retirement", deleteRetirement); 
 
 
 export default router;

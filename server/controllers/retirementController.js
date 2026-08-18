@@ -396,12 +396,13 @@ export const getAnnualRetirementCount = async (req, res , next) => {
 
 export const deleteRetirement = async (req, res , next) => {
    
-   const {retirementID} = req.query;
+   const {retirementID} = req.body;
    
+   // console.log("retirementID ::::",retirementID);
    const { data, error } = await supabase
   .from(retirementTable)
   .delete()
-  .eq('retirement_id', retirementID);
+  .eq('retirement_id', Number(retirementID));
   
   if(error) {
    res.status(404).json({msg:"something went wrong"})

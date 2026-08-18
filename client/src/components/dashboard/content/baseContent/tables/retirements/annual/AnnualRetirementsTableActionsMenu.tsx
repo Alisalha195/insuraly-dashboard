@@ -20,7 +20,7 @@ const AnnualRetirementsTableActionsMenu = ({retirementID}:{retirementID:Number})
    const navigate = useNavigate();
    const {hovering} = useThemedColors();
    
-   const deleteEmployee = useMutation({
+   const deleteRetirement = useMutation({
       mutationFn : (dataToMutate) => fetch(`${host}/retirement/delete-retirement`,{method:'DELETE', headers: {'Content-Type' : 'application/json'}, body : JSON.stringify(dataToMutate)}).then(res => res.json()) ,
       
       
@@ -33,7 +33,7 @@ const AnnualRetirementsTableActionsMenu = ({retirementID}:{retirementID:Number})
    const handleDelete = () => {
       setWaiting(true);
       const dataToMutate = {retirementID:retirementID};
-      deleteEmployee.mutate(dataToMutate);
+      deleteRetirement.mutate(dataToMutate);
    };
    
   return (
