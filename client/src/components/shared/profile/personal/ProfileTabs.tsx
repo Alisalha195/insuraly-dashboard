@@ -6,6 +6,7 @@ import { LuFolder, LuUser } from 'react-icons/lu'
 import AboutTab from './AboutTab';
 import ServicesTab from './tabs/ServicesTab';
 import BusinessesTab from './tabs/BusinessesTab';
+import RetirementTab from './tabs/RetirementsTab';
 
 const ProfileTabs = ({personData, personRules}) => {
    console.log("personRules :",personRules);
@@ -44,6 +45,14 @@ return (
                    </Tabs.Trigger>
                    )
                }
+               if(item == "retired") {
+                  return (
+                  <Tabs.Trigger value="retirements">
+                     <LuFolder />
+                     retirements
+                  </Tabs.Trigger>
+                  )
+               }
             })
           }
        </Tabs.List>
@@ -67,6 +76,13 @@ return (
                return (
                   <Tabs.Content value="services">
                      <ServicesTab employeeId={personRules[item]} />
+                  </Tabs.Content>
+                )
+            }
+            if(item == "retired") {
+               return (
+                  <Tabs.Content value="retirements">
+                     <RetirementTab employeeId={personRules[item]} />
                   </Tabs.Content>
                 )
             }
