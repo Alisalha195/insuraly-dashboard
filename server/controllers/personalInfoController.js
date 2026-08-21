@@ -1,5 +1,5 @@
 import {supabase} from "../db/connection.js";
-import { businessOwnerTable, employeeTable, personalInfoTable } from "../db/tables.js"; 
+import { businessOwnerTable, employeeTable, personalInfoTable, retirementTable } from "../db/tables.js"; 
 
 export const checkIfPersonalInfoRecordExistBeforeCreating =  async(req , res , next) => {
    // console.log("in checkIfPersonalInfoRecordExistBeforeCreating middleware", req.body);
@@ -293,7 +293,7 @@ export const getPersonRules = async (req, res, next) => {
    .select()
    .eq("personal_info_id", Number(personId));
    
-   console.log("personData :",personData);
+   // console.log("personData :",personData);
    
    if(personData?.length > 0 &&  !personDataError) {
       
@@ -305,6 +305,16 @@ export const getPersonRules = async (req, res, next) => {
       if((employeeRuleData?.length > 0 ) && (!employeeRuleError)) {
          // rules.push({employee: employeeRuleData[0].emp_id});
          rules.employee = employeeRuleData[0].emp_id ;
+         
+         const {data:retiredRuleData , error:retiredRuleError} = await supabase
+         .from(retirementTable)
+         .select("employee_id")
+         .eq("employee_id", Number(employeeRuleData[0].emp_id));
+         
+         if((retiredRuleData?.length > 0 ) && (!retiredRuleError)) {
+            console.log("retiredRuleData :",retiredRuleData[0].employee_id);
+            rules.retired = retiredRuleData[0].employee_id ;
+         }
       } 
       
       const {data:ownerRuleData , error:ownerRuleError} = await supabase
@@ -316,6 +326,8 @@ export const getPersonRules = async (req, res, next) => {
          // rules.push({owner: ownerRuleData[0].business_owner_id});
          rules.owner = ownerRuleData[0].business_owner_id;
       } 
+      
+      
       
       res.status(200).json({ rules : rules, status:200});
    } else {

@@ -1,7 +1,7 @@
 
 // retirement
 import { Router } from "express";
-import {getRetirementById, getPaginatedAnnualRetirements , getPaginatedMonthlyRetirements, getMonthlyRetirementCount, getAnnualRetirementCount, deleteRetirement, createRetirement, getSalaryReceiptCenters, createRetirementExtending, getRetirementCount, updateRetirement, getRetirementsByNationalNumber, getRetirementsByName, getRetirementsByInsuranceNumber} from "../controllers/retirementController.js";
+import {getRetirementById, getPaginatedAnnualRetirements , getPaginatedMonthlyRetirements, getMonthlyRetirementCount, getAnnualRetirementCount, deleteRetirement, createRetirement, getSalaryReceiptCenters, createRetirementExtending, getRetirementCount, updateRetirement, getRetirementsByNationalNumber, getRetirementsByName, getRetirementsByInsuranceNumber, getRetirementsByEmployeeID} from "../controllers/retirementController.js";
 
 const router = Router();
 
@@ -10,6 +10,7 @@ router.get("/get/id",  getRetirementById);
 router.get("/get-count",  getRetirementCount)
 router.get("/getPaginatedAnnualRetirements", getPaginatedAnnualRetirements);
 router.get("/getPaginatedMonthlyRetirements", getPaginatedMonthlyRetirements);
+router.get("/getByEmployeeID", getRetirementsByEmployeeID);
 
 router.post("/get/national-number", getRetirementsByNationalNumber); 
 router.post("/get/name",  getRetirementsByName);

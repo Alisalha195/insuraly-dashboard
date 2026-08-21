@@ -27,6 +27,35 @@ export const getRetirementById = async(req, res, next) => {
     )
    .eq('Retirement.retirement_id',Number(id));
    
+   if(data?.length < 1 || error) {
+      res.status(404).json({msg:"something went wrong !"});
+   } else {
+      res.status(200).json(data);
+      // return data;
+   }
+}
+
+export const getRetirementsByEmployeeID = async(req, res, next) => {
+   const {employeeID} = req.query;
+   
+   const { data ,error } = await supabase
+   .from(retirementSalaryTable)
+   .select(
+      `* , Retirement!inner (
+         *, Employees!inner (
+            *,personal_informations!inner(
+               *
+             ), Business_Employee!inner(
+               * , Services!inner (
+                  *
+                  ) 
+               ) 
+            )
+         )
+      `
+    )
+   .eq('Retirement.employee_id',Number(employeeID));
+   
    console.log("dataaaa :",data);
    
    if(data?.length < 1 || error) {
@@ -35,6 +64,12 @@ export const getRetirementById = async(req, res, next) => {
       res.status(200).json(data);
       // return data;
    }
+   
+   // if(data?.length < 1 || error) {
+   //    res.status(404).json({msg:"something went wrong !"});
+   // } else {
+   //    res.status(200).json({data});
+   // }
 }
 
 export const createRetirement = async (req, res , next) => {
