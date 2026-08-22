@@ -21,7 +21,7 @@ const MonthlyClaimsTableBody = ({data, search=false}:{data:any[], search?:boolea
                      <TableCell>
                         <span
                            // className="[padding:4px_9px] "
-                           onClick={() => navigate(`/profile/${item.personal_informations.personal_info_id}`)}
+                           onClick={() => navigate(`/dashboard/businesses/${item?.Service_Subscribtion?.Services?.Business_Employee?.Businesses?.business_id}`)}
                            
                            fontSize={{ xssToXs: "12px", xsToXm: "14px", xmToSm: "16px" }}
                            
@@ -90,7 +90,7 @@ const MonthlyClaimsTableBody = ({data, search=false}:{data:any[], search?:boolea
                            </TableCell>
                            :
                            <TableCell fontSize={"20px"} color={tableItem}  textWrap={"nowrap"}>
-                              <MonthlyClaimsTableActionsMenu itemId={item.cliam_id} itemData={item} />
+                              {/* <MonthlyClaimsTableActionsMenu itemId={item.cliam_id} itemData={item} /> */}
                            </TableCell>
                      }
                   </Table.Row>

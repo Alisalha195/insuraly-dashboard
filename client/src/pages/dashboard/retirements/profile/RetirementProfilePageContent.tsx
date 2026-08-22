@@ -26,7 +26,7 @@ const RetirementProfilePageContent = ({retirementID}) => {
          `${host}/retirement/get/id?id=${retirementID}`
       );
       
-   
+   console.log("data ::",retirementData);
    const {textSecondary, borderSecondary, budgetText, iconGray, btnGreen,textPrimary} = useThemedColors();
    
    if(retirementDataIsLoading) {
@@ -63,13 +63,14 @@ const RetirementProfilePageContent = ({retirementID}) => {
               >
                  <Flex 
                     alignItems={'center'} 
-                    // backgroundColor={"#876"} 
+                  //   backgroundColor={"#876"} 
                     paddingX={2} 
                     className='btn'
                     borderBottomWidth = {1}
                     borderBottomColor={'transparent'} 
                     transition={'.2s ease'}
                     _hover={{borderBottomColor:textPrimary}}
+                    onClick={()=>navigate(`/profile/${retirementData[0]?.Retirement?.Employees?.personal_info_id}`)}
                  >
                     <Text 
                        color={textSecondary}
