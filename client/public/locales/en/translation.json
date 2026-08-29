@@ -1,8 +1,249 @@
 {
+   "dashboard" : "dashboard",
+   "view" : "view",
+   "new" : "new",
+   "back" : "back" ,
+   "next" : "next",
+   "previous" : "previous",
+   "of" : "of",
+   "edit" : "edit",
+   "delete" : "delete",
+   "Gender" : "Gender",
+   "Male" : "Male",
+   "Female" : "Female",
+   "FullName" : "Full Name",
+   
    "retirements" : "retirements" ,
    "claims" : "claims",
    "businesses" :"businesses",
-   "owners" : "owners",
-    "search" : "search"
+   "newBusiness" : "new Business",
+   "owners" : "Business Owners",
+   "owner" : "owner",
+   "newOwner" : "new owner",
+   
+   "search" : "search",
+    
+   "profile" : "profile",
+   "logout" : "logout",
+   
+   "authorizedAcquires" : "authorized acquires",
+   "authorized" : "authorized",
+   "acquires" : "acquires",
+   "acquire" : "acquire",
+   "viewAcquires" : "view acquires",
+   "newAcquire" : "new acquire",
+   
+   
+   "salarySuccessors" : "salary successors",
+   "salary" : "salary",
+   "successors" : "successors",
+   "successor" : "successor",
+   "viewSuccessors" : "view successors",
+   "newSuccessor" : "new successor",
+   
+   "all" : "all",
+   "rights" : "rights",
+   "reserved" : "reserved",
+   
+   "insuranceNumber" : "Insurance Number",
+   "BOwner_ID" : "BOwner_ID",
+   "firstName" : "First Name",
+   "lastName" : "Last Name",
+   "motherName" : "Mother Name",
+   "nationalNumber" : "National Number",
+   "email" : "Email",
+   
+   "businessID" : "Business ID",
+   "name" : "Name" ,
+   "bownerInsuranceNumber" : "BOwner Insurance Number",
+   "balance" : "Balance",
+   "employeesCount" : "Employees Count",
+   
+   "thisYear" : "this year",
+   "thisMonth" : "this month",
+   "retarded" : "retarded",
+   "count" : "count",
+   "total" : "total",
+   "collected" : "collected",
+   "endsIn" : "ends in",
+   
+   "annualClaims" : "Annual Claims",
+   
+   "month" : "Month",
+   "claimsCount" : "Claims Count",
+   "delivered" : "Delivered",
+   "claimsAmount": "Claims Amount",
+   
+   "January" : "January",
+   "February" : "February",
+   "March" : "March",
+   "April" : "April",
+   "May" : "May",
+   "June" : "June",
+   "July" : "July",
+   "August" : "August",
+   "September" : "September",
+   "October" : "October",
+   "November" : "November",
+   "December" : "December",
+   
+   "monthClaims" : "Month Claims",
+   
+   "theBusiness" : "Business",
+   "businessInsuranceNumber" : "Business Insurance Number",
+   "suscriptions" : "Suscriptions",
+   "fees": "Fees",
+   "totalClaimAmount" : "Total Claim Amount",
+   "claimStatus" : "Claim Status",
+   
+   "retardedClaims" : "Retarded Claims",
+   
+   "newRetirementProfile" : "New Retirement Profile",
+   
+   "Age" : "Age",
+   "Death" : "Death",
+   "Other" : "Other",
+   
+   "anuualRetirements" : "Anuual Retirements",
+   "monthlyRetirements" : "Monthly Retirements",
+   "newRetirement" : "new Retirement",
+   
+   "fatherName" : "Father Name",
+   "phoneNumber" : "Phone Number",
+   "retirementType" : "Retirement Type",
+   "retirementDate" : "Retirement Date",
+   
+   "searchForBusinesses" : "Search For Businesses",
+   "SearchForBusinessOwners" : "Search For Business Owners",
+   "SearchForRetirement" : "Search For Retirements",
+   "SearchForClaim" : "Search For Claim",
+   "SearchForEmployees" : "Search For Employees",
+   
+   "NoResultsFound" : "No Results Found!",
+   "NoDataFound" : "No Data Found!",
+   "personName" : "Person Name",
+   "businessName" : "Business Name",
+   
+   "employeesOf" : "Employees",
+   "newEmployee" : "new Employee",
+   
+   "employeeID" : "Employee ID",
+   "newService" : "new service",
+   
+   "death" : "Death",
+   "age" : "Age",
+   
+   "RetirementProfile" : "Retirement profile",
+   "theSalary" : "Salary",
+   "theAccumulations" : "Accumulations",
+   "theIndemnification" : "Indemnification",
+   "initDate" : "Init Date",
+   "salaryCenter" : "Center",
+   "FamilyFile" : "Family File",
+   "theWife" : "wife",
+   "theChildren" : "children",
+   
+   "initiateWorkDetails" : "initiate Work Details",
+   "initiate salary" : "initiate salary",
+   "initiate date" : "initiate date",
+   "initiate registration number" : "initiate registration number",
+   "initiate registration date" : "initiate registration date",
+   "finishWorkDetails" : "finish Work Details",
+   "finish date" : "finish date",
+   "finish reason" : "finish reason" ,
+   "finish registration number" : "finish registration number",
+   "finish registration date" : "finish registration date" ,
+   
+   "Save" : "Save",
+   "Cancel" : "Cancel",
+   
+   "AddNewEmployeeTo" : "Add New Employee To",
+   "createNewEmployee" : "create new employee",
+   "noEmployeeFound" : "no employee found",
+   "PersonInsuranceNumber" : "Person Insurance Number",
+   
+   "NewEmployeeFor" : "New Employee For",
+   
+   "Birth" : "Birth",
+   "birthDate" : "birth date",
+   "birthLocation" : "birth location",
+   "BirthRegistration" : "Birth Registration",
+   "registrationLocaion" : "registration locaion",
+   "location" : "location",
+   "digit" : "digit",
+   "Contact" : "Contact",
+   
+   "EditBusiness" : "Edit Business",
+   "GeneralInfo" : "General Info",
+   "businessOwnerInsuranceNumber" : "business owner insurance number",
+   "lawInitiativeDate" : "law Initiative Date",
+   "commercialType" : "commercial type",
+   "stage" : "stage",
+   "status" : "status",
+   "country" : "country",
+   "State" : "state",
+   
+   "Al-Hasakah Governorate" : "Al-Hasakah Governorate",
+   "Al-Raqqah Governorate" : "Al-Raqqah Governorate",
+   "Aleppo Governorate" : "Aleppo Governorate",
+   "As-Suwayda Governorate" : "As-Suwayda Governorate",
+   "Damascus Governorate" : "Damascus Governorate",
+   "Daraa Governorate" : "Daraa Governorate",
+   "Deir ez-Zor Governorate" : "Deir ez-Zor Governorate",
+   "Hama Governorate" : "Hama Governorate",
+   "Homs Governorate" : "Homs Governorate",
+   "Idlib Governorate" : "Idlib Governorate",
+   "Latakia Governorate" : "Latakia Governorate",
+   "Quneitra Governorate" : "Quneitra Governorate",
+   "Rif Dimashq Governorate" : "Rif Dimashq Governorate",
+   "Tartus Governorate" : "Tartus Governorate",
+   
+   "food/resturants" : "food/resturants",
+   "import/export" : "import/export",
+   "mid size company" : "mid size company",
+   "large company/institute" : "large company/institute",
+   "public sector institute" : "public sector institute",
+   "general commercial activity" : "general commercial activity",
+   
+   "active" : "active",
+   "closed" : "closed",
+   "paused" : "paused",
+   
+   "Syria" : "Syria",
+   
+   "NewBusiness" : "New Business",
+   "Owner" : "Owner",
+   
+   "NewBusinessOwner" : "New Business Owner",
+   "EditPersonalData" : "Edit Personal Data",
+   "about" : "about",
+   "Businesses" : "businesses",
+   "Services" : "services",
+   "Retirements" : "retirements",
+   
+   "serviceID" : "Service_ID",
+   "BusinessInsuranceNumber" : "Business Insurance Number",
+   "initiateDate" : "Initiate Date",
+   "finishDate" : "Finish Date",
+   "applySalary" : "Apply Salary",
+   "sector" : "Sector",
+   
+   "public" : "public",
+   "private" : "private",
+   "wages" : "wages",
+   
+   "Edit Service at" : "Edit Service at",
+   "forEmployee" : "for",
+   "Edit Service" : "Edit Service",
+   
+   "Business" : "Business", 
+   "newWage" : "new wage",
+   "save" : "save",
+   "Date" : "Date",
+   "Amount" : "Amount"
 
+  
+   
+   
+   
 }
