@@ -5,15 +5,17 @@ import { useRef, useState } from 'react';
 import DatePicker from 'react-datepicker';
 import "react-datepicker/dist/react-datepicker.css";
 import useThemedColors from '../../../hooks/useThemedColors';
+import { useTranslation } from 'react-i18next';
 
 const DatePickerField = ({ register, label, Controller, control, error, name , ...props}) => {
 
    const { textPrimary, textSecondary, inputBorder, textError } = useThemedColors();
    const [date, setDate] = useState(new Date());
-
+   const {t} = useTranslation();
+   
    return (
       <Field.Root >
-         <Field.Label fontSize={{ xssToXs: "14px", xsToXm: "15px", xmToSm: "16px", smToMd: "18px", mdTo3xl: "20px" }} color={textSecondary}>{label}</Field.Label>
+         <Field.Label fontSize={{ xssToXs: "14px", xsToXm: "15px", xmToSm: "16px", smToMd: "18px", mdTo3xl: "20px" }} color={textSecondary}>{t(label)}</Field.Label>
          <Box className='btn'>
             <Controller
                className='btn'

@@ -6,12 +6,14 @@ export const tableMenuData = [
    {
       title : 'edit',
       icon: TiEdit ,
-      clickLink: '/dashboard/businesses/edit'
+      clickLink: '/dashboard/businesses/edit',
+      role: "edit"
    },
    {
       title : 'delete',
       icon: RiDeleteBin2Line,
-      clickLink: 'delete'
+      clickLink: 'delete',
+      role: "delete"
 
    }
 ]

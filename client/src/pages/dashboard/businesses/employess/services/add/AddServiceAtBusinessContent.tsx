@@ -20,7 +20,10 @@
    import FisinshReasonsSelectBox from "../../../../../../components/shared/forms/services/FinishReasonsSelectBox";
    import { getEmployeeServices } from "../../../../../../api/employees/getEmployeeServices";
    import { checkServiceInitiateDateValidation } from "../../../../../../lib/helpers";
-import { ServiceSchema, ServiceSchemaFormData } from "../../../../../../utils/employeeSchema";
+   import { ServiceSchema, ServiceSchemaFormData } from "../../../../../../utils/employeeSchema";
+   import { useTranslation } from "react-i18next";
+import useLangDir from "../../../../../../hooks/useLangDir";
+import FixBottomArea from "../../../../../../components/shared/FixBottomArea";
 
 const AddServiceAtBusinessContent = () => {
    
@@ -32,6 +35,8 @@ const AddServiceAtBusinessContent = () => {
    const { textPrimary, textSecondary, titleTextSecondary, borderSecondary , inputContainerBg, switchBtnBgOff , switchBtnBgOn} = useThemedColors();
    const {reasonsData, isSuccessReasonsData, isLoadingReasonsData} = getFinishedWorkReasons();
 
+   const {t} = useTranslation();
+   const {isRTL} = useLangDir();
    
    const serviceSchema = ServiceSchema();
 
@@ -250,10 +255,12 @@ const AddServiceAtBusinessContent = () => {
    // }
 
   return (
-    <Box>
+    <Flex flexDirection={'column'} maxHeight={'100vh'} overflowY={'auto'} >
       <PageHeadTitle 
-         title={<>
-         <Span fontWeight={"500"} color={textSecondary} >Add Service at </Span> 
+         title={ !isRTL
+         ?
+         <>
+         <Span fontWeight={"500"} color={textSecondary} >Add Service At </Span> 
             <Span
                fontWeight={"700"} color={textSecondary}
             > { 
@@ -269,7 +276,25 @@ const AddServiceAtBusinessContent = () => {
             {location?.state?.employeeName || "Add Service"}
            </Span>
            </>
-           } 
+         :
+         <>
+         <Span fontWeight={"500"} color={textSecondary} >إضافة خدمة عند  </Span> 
+            <Span
+               fontWeight={"700"} color={textSecondary}
+            > { 
+            (location?.state?.businessName && location?.state?.businessName != undefined)
+            ? 
+               capitalize(location?.state?.businessName)
+              
+            : "business" 
+            } 
+            </Span>
+            <Span> للعامل </Span> 
+            <Span fontWeight={"700"} color={textSecondary}>
+            {location?.state?.employeeName || "Add Service"}
+           </Span>
+           </>
+         } 
          backButton={true}
       />
       
@@ -282,7 +307,7 @@ const AddServiceAtBusinessContent = () => {
             <Text marginBottom={4} color={titleTextSecondary}
                fontSize={{ xssToXs: "16px", xsToXm: "17px", xmToSm: "18px", smToMd: "20px", mdTo3xl: "22px" }}
             >
-               initiate Work Details {serviceValidation.state == 1 && <Span color={"#22bb22"}>{serviceValidation.msg}</Span>} {serviceValidation.state == 0 && <Span color={"#FF5555"}>{serviceValidation.msg}</Span>}
+               {t("initiateWorkDetails")} {serviceValidation.state == 1 && <Span color={"#22bb22"}>{serviceValidation.msg}</Span>} {serviceValidation.state == 0 && <Span color={"#FF5555"}>{serviceValidation.msg}</Span>}
             </Text>
             <Grid   
                className=' ' 
@@ -343,7 +368,7 @@ const AddServiceAtBusinessContent = () => {
             <Text padding={1} marginRight={2} color={titleTextSecondary}
             fontSize={{ xssToXs: "16px", xsToXm: "17px", xmToSm: "18px", smToMd: "20px", mdTo3xl: "22px" }}
             >
-               finish Work Details
+               {t("finishWorkDetails")}
             </Text>
             <Switch.Root
                checked={serviceFinish}
@@ -411,7 +436,8 @@ const AddServiceAtBusinessContent = () => {
             </Grid>
          </Box>
           <Control click = {handleSubmit(handleSaveService)} />
-    </Box>
+          <FixBottomArea />
+    </Flex>
   )
 
 }

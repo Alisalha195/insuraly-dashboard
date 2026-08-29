@@ -5,12 +5,13 @@ import { TiEdit } from "react-icons/ti";
 import { RiDeleteBin2Line } from "react-icons/ri";
 import TableCell from "../../../../../../shared/tables/TableCell";
 import AnnualClaimsTableActionsMenu from "./AnnualClaimsTableActionsMenu";
+import { useTranslation } from "react-i18next";
 
 const AnnualClaimsTableBody = ({data, search=false}:{data:any[], search?:boolean}) => {
    
    const navigate = useNavigate();
    const { tableItem,btnGreen, btnDanger } = useThemedColors();
-  
+   const {t} = useTranslation();
       // if (data && data?.length > 0) {
    
          return ( 
@@ -27,7 +28,7 @@ const AnnualClaimsTableBody = ({data, search=false}:{data:any[], search?:boolean
                            
                          >
                            <Text color={tableItem} _hover={{color:"#6666ff"}} className="btn hover:[color:#6666ff] [padding:4px_9px] "  fontSize={{ xssToXs: "12px", xsToXm: "14px", xmToSm: "16px" }}>
-                              {item?.month}
+                              {t(item?.month)}
                            </Text>
                            
                         </span>
@@ -74,7 +75,7 @@ const AnnualClaimsTableBody = ({data, search=false}:{data:any[], search?:boolean
                            </TableCell>
                            :
                            <TableCell fontSize={"20px"} color={tableItem}  textWrap={"nowrap"}>
-                              <AnnualClaimsTableActionsMenu itemId={item.cliam_id} itemData={item} />
+                              {/* <AnnualClaimsTableActionsMenu itemId={item.cliam_id} itemData={item} /> */}
                            </TableCell>
                      }
                   </Table.Row>

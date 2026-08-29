@@ -1,6 +1,6 @@
 export const annualClaimsTableHeaderData = [
    "month",
-   "claims count" ,
+   "claimsCount" ,
    "delivered",
-   "claims amount",
+   "claimsAmount",
 ];

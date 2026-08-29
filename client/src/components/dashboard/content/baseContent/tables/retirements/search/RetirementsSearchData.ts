@@ -4,17 +4,17 @@ import SearchByNationalNumber from "./SearchByNationalNumber";
 
 export const RetirementsSearchData = [
    {
-      tabHeaderTitle:"National number",
+      tabHeaderTitle:"nationalNumber",
       value:"nationalnumber",
       searchContent : SearchByNationalNumber
    },
    {
-      tabHeaderTitle:"Person Name",
+      tabHeaderTitle:"personName",
       value:"name",
       searchContent : SearchByName
    },
    {
-      tabHeaderTitle:"Insurance number",
+      tabHeaderTitle:"insuranceNumber",
       value:"insurancenumber",
       searchContent : SearchByInsuranceNumber
    },

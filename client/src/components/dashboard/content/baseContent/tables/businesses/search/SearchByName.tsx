@@ -13,11 +13,12 @@ import SkeletonLoader from "../../../../../../shared/Skeleton.tsx";
 import { usePostCustomQuery } from "../../../../../../../hooks/useCustomQuery.ts";
 import TableHeader from "../../../../../../shared/tables/TableHeader.tsx";
 import DataTable from "../../../../../../shared/tables/DataTable.tsx";
+import { useTranslation } from "react-i18next";
 
 const SearchByName = ({ searchValue }) => {
 
    const { btnGreen, textPrimary } = useThemedColors();
-
+   const {t} = useTranslation();
       const { 
          data:businessResultData, 
          error:businessResultDataError, 
@@ -56,7 +57,7 @@ const SearchByName = ({ searchValue }) => {
             />
          </SearchResults>
          
-         : <Text>No Results Found!</Text>
+         : <Text>{t("NoResultsFound")}</Text>
       }
       </Flex>
    )

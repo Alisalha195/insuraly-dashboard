@@ -3,10 +3,12 @@ import { useNavigate } from 'react-router-dom';
 import useThemedColors from '../../../../../../../hooks/useThemedColors';
 import { Table, Text } from '@chakra-ui/react';
 import AnnualRetirementsTableActionsMenu from './AnnualRetirementsTableActionsMenu';
+import { useTranslation } from 'react-i18next';
 
 const AnnualRetirementsTableBody = ({data, search = false, }) => {
    
    const navigate = useNavigate();
+   const {t} = useTranslation();
    const { tableItem } = useThemedColors();
    console.log('AnnualRetirementsTableBody :',data)
   if (data && data?.length > 0) {
@@ -52,7 +54,7 @@ const AnnualRetirementsTableBody = ({data, search = false, }) => {
                  </Table.Cell>
                  <Table.Cell textAlign="start" fontSize={"20px"} textWrap={"nowrap"}>  
                     <Text color={tableItem} fontSize={{ xssToXs: "12px", xsToXm: "14px", xmToSm: "16px" }}>
-                       {item.Retirement?.reason || "N/A"}
+                       {t(item.Retirement?.reason) || "N/A"}
                     </Text>
                  </Table.Cell>
                  <Table.Cell textAlign="start" fontSize={"20px"} textWrap={"nowrap"}>  

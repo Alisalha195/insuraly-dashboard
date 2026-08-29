@@ -6,6 +6,7 @@ import UserMenu from "../../header/UserMenu";
 import ColorModeToggleButton from "../../../shared/header/ColorModeToggleButton";
 import SearchBoxDialog from "./SearchBoxDialog";
 import SidebarSearchActions from "./SidebarSearchActions";
+import LanguageToggleButton from "../../../shared/header/LanguageToggleButton";
 
 const SidebarDrawer = () => {
    const { bgPrimary,bgSecondary, textPrimary } = useThemedColors();
@@ -42,7 +43,7 @@ const SidebarDrawer = () => {
                            justifyContent={"start"}
 
                         >
-
+                           <LanguageToggleButton />
                            <ColorModeToggleButton />
                            <SearchBoxDialog
                               title={"serach"}

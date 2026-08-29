@@ -22,11 +22,13 @@ import toast from 'react-hot-toast';
 import { useEffect, useState } from 'react';
 import BackArrow from '../../../../components/shared/BackArrow';
 import { BusinessOwnerSchema, BusinessOwnerSchemaFormData } from '../../../../utils/businessOwnerSchema.ts';
+import { useTranslation } from 'react-i18next';
 
 const AddBusinessOwnerContent = () => {
 
    const { textPrimary, textSecondary } = useThemedColors();
 
+   const {t} = useTranslation();
    const businessOwnerSchema = BusinessOwnerSchema({checkPersonExist});
    
    const {
@@ -71,7 +73,7 @@ const AddBusinessOwnerContent = () => {
       <Flex flexDirection={'column'} maxHeight={'100vh'} overflowY={'scroll'}>
          <BackArrow />
          <Text color={textSecondary} textAlign={'center'} fontWeight={"500"}>
-            New Business Owner
+            {t("NewBusinessOwner")}
          </Text>
 
          <BasicFieldsSection

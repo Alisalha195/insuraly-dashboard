@@ -5,30 +5,30 @@ import { MdOutlineHandshake } from "react-icons/md";
 
 export const sidabarListData = [
    {
-      title: "Authorized Acquires" ,
+      title: "authorizedAcquires" ,
       collapsidIcon: MdOutlineHandshake ,
       innerList : [
          {
-            title: 'view acquires',
+            title: 'viewAcquires',
             icon :  MdPeople
          },
          {
-            title: 'new acquire',
+            title: 'newAcquire',
             icon :  IoPersonAddSharp
          },
          
       ]
    },
    {
-      title: "Salary Successors" ,
+      title: "salarySuccessors" ,
       collapsidIcon: MdPeople ,
       innerList : [
          {
-            title: 'view successors',
+            title: 'viewSuccessors',
             icon :  MdPeople
          },
          {
-            title: 'new successor',
+            title: 'newSuccessor',
             icon :  IoPersonAddSharp
          },
          

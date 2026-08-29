@@ -1,9 +1,9 @@
-import { Box, Button, Flex, HStack, Span, Text, VStack } from '@chakra-ui/react';
+import { Box, Button, Dialog, Drawer, Flex, HStack, Portal, Span, Text, VStack } from '@chakra-ui/react';
 import React, { useEffect, useState } from 'react'
 import DatePickerField from '../../../../../../components/shared/forms/DatePickerField';
 import FieldGroup from '../../../../../../components/shared/forms/FieldGroup';
 import { useForm, useFieldArray, Controller } from "react-hook-form";
-import { z } from "zod";
+import { base64url, z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import PageHeadTitle from '../../../../../../components/shared/PageHeadTitle';
 import { capitalize } from '../../../../../../lib/capitalize';
@@ -18,6 +18,8 @@ import { host } from '../../../../../../constants/connection';
 import toast from 'react-hot-toast';
 import {  WagesSchema, WagesSchemaFormData } from '../../../../../../utils/employeeSchema';
 import { useCustomQuery } from '../../../../../../hooks/useCustomQuery';
+import { FaExpand } from 'react-icons/fa';
+import { useTranslation } from 'react-i18next';
 
 
 // const wageSchema = z.object({
@@ -39,11 +41,16 @@ const WagesOfService = () => {
    const wagesSchema = WagesSchema();
    
    const [employeeName, setEmployeeName] = useState("");
+   const [wagesBoxOpen, setWagesBoxOpen] = useState(false);
+   
+   // const { isOpen, onOpen, onClose } = useDisclosure()
    // const [defaultWages, setDefaultWages] = useState([{ wageDate: null, wageAmount: 0 }]);
    
    const  location = useLocation();
+   const {t} = useTranslation();
+   
    const navigate = useNavigate();
-   const {btnGreen, btnPrimary} = useThemedColors();
+   const {btnGreen, btnPrimary, bgSecondary, borderSecondary, InfoCardBorder, textSecondary, bgPrimary, bgLight, cardBasicColor, BasicBackground} = useThemedColors();
    
    // console.log( location.state);
    
@@ -51,7 +58,7 @@ const WagesOfService = () => {
       const getEmployee = async() => await getEmployeeByID(location?.state?.employeeID)
       .then((res) => {
          if(res) {
-            setEmployeeName(res?.personal_informations?.first_name + " " + res?.personal_informations?.last_name);
+            setEmployeeName(capitalize(res?.personal_informations?.first_name) + " " + capitalize(res?.personal_informations?.last_name));
          } 
       });
       getEmployee(); 
@@ -246,6 +253,7 @@ const WagesOfService = () => {
    }, [errors])
    
   return (
+   <>
    <Flex
       justifyContent={'center'}
       flexGrow={1}
@@ -259,7 +267,7 @@ const WagesOfService = () => {
          width={"100%"}
       >
          <PageHeadTitle 
-            title={  capitalize("wages") }
+            title={  capitalize(t("wages")) }
             backButton={true}
          />
       </Box>
@@ -290,8 +298,10 @@ const WagesOfService = () => {
                   <PiBuildingOffice />
                </Text>
                   
-               <Text>
-                  {location?.state?.Business_Employee?.Businesses?.business_name || "Business"}
+               <Text 
+                  
+               >
+                  {location?.state?.Business_Employee?.Businesses?.business_name || t("Business")}
                </Text>
             </HStack>
          </VStack>
@@ -320,7 +330,7 @@ const WagesOfService = () => {
                   // backgroundColor={"#0f0"}
                >
                   <Text>
-                     initiate date
+                     {t("initiateDate")}
                   </Text>
                   <Text>
                      {location?.state?.initiate_start_date
@@ -332,7 +342,7 @@ const WagesOfService = () => {
                   // backgroundColor={"#0f0"}
                >
                   <Text>
-                     apply salary
+                  {t("applySalary")}
                   </Text>
                   <Text>
                      ${location?.state?.apply_salary
@@ -342,26 +352,42 @@ const WagesOfService = () => {
             </Flex>
          </Box>
       
-         {/* wages */}
+         {/*//todo======================== wages ==============================*/}
          <Box
-            borderColor={"#444"}
-            borderWidth={1}
+            borderColor={InfoCardBorder}
+            borderWidth={2}
+            
+            // width ={wagesBoxOpen ? '100vw' : ''}
+            // height ={wagesBoxOpen ? '100vh' : ''}
          >
             <HStack
                justifyContent={"space-between"}
                
                // paddingBottom={1}
-               borderColor={"#444"}
-               borderBottomColor={"#444"}
+               borderColor={InfoCardBorder}
+               borderBottomColor={InfoCardBorder}
                borderBottomWidth={1}
+               position={'relative'}
             >
+               <Span 
+                  className='btn'
+                  position={'absolute'} 
+                  top={0}
+                  right={'50%'}
+                  onClick={()=>setWagesBoxOpen(prev => !prev)}
+               >
+                  <Text color={textSecondary} >
+                     <FaExpand />
+                  </Text>
+               </Span>
+               
                <Text
                   className='btn' 
                   onClick={() => handleAddingWage()}
                   color={btnGreen}
                   padding={2}
                >
-                  new wage
+                  {t("newWage")}
                </Text>
                <Text
                   className='btn' 
@@ -370,7 +396,7 @@ const WagesOfService = () => {
                   color={btnPrimary}
                   padding={2}
                >
-                  save
+                  {t("save")}
                </Text>
             </HStack>
             <Box
@@ -385,14 +411,14 @@ const WagesOfService = () => {
                      key={field.id}
                      marginTop={2}
                      
-                     borderTopColor={"#444"}
+                     borderTopColor={InfoCardBorder}
                      borderTopWidth={1}
                      padding={1}
                      transition={"ease-in 2s"}
                   >
                      
                      <DatePickerField 
-                        label={"Date"}
+                        label={t("Date")}
                         name={`wages.${index}.wageDate`}
                         control={control}
                         Controller={Controller}
@@ -405,7 +431,7 @@ const WagesOfService = () => {
                      <FieldGroup 
                         register={register}
                         // register={{...form.register(`wages.${index}.wageAmount`, { valueAsNumber: true })}}
-                        label={"Amount"}
+                        label={t("Amount")}
                         type={"number"}
                         error={errors.wages?.[index]?.wageAmount}
                         name={`wages.${index}.wageAmount`}
@@ -417,15 +443,16 @@ const WagesOfService = () => {
                      />
                      <Box
                         alignContent={'center'}
-                        marginLeft={5}
+                        ms={5}
                      >
                         <Text 
                            className='btn'
                            // backgroundColor={"#f00"}
                            marginTop={3}
                            fontSize={32}
-                           
+                           color={textSecondary}
                            onClick={() => remove(index)}
+                           _rtl={{transform : "rotate(180deg)"}} transition='.2s ease'
                            >
                               <LuDelete />
                               
@@ -442,6 +469,169 @@ const WagesOfService = () => {
       
     </VStack>
     </Flex>
+    
+    {/* //?=========Expanded Wages Box============= */}
+    <Dialog.Root open={wagesBoxOpen} onOpenChange={(e) => setWagesBoxOpen(e.open)} size="full">
+      <Portal>
+         <Dialog.Backdrop />
+         <Dialog.Positioner>
+            <Dialog.Content 
+               paddingTop={0}
+               backgroundColor={BasicBackground}
+               // backgroundColor={}
+            >
+               {/* <Drawer.Header borderBottom={'4px solid #fff'} borderColor={bgPrimary}
+                  paddingTop={"10px"}
+                  paddingLeft={'10px'}
+                  paddingBottom={'10px'}
+               >
+                  
+               </Drawer.Header> */}
+               <Dialog.Body
+                  pe={'10px'}
+                  ps={'20px'}
+               >
+                  {/*//?=========== modal body ============ */}
+                  <Flex 
+                  width={'100%'}
+                  flexDirection={'row'}
+                  justifyContent={'center'}
+                  >
+                     <Box
+                     borderColor={InfoCardBorder}
+                     borderWidth={2}
+                     minWidth={'60%'}
+                     maxWidth={'80%'}
+                     // width ={wagesBoxOpen ? '100vw' : ''}
+                     // height ={wagesBoxOpen ? '100vh' : ''}
+                     >
+                        <HStack
+                           justifyContent={"space-between"}
+                           
+                           // paddingBottom={1}
+                           borderColor={InfoCardBorder}
+                           borderBottomColor={InfoCardBorder}
+                           borderBottomWidth={1}
+                           position={'relative'}
+                        >
+                           <Span 
+                              className='btn'
+                              position={'absolute'} 
+                              top={0}
+                              right={'50%'}
+                              onClick={()=>setWagesBoxOpen(prev => !prev)}
+                           >
+                              <Text>
+                                 <FaExpand />
+                              </Text>
+                           </Span>
+                           
+                           <Text
+                              className='btn' 
+                              onClick={() => handleAddingWage()}
+                              color={btnGreen}
+                              padding={2}
+                              fontWeight={'500'}
+                           >
+                              {t("newWage")}
+                           </Text>
+                           <Text
+                              className='btn' 
+                              onClick={handleSubmit(handleSavingWages)}
+                              
+                              color={btnPrimary}
+                              padding={2}
+                              fontWeight={'500'}
+                           >
+                              {t("save")}
+                           </Text>
+                        </HStack>
+                        <Box
+                           overflow={"auto"}
+                           maxHeight={"550px"}
+                           padding={2}
+                        >
+                        {
+                           fields.map((field, index) => (
+                              <Flex 
+                                 flexDirection={{xssToXm:"column", xmTo3xl : "row"}}
+                                 key={field.id}
+                                 marginTop={2}
+                                 
+                                 borderTopColor={InfoCardBorder}
+                                 borderTopWidth={1}
+                                 padding={1}
+                                 transition={"ease-in 2s"}
+                              >
+                                 
+                                 <DatePickerField 
+                                    label={t("Date")}
+                                    name={`wages.${index}.wageDate`}
+                                    control={control}
+                                    Controller={Controller}
+                                    error={errors.wages?.[index]?.wageDate}
+                                    // register={{...form.register(`wages.${index}.wageDate`)}}
+                                    register={register}
+                                    onChangeValue ={handleChangeWageDate}
+                                    index={index}
+                                 />
+                                 <FieldGroup 
+                                    register={register}
+                                    // register={{...form.register(`wages.${index}.wageAmount`, { valueAsNumber: true })}}
+                                    label={t("Amount")}
+                                    type={"number"}
+                                    error={errors.wages?.[index]?.wageAmount}
+                                    name={`wages.${index}.wageAmount`}
+                                    preInputText={"$"}
+                                    invalid={!!errors.wages?.[index]?.wageAmount}
+                                    placeholder={"0.00"}
+                                    onchangeValue={undefined}
+                                 
+                                 />
+                                 <Box
+                                    alignContent={'center'}
+                                    ms={5}
+                                 >
+                                    <Text 
+                                       className='btn'
+                                       // backgroundColor={"#f00"}
+                                       marginTop={3}
+                                       fontSize={32}
+                                       color={textSecondary}
+                                       onClick={() => remove(index)}
+                                       _rtl={{transform : "rotate(180deg)"}} transition='.2s ease'
+                                       >
+                                          <LuDelete />
+                                          
+                                    </Text>
+                                 </Box>
+                              </Flex>
+                              
+                           ))
+                        }
+                        </Box>
+                        
+                     </Box>
+                  </Flex>
+                  
+               </Dialog.Body>
+
+               {/* <Dialog.CloseTrigger padding={0} asChild>
+                  <Box
+                     padding={0}
+                     border={'none'}
+                     outline={'none'}
+                     _hover={{ backgroundColor: 'transparent' }}
+
+                  >
+                     close
+                  </Box>
+               </Dialog.CloseTrigger> */}
+            </Dialog.Content>
+         </Dialog.Positioner>
+      </Portal>
+    </Dialog.Root>
+  </>
   )
 }
 

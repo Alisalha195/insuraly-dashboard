@@ -1,10 +1,10 @@
 export const monthlyClaimsTableHeaderData = [
-   "Business",
-   "Business Insurance Number",
-   "Employees Count",
-   "Suscriptions",
-   "Fees",
-   "Total Claim Amount",
-   "Claim Status",
+   "theBusiness",
+   "businessInsuranceNumber",
+   "employeesCount",
+   "suscriptions",
+   "fees",
+   "totalClaimAmount",
+   "claimStatus",
 ];
 

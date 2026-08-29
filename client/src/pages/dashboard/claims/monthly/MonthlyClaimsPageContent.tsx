@@ -15,6 +15,8 @@ import { useNavigate, useParams } from 'react-router-dom';
 import Error from '../../../../components/shared/Error';
 import BackArrow from '../../../../components/shared/BackArrow';
 import { LuSearch } from 'react-icons/lu';
+import { useTranslation } from 'react-i18next';
+import { capitalize } from '../../../../lib/capitalize';
 
 const MonthlyClaimsPageContent = () => {
    
@@ -27,6 +29,7 @@ const MonthlyClaimsPageContent = () => {
    const seconds = date.getMilliseconds();
    const thisMonth = date.getMonth() + 1;
    
+   const {t} = useTranslation();
    const { 
       data:monthlyClaimsData, 
       error:monthlyClaimsDataError, 
@@ -45,7 +48,7 @@ const MonthlyClaimsPageContent = () => {
      return (
        <Box> 
          <PageHeadTitle 
-            title={<Span fontWeight={500} color={textSecondary}>{`${(thisMonth == Number(params?.month)) ? "This Month" : "Month"} (${getMonthNames()[params?.month-1]})`} </Span>}
+            title={<Span fontWeight={500} color={textSecondary}>{`${(thisMonth == Number(params?.month)) ? capitalize(t("thisMonth")) : t("monthClaims")} (${t(getMonthNames()[params?.month-1])})`} </Span>}
             backButton={true}
          />
          
@@ -111,7 +114,7 @@ const MonthlyClaimsPageContent = () => {
          >
             <VStack>
                <Text>
-                  No Data Found ! 
+                  {t("NoDataFound")} 
                </Text>
                <Box>
                   <BackArrow />

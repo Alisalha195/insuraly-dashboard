@@ -1,9 +1,13 @@
 import { Box, InputGroup, Input, Flex, Text, } from '@chakra-ui/react'
 import { LuSearch } from 'react-icons/lu';
 import useThemedColors from '../../../hooks/useThemedColors';
+import useLangDir from '../../../hooks/useLangDir';
+import { useTranslation } from 'react-i18next';
 
 const SearchBox = ({setSearchValue, ref, isFull, large}) => {
    const { textPrimary, searchBoxBorder, textSecondary} = useThemedColors();
+   const {isRTL} = useLangDir();
+   const {t} = useTranslation();
   return (
     <Box 
        borderWidth={1} 
@@ -32,11 +36,14 @@ const SearchBox = ({setSearchValue, ref, isFull, large}) => {
                </Text> 
             </Flex>
             <Input 
+               dir={isRTL ? "rtl" : 'ltr'}
                ref={ref && ref} 
                className='text-[20px]' 
                marginY={0} 
                paddingY='4px' 
-               placeholder="Search..." 
+               // placeholder={`${isRTL ? `...${t("search")}` :`${t("search")}...`}`} 
+               placeholder={`${t("search")}...`} 
+               
                size='xs' 
                border={'none'} 
                outline={'none'} 

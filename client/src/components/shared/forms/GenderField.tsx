@@ -1,6 +1,7 @@
 import { Box, Field, Flex, HStack, RadioGroup, Text, VStack } from "@chakra-ui/react";
 import useThemedColors from "../../../hooks/useThemedColors";
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
 
 
 
@@ -8,10 +9,12 @@ const GenderField = ({register,Controller, control,error}) => {
    
    const [gender , setGender] = useState("1")
    const { textSecondary,textError, textPrimary} = useThemedColors();
+   const {t} = useTranslation();
+   
   return (
    <Flex  flexDirection={'column'}  justify={'space-between'}>
       
-      <Text fontSize={{ xssToXs: "14px", xsToXm: "15px", xmToSm: "16px", smToMd: "18px", mdTo3xl: "20px" }} fontWeight={'500'} mdDown={{paddingBottom:'20px'}} color={textSecondary}>Gender</Text>
+      <Text fontSize={{ xssToXs: "14px", xsToXm: "15px", xmToSm: "16px", smToMd: "18px", mdTo3xl: "20px" }} fontWeight={'500'} mdDown={{paddingBottom:'20px'}} color={textSecondary}>{t("Gender")}</Text>
       <Controller 
          name="gender"
          defaultValue={"1"}
@@ -25,13 +28,13 @@ const GenderField = ({register,Controller, control,error}) => {
                   <RadioGroup.Item key={"1"}     value={"1"} className="btn">
                      <RadioGroup.ItemHiddenInput />
                      <RadioGroup.ItemIndicator className="btn" color={"#77f"} backgroundColor={"transparent"} borderColor={"#77f"} />
-                     <RadioGroup.ItemText fontSize={{ xssToXs: "14px", xsToXm: "15px", xmToSm: "16px", smToMd: "18px", mdTo3xl: "20px" }}color={textSecondary} >Male</RadioGroup.ItemText>
+                     <RadioGroup.ItemText fontSize={{ xssToXs: "14px", xsToXm: "15px", xmToSm: "16px", smToMd: "18px", mdTo3xl: "20px" }}color={textSecondary} >{t("Male")}</RadioGroup.ItemText>
                   </RadioGroup.Item>
 
                   <RadioGroup.Item key={"0"}    value={"0"} className="btn">
                      <RadioGroup.ItemHiddenInput />
                      <RadioGroup.ItemIndicator className="btn" color={"#f88"} backgroundColor={"transparent"} borderColor={"#f88"} />
-                     <RadioGroup.ItemText fontSize={{ xssToXs: "14px", xsToXm: "15px", xmToSm: "16px", smToMd: "18px", mdTo3xl: "20px" }} color={textSecondary}>Female</RadioGroup.ItemText>
+                     <RadioGroup.ItemText fontSize={{ xssToXs: "14px", xsToXm: "15px", xmToSm: "16px", smToMd: "18px", mdTo3xl: "20px" }} color={textSecondary}>{t("Female")}</RadioGroup.ItemText>
                   </RadioGroup.Item>
                </HStack>
             </RadioGroup.Root>

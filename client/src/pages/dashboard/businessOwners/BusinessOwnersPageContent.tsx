@@ -15,6 +15,8 @@ import PageHeadTitle from "../../../components/shared/PageHeadTitle";
 import SkeletonLoader from '../../../components/shared/Skeleton.tsx';
 import { LuSearch } from 'react-icons/lu';
 import { useCustomQuery } from '../../../hooks/useCustomQuery.ts';
+import { useTranslation } from 'react-i18next';
+import useLangDir from '../../../hooks/useLangDir.ts';
 
 const BusinessOwnersPageContent = () => {
 
@@ -24,6 +26,8 @@ const BusinessOwnersPageContent = () => {
    const { btnSecondary, textPrimary, bgSecondary, textSecondary } = useThemedColors();
    const businessOwnersCount = getTableRowsCount('businessOwners');
 
+   const {t} = useTranslation();
+   const {isRTL, dir} = useLangDir();
    // const { data: businessOwnerData,
    //    error: businessOwnerDataError,
    //    isLoading: businessOwnerDataIsLoading,
@@ -50,7 +54,7 @@ const BusinessOwnersPageContent = () => {
             {/* header line */}
             <PageHeadTitle
                backButton={true} 
-               title={<Span fontWeight={500} color={textSecondary}>Business Owners </Span>}
+               title={<Span fontWeight={500} color={textSecondary}>{t("owners")} </Span>}
             />
             
             {/* upper control */}
@@ -70,8 +74,9 @@ const BusinessOwnersPageContent = () => {
                      onClick={() => navigate("/dashboard/business-owners/add")}
                      fontSize={{ xssToXs: "14px", xsToXm: "16px", xmToSm: "18px" }}
                      marginLeft={2}
+                     dir = {dir}
                   >
-                     new owner
+                    {t("newOwner")}
                      {/* <AiFillPlusCircle /> */}
                   </Text>
                </Box>

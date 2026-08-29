@@ -2,8 +2,9 @@
 import { useColorModeValue } from "../components/ui/color-mode";
 
 
-const useThemedColors: any = () => {
+const useThemedColors: any = () => { 
 
+   const BasicBackground = useColorModeValue("#eaeaea", "linear-gradient(90deg, #000, #210e29)");
    const logoText = useColorModeValue('gray.300', 'gray.500');
    const logoBackground = useColorModeValue('red.500', 'red.400');
 
@@ -25,6 +26,7 @@ const useThemedColors: any = () => {
    
    const bgPrimary = useColorModeValue('gray.100', 'gray.900');
    const bgSecondary = useColorModeValue('gray.100', 'gray.800');
+   const bgLight = useColorModeValue('#eee', '#3a3a3a');
 
    // const headerBackground = useColorModeValue("gray.100","linear-gradient(90deg, #000, #210e29)");
    const headerBackground = useColorModeValue("gray.100",'transparent');
@@ -96,6 +98,7 @@ const useThemedColors: any = () => {
    
    return (
       {
+         BasicBackground,
          textPrimary,
          bgPrimary,
          textSecondary,
@@ -134,7 +137,8 @@ const useThemedColors: any = () => {
          searchBoxBorder,
          iconInSidebar,
          brand,
-         InfoCardsBackgroundColors
+         InfoCardsBackgroundColors,
+         bgLight
          
       }
    )

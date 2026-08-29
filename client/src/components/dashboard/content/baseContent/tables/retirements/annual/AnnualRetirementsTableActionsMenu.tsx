@@ -12,6 +12,7 @@ import useThemedColors from "../../../../../../../hooks/useThemedColors";
 import { host } from "../../../../../../../constants/connection";
 import { tableMenuData } from "./annualRetirementsTableMenuData";
 import DeleteDialog from "../../DeleteDialog";
+import { useTranslation } from "react-i18next";
 // import { host } from "../../../../../../constants/connection";
 
 const AnnualRetirementsTableActionsMenu = ({retirementID}:{retirementID:Number}) => {
@@ -19,6 +20,7 @@ const AnnualRetirementsTableActionsMenu = ({retirementID}:{retirementID:Number})
    const [waiting , setWaiting] = useState(false)
    const navigate = useNavigate();
    const {hovering} = useThemedColors();
+   const {t} = useTranslation();
    
    const deleteRetirement = useMutation({
       mutationFn : (dataToMutate) => fetch(`${host}/retirement/delete-retirement`,{method:'DELETE', headers: {'Content-Type' : 'application/json'}, body : JSON.stringify(dataToMutate)}).then(res => res.json()) ,
@@ -46,7 +48,7 @@ const AnnualRetirementsTableActionsMenu = ({retirementID}:{retirementID:Number})
           <Menu.Content >
             {
                tableMenuData.map((item, index) => (
-                  item.title == 'delete' 
+                  item.role == 'delete' 
                   ?
                   <DeleteDialog 
                        key={index}
@@ -74,7 +76,7 @@ const AnnualRetirementsTableActionsMenu = ({retirementID}:{retirementID:Number})
                   >
                     <HStack  >
                        <item.icon />
-                       <Text>{item.title}</Text>
+                       <Text>{t(item.title)}</Text>
                     </HStack>
                   </Menu.Item>
                ))

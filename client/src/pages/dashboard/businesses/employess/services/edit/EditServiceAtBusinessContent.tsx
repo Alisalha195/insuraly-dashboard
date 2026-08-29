@@ -20,6 +20,8 @@
    import FisinshReasonsSelectBox from "../../../../../../components/shared/forms/services/FinishReasonsSelectBox";
    import { getEmployeeByID } from "../../../../../../api/employees/getEmployeeByID";
    import { ServiceSchema, ServiceSchemaFormData } from "../../../../../../utils/employeeSchema";
+import { useTranslation } from "react-i18next";
+import FixBottomArea from "../../../../../../components/shared/FixBottomArea";
 
 const EditServiceAtBusinessContent = () => {
    
@@ -29,6 +31,7 @@ const EditServiceAtBusinessContent = () => {
    const [employeeName, setEmployeeName] = useState("");
    const { textPrimary, textSecondary, titleTextSecondary, borderSecondary } = useThemedColors();
    const {reasonsData, isSuccessReasonsData, isLoadingReasonsData} = getFinishedWorkReasons();
+   const {t} = useTranslation();
    
    const serviceSchema = ServiceSchema();
       
@@ -195,14 +198,14 @@ const EditServiceAtBusinessContent = () => {
    },[location?.state?.employeeID]);
    
   return (
-    <Box>
+    <Flex flexDirection={'column'} maxHeight={'100vh'} overflowY={'auto'}>
       <PageHeadTitle 
-         title={`Edit Service at 
+         title={`${t("Edit Service at")} 
             ${ 
             (location?.state?.Business_Employee?.Businesses?.business_name && location?.state?.Business_Employee?.Businesses?.business_name != undefined)
             ? capitalize(location?.state?.Business_Employee?.Businesses?.business_name)
             : "business" 
-            } for ${employeeName}` || "Edit Service"
+            } ${t("forEmployee")} ${employeeName}` || t("Edit Service")
          } 
          backButton={true}
       />
@@ -217,7 +220,7 @@ const EditServiceAtBusinessContent = () => {
             <Text marginBottom={4} color={titleTextSecondary}
                fontSize={{ xssToXs: "16px", xsToXm: "17px", xmToSm: "18px", smToMd: "20px", mdTo3xl: "22px" }}
             >
-               initiate Work Details
+               {t("initiateWorkDetails")}
             </Text>
             <Grid   
                className=' ' 
@@ -278,7 +281,7 @@ const EditServiceAtBusinessContent = () => {
             <Text padding={1} marginRight={2} color={titleTextSecondary}
             fontSize={{ xssToXs: "16px", xsToXm: "17px", xmToSm: "18px", smToMd: "20px", mdTo3xl: "22px" }}
             >
-               finish Work Details
+               {t("finishWorkDetails")}
             </Text>
             <Switch.Root
                checked={serviceFinish}
@@ -346,7 +349,9 @@ const EditServiceAtBusinessContent = () => {
             </Grid>
          </Box>
           <Control click = {handleSubmit(handleSaveService)} />
-    </Box>
+          
+          <FixBottomArea />
+    </Flex>
   )
 
 }

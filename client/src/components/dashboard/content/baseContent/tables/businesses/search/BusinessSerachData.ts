@@ -3,12 +3,12 @@ import SearchByName from "./SearchByName";
 
 export const BusinessSearchData = [
    {
-      tabHeaderTitle:"Name",
+      tabHeaderTitle:"name",
       value:"name",
       searchContent : SearchByName
    },
    {
-      tabHeaderTitle:"Insurance number",
+      tabHeaderTitle:"insuranceNumber",
       value:"insurancenumber",
       searchContent : SearchByInsuranceNumber
    },

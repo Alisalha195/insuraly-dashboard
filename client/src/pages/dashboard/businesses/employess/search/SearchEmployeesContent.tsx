@@ -5,12 +5,15 @@ import SearchBox from '../../../../../components/shared/header/SearchBox';
 import BackArrow from '../../../../../components/shared/BackArrow';
 import useThemedColors from '../../../../../hooks/useThemedColors';
 import EmployeeSearchActions from '../../../../../components/dashboard/content/baseContent/tables/employees/search/EmployeeSearchActions';
+import { useTranslation } from 'react-i18next';
 
 const SearchEmployeesContent = ({businessName , businessID}) => {
    
    const searchInputRef = useRef<HTMLInputElement>(null);
    const [searchValue, setSearchValue] = useState("");
    const { textPrimary, textSecondary} = useThemedColors();
+   
+   const {t} = useTranslation();
    
    useEffect(()=>{
       // setInterval(() => {
@@ -27,7 +30,7 @@ const SearchEmployeesContent = ({businessName , businessID}) => {
       
       <VStack >
          <Text fontWeight={"500"} color={textSecondary}>
-            Search for Employees 
+            {t("SearchForEmployees")} 
          </Text>
          <Box width={{xssToXmm:"90%", xmmTo3xl:"60%"}}>
             <SearchBox 

@@ -7,91 +7,93 @@ import AboutTab from './AboutTab';
 import ServicesTab from './tabs/ServicesTab';
 import BusinessesTab from './tabs/BusinessesTab';
 import RetirementTab from './tabs/RetirementsTab';
+import { useTranslation } from 'react-i18next';
 
 const ProfileTabs = ({personData, personRules}) => {
-   console.log("personRules :",personRules);
-
+   // console.log("personRules :",personRules);
+   const {t} = useTranslation();
+   
    let namedRules = Object.getOwnPropertyNames(personRules)
-   console.log("obj :",namedRules);
+   // console.log("obj :",namedRules);
    
 //   if(true) 
 //    return <></> 
-return (
-   <Box paddingTop={2}>
-      <Tabs.Root defaultValue="about">
-         
-       {/* tabs buttons */}
-       <Tabs.List>
-          <Tabs.Trigger value="about">
-             <LuUser />
-             about
-          </Tabs.Trigger>
+   return (
+      <Box paddingTop={2}>
+         <Tabs.Root defaultValue="about">
+            
+          {/* tabs buttons */}
+          <Tabs.List>
+             <Tabs.Trigger value="about">
+                <LuUser />
+                {t("about")}
+             </Tabs.Trigger>
+             
+             {
+               namedRules.map((item) => {
+                  if(item == "owner") {
+                     return (
+                      <Tabs.Trigger value="businesses">
+                         <LuFolder />
+                         {t("businesses")}
+                      </Tabs.Trigger>
+                     )
+                  } 
+                  if(item == "employee") {
+                     return (
+                     <Tabs.Trigger value="services">
+                         <LuFolder />
+                         {t("Services")}
+                      </Tabs.Trigger>
+                      )
+                  }
+                  if(item == "retired") {
+                     return (
+                     <Tabs.Trigger value="retirements">
+                        <LuFolder />
+                        {t("retirements")}
+                     </Tabs.Trigger>
+                     )
+                  }
+               })
+             }
+          </Tabs.List>
+
+         {/* tabs content */}
+          <Tabs.Content value="about"  >
+             <AboutTab personData={personData} />
+          </Tabs.Content>
           
           {
             namedRules.map((item) => {
                if(item == "owner") {
                   return (
-                   <Tabs.Trigger value="businesses">
-                      <LuFolder />
-                      businesses
-                   </Tabs.Trigger>
+                     <Tabs.Content value="businesses">
+                        <BusinessesTab businessOwnerId={personRules[item]} />
+                     </Tabs.Content>
+                     
                   )
                } 
                if(item == "employee") {
                   return (
-                  <Tabs.Trigger value="services">
-                      <LuFolder />
-                      services
-                   </Tabs.Trigger>
+                     <Tabs.Content value="services">
+                        <ServicesTab employeeId={personRules[item]} />
+                     </Tabs.Content>
                    )
                }
                if(item == "retired") {
                   return (
-                  <Tabs.Trigger value="retirements">
-                     <LuFolder />
-                     retirements
-                  </Tabs.Trigger>
-                  )
+                     <Tabs.Content value="retirements">
+                        <RetirementTab employeeId={personRules[item]} />
+                     </Tabs.Content>
+                   )
                }
             })
           }
-       </Tabs.List>
 
-      {/* tabs content */}
-       <Tabs.Content value="about"  >
-          <AboutTab personData={personData} />
-       </Tabs.Content>
-       
-       {
-         namedRules.map((item) => {
-            if(item == "owner") {
-               return (
-                  <Tabs.Content value="businesses">
-                     <BusinessesTab businessOwnerId={personRules[item]} />
-                  </Tabs.Content>
-                  
-               )
-            } 
-            if(item == "employee") {
-               return (
-                  <Tabs.Content value="services">
-                     <ServicesTab employeeId={personRules[item]} />
-                  </Tabs.Content>
-                )
-            }
-            if(item == "retired") {
-               return (
-                  <Tabs.Content value="retirements">
-                     <RetirementTab employeeId={personRules[item]} />
-                  </Tabs.Content>
-                )
-            }
-         })
-       }
-
-      </Tabs.Root>
-   </Box>
-)
+         </Tabs.Root>
+      </Box>
+   )
 }
 
 export default ProfileTabs

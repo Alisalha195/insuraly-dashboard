@@ -5,11 +5,13 @@ import CountrySelectBox from "./CountrySelectBox";
 import useThemedColors from "../../../../hooks/useThemedColors";
 import CitySelectBox from "./CitySelectBox";
 import { useEffect } from "react";
+import { useTranslation } from "react-i18next";
 const AddressFields = ({setContentLoaded , errors, Controller, control}) => {
    
    const {countries , isSuccessCountries} = getCountriesWithFlags();
    const {cities , isSuccessCities} = getCities("Syria");
    const {textPrimary, textSecondary,titleTextSecondary} = useThemedColors();
+   const {t} = useTranslation();
    
    // console.log("cities ::",cities)
    // console.log("getCountriesWithFlags",countries?.data)
@@ -24,7 +26,7 @@ const AddressFields = ({setContentLoaded , errors, Controller, control}) => {
    
      return (
        <Box  padding={1} marginY={2}>
-                   <Text marginBottom={1} color={titleTextSecondary}>General Info</Text>
+                   <Text marginBottom={1} color={titleTextSecondary}>{t("location")}</Text>
                    <Grid className=' ' templateColumns={{  mdTo2xl:"repeat(2, 1fr)"}}   padding={2} gap={2}>
                       
                      <CountrySelectBox 

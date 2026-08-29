@@ -1,17 +1,19 @@
 import { Field, Flex } from '@chakra-ui/react'
 import SelectBox from '../SelectBox'
 import useThemedColors from '../../../../hooks/useThemedColors';
+import { useTranslation } from 'react-i18next';
 
 const FisinshReasonsSelectBox = ({label ,Controller,control ,data, error,defaultValue,disabled}) => {
    
    const finishReasonsData = data.map(item => ({...item , value : item.reason, title:item.reason})) ;
    
    const {textSecondary} = useThemedColors();
+   const {t} = useTranslation();
    
   return (
     <Flex flexDirection={'column'} >
       <Field.Root>
-         <Field.Label  paddingBottom={2} fontSize={'20px'} color={textSecondary}>{label}</Field.Label>
+         <Field.Label  paddingBottom={2} fontSize={'20px'} color={textSecondary}>{t(label)}</Field.Label>
       </Field.Root>
       <SelectBox 
          name={"finishReason"}

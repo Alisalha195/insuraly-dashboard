@@ -7,18 +7,21 @@ export const tableMenuData = [
    {
       title : 'view',
       icon: LuFolder ,
-      clickLink: (params) => `/dashboard/retirements/${params?.retirementID}`
+      clickLink: (params) => `/dashboard/retirements/${params?.retirementID}`,
+      role : "view"
    },
    {
       title : 'edit',
       icon: TiEdit ,
-      clickLink: (params) => `/dashboard/retirements/${params?.retirementID}/edit`
+      clickLink: (params) => `/dashboard/retirements/${params?.retirementID}/edit`,
+      role : "edit"
    },
   
    {
       title : 'delete',
       icon: RiDeleteBin2Line,
-      clickLink: 'delete'
+      clickLink: 'delete',
+      role : "delete"
 
    },
 ]

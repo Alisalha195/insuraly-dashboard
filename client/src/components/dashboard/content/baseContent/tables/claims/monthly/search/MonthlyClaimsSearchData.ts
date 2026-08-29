@@ -4,12 +4,12 @@ import SearchByBusinessName from "./SearchByBusinessName";
 
 export const MonthlyClaimsSearchData = [
    {
-      tabHeaderTitle:"Business Name",
+      tabHeaderTitle:"businessName",
       value:"name",
       searchContent : SearchByBusinessName
    },
    {
-      tabHeaderTitle:"Business Insurance number",
+      tabHeaderTitle:"businessInsuranceNumber",
       value:"insurancenumber",
       searchContent : SearchByBusinessInsuranceNumber
    },

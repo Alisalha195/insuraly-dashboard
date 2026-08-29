@@ -11,12 +11,13 @@ import EmployeeTableBody from "../EmployeeTableBody.tsx";
 import { usePostCustomQuery } from "../../../../../../../hooks/useCustomQuery.ts";
 import DataTable from "../../../../../../shared/tables/DataTable.tsx";
 import TableHeader from "../../../../../../shared/tables/TableHeader.tsx";
+import { useTranslation } from "react-i18next";
 
 
 const SearchByNationalNumber = ({ searchValue , businessName , businessID }) => {
 
    const { btnGreen, textPrimary } = useThemedColors();
-   
+    const {t} = useTranslation();
    const { 
       data:employeeResultData, 
       error:employeeResultDataError, 
@@ -55,7 +56,7 @@ const SearchByNationalNumber = ({ searchValue , businessName , businessID }) => 
                />
             </SearchResults>
             
-            : <Text>No Results Found!</Text>
+            : <Text>{t("NoResultsFound")}</Text>
          }
       </Flex>
    )

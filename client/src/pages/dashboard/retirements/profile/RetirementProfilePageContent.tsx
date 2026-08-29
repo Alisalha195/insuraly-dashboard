@@ -10,13 +10,15 @@ import SkeletonLoader from '../../../../components/shared/Skeleton';
 import Error from '../../../../components/shared/Error';
 import { capitalize } from '../../../../lib/capitalize';
 import { useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 
 //!    backgroundColor={"#876"} 
 
 const RetirementProfilePageContent = ({retirementID}) => {
    
    
-   const navigate = useNavigate()
+   const navigate = useNavigate();
+   const {t} = useTranslation();
    const { 
          data:retirementData, 
          error:retirementDataError, 
@@ -50,7 +52,7 @@ const RetirementProfilePageContent = ({retirementID}) => {
          <Flex flexDirection={'column'} maxHeight={'100vh'} overflowY={'scroll'}>
               <PageHeadTitle 
                  backButton={true}
-                 title={"Retirement profile"}
+                 title={t("RetirementProfile")}
               />
               {/* control */}
               <Flex 
@@ -101,7 +103,7 @@ const RetirementProfilePageContent = ({retirementID}) => {
                     onClick={()=>navigate(`/dashboard/retirements/${retirementID}/edit`)}
                  >
                     <Text>
-                       edit
+                       {t("edit")}
                     </Text>
                  </Span>
                  
@@ -128,7 +130,7 @@ const RetirementProfilePageContent = ({retirementID}) => {
                           letterSpacing={"1px"}
                           
                        >
-                          Salary
+                          {t("theSalary")}
                        </Text>
                        
                        <Flex  justifyContent={'start'} alignItems={'center'}>
@@ -165,7 +167,7 @@ const RetirementProfilePageContent = ({retirementID}) => {
                           letterSpacing={"1px"}
                           
                        >
-                          Accumulations
+                          {t("theAccumulations")}
                        </Text>
                        
                        <Flex  justifyContent={'start'} alignItems={'center'}>
@@ -202,7 +204,7 @@ const RetirementProfilePageContent = ({retirementID}) => {
                           letterSpacing={"1px"}
                           
                        >
-                          Indemnification
+                          {t("theIndemnification")}
                        </Text>
                        
                        <Flex  justifyContent={'start'} alignItems={'center'}>
@@ -240,7 +242,7 @@ const RetirementProfilePageContent = ({retirementID}) => {
                           letterSpacing={"1px"}
                           
                        >
-                          Init Date
+                          {t("initDate")}
                        </Text>
                        
                        <Text
@@ -269,7 +271,7 @@ const RetirementProfilePageContent = ({retirementID}) => {
                           letterSpacing={"1px"}
                           
                        >
-                          Center
+                          {t("salaryCenter")}
                        </Text>
                        
                        <Text
@@ -296,7 +298,7 @@ const RetirementProfilePageContent = ({retirementID}) => {
                           color={textSecondary}
                           letterSpacing={"1px"}
                        >
-                          Family
+                          {t("FamilyFile")}
                        </Text>
                        
                        <Flex 
@@ -309,7 +311,7 @@ const RetirementProfilePageContent = ({retirementID}) => {
                                 color={textSecondary}
                                 // letterSpacing={"1px"}
                              >
-                                wife
+                                {t("theWife")}
                              </Text>
                              
                              <Flex  justifyContent={'start'} alignItems={'center'}>
@@ -336,7 +338,7 @@ const RetirementProfilePageContent = ({retirementID}) => {
                                 color={textSecondary}
                                 // letterSpacing={"1px"}
                              >
-                                children
+                                {t("theChildren")}
                              </Text>
                              
                              

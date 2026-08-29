@@ -13,6 +13,7 @@ import { host } from '../../../../constants/connection';
 import SkeletonLoader from '../../../../components/shared/Skeleton';
 import Error from '../../../../components/shared/Error';
 import { LuSearch } from 'react-icons/lu';
+import { useTranslation } from 'react-i18next';
 
 const RetardedClaimsPageContent = () => {
    
@@ -22,6 +23,7 @@ const RetardedClaimsPageContent = () => {
    const params = useParams();
    const navigate = useNavigate();
    
+   const {t} = useTranslation();
    const date = new Date();
    const seconds = date.getMilliseconds();
    
@@ -42,7 +44,7 @@ const RetardedClaimsPageContent = () => {
       return (
               <Box> 
                 <PageHeadTitle 
-                   title={<Span fontWeight={500} color={textSecondary}>{"Retarded"} </Span>}
+                   title={<Span fontWeight={500} color={textSecondary}>{t("retardedClaims")} </Span>}
                    backButton={true}
                 />
                 

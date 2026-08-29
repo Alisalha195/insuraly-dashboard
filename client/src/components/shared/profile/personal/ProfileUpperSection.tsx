@@ -11,7 +11,7 @@ const ProfileUpperSection = ({personData, personRules}) => {
              <ProfileImage />
           </Flex>
 
-          <Box marginLeft={{xmTo2xl:"13px"}} padding={0}>
+          <Box ms={{xmTo2xl:"13px"}} padding={0}>
              <ProfileHeadInfo data={personData} />
           </Box>
       </Flex>

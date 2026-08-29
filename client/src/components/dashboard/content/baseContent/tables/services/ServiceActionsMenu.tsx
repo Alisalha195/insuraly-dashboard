@@ -8,12 +8,14 @@ import DeleteDialog from '../DeleteDialog';
 import { tableMenuData } from './serviceActionsMenuData';
 import { host } from '../../../../../../constants/connection';
 import toast from 'react-hot-toast';
+import { useTranslation } from 'react-i18next';
 
 const ServiceActionsMenu = ({businessID, serviceID, employeeID, itemData}) => {
   
    const [waiting , setWaiting] = useState(false)
    const navigate = useNavigate();
    const {hovering} = useThemedColors();
+   const {t} = useTranslation();
    
    const deleteService = useMutation({
       mutationFn : (dataToMutate) => fetch(`${host}/services/delete`,{method:'DELETE', headers: {'Content-Type' : 'application/json'}, body : JSON.stringify(dataToMutate)}).then(res => res.json()) ,
@@ -42,7 +44,7 @@ const ServiceActionsMenu = ({businessID, serviceID, employeeID, itemData}) => {
              <Menu.Content >
                {
                   tableMenuData.map((item, index) => (
-                     item.title == 'delete' 
+                     item.role == 'delete' 
                      ?
                      <DeleteDialog 
                           key={index}
@@ -70,7 +72,7 @@ const ServiceActionsMenu = ({businessID, serviceID, employeeID, itemData}) => {
                      >
                        <HStack  >
                           <item.icon />
-                          <Text>{item.title}</Text>
+                          <Text>{t(item.title)}</Text>
                        </HStack>
                      </Menu.Item>
                   ))

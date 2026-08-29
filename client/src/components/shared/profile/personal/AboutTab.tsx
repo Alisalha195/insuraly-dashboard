@@ -4,11 +4,14 @@ import { useNavigate } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import { host } from "../../../../constants/connection";
 import SkeletonLoader from "../../Skeleton";
+import { useTranslation } from "react-i18next";
+import FixBottomArea from "../../FixBottomArea";
 
 
 const AboutTab = ({personData}) => {
    
-   console.log("personData in abouttab :",personData) 
+   // console.log("personData in abouttab :",personData) 
+   const {t} = useTranslation();
    
    const {btnGreen} = useThemedColors();
    const navigate = useNavigate();
@@ -29,63 +32,65 @@ const AboutTab = ({personData}) => {
             <Span backgroundColor={btnGreen } className="btn" paddingX={2} borderRadius={5}  
             onClick={()=> navigate(`/profile/${personData?.personal_info_id}/edit`,{state:personData})}
             >
-               edit
+               {t("edit")}
             </Span>
          </Flex>
          
           <DataList.Root orientation="horizontal" divideY="1px" maxW="md">
             
               <DataList.Item key={'insuranceNumber'} pt="4">
-                <DataList.ItemLabel>Insurance Number</DataList.ItemLabel>
+                <DataList.ItemLabel>{t("insuranceNumber")}</DataList.ItemLabel>
                 <DataList.ItemValue>{personData?.insurance_number}</DataList.ItemValue>
               </DataList.Item>
               
               <DataList.Item key={'nationalNumber'} pt="4">
-                <DataList.ItemLabel>National Number</DataList.ItemLabel>
+                <DataList.ItemLabel>{t("nationalNumber")}</DataList.ItemLabel>
                 <DataList.ItemValue>{personData?.national_number}</DataList.ItemValue>
               </DataList.Item>
               
               <DataList.Item key={'firstName'} pt="4">
-                <DataList.ItemLabel>First Name</DataList.ItemLabel>
+                <DataList.ItemLabel>{t("firstName")}</DataList.ItemLabel>
                 <DataList.ItemValue>{personData?.first_name}</DataList.ItemValue>
               </DataList.Item>
               
               <DataList.Item key={'fatherName'} pt="4">
-                <DataList.ItemLabel>Father Name</DataList.ItemLabel>
+                <DataList.ItemLabel>{t("fatherName")}</DataList.ItemLabel>
                 <DataList.ItemValue>{personData?.father_name}</DataList.ItemValue>
               </DataList.Item>
               
               <DataList.Item key={'motherName'} pt="4">
-                <DataList.ItemLabel>Mother Name</DataList.ItemLabel>
+                <DataList.ItemLabel>{t("motherName")}</DataList.ItemLabel>
                 <DataList.ItemValue>{personData?.mother_name}</DataList.ItemValue>
               </DataList.Item>
               
               <DataList.Item key={'lastName'} pt="4">
-                <DataList.ItemLabel>Last Name</DataList.ItemLabel>
+                <DataList.ItemLabel>{t("lastName")}</DataList.ItemLabel>
                 <DataList.ItemValue>{personData?.last_name}</DataList.ItemValue>
               </DataList.Item>
               {/* ....... */}
               <DataList.Item key={'birthDate'} pt="4">
-                <DataList.ItemLabel>Birth Date</DataList.ItemLabel>
+                <DataList.ItemLabel>{t("birthDate")}</DataList.ItemLabel>
                 <DataList.ItemValue>{personData?.birth_date}</DataList.ItemValue>
               </DataList.Item>
               
               <DataList.Item key={'birthLocation'} pt="4">
-                <DataList.ItemLabel>Birth Location</DataList.ItemLabel>
+                <DataList.ItemLabel>{t("birthLocation")}</DataList.ItemLabel>
                 <DataList.ItemValue>{personData?.birth_location}</DataList.ItemValue>
               </DataList.Item>
               
               <DataList.Item key={'birthRegistrationPlace'} pt="4">
-                <DataList.ItemLabel>Registration Location</DataList.ItemLabel>
+                <DataList.ItemLabel>{t("registrationLocaion")}</DataList.ItemLabel>
                 <DataList.ItemValue>{personData?.birth_registration_place}</DataList.ItemValue>
               </DataList.Item>
               
               <DataList.Item key={'birthRegistrationDigit'} pt="4">
-                <DataList.ItemLabel>Registration Digit</DataList.ItemLabel>
+                <DataList.ItemLabel>{t("digit")}</DataList.ItemLabel>
                 <DataList.ItemValue>{personData?.person?.birth_registration_digit}</DataList.ItemValue>
               </DataList.Item>
 
           </DataList.Root>
+          <FixBottomArea />
+          {/* <FixBottomArea /> */}
        </Box>
      )
 

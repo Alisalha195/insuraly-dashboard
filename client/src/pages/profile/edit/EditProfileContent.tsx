@@ -21,11 +21,13 @@ import { useCustomQuery } from '../../../hooks/useCustomQuery';
 import SkeletonLoader from '../../../components/shared/Skeleton';
 import Error from '../../../components/shared/Error';
 import { PersonalSchemaFormData, PersonalSchema } from '../../../utils/personalSchema';
+import { useTranslation } from 'react-i18next';
 
 const EditProfileContent = () => {
    
    const {textSecondary} = useThemedColors();
    const navigate = useNavigate();
+   const {t} = useTranslation();
    
    const params = useParams()
    // const location = useLocation();
@@ -132,7 +134,7 @@ const EditProfileContent = () => {
          </Text> */}
          <PageHeadTitle
             backButton={true}
-            title={ "Edit Personal Data"}
+            title={t("EditPersonalData")}
          />
          <BasicFieldsSection 
             register = {register}

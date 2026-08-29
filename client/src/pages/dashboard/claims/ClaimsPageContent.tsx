@@ -13,6 +13,8 @@ import { host } from '../../../constants/connection'
 import SkeletonLoader from '../../../components/shared/Skeleton'
 import BackArrow from '../../../components/shared/BackArrow'
 import Error from '../../../components/shared/Error'
+import { useTranslation } from 'react-i18next'
+import { capitalize } from '../../../lib/capitalize'
 
 const ClaimsPageContent = () => {
    
@@ -21,6 +23,8 @@ const ClaimsPageContent = () => {
    const {btnSecondary, btnGreen} = useThemedColors();
    const date = new Date();
    const seconds = date.getMilliseconds();
+   
+   const {t} = useTranslation();
    
    const { 
          data:claimsStats, 
@@ -41,7 +45,7 @@ const ClaimsPageContent = () => {
        width={'100%'}
        >
          <PageHeadTitle 
-            title='Claims'
+            title={capitalize(t('claims'))}
             backButton={true} 
          />
             <VStack >
@@ -61,7 +65,7 @@ const ClaimsPageContent = () => {
                      // lineHeight={1}
                      color={'#fff'}
                   >
-                     create
+                     {t('new')}
                      
                   </Box>
                </Flex>
@@ -92,7 +96,7 @@ const ClaimsPageContent = () => {
                       }}
                   >
                      <Card.CardHeader>
-                        <Text textAlign={'center'} marginBottom={2}>this year</Text>
+                        <Text textAlign={'center'} marginBottom={2}>{t("thisYear")}</Text>
                      </Card.CardHeader>
                      <Card.CardContent>
                         <Flex 
@@ -103,13 +107,13 @@ const ClaimsPageContent = () => {
                            flexDirection={"column"}
                         >
                            <Card.CardBadge >
-                              <Text fontSize={"14px"}>Count</Text>
+                              <Text fontSize={"14px"}>{t("count")}</Text>
                               <Text>{claimsStats?.annualStatsCount || 0}</Text>
                               
                            </Card.CardBadge>
                            
                            <Card.CardBadge >
-                              <Text fontSize={"14px"}>total $</Text>
+                              <Text fontSize={"14px"}>{t("total")} $</Text>
                               <Text>{claimsStats?.annualStatsTotalAmount || 0}</Text>
                            </Card.CardBadge>
                            
@@ -136,7 +140,7 @@ const ClaimsPageContent = () => {
                      }}
                   >
                      <Card.CardHeader>
-                        <Text textAlign={'center'} marginBottom={2}>this month</Text>
+                        <Text textAlign={'center'} marginBottom={2}>{t("thisMonth")}</Text>
                      </Card.CardHeader>
                      <Card.CardContent>
                         <Flex 
@@ -147,13 +151,13 @@ const ClaimsPageContent = () => {
                            flexDirection={'column'}
                         >
                            <Card.CardBadge >
-                              <Text fontSize={"14px"}>Count</Text>
+                              <Text fontSize={"14px"}>{t("count")}</Text>
                               <Text>{claimsStats?.monthlyStatsCount || 0}</Text>
                               
                            </Card.CardBadge>
                            
                            <Card.CardBadge >
-                              <Text fontSize={"14px"}>collected $</Text>
+                              <Text fontSize={"14px"}>{t("collected")} $</Text>
                               <Text>{claimsStats?.monthlyStatsDeliveredAmount || 0}</Text>
                            </Card.CardBadge>
                            
@@ -168,11 +172,11 @@ const ClaimsPageContent = () => {
                         >
                            
                            <Card.CardBadge >
-                              <Text fontSize={"14px"}>total $</Text>
+                              <Text fontSize={"14px"}>{t("total")} $</Text>
                               <Text>{claimsStats?.monthlyStatsTotalAmount || 0}</Text>
                            </Card.CardBadge>
                            <Card.CardBadge >
-                              <Text fontSize={"14px"}>ends in</Text>
+                              <Text fontSize={"14px"}>{t("endsIn")}</Text>
                               <Text>15/5/2026</Text>
                            </Card.CardBadge>
                            
@@ -199,7 +203,7 @@ const ClaimsPageContent = () => {
                      }}
                   >
                      <Card.CardHeader>
-                        <Text textAlign={'center'}marginBottom={2}>retarded</Text>
+                        <Text textAlign={'center'}marginBottom={2}>{t("retarded")}</Text>
                      </Card.CardHeader>
                      <Card.CardContent
                         // backgroundColor={'#222'}
@@ -214,13 +218,13 @@ const ClaimsPageContent = () => {
                            flexDirection={"column"}
                         >
                            <Card.CardBadge >
-                              <Text fontSize={"14px"}>Count</Text>
+                              <Text fontSize={"14px"}>{t("count")}</Text>
                               <Text>{claimsStats?.retardedStatsCount || 0}</Text>
                               
                            </Card.CardBadge>
                            
                            <Card.CardBadge >
-                              <Text fontSize={"14px"}>total $</Text>
+                              <Text fontSize={"14px"}>{t("total")} $</Text>
                               <Text>{claimsStats?.retardedStatsTotalAmount || 0}</Text>
                            </Card.CardBadge>
                            

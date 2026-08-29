@@ -8,12 +8,17 @@ import { useState } from "react";
 import { useMutation } from "@tanstack/react-query";
 import toast from "react-hot-toast";
 import { host } from "../../../../../../constants/connection";
+import { useTranslation } from "react-i18next";
+import useLangDir from "../../../../../../hooks/useLangDir";
 
 const BusinessTableActionsMenu = ({itemId, itemData}) => {
    const [waiting , setWaiting] = useState(false)
    const navigate = useNavigate();
    const {hovering} = useThemedColors();
-      
+   
+   const {t} = useTranslation();
+   const {isRTL, dir} = useLangDir();
+   
    const deleteBusiness = useMutation({
       mutationFn : (itemId) => fetch(`${host}/business/delete`,{method:'DELETE', headers: {'Content-Type' : 'application/json'}, body : JSON.stringify({businessId:itemId})}).then(res => res.json()) ,
       
@@ -38,7 +43,7 @@ const BusinessTableActionsMenu = ({itemId, itemData}) => {
           <Menu.Content >
             {
                tableMenuData.map((item, index) => (
-                  item.title == 'delete' 
+                  item.role == 'delete' 
                   ?
                   <DeleteDialog 
                        key={index}
@@ -66,7 +71,7 @@ const BusinessTableActionsMenu = ({itemId, itemData}) => {
                   >
                     <HStack  >
                        <item.icon />
-                       <Text>{item.title}</Text>
+                       <Text>{t(item.title)}</Text>
                     </HStack>
                   </Menu.Item>
                ))

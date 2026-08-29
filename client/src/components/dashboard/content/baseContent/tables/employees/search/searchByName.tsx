@@ -12,6 +12,7 @@ import EmployeeTableBody from "../EmployeeTableBody.tsx";
 import { usePostCustomQuery } from "../../../../../../../hooks/useCustomQuery.ts";
 import TableHeader from "../../../../../../shared/tables/TableHeader.tsx";
 import DataTable from "../../../../../../shared/tables/DataTable.tsx";
+import { useTranslation } from "react-i18next";
 
 const SearchByName = ({ searchValue , businessName , businessID}) => {
 
@@ -22,7 +23,8 @@ const SearchByName = ({ searchValue , businessName , businessID}) => {
       lastName: ""
    }
    const { btnGreen, textPrimary } = useThemedColors();
-
+    const {t} = useTranslation();
+    
    if (searchValue) {
       const searchList = searchValue.split(" ");
 
@@ -93,7 +95,7 @@ const SearchByName = ({ searchValue , businessName , businessID}) => {
                />
             </SearchResults>
             
-            : <Text>No Results Found!</Text>
+            : <Text>{t("NoResultsFound")}</Text>
          }
       </Flex>
    )

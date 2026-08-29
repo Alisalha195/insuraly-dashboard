@@ -10,10 +10,12 @@ import TableHeader from "../../../../../../shared/tables/TableHeader.tsx";
 import DataTable from "../../../../../../shared/tables/DataTable.tsx";
 import { AnnualRetirementsTableHeaderData } from "../annual/AnnualRetirementsTableHeaderData.ts";
 import AnnualRetirementsTableBody from "../annual/AnnualRetirementsTableBody.tsx";
+import { useTranslation } from "react-i18next";
 
 const SearchByInsuranceNumber = ({ searchValue }) => {
    // console.log("searchValue in SearchByInsuranceNumber :", searchValue)
    const { btnGreen, textPrimary, textSecondary } = useThemedColors();
+   const {t} = useTranslation();
    
    const { 
       data:retirementsResultData, 
@@ -61,7 +63,7 @@ const SearchByInsuranceNumber = ({ searchValue }) => {
             />
          </SearchResults>
          
-         : <Text>No Results Found!</Text>
+         : <Text>{t("NoResultsFound")}</Text>
       }
    </Flex>
    )

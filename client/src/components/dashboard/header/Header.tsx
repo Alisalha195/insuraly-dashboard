@@ -9,6 +9,7 @@ import SidebarDrawer from "../content/sidebar/SidebarDrawer";
 import { useEffect, useRef } from "react";
 import { useResizeObserver } from "../../../hooks/useResizeObserver";
 import LogoBasic from "../../shared/header/LogoBasic";
+import LanguageToggleButton from "../../shared/header/LanguageToggleButton";
 
 const Header = ({ref, SidebarSize , ...props}) => {
    
@@ -56,6 +57,7 @@ const Header = ({ref, SidebarSize , ...props}) => {
             justifyContent={"space-around"}
             paddingX={2}
          >
+            <LanguageToggleButton />
             <ColorModeToggleButton />
             <UserMenu />
          </Flex>

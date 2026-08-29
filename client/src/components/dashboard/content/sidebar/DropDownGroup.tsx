@@ -1,9 +1,13 @@
 import { Accordion, Box, Flex, HoverCard, HStack, Portal, Span, Text } from "@chakra-ui/react";
 import useThemedColors from "../../../../hooks/useThemedColors";
+import { useTranslation } from "react-i18next";
+import { capitalize } from "../../../../lib/capitalize";
+import useLangDir from "../../../../hooks/useLangDir";
 
 const DropDownGroup = ({ data, collabsed }) => {
    const { textSecondary, textPrimary ,bgSecondary , bgPrimary, iconInSidebar } = useThemedColors();
-   
+   const {t} = useTranslation();
+   const {dir} = useLangDir();
    if(collabsed) {
       return (
       <Flex marginTop={3} flexDirection={"column"} alignItems={"center"} gap={2}>
@@ -52,7 +56,7 @@ const DropDownGroup = ({ data, collabsed }) => {
                           textWrap={'nowrap'}
                           textOverflow={"ellipsis"}
                         >
-                          {innerItem.title}
+                          {t(innerItem.title)}
                         </Span>
                      </HStack>
                   ))}
@@ -136,7 +140,7 @@ const DropDownGroup = ({ data, collabsed }) => {
             <Accordion.Item key={index} value={item.title} className="btn" >
 
                <Accordion.ItemTrigger padding={0}>
-                  <Flex flex="1" className="btn" marginBottom={2} width={'100%'}>
+                  <Flex flex="1" className="btn" marginBottom={2} width={'100%'} dir={dir}>
                      
                      <Span color={textSecondary} width={'100%'} 
                         // className="text-[20px]"
@@ -146,7 +150,7 @@ const DropDownGroup = ({ data, collabsed }) => {
                         textWrap={'nowrap'}
                         
                      >
-                        {item.title}
+                        {capitalize(t(item.title))}
                      </Span>
                      
                      
@@ -164,7 +168,7 @@ const DropDownGroup = ({ data, collabsed }) => {
                            <HStack
                               key={index}
                               color={textSecondary}
-                              _hover={{ paddingLeft: '3px' }}
+                              _hover={{ ps: '3px' }}
                               transition={'.2s ease-in-out'}
                               fontSize={{ xssToXs: "11px", xsToXm: "12px", xmToSm: "14px", smTo3xl: "16px" }}
                               paddingTop={{ xmToSm: "4px" }}
@@ -172,7 +176,7 @@ const DropDownGroup = ({ data, collabsed }) => {
                               overflow={'hidden'}
                               textWrap={'nowrap'}
                               textOverflow={"ellipsis"}
-                              
+                              dir={dir}
                            >
                               <Span
                                  //  fontSize={{ xssToXs: "11px", xsToXm: "12px", xmToSm: "13px", smTo3xl: "15px" }}
@@ -185,7 +189,7 @@ const DropDownGroup = ({ data, collabsed }) => {
                                  textWrap={'nowrap'}
                                  textOverflow={"ellipsis"}
                               >
-                                 {item.title}
+                                 {t(item.title)}
                               </Span>
                               
                            </HStack>

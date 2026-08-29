@@ -14,6 +14,7 @@ import DataTableControl from '../../../../components/shared/tables/DataTableCont
 import TableHeader from '../../../../components/shared/tables/TableHeader';
 import { MonthlyRetirementsTableHeaderData } from '../../../../components/dashboard/content/baseContent/tables/retirements/monthly/MonthlyRetirementsTableHeaderData';
 import MonthlyRetirementsTableBody from '../../../../components/dashboard/content/baseContent/tables/retirements/monthly/MonthlyRetirementsTableBody';
+import { useTranslation } from 'react-i18next';
 
 const MonthlyRetirementsPageContent = () => {
    
@@ -24,6 +25,7 @@ const MonthlyRetirementsPageContent = () => {
    const {textSecondary, btnSecondary} = useThemedColors();
    const params = useParams();
    
+   const {t} = useTranslation();
    const date = new Date(Date.now());
       
    const { 
@@ -39,7 +41,7 @@ const MonthlyRetirementsPageContent = () => {
       return (
          <Box> 
            <PageHeadTitle 
-              title={<Span fontWeight={500} color={textSecondary}>{`Monthly Claims (${params?.month})`} </Span>}
+              title={<Span fontWeight={500} color={textSecondary}>{`${t("monthlyRetirements")} (${params?.month})`} </Span>}
               backButton={true}
            />
            {/* <VStack> */}
@@ -61,7 +63,7 @@ const MonthlyRetirementsPageContent = () => {
                        fontSize={{ xssToXs: "14px", xsToXm: "16px", xmToSm: "18px" }}
                        marginLeft={2}
                     >
-                       new Retirement
+                       {t("newRetirement")}
                        {/* <AiFillPlusCircle /> */}
                     </Text>
                  </Box>

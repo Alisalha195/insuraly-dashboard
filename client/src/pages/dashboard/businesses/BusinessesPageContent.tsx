@@ -22,6 +22,8 @@ import TableHeader from "../../../components/shared/tables/TableHeader.tsx";
 import SkeletonLoader from "../../../components/shared/Skeleton.tsx";
 import { LuSearch } from "react-icons/lu";
 import { useCustomQuery } from "../../../hooks/useCustomQuery.ts";
+import { useTranslation } from "react-i18next";
+import useLangDir from "../../../hooks/useLangDir.ts";
 
 const BusinessesPageContent = () => {
 
@@ -31,7 +33,9 @@ const BusinessesPageContent = () => {
    const { btnSecondary, textPrimary, bgSecondary, textSecondary } = useThemedColors();
    const businessesCount = getTableRowsCount("business");
 
-
+   const {t} = useTranslation();
+   const {isRTL, dir} = useLangDir();
+   
    const { 
       data:businessesData, 
       error:businessOwnerDataError, 
@@ -60,7 +64,7 @@ const BusinessesPageContent = () => {
             {/* header line */}
             <PageHeadTitle
                backButton={true}
-               title={<Span fontWeight={500} color={textSecondary}>Businesses</Span>}
+               title={<Span fontWeight={500} color={textSecondary}>{t("businesses")}</Span>}
             />
 
             {/* upper control */}
@@ -80,7 +84,7 @@ const BusinessesPageContent = () => {
                      fontSize={{ xssToXs: "14px", xsToXm: "16px", xmToSm: "18px" }}
                      marginLeft={2}
                   >
-                     new business
+                     {t("newBusiness")}
                      {/* <AiFillPlusCircle /> */}
                   </Text>
                </Box>

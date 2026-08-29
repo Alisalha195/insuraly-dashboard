@@ -12,11 +12,13 @@
    import toast from 'react-hot-toast' ;
    import BackArrow from '../../../../components/shared/BackArrow';
    import { getBusinessOwnerByInsuranceNumber } from '../../../../api/businessOwner/getBusinessOwnerByInsuranceNumber';
-   import { useState } from 'react';
+   import { useEffect, useState } from 'react';
    import BusinessGeneralFields from '../../../../components/shared/forms/business/BusinessGeneralFields';
    import AddressFields from '../../../../components/shared/forms/business/AddressFields';
    import {  BusinessSchema } from '../../../../utils/businessSchema.ts';
 import PageHeadTitle from '../../../../components/shared/PageHeadTitle.tsx';
+import { useTranslation } from 'react-i18next';
+import { capitalize } from '../../../../lib/capitalize.ts';
    
    
 const EditBusinessContent = () => {
@@ -24,6 +26,7 @@ const EditBusinessContent = () => {
    const navigate = useNavigate();
    const location = useLocation();
    const itemData = location.state;
+   const {t} = useTranslation();
    
    const [contentLoaded , setContentLoaded] = useState({
       businessGeneralFields : false ,
@@ -31,7 +34,7 @@ const EditBusinessContent = () => {
    })
    const [businessOwnerName ,setBusinessOwnerName] = useState("");
    
-   const {textPrimary, textSecondary} = useThemedColors();
+   const {textPrimary, textSecondary, btnGreen} = useThemedColors();
    
    // const formSchema = z.object({
    //    businessName: z.string().nonempty("business name can not be empty !"),
@@ -53,11 +56,10 @@ const EditBusinessContent = () => {
    // });
    
    const handleViewBusinessOwnerName = async(val) => {
-      
       let isBusinessOwner = false;
       const businessOwner = await getBusinessOwnerByInsuranceNumber(val);
       if(businessOwner)  {
-         setBusinessOwnerName(`${businessOwner?.personal_informations?.first_name} ${businessOwner?.personal_informations?.father_name} ${businessOwner?.personal_informations?.last_name}`)
+         setBusinessOwnerName(`${capitalize(businessOwner?.personal_informations?.first_name)} ${capitalize(businessOwner?.personal_informations?.father_name)} ${capitalize(businessOwner?.personal_informations?.last_name)}`)
          
          setValue('businessOwnerId' ,businessOwner?.business_owner_id
          );
@@ -78,6 +80,7 @@ const EditBusinessContent = () => {
       register,
       handleSubmit ,
       setValue,
+      getValues,
       formState : {errors},
       control
    } = useForm<FormValues>({
@@ -121,21 +124,23 @@ const EditBusinessContent = () => {
       saveBusiness.mutate(dataWithId);
    }
    
+   useEffect(()=>{
+      handleViewBusinessOwnerName(getValues().bOwnerInsuranceNumber);
+   },[getValues().bOwnerInsuranceNumber]);
+   // contentLoaded?.addressFields, contentLoaded?.businessGeneralFields
+   
    return (
       <Flex flexDirection={'column'} maxHeight={'100vh'} overflowY={'scroll'}>
          
          <PageHeadTitle
             backButton={true}
-            title={"Edit Business"}
+            title={t("EditBusiness")}
          />
-         {/* <BackArrow />
-         <Text color={textSecondary} textAlign={'center'} fontWeight={"500"}>
-            Edit Business
-         </Text> */}
+         
          <Box>
             <Flex flexDirection={'row'} justifyContent={'center'} fontSize={'16px'}>
                
-               <Text fontSize={'16px'} fontWeight={"500"}>
+               <Text fontSize={'16px'} fontWeight={"500"} color={btnGreen} className='btn' onClick={() => navigate(`/profile/${itemData?.Business_owners?.personal_informations?.personal_info_id}`)}>
                   {businessOwnerName}
                </Text> 
             </Flex>

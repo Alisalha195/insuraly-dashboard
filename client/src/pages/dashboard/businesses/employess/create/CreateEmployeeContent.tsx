@@ -24,6 +24,8 @@
    import FisinshReasonsSelectBox from "../../../../../components/shared/forms/services/FinishReasonsSelectBox";
    import { capitalize } from "../../../../../lib/capitalize";
    import { NewEmployeeSchema, NewEmployeeSchemaFormData } from "../../../../../utils/employeeSchema";
+   import { useTranslation } from "react-i18next";
+
 
 const CreateEmployeeContent = () => {
    
@@ -32,7 +34,8 @@ const CreateEmployeeContent = () => {
    const location = useLocation();
    const { textPrimary, textSecondary, borderSecondary, titleTextSecondary, inputContainerBg, switchBtnBgOff , switchBtnBgOn } = useThemedColors();
    const {reasonsData, isSuccessReasonsData, isLoadingReasonsData} = getFinishedWorkReasons();
-
+   const {t} = useTranslation();
+   
    const newEmployeeSchema = NewEmployeeSchema({checkPersonExist});
    const {
       register,
@@ -176,7 +179,7 @@ const CreateEmployeeContent = () => {
       <Flex flexDirection={'column'} maxHeight={'100vh'} overflowY={'scroll'}>
          <BackArrow />
          <Text color={textSecondary} textAlign={'center'} fontWeight={"500"}>
-            <Span>New Employee for </Span> 
+            <Span>{t("NewEmployeeFor")} </Span> 
             <Span fontWeight={"700"}>{capitalize(location?.state?.businessName)}
                </Span> 
          </Text>
@@ -215,7 +218,7 @@ const CreateEmployeeContent = () => {
             <Text marginBottom={4} color={titleTextSecondary}
                fontSize={{ xssToXs: "16px", xsToXm: "17px", xmToSm: "18px", smToMd: "20px", mdTo3xl: "22px" }}
             >
-               initiate Work Details
+               {t("initiateWorkDetails")}
             </Text>
             <Grid   
                className=' ' 
@@ -276,7 +279,7 @@ const CreateEmployeeContent = () => {
             <Text padding={1} marginRight={2} color={titleTextSecondary}
             fontSize={{ xssToXs: "16px", xsToXm: "17px", xmToSm: "18px", smToMd: "20px", mdTo3xl: "22px" }}
             >
-               finish Work Details
+               {t("finishWorkDetails")}
             </Text>
             <Switch.Root
                checked={serviceFinish}

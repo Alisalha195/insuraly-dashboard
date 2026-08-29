@@ -8,11 +8,23 @@ import { LuLogOut } from "react-icons/lu";
 export const userMenuListData = [
    {
       text: "profile",
-      icon :  CgProfile
+      icon :  CgProfile,
+      role : "profile",
+      click : function(fun) {
+         if (typeof fun === 'function') {
+            fun(); 
+          }
+      }
    },
    {
       text: "logout",
-      icon :  LuLogOut 
+      icon :  LuLogOut ,
+      role : "logout" ,
+      click : function(fun) {
+         if (typeof fun === 'function') {
+            fun(); 
+          }
+      }
    },
    
 ]

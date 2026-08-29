@@ -1,13 +1,16 @@
 import { useState } from 'react'
 import { Box, Button, CloseButton, Dialog, HStack, Menu, Portal, Text } from "@chakra-ui/react"
 import useThemedColors from '../../../../../hooks/useThemedColors'
+import { useTranslation } from 'react-i18next'
+import useLangDir from '../../../../../hooks/useLangDir'
 
 
 const DeleteDialog = ({ item, msg, click, waiting, styles }) => {
 
    // const [closeMenu , setCloseMenu ] = useState(false);
    const { hovering, textSecondary,btnDanger,btnGray } = useThemedColors()
-
+   const {t} = useTranslation();
+   const {isRTL, dir} = useLangDir();
    return (
       <Box >
          <Dialog.Root role="alertdialog">
@@ -27,7 +30,7 @@ const DeleteDialog = ({ item, msg, click, waiting, styles }) => {
                >
                   <HStack  fontSize={{ xssToXm: "12px", xmToSm: "13px", smToMd: "14px" }}>
                      <item.icon />
-                     <Text fontSize={{ xssToXm: "12px", xmToSm: "16px", smTo3xl: "19px" }}>{item.title}</Text>
+                     <Text fontSize={{ xssToXm: "12px", xmToSm: "16px", smTo3xl: "19px" }}>{t(item.title)}</Text>
                   </HStack>
                </Box>
             </Dialog.Trigger>

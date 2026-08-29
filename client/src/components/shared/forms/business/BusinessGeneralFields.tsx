@@ -7,6 +7,7 @@ import StageSelectBox from './StageSelectBox';
 import { getBusinessStages, getBusinessCommercialTypes,getBusinessStatuses } from '../../../../api/business/getBusinessRelatedData';
 import CommercialTypeSelectBox from './CommercialTypeSelectBox';
 import StatusSelectBox from './StatusSelectBox';
+import { useTranslation } from 'react-i18next';
 
 const BusinessGeneralFields = ({setContentLoaded, register, errors, Controller, control, onChangeBusinessOwner, ...props }) => {
    const {textPrimary, textSecondary,titleTextSecondary} = useThemedColors();
@@ -15,6 +16,7 @@ const BusinessGeneralFields = ({setContentLoaded, register, errors, Controller, 
    const {commercialTypesData , isSuccessCommercialTypes} = getBusinessCommercialTypes();
    const {statusesData , isSuccessStatusesData} = getBusinessStatuses();
    // console.log("commercialTypesData",commercialTypesData);
+   const {t} = useTranslation();
    
    useEffect(()=>{
       if(isSuccessStages && isSuccessCommercialTypes && isSuccessStatusesData )
@@ -25,7 +27,7 @@ const BusinessGeneralFields = ({setContentLoaded, register, errors, Controller, 
    
      return (
       <Box  padding={1} marginY={2}>
-            <Text marginBottom={1} color={titleTextSecondary}>General Info</Text>
+            <Text marginBottom={1} color={titleTextSecondary}>{t("GeneralInfo")}</Text>
             <Grid  className=' ' templateColumns={{  mdTo2xl:"repeat(2, 1fr)"}}   padding={2} gap={2}>
               
                <FieldGroup 
@@ -33,7 +35,7 @@ const BusinessGeneralFields = ({setContentLoaded, register, errors, Controller, 
                   name={'businessName'}
                   type={'text'}
                   invalid = {false} 
-                  label = "business name" 
+                  label = "businessName" 
                   placeholder = ""
                   error = {errors.businessName}
                   preInputText={null}
@@ -45,7 +47,7 @@ const BusinessGeneralFields = ({setContentLoaded, register, errors, Controller, 
                   name={'bOwnerInsuranceNumber'}
                   type={'number'}
                   invalid = {false} 
-                  label = "business owner insurance number" 
+                  label = "businessOwnerInsuranceNumber" 
                   placeholder = ""
                   error = {errors.bOwnerInsuranceNumber}
                   preInputText={null}
@@ -55,7 +57,7 @@ const BusinessGeneralFields = ({setContentLoaded, register, errors, Controller, 
                
                <CommercialTypeSelectBox 
                   data={commercialTypesData}
-                  label="commercial type" 
+                  label="commercialType" 
                   Controller={Controller}
                   control={control}
                   error={errors.commercialType}
@@ -85,7 +87,7 @@ const BusinessGeneralFields = ({setContentLoaded, register, errors, Controller, 
                <DatePickerField 
                  name={"lawInitiativeDate"}
                  register={register}
-                 label="law initiative date" 
+                 label="lawInitiativeDate" 
                  Controller={Controller}
                  control={control}
                  error={errors.lawInitiativeDate}

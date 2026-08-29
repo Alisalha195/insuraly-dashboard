@@ -7,12 +7,14 @@ export const annualClaimsTableMenuData = [
       title : 'edit',
       icon: TiEdit ,
       // clickLink: '/dashboard/business-owners/edit'
-      clickLink: (cliamID) => `/profile/${cliamID}/edit`
+      clickLink: (cliamID) => `/profile/${cliamID}/edit`,
+      role : "edit"
    },
    {
       title : 'delete',
       icon: RiDeleteBin2Line,
-      clickLink: 'delete'
+      clickLink: 'delete',
+      role : "delete"
 
    }
 ]

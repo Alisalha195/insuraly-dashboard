@@ -19,6 +19,7 @@
    import PageHeadTitle from '../../../../components/shared/PageHeadTitle.tsx';
    import { capitalize } from '../../../../lib/capitalize.ts';
    import SkeletonLoader from '../../../../components/shared/Skeleton.tsx';
+import { useTranslation } from 'react-i18next';
 
 
 const AddBusinessContent = () => {
@@ -32,6 +33,7 @@ const AddBusinessContent = () => {
    const [businessOwner ,setBusinessOwner] = useState({});
    const [businessOwnerName ,setBusinessOwnerName] = useState("");
    const {textPrimary, textSecondary, btnGreen} = useThemedColors();
+   const {t} = useTranslation();
    
    const handleViewBusinessOwnerName = async(val) => {
       
@@ -113,7 +115,7 @@ const AddBusinessContent = () => {
          <>
             <PageHeadTitle
                backButton={true}
-               title={"New Business"}
+               title={t("NewBusiness")}
             />
          
          </>
@@ -125,7 +127,7 @@ const AddBusinessContent = () => {
       
       <Box>
          <Flex flexDirection={'row'}  fontSize={'16px'}>
-            <Span marginRight={1} >owner :</Span>
+            <Span me={1} >{t("Owner")} :</Span>
             <Text className='btn' 
                // _hover={{color : "#F00"}}
                fontSize={'16px'} 

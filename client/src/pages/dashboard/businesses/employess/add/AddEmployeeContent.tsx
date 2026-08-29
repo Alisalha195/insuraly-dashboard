@@ -23,6 +23,7 @@
    import { getPersonalInfoByInsuranceNumber } from "../../../../../api/personalInormation/getPersonalInfoByInsuranceNumber";
    import { getEmployeeServices } from "../../../../../api/employees/getEmployeeServices";
    import { EmployeeSchema, EmployeeSchemaFormData } from "../../../../../utils/employeeSchema";
+import { useTranslation } from "react-i18next";
 
 const AddEmployeeContent = () => {
    
@@ -33,6 +34,8 @@ const AddEmployeeContent = () => {
    const [serviceValidation , setServiceValidation] = useState({state: 0, msg:""});
    const { textPrimary, textSecondary, btnSecondary, titleTextSecondary, borderSecondary, inputContainerBg, switchBtnBgOff, switchBtnBgOn  } = useThemedColors();
    const {reasonsData, isSuccessReasonsData, isLoadingReasonsData} = getFinishedWorkReasons();
+   
+   const {t} = useTranslation();
    
    const handleViewPersonName = async (val) => {
       let isPerson = false;
@@ -226,7 +229,7 @@ const AddEmployeeContent = () => {
     <Flex flexDirection={'column'} maxHeight={'100vh'} overflowY={'auto'}>
       <PageHeadTitle 
          title={<><Span fontWeight={"500"} color={textSecondary}>
-            Add New Employee To </Span>
+            {t("AddNewEmployeeTo")} </Span>
             <Span fontWeight={"700"} color={textSecondary}>
                {(location?.state?.businessName && location?.state?.businessName != undefined)
                && capitalize(location?.state?.businessName) || "Add Employee"}
@@ -245,7 +248,7 @@ const AddEmployeeContent = () => {
                   fontSize={{ xssToXs: "14px", xsToXm: "16px", xmToSm: "18px" }}
                   marginLeft={2}
                >
-                  create new employee
+                  {t("createNewEmployee")}
                   {/* <AiFillPlusCircle /> */}
                </Text>
             </Box>
@@ -257,7 +260,7 @@ const AddEmployeeContent = () => {
             <Text marginBottom={4} color={titleTextSecondary}
                fontSize={{ xssToXs: "16px", xsToXm: "17px", xmToSm: "18px", smToMd: "20px", mdTo3xl: "22px" }}
             >
-               Person Insurance Number
+               {t("PersonInsuranceNumber")}
             </Text>
             <Flex flexDirection={{xssToMd:"column", mdTo3xl:'row'}}
                justifyContent={'space-between'}
@@ -285,7 +288,7 @@ const AddEmployeeContent = () => {
                      </Text>
                      :
                      <Text color={"#a00"}>
-                        no employee found
+                        {t("noEmployeeFound")}
                      </Text>
                   }
                </VStack>
@@ -298,7 +301,7 @@ const AddEmployeeContent = () => {
             <Text marginBottom={4} color={titleTextSecondary}
                fontSize={{ xssToXs: "16px", xsToXm: "17px", xmToSm: "18px", smToMd: "20px", mdTo3xl: "22px" }}
             >
-               initiate Work Details  {serviceValidation.state == 1 && <Span color={"#22bb22"}>{serviceValidation.msg}</Span>} {serviceValidation.state == 0 && <Span color={"#FF5555"}>{serviceValidation.msg}</Span>}
+               {t("initiateWorkDetails")}  {serviceValidation.state == 1 && <Span color={"#22bb22"}>{serviceValidation.msg}</Span>} {serviceValidation.state == 0 && <Span color={"#FF5555"}>{serviceValidation.msg}</Span>}
             </Text>
             <Grid   
                className=' ' 
@@ -359,7 +362,7 @@ const AddEmployeeContent = () => {
             <Text padding={1} marginRight={2} color={titleTextSecondary}
             fontSize={{ xssToXs: "16px", xsToXm: "17px", xmToSm: "18px", smToMd: "20px", mdTo3xl: "22px" }}
             >
-               finish Work Details
+               {t("finishWorkDetails")}
             </Text>
             <Switch.Root
                checked={serviceFinish}

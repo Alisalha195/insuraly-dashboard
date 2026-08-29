@@ -8,13 +8,15 @@ export const tableMenuData = [
    {
       title : 'edit',
       icon: TiEdit ,
-      clickLink: (params) => `/dashboard/businesses/${params?.businessID}/employees/${params?.employeeID}/services/${params?.serviceID}/edit`
+      clickLink: (params) => `/dashboard/businesses/${params?.businessID}/employees/${params?.employeeID}/services/${params?.serviceID}/edit`,
+      role: "edit"
    },
    
    {
       title : 'wages',
       icon: FaMoneyCheckDollar ,
-      clickLink: (params) => `/dashboard/businesses/${params?.businessID}/employees/${params?.employeeID}/services/${params?.serviceID}/wages`
+      clickLink: (params) => `/dashboard/businesses/${params?.businessID}/employees/${params?.employeeID}/services/${params?.serviceID}/wages`,
+      role: "wages"
    },
    
    // {
@@ -26,7 +28,8 @@ export const tableMenuData = [
    {
       title : 'delete',
       icon: RiDeleteBin2Line,
-      clickLink: 'delete'
+      clickLink: 'delete',
+      role: "delete"
 
    },
 ]

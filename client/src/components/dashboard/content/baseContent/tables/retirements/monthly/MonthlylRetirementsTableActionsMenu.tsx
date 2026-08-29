@@ -12,6 +12,7 @@ import useThemedColors from "../../../../../../../hooks/useThemedColors";
 import { host } from "../../../../../../../constants/connection";
 import DeleteDialog from "../../DeleteDialog";
 import { tableMenuData } from "./MonthlyRetirementsTableMenuData";
+import { useTranslation } from "react-i18next";
 // import { host } from "../../../../../../constants/connection";
 
 const MonthlyRetirementsTableActionsMenu = ({retirementID}:{retirementID:Number}) => {
@@ -19,6 +20,7 @@ const MonthlyRetirementsTableActionsMenu = ({retirementID}:{retirementID:Number}
    const [waiting , setWaiting] = useState(false)
    const navigate = useNavigate();
    const {hovering} = useThemedColors();
+   const {t} = useTranslation();
    
    const deleteRetirement = useMutation({
       mutationFn : (dataToMutate) => fetch(`${host}/retirement/delete-retirement`,{method:'DELETE', headers: {'Content-Type' : 'application/json'}, body : JSON.stringify(dataToMutate)}).then(res => res.json()) ,
@@ -74,7 +76,7 @@ const MonthlyRetirementsTableActionsMenu = ({retirementID}:{retirementID:Number}
                   >
                     <HStack  >
                        <item.icon />
-                       <Text>{item.title}</Text>
+                       <Text>{t(item.title)}</Text>
                     </HStack>
                   </Menu.Item>
                ))

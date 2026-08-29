@@ -2,6 +2,7 @@ import { Field, Flex, Input, InputGroup, Text } from "@chakra-ui/react";
 import useThemedColors from "../../../hooks/useThemedColors";
 import { useState } from "react";
 import { set } from "react-hook-form";
+import { useTranslation } from "react-i18next";
 
 const LimitedFieldGroup = ({
    name,
@@ -19,10 +20,12 @@ const LimitedFieldGroup = ({
    const { textSecondary, textError, textInput, inputBorder } = useThemedColors();
    //   const [invalid2, setInvalid2] = useState(false);
 
+   const {t} = useTranslation();
+   
    return (
       <Field.Root invalid={invalid}>
          <Field.Label fontSize={{ xssToXs: "14px", xsToXm: "15px", xmToSm: "16px", smToMd: "18px", mdTo3xl: "20px" }} color={textSecondary}>
-            {label}
+            {t(label)}
          </Field.Label>
          <Controller
             name={name}
@@ -49,7 +52,7 @@ const LimitedFieldGroup = ({
                      paddingX={2}
                      height={"auto"}
                      color={textInput}
-                     ps={label == "phone number" ? "8ch" : ""}
+                     ps={label == "phoneNumber" ? "8ch" : ""}
                      
                      borderColor={inputBorder}
                      borderWidth={2}

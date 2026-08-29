@@ -1,10 +1,14 @@
 import { Avatar, Box, Field, Portal, Select,createListCollection } from '@chakra-ui/react'
 import React from 'react'
 import useThemedColors from '../../../hooks/useThemedColors';
+import { useTranslation } from 'react-i18next';
 
 const SelectBox = ({name , Controller,control ,data, error,disabled, defaultValue}) => {
    const collectionData = createListCollection({items:data})
    const { inputBorder } = useThemedColors();
+   const {t} = useTranslation();
+   
+   
   return (
     <Box >
       <Field.Root invalid={!!error} >
@@ -21,7 +25,7 @@ const SelectBox = ({name , Controller,control ,data, error,disabled, defaultValu
                 value={field.item}
                 onValueChange={({ value }) => field.onChange(value) }
                 onInteractOutside={() => field.onBlur()}
-                defaultValue={defaultValue}
+                defaultValue={t(defaultValue)}
                 collection={collectionData}
                 
                 borderColor={inputBorder}
@@ -52,7 +56,7 @@ const SelectBox = ({name , Controller,control ,data, error,disabled, defaultValu
                              </Avatar.Root>
                            }
                           
-                          {item?.title}
+                          {t(item?.title)}
                           <Select.ItemIndicator />
                         </Select.Item>
                       ))}

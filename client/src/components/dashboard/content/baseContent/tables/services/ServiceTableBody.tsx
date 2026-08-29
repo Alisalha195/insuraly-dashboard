@@ -4,11 +4,13 @@ import useThemedColors from '../../../../../../hooks/useThemedColors';
 import { TiEdit } from "react-icons/ti";
 import { RiDeleteBin2Line } from "react-icons/ri";
 import ServiceActionsMenu from "./ServiceActionsMenu";
+import { useTranslation } from "react-i18next";
 
 
 const ServiceTableBody = ({ data }) => {
 
    console.log("data e body :" , data)
+   const {t} = useTranslation();
    
    const navigate = useNavigate();
    const { tableItem,btnGreen, btnDanger } = useThemedColors();
@@ -54,7 +56,7 @@ const ServiceTableBody = ({ data }) => {
                   
                   <Table.Cell  textWrap={"nowrap"}>
                      <Text color={tableItem} fontSize={{ xssToXs: "12px", xsToXm: "14px", xmToSm: "16px" }}>
-                        {item?.puplic_sector ? "public" : "private"}
+                        {item?.puplic_sector ? t("public"): t("private")}
                      </Text>
                   </Table.Cell>
 

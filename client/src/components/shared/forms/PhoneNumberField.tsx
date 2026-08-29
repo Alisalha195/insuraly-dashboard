@@ -15,7 +15,7 @@ const PhoneNumberField = ({error, Controller, control}) => {
       type={'number'}
       invalid = {false} 
       preInputText = "+963"
-      label = "phone number"
+      label = "phoneNumber"
       placeholder = ""
       error = {error}
       limit={phoneNumberLimit}

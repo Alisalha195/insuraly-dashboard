@@ -7,12 +7,16 @@ import { useNavigate } from 'react-router-dom';
 import { getAnnualRetirementsCount } from '../../../api/retirements/getAnnualRetirementsCount';
 import { getMonthlyRetirementsCount } from '../../../api/retirements/getMonthlylRetirementsCount';
 import { LuSearch } from 'react-icons/lu';
+import { useTranslation } from 'react-i18next';
+import { capitalize } from '../../../lib/capitalize';
 
 const RetirementsPageContent = () => {
    
    const navigate = useNavigate();
    const {btnGreen} = useThemedColors();
    const thisDate = new Date(Date.now());
+   
+   const {t} = useTranslation();
    
    const thisYearData = [
       { label: 'Age', value: getAnnualRetirementsCount(thisDate.getFullYear(), "age"), type: 'age' },
@@ -29,7 +33,7 @@ const RetirementsPageContent = () => {
   return (
     <Box width={"100%"}>
       <PageHeadTitle 
-         title={<Text fontSize={30}>Retirements</Text>}
+         title={<Text fontSize={30}>{capitalize(t("retirements"))}</Text>}
          backButton={true} 
       />
       
@@ -50,7 +54,7 @@ const RetirementsPageContent = () => {
            <Flex>
                <Span className='btn' color={btnGreen} width={"auto"} paddingX={"8px"} paddingY={"3px"}
                onClick={()=> navigate("/dashboard/retirements/new")}
-               >New Retirement Profile</Span>
+               >{capitalize(t("newRetirementProfile"))}</Span>
             </Flex>
          </Flex>
       </Box>
@@ -78,7 +82,7 @@ const RetirementsPageContent = () => {
             
          >
             <Card.CardHeader>
-               <Text textAlign={'center'} marginBottom={2}>this year</Text>
+               <Text textAlign={'center'} marginBottom={2}>{t("thisYear")}</Text>
             </Card.CardHeader>
             <Card.CardContent>
                <Flex 
@@ -111,7 +115,7 @@ const RetirementsPageContent = () => {
                               onClick={()=> navigate(`/dashboard/retirements/annual/${item?.type}/${thisDate.getFullYear()}`) }
                            >
                               
-                              <Box fontSize={"22px"} >{item?.label}</Box>
+                              <Box fontSize={"22px"} >{t(item?.label)}</Box>
                               <Box fontSize={"18px"} >{item?.value}</Box>
                            </Flex>
                            
@@ -140,7 +144,7 @@ const RetirementsPageContent = () => {
              
          >
             <Card.CardHeader>
-               <Text textAlign={'center'} marginBottom={2}>this Month</Text>
+               <Text textAlign={'center'} marginBottom={2}>{t("thisMonth")}</Text>
             </Card.CardHeader>
             <Card.CardContent>
                <Flex 
@@ -173,7 +177,7 @@ const RetirementsPageContent = () => {
                               onClick={()=> navigate(`/dashboard/retirements/monthly/${item?.type}/${thisDate.getFullYear()}/${thisDate.getMonth()+1}`) }
                            >
                               
-                              <Box fontSize={"22px"} >{item?.label}</Box>
+                              <Box fontSize={"22px"} >{t(item?.label)}</Box>
                               <Box fontSize={"18px"} >{item?.value}</Box>
                            </Flex>
                            

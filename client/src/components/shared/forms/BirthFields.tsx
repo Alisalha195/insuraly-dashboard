@@ -5,13 +5,15 @@ import useThemedColors from '../../../hooks/useThemedColors';
 import DatePickerField from './DatePickerField';
 import useBusinessOwnerStore from '../../../store/useAddBusinessOwnerStore';
 import Control from './Control';
+import { useTranslation } from 'react-i18next';
 
 const BirthFields = ({ register, Controller, control, errors }) => {
    const { textPrimary, textSecondary, titleTextSecondary, borderSecondary, inputContainerBg } = useThemedColors();
+   const {t} = useTranslation();
    // const { dataObject, setBirthDate, setBirthLocation} = data;
    return (
       <Box padding={1} marginY={2} borderWidth={1} borderColor={borderSecondary} backgroundColor={inputContainerBg}>
-         <Text marginBottom={1} fontSize={{ xssToXs: "16px", xsToXm: "17px", xmToSm: "18px", smToMd: "20px", mdTo3xl: "22px" }} color={titleTextSecondary}>Birth</Text>
+         <Text marginBottom={1} fontSize={{ xssToXs: "16px", xsToXm: "17px", xmToSm: "18px", smToMd: "20px", mdTo3xl: "22px" }} color={titleTextSecondary}>{t("Birth")}</Text>
          <Grid className=' ' templateColumns={{ mdTo2xl: "repeat(2, 1fr)" }} padding={2} gap={2}>
             <FieldGroup
                onchangeValue={null}
@@ -19,7 +21,7 @@ const BirthFields = ({ register, Controller, control, errors }) => {
                name={'birthLocation'}
                type={'text'}
                invalid={false}
-               label="birth location"
+               label="birthLocation"
                placeholder=""
                error={errors.birthLocation}
                preInputText={null}
@@ -29,7 +31,7 @@ const BirthFields = ({ register, Controller, control, errors }) => {
             <DatePickerField
                name={"birthDate"}
                register={register}
-               label="birth date"
+               label="birthDate"
                Controller={Controller}
                control={control}
                error={errors.birthDate}

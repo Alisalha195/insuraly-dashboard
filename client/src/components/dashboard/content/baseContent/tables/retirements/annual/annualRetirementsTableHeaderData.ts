@@ -1,13 +1,13 @@
 
 
 export const AnnualRetirementsTableHeaderData = [
-   "first name",
-   "father name",
-   "last name",
+   "firstName",
+   "fatherName",
+   "lastName",
    "email",
-   "phone Number",
-   "Retirement Type",
-   "Retirement Date",
+   "phoneNumber",
+   "retirementType",
+   "retirementDate",
    // "Retireds Count"
    // "delivered",
    // "claims amount",

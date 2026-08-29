@@ -3,15 +3,17 @@ import { Field, Flex, Input, InputGroup, Text } from '@chakra-ui/react';
 import useThemedColors from '../../../hooks/useThemedColors';
 import { useState } from 'react';
 import { set } from 'react-hook-form';
+import { useTranslation } from 'react-i18next';
 
 const cashFields = ["children share", "wife share", "accumulations", "indemnification", "salary", "initiate salary"];
 const FieldGroup = ({ register, name, type, preInputText, invalid, label, placeholder, error, onchangeValue, ...props}) => {
 
    const { textSecondary, textError, textInput, inputBorder } = useThemedColors();
    ;
+   const {t} = useTranslation();
    return (
       <Field.Root invalid={invalid} >
-         <Field.Label fontSize={{ xssToXs: "14px", xsToXm: "15px", xmToSm: "16px", smToMd: "18px", mdTo3xl: "20px" }} color={textSecondary}>{label}</Field.Label>
+         <Field.Label fontSize={{ xssToXs: "14px", xsToXm: "15px", xmToSm: "16px", smToMd: "18px", mdTo3xl: "20px" }} color={textSecondary}>{t(label)}</Field.Label>
 
          <InputGroup startElement={preInputText ?? preInputText}>
             <Input type={type}
@@ -48,7 +50,7 @@ const FieldGroup = ({ register, name, type, preInputText, invalid, label, placeh
                   ? "8ch" 
                   : (cashFields.includes(label))
                     ? "4ch"
-                    : (label == 'Amount')
+                    : (label == t('Amount'))
                         ? "4ch"
                         : ""
                }

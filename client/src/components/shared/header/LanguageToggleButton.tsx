@@ -38,7 +38,7 @@ const LanguageToggleButton = ({...props}) => {
        <Text
           fontSize={{ xssToXm: "15px", xmToXd : "16px", xdToMd : "18px", md : "19px" }}
        >
-          {i18n.language==='ar' ? "En" : "Ar"}
+          {i18n.language==='ar' ? "En" : "عربي"}
        </Text>
       </Flex>
     </Flex>

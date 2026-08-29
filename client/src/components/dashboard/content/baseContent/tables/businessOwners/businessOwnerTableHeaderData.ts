@@ -1,10 +1,10 @@
 export const businessOwnerTableHeaderData = [
-   "Insurance Number",
+   "insuranceNumber",
    "BOwner_ID" ,
-   "First Name",
-   "Last Name",
-   "National Number",
-   "Email",
+   "firstName",
+   "lastName",
+   "nationalNumber",
+   "email",
    
 
 ];

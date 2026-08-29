@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useTransition } from 'react'
 import { useNavigate, useParams } from 'react-router-dom';
 import { host } from '../../../../constants/connection';
 import { useCustomQuery } from '../../../../hooks/useCustomQuery';
@@ -15,6 +15,7 @@ import AnnualRetirementsTableBody from '../../../../components/dashboard/content
 import { getAnnulaClaimsShapedData, getDataGroupedByMonthes } from '../../../../lib/helpers';
 import { LuSearch } from 'react-icons/lu';
 import DataTableControl from '../../../../components/shared/tables/DataTableControl';
+import { useTranslation } from 'react-i18next';
 
 const AnnualRetirementsPageContent = () => {
    
@@ -26,6 +27,7 @@ const AnnualRetirementsPageContent = () => {
    const params = useParams();
    console.log("params", params);
    
+   const {t} = useTranslation();
    const date = new Date(Date.now());
    
    const { 
@@ -44,7 +46,7 @@ const AnnualRetirementsPageContent = () => {
          return (
             <Box> 
               <PageHeadTitle 
-                 title={<Span fontWeight={500} color={textSecondary}>{`Annual Claims (${params?.year})`} </Span>}
+                 title={<Span fontWeight={500} color={textSecondary}>{`${t("anuualRetirements")} (${params?.year})`} </Span>}
                  backButton={true}
               />
               {/* <VStack> */}
@@ -66,7 +68,7 @@ const AnnualRetirementsPageContent = () => {
                           fontSize={{ xssToXs: "14px", xsToXm: "16px", xmToSm: "18px" }}
                           marginLeft={2}
                        >
-                          new Retirement
+                          {t("newRetirement")}
                           {/* <AiFillPlusCircle /> */}
                        </Text>
                     </Box>

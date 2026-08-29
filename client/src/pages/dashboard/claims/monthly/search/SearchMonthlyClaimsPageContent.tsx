@@ -5,6 +5,7 @@ import BackArrow from "../../../../../components/shared/BackArrow";
 import SearchBox from "../../../../../components/shared/header/SearchBox";
 import MonthlyClaimsSearchActions from "../../../../../components/dashboard/content/baseContent/tables/claims/monthly/MonthlyClaimsSearchActions";
 import { useLocation } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
 const SearchMonthlyClaimsPageContent = () => {
    
@@ -13,6 +14,8 @@ const SearchMonthlyClaimsPageContent = () => {
       const { textPrimary, textSecondary} = useThemedColors();
       const location = useLocation();
       const month = location?.state?.month;
+      
+      const {t} = useTranslation();
       
       useEffect(()=>{
          // setInterval(() => {
@@ -27,7 +30,7 @@ const SearchMonthlyClaimsPageContent = () => {
            
            <VStack >
               <Text color={textSecondary} fontWeight={500}>
-                 Search for Claim
+                 {t("SearchForClaim")}
               </Text>
               <Box width={{xssToXmm:"90%", xmmTo3xl:"60%"}}>
                  <SearchBox 

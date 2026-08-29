@@ -21,7 +21,7 @@ const PageHeadTitle = ({ backButton, title }) => {
             color={textPrimary}
             fontSize={{ xssToXs: '12px', xsToXm: "14px", xmToSm: "24px" }}
             // paddingRight={{ xmToSm: "2rem" }}
-            paddingRight={backButton ? `${backArrowSize?.width }px` : 0 }
+            pe={backButton ? `${backArrowSize?.width }px` : 0 }
 
             fontWeight={{ xssToSm: 500 }}
             

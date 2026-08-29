@@ -8,10 +8,13 @@ import useThemedColors from '../../../../hooks/useThemedColors';
 import { useEffect } from "react";
 
 import { AiOutlineHome } from "react-icons/ai";
+import { useTranslation } from "react-i18next";
+import { capitalize } from "../../../../lib/capitalize";
 
 const SidebarList = ({collabsed=false}) => {
    const navigate = useNavigate();
    const { btnSecondary, textPrimary, borderSecondary,brand } = useThemedColors();
+   const {t} = useTranslation();
 
    return (
       <>
@@ -31,7 +34,7 @@ const SidebarList = ({collabsed=false}) => {
                fontSize={{ xssToXs: "15px", xsToXm: "18px", xmTo3xl: "22px" }}
                
             >
-               { !collabsed ? "Dashboard" : <Span fontSize={"26px"} color={brand}><AiOutlineHome   /></Span> }
+               { !collabsed ? capitalize(t("dashboard")) : <Span fontSize={"26px"} color={brand}><AiOutlineHome   /></Span> }
             </Text>
          </Flex>
          {/* <Box

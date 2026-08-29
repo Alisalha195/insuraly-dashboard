@@ -7,18 +7,21 @@ export const tableMenuData = [
    {
       title : 'edit',
       icon: TiEdit ,
-      clickLink: (params) => `/profile/${params?.personalInfoId}/edit`
+      clickLink: (params) => `/profile/${params?.personalInfoId}/edit`,
+      role : "edit"
    },
    {
-      title : 'new service',
+      title : 'newService',
       icon: SiWikibooks,
-      clickLink: (params) => `/dashboard/businesses/${params?.businessID || 0}/employees/${params?.employeeID}/services/add`
+      clickLink: (params) => `/dashboard/businesses/${params?.businessID || 0}/employees/${params?.employeeID}/services/add`,
+      role : "new_service"
       
    },
    {
       title : 'delete',
       icon: RiDeleteBin2Line,
-      clickLink: 'delete'
+      clickLink: 'delete',
+      role : "delete"
 
    },
 ]

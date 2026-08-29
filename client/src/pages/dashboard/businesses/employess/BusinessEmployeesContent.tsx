@@ -16,6 +16,7 @@ import { getEmployeesCountInBusiness } from '../../../../api/getTableRowsCount';
 import EmployeeTableBody from '../../../../components/dashboard/content/baseContent/tables/employees/EmployeeTableBody';
 import { capitalize } from '../../../../lib/capitalize';
 import { useCustomQuery } from '../../../../hooks/useCustomQuery';
+import { useTranslation } from 'react-i18next';
 
 const BusinessEmployeesContent = () => {
    
@@ -29,6 +30,8 @@ const BusinessEmployeesContent = () => {
    const pageSize = 5;
    // const [employeesCount, setEmployeesCount] = useState(0);
    const businessEmployeesCount = getEmployeesCountInBusiness(params?.id);
+   
+   const {t} = useTranslation();
    
    // const {
    //       data: employeesData,
@@ -60,11 +63,11 @@ const BusinessEmployeesContent = () => {
       <Box>
          {/* header line */} 
          <PageHeadTitle 
-            title={<><Span fontWeight={700} color={textSecondary}>
+            title={<Box dir='ltr'><Span fontWeight={700} color={textSecondary}>
                { capitalize(location?.state?.businessName)  || "Business"}
                </Span>
-               <Span fontWeight={500} color={textSecondary}> Employees</Span>
-               </>
+               <Span fontWeight={500} color={textSecondary}> {t("employeesOf")}</Span>
+               </Box>
                }
             backButton={true}
          />
@@ -87,7 +90,7 @@ const BusinessEmployeesContent = () => {
                      fontSize={{ xssToXs: "14px", xsToXm: "16px", xmToSm: "18px" }}
                      marginLeft={2}
                   >
-                     new employee
+                     {t("newEmployee")}
                      {/* <AiFillPlusCircle /> */}
                   </Text>
                </Box>

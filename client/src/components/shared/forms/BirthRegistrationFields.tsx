@@ -3,13 +3,15 @@ import React from 'react'
 import FieldGroup from './FieldGroup'
 import useThemedColors from '../../../hooks/useThemedColors';
 import useBusinessOwnerStore from '../../../store/useAddBusinessOwnerStore';
+import { useTranslation } from 'react-i18next';
 //birth_registration_place
 const BirthRegistrationFields = ({ register, errors }) => {
    const { textPrimary, textSecondary, titleTextSecondary, borderSecondary, inputContainerBg } = useThemedColors();
+   const {t} = useTranslation();
    // const { dataObject, setRegistrationPlace, setRegistrationDigit} = data;
    return (
       <Box padding={1} marginY={2} borderWidth={1} borderColor={borderSecondary} backgroundColor={inputContainerBg}>
-         <Text fontSize={{ xssToXs: "16px", xsToXm: "17px", xmToSm: "18px", smToMd: "20px", mdTo3xl: "22px" }} marginBottom={1} color={titleTextSecondary}>Birth Registration</Text>
+         <Text fontSize={{ xssToXs: "16px", xsToXm: "17px", xmToSm: "18px", smToMd: "20px", mdTo3xl: "22px" }} marginBottom={1} color={titleTextSecondary}>{t("BirthRegistration")}</Text>
          <Grid className=' ' templateColumns={{ mdTo2xl: "repeat(2, 1fr)" }} padding={2} gap={2}>
             <FieldGroup
                onchangeValue={null}

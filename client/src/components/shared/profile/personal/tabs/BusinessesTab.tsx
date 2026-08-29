@@ -10,6 +10,7 @@ import BusinessTableBody from '../../../../dashboard/content/baseContent/tables/
 import useThemedColors from '../../../../../hooks/useThemedColors';
 import SkeletonLoader from '../../../Skeleton';
 import TableHeader from '../../../tables/TableHeader';
+import { useTranslation } from 'react-i18next';
 // import DataTableControl from '../../tables/DataTableControl';
 // import DataTable from '../../tables/DataTable';
 // import SearchBoxDialog from '../../../dashboard/content/sidebar/SearchBoxDialog';
@@ -26,7 +27,7 @@ const BusinessesTab = ({ businessOwnerId }) => {
 
    const navigate = useNavigate();
    const { textPrimary, textSecondary, btnSecondary } = useThemedColors();
-
+   const {t} = useTranslation();
    
    const { data: businessesData, 
       error : businessDataError, 
@@ -59,7 +60,7 @@ const BusinessesTab = ({ businessOwnerId }) => {
                      marginBottom={1}
                   >
                      {/* <AiFillPlusCircle /> */}
-                     new business
+                     {t("newBusiness")}
                   </Text>
                </Box>
             </HStack>

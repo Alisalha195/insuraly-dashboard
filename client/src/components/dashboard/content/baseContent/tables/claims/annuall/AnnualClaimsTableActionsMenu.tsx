@@ -8,6 +8,7 @@ import useThemedColors from "../../../../../../../hooks/useThemedColors.ts";
 import DeleteDialog from "../../DeleteDialog.tsx";
 import { host } from "../../../../../../../constants/connection.ts";
 import { annualClaimsTableMenuData } from "./annualClaimsTableMenuData.ts";
+import { useTranslation } from "react-i18next";
 
 
 const AnnualClaimsTableActionsMenu = ({ itemId, itemData }) => {
@@ -15,7 +16,8 @@ const AnnualClaimsTableActionsMenu = ({ itemId, itemData }) => {
    const [waiting, setWaiting] = useState(false)
    const navigate = useNavigate();
    const { hovering } = useThemedColors();
-
+   const {t} = useTranslation();
+   
    const deleteClaim = useMutation({
       mutationFn: (itemId) => fetch(`${host}/claims/delete`, { method: 'DELETE', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ claimID: itemId }) }).then(res => res.json()),
 
@@ -31,18 +33,17 @@ const AnnualClaimsTableActionsMenu = ({ itemId, itemData }) => {
    }
    
    return (
-      <Popover.Root >
-         <Popover.Trigger asChild>
+      <Menu.Root >
+         <Menu.Trigger asChild>
             <CiMenuKebab className="btn" />
-         </Popover.Trigger>
+         </Menu.Trigger>
          <Portal>
-            <Popover.Positioner >
-               <Popover.Content >
-                  <Popover.Body>
+            <Menu.Positioner >
+               <Menu.Content >
                   {
                      
                      annualClaimsTableMenuData.map((item, index) => (
-                        item.title == 'delete'
+                        item.role == 'delete'
                            ?
                            <DeleteDialog
                               key={index}
@@ -69,16 +70,15 @@ const AnnualClaimsTableActionsMenu = ({ itemId, itemData }) => {
                            >
                               <HStack  >
                                  <item.icon />
-                                 <Text>{item.title}</Text>
+                                 <Text>{t(item.title)}</Text>
                               </HStack>
                            </Box>
                      ))
                   }
-                  </Popover.Body>
-               </Popover.Content>
-            </Popover.Positioner>
+               </Menu.Content>
+            </Menu.Positioner>
          </Portal>
-      </Popover.Root>
+      </Menu.Root>
    )
 }
 

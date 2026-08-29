@@ -8,16 +8,18 @@ import useBusinessOwnerStore from '../../../store/useAddBusinessOwnerStore';
 import { useForm } from 'react-hook-form';
 import LimitedFieldGroup from './LimitedFieldGroup';
 import { nationalNumberLimit } from '../../../constants/forms';
+import { useTranslation } from 'react-i18next';
 
 const BasicFieldsSection = ({ register, Controller, control, errors }) => {
    const { textPrimary, textSecondary, titleTextSecondary, borderSecondary, inputContainerBg } = useThemedColors();
-
+   const {t} = useTranslation();
+   
    return (
       <Box padding={1} marginY={2} borderWidth={1} borderColor={borderSecondary} backgroundColor={inputContainerBg}>
          <Text marginBottom={1} color={titleTextSecondary} 
             fontSize={{ xssToXs: "16px", xsToXm: "17px", xmToSm: "18px", smToMd: "20px", mdTo3xl: "22px" }}
          >
-            Full Name
+            {t("FullName")}
          </Text>
          <Grid className=' ' templateColumns={{ mdTo3xl: "repeat(2, 1fr)" }} padding={2} gap={2}>
             <FieldGroup
@@ -26,7 +28,7 @@ const BasicFieldsSection = ({ register, Controller, control, errors }) => {
                name={'firstName'}
                type={'text'}
                invalid={false}
-               label="first name"
+               label="firstName"
                placeholder=""
                error={errors.firstName}
                preInputText={null}
@@ -37,7 +39,7 @@ const BasicFieldsSection = ({ register, Controller, control, errors }) => {
                name={'lastName'}
                type={'text'}
                invalid={false}
-               label="last name"
+               label="lastName"
                placeholder=""
                error={errors.lastName}
                preInputText={null}
@@ -48,7 +50,7 @@ const BasicFieldsSection = ({ register, Controller, control, errors }) => {
                name={'fatherName'}
                type={'text'}
                invalid={false}
-               label="father"
+               label="fatherName"
                placeholder=""
                error={errors.fatherName}
                preInputText={null}
@@ -59,7 +61,7 @@ const BasicFieldsSection = ({ register, Controller, control, errors }) => {
                name={'motherName'}
                type={'text'}
                invalid={false}
-               label="mother"
+               label="motherName"
                placeholder=""
                error={errors.motherName}
                preInputText={null}
@@ -71,7 +73,7 @@ const BasicFieldsSection = ({ register, Controller, control, errors }) => {
                name={'nationalNumber'}
                type={'number'}
                invalid={false}
-               label="national number"
+               label="nationalNumber"
                placeholder=""
                error={errors.nationalNumber}
                preInputText={null}

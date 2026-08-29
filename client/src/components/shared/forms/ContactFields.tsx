@@ -5,15 +5,17 @@ import useThemedColors from '../../../hooks/useThemedColors';
 import DatePickerField from './DatePickerField';
 import PhoneNumberField from './PhoneNumberField';
 import EmailField from './EmailField';
+import { useTranslation } from 'react-i18next';
 
 const ContactFields = ({ register, errors, Controller, control }) => {
 
    // const {dataObject, setPhoneNumber, setEmail} = data
    const { textPrimary, textSecondary, titleTextSecondary, borderSecondary, inputContainerBg } = useThemedColors();
+   const {t} = useTranslation();
 
    return (
       <Box padding={1} marginY={2} borderWidth={1} borderColor={borderSecondary} backgroundColor={inputContainerBg}>
-         <Text fontSize={{ xssToXs: "16px", xsToXm: "17px", xmToSm: "18px", smToMd: "20px", mdTo3xl: "22px" }} marginBottom={1} color={titleTextSecondary}>Contact</Text>
+         <Text fontSize={{ xssToXs: "16px", xsToXm: "17px", xmToSm: "18px", smToMd: "20px", mdTo3xl: "22px" }} marginBottom={1} color={titleTextSecondary}>{t("Contact")}</Text>
          <Grid className=' ' templateColumns={{ mdTo2xl: "repeat(2, 1fr)" }} padding={2} gap={2}>
             <PhoneNumberField
                error={errors.phoneNumber}

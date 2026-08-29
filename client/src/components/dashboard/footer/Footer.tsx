@@ -2,6 +2,8 @@ import { Box, Flex, Span } from "@chakra-ui/react";
 import { getScrollBarWidth } from "../../../lib/helpers";
 import { useEffect, useState } from "react";
 import useThemedColors from "../../../hooks/useThemedColors";
+import { useTranslation } from "react-i18next";
+import useLangDir from "../../../hooks/useLangDir";
 
 const Footer = ({ref,containerRef, collabsed}) => {
    
@@ -11,6 +13,9 @@ const Footer = ({ref,containerRef, collabsed}) => {
       xmToMd : (0.3 * window.innerWidth) - (getScrollBarWidth(containerRef) + getScrollBarWidth(containerRef) / 4 ),
       mdTo3xl : (0.2 * window.innerWidth) - (getScrollBarWidth(containerRef) + getScrollBarWidth(containerRef) / 4 )
    });
+   
+   const {t} = useTranslation();
+   const {dir} = useLangDir();
    
    useEffect(()=>{
       setFooterWidth({
@@ -29,13 +34,14 @@ const Footer = ({ref,containerRef, collabsed}) => {
          bottom={0}
          backgroundColor={"#f00"}
          width={{xmToMd: `${footerWidth?.xmToMd}px` , mdTo3xl:`${footerWidth?.mdTo3xl}px`}}
+         dir={dir}
       >
         <Flex
            backgroundColor={footerBg}
            justifyContent={"space-around"}
         >
          <Span>
-            all rights reserved @2025
+           {`${t('all')} ${t("rights")} ${t("reserved")}`} @2025
          </Span>
         </Flex>
       </Box>

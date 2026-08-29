@@ -18,28 +18,28 @@ const useInfoCardDataList = () => {
 
    const infoCardDataList = [
       {
-         title: "Businesses",
+         title: "businesses",
          amount: businessCount,
          basicColor: 'blue',
          page: 'businesses',
          icon: MdOutlineBusinessCenter
       },
       {
-         title: "Owners",
+         title: "owners",
          amount: businessOwnerCount,
          basicColor: 'yellow',
          page: 'business-owners',
          icon: FaChalkboardTeacher
       },
       {
-         title: "Retirements",
+         title: "retirements",
          amount: retirementCount,
          basicColor: 'purple',
          page: 'retirements',
          icon: MdOutlineElderly
       },
       {
-         title: "Claims",
+         title: "claims",
          amount: claimsCount,
          basicColor: 'orange',
          page: 'claims',

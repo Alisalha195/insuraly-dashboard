@@ -44,7 +44,7 @@ const ProfileHeadInfo = ({ data }) => {
                   <MdOutlineEmail />
                </Text>
             </Flex>
-            <Text marginLeft={1} lineHeight={"normal"} fontSize={{ xssToXm: "14px", xmToSm:"16px" }} color={textEmail} lineBreak={'anywhere'} overflow={'hidden'}>
+            <Text ms={1} lineHeight={"normal"} fontSize={{ xssToXm: "14px", xmToSm:"16px" }} color={textEmail} lineBreak={'anywhere'} overflow={'hidden'}>
                {data?.email 
                   ? emailFormat(data?.email, 20)
                   : "unavailable"
@@ -63,7 +63,7 @@ const ProfileHeadInfo = ({ data }) => {
                   <BsTelephone />
                </Text>
             </HStack>
-            <Text marginLeft={1} lineHeight={"normal"} fontSize={{ xssToXm: "14px",  xmToSm:"16px" }} color={textEmail} lineBreak={'anywhere'}>
+            <Text ms={1} lineHeight={"normal"} fontSize={{ xssToXm: "14px",  xmToSm:"16px" }} color={textEmail} lineBreak={'anywhere'}>
                {
                   data?.phone_number 
                   ? data?.phone_number

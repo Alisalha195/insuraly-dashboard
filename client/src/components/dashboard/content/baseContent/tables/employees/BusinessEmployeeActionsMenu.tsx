@@ -9,12 +9,15 @@ import { useState } from "react";
 import { useMutation } from "@tanstack/react-query";
 import toast from "react-hot-toast";
 import { host } from "../../../../../../constants/connection";
+import { useTranslation } from "react-i18next";
 
 const BusinessEmployeeActionsMenu = ({personalInfoId ,employeeId, itemData , businessID}:{personalInfoId:number, employeeId:number, itemData:any , businessID:number}) => {
    
    const [waiting , setWaiting] = useState(false)
    const navigate = useNavigate();
    const {hovering} = useThemedColors();
+   
+   const {t} = useTranslation();
    
    const deleteEmployee = useMutation({
       mutationFn : (dataToMutate) => fetch(`${host}/business/remove-employee-from-business`,{method:'DELETE', headers: {'Content-Type' : 'application/json'}, body : JSON.stringify(dataToMutate)}).then(res => res.json()) ,
@@ -70,7 +73,7 @@ const BusinessEmployeeActionsMenu = ({personalInfoId ,employeeId, itemData , bus
                   >
                     <HStack  >
                        <item.icon />
-                       <Text>{item.title}</Text>
+                       <Text>{t(item.title)}</Text>
                     </HStack>
                   </Menu.Item>
                ))

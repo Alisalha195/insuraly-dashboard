@@ -14,12 +14,15 @@ import { annualClaimsTableHeaderData } from '../../../../components/dashboard/co
 import { useParams } from 'react-router-dom';
 import BackArrow from '../../../../components/shared/BackArrow';
 import Error from '../../../../components/shared/Error';
+import { useTranslation } from 'react-i18next';
 
 const AnuualClaimsPageContent = () => {
    
    const {textSecondary} = useThemedColors();
    const params = useParams();
    const date = new Date(Date.now());
+   
+   const {t} = useTranslation();
    
    const { 
       data:annualClaimsData, 
@@ -35,7 +38,7 @@ const AnuualClaimsPageContent = () => {
       return (
          <Box> 
            <PageHeadTitle 
-              title={<Span fontWeight={500} color={textSecondary}>{`Annual Claims (${params?.year})`} </Span>}
+              title={<Span fontWeight={500} color={textSecondary}>{`${t("annualClaims")} (${params?.year})`} </Span>}
               backButton={true}
            />
            <VStack>

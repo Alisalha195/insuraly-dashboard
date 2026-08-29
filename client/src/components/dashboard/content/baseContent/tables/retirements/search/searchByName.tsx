@@ -14,6 +14,7 @@ import TableHeader from "../../../../../../shared/tables/TableHeader.tsx";
 import DataTable from "../../../../../../shared/tables/DataTable.tsx";
 import { AnnualRetirementsTableHeaderData } from "../annual/AnnualRetirementsTableHeaderData.ts";
 import AnnualRetirementsTableBody from "../annual/AnnualRetirementsTableBody.tsx";
+import { useTranslation } from "react-i18next";
 
 const SearchByName = ({ searchValue }) => {
    // console.log("searchValue in SearchByName :", searchValue)
@@ -25,7 +26,8 @@ const SearchByName = ({ searchValue }) => {
       lastName: ""
    }
    const { btnGreen, textPrimary } = useThemedColors();
-
+   const {t} = useTranslation();
+   
    if (searchValue) {
       const searchList = searchValue.split(" ");
 
@@ -95,7 +97,7 @@ const SearchByName = ({ searchValue }) => {
                />
             </SearchResults>
             
-            : <Text>No Results Found!</Text>
+            : <Text>{t("NoResultsFound")}</Text>
          }
       </Flex>
    )

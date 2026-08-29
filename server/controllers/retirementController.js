@@ -590,7 +590,7 @@ export const getRetirementsByName = async (req, res, next) => {
        
     if(data?.length < 1 || error) {
        res.status(404).json({msg:"something went wrong !"});
-    } else {
+    } else if(firstName || fatherName || motherName || lastName) {
        res.status(200).json(data);
     }
        
