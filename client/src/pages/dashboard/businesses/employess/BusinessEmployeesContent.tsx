@@ -17,13 +17,15 @@ import EmployeeTableBody from '../../../../components/dashboard/content/baseCont
 import { capitalize } from '../../../../lib/capitalize';
 import { useCustomQuery } from '../../../../hooks/useCustomQuery';
 import { useTranslation } from 'react-i18next';
+import { getBusinessByBusinessID } from '../../../../api/business/getBusinessRelatedData';
+import useLangDir from '../../../../hooks/useLangDir';
 
 const BusinessEmployeesContent = () => {
    
    const params = useParams();
    
    const navigate = useNavigate();
-   const location =  useLocation();
+   // const location =  useLocation();
    
    const { btnSecondary, textPrimary, bgSecondary, textSecondary } = useThemedColors();
    const [currentpage, setCurrentPage] = useState(1);
@@ -32,7 +34,10 @@ const BusinessEmployeesContent = () => {
    const businessEmployeesCount = getEmployeesCountInBusiness(params?.id);
    
    const {t} = useTranslation();
+   const {dir} = useLangDir();
    
+   const { businessData, businessDataSuccess } = getBusinessByBusinessID(params?.id);
+   // console.log(" businessData :::::: ",businessData)
    // const {
    //       data: employeesData,
    //       error: employeesDataError,
@@ -58,15 +63,29 @@ const BusinessEmployeesContent = () => {
          ["employees-in-business", currentpage ,params?.id] ,
          `${host}/business/get-employees?page=${currentpage}&pageSize=${pageSize}&businessId=${params?.id}`
       )
+      
    
   return (
       <Box>
          {/* header line */} 
          <PageHeadTitle 
-            title={<Box dir='ltr'><Span fontWeight={700} color={textSecondary}>
-               { capitalize(location?.state?.businessName)  || "Business"}
-               </Span>
-               <Span fontWeight={500} color={textSecondary}> {t("employeesOf")}</Span>
+            title={
+               <Box dir='rtl'>
+                  <Span fontWeight={500} color={textSecondary}> {t("employeesOf")} </Span>
+                  {businessDataSuccess
+                  ?  <Span fontWeight={700} color={textSecondary}>
+                     { capitalize(businessData?.business_name
+)}
+                     </Span>
+                  
+                  :  <Span fontWeight={700} color={textSecondary}>
+                     { t("aBusiness")}
+                     </Span>  
+                  
+                  
+                  }
+                  
+                  
                </Box>
                }
             backButton={true}

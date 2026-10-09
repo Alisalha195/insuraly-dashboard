@@ -38,8 +38,8 @@ const BusinessesPageContent = () => {
    
    const { 
       data:businessesData, 
-      error:businessOwnerDataError, 
-      isSuccess : businessOwnerDataSuccess ,
+      error:businessesDataError, 
+      isSuccess : businessesDataSuccess ,
       isLoading :businessesDataIsLoading
    } = useCustomQuery(
       ["businesses", currentpage] ,
@@ -106,7 +106,7 @@ const BusinessesPageContent = () => {
                      <BusinessTableBody data={businessesData} search={false} />
                   }
                   maxHeight={"560px"}
-                  successful={!!businessOwnerDataSuccess}
+                  successful={!!businessesDataSuccess}
                />
                <DataTableControl
                   currentpage={currentpage}

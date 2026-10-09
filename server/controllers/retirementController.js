@@ -56,7 +56,7 @@ export const getRetirementsByEmployeeID = async(req, res, next) => {
     )
    .eq('Retirement.employee_id',Number(employeeID));
    
-   console.log("dataaaa :",data);
+   // console.log("dataaaa :",data);
    
    if(data?.length < 1 || error) {
       res.status(404).json({msg:"something went wrong !"});
@@ -76,7 +76,7 @@ export const createRetirement = async (req, res , next) => {
    const { employeeID, reason} = req.body;
    // console.log("employeeID :", employeeID);
    // console.log("reason :", reason);
-   console.log("req.body :", req.body);
+   // console.log("req.body :", req.body);
    
     const { data, error } = await supabase
        .from(retirementTable)
@@ -86,7 +86,7 @@ export const createRetirement = async (req, res , next) => {
        })
        .select();
        
-     console.log("data :", data[0]);
+   //   console.log("data :", data[0]);
      if (error || data?.length < 1)
        res.status(400).json({ msg: "error occured", status: 400 });
      else res.status(200).json({ ...data[0], status: 200 });

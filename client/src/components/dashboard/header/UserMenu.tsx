@@ -44,7 +44,7 @@ const UserMenu = () => {
    }
    
    const gotoProfile = () => {
-      navigate("/profile/34");
+      navigate("/admin/4");
    }
    
    if(authState.loading) return (<h1>Loading...</h1>)

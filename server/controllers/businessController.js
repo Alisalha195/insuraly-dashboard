@@ -44,30 +44,41 @@ export const createBusiness = async (req, res, next) => {
 
 export const editBusiness = async (req, res, next) => {
   const {
-    business_id,
-    business_owner_id,
-    business_name,
-    registration_date,
-    registration_number,
-    financial_balance,
-    is_self_insurance,
+    businesslId,
+    businessName,
+    commercialType,
+    stage,
+    status,
+    lawInitiativeDate,
+    country,
+    city,
+    businessOwnerId,
+
   } = req.body;
 
+//   console.log("req.body : ",req.body);
+  
   const { data, error } = await supabase
     .from(businessTable)
     .update({
-      business_owner_id,
-      business_name,
-      registration_date,
-      registration_number,
-      financial_balance,
-      is_self_insurance,
+      business_owner_id: Number(businessOwnerId),
+      business_name : businessName,
+      commercial_type : commercialType,
+      country : country ,
+      state : city,
+      stage : stage,
+      law_initiative_date : new Date(lawInitiativeDate),
+      status : status,
     })
-    .eq("business_id", business_id)
+    .eq("business_id", Number(businesslId))
     .select();
 
-  if (error) res.status(400).send("error occured");
-  else res.status(200).json(data);
+    if(error) {
+      res.status(404).json({msg:"something went wrong" ,  status : 404});
+     } else {
+        res.status(200).json({msg:"updated successfuly" , status : 200});
+     }
+  
 };
 
 export const getBusinessById = async (req, res, next) => {
@@ -89,9 +100,9 @@ export const getBusinessById = async (req, res, next) => {
       // console.log("business by id data :",data[0]?.Business_owners?.personal_informations);
       
       if(data.length < 1 || error) {
-        res.status(404).json({msg:"not found", status:404});
+        res.status(404).json({msg:"not found", Status:404});
       } else {
-        res.status(200).json({...data[0] , status:200});
+        res.status(200).json({...data[0] , Status:200});
         next()
       }
         

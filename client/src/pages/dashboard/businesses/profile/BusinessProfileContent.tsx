@@ -5,7 +5,7 @@ import Count from "../../../../components/shared/Count";
 import { MdPeopleAlt } from "react-icons/md";
 import useThemedColors from "../../../../hooks/useThemedColors";
 
-import { useLocation, useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import BackArrow from "../../../../components/shared/BackArrow";
 import PageHeadTitle from "../../../../components/shared/PageHeadTitle";
 import { useQuery } from "@tanstack/react-query";

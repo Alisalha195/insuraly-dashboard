@@ -22,7 +22,7 @@ const BusinessTableBody = ({data, search = false, }) => {
                
                <Table.Cell fontSize={"20px"} textWrap={"nowrap"}>
                   <span
-                     onClick={() => navigate(`/dashboard/businesses/${item.business_id}`, { state: item })}
+                     onClick={() => navigate(`/dashboard/businesses/${item.business_id}`)}
                      
                      fontSize={{ xssToXs: "12px", xsToXm: "14px", xmToSm: "16px" }}
                   >

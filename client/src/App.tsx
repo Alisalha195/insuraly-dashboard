@@ -50,6 +50,7 @@ import AddRetirementsExtending from './pages/dashboard/retirements/add/extends';
 import EditRetirement from './pages/dashboard/retirements/edit';
 import SearchRetirement from './pages/dashboard/retirements/search';
 import RetirementProfile from './pages/dashboard/retirements/profile';
+import AdminProfile from './pages/dashboard/admin/profile';
 
 
 
@@ -71,7 +72,7 @@ function App() {
                      <Route path='/dashboard/businesses' element={<ProtectedRoute><Businesses /></ProtectedRoute>} />
                      <Route path='/dashboard/businesses/search' element={<ProtectedRoute><SearchBusiness /></ProtectedRoute>} />
                      <Route path='/dashboard/businesses/add' element={<ProtectedRoute><AddBusiness /></ProtectedRoute>} />
-                     <Route path='/dashboard/businesses/edit' element={<ProtectedRoute><EditBusiness /></ProtectedRoute>} />
+                     <Route path='/dashboard/businesses/:id/edit' element={<ProtectedRoute><EditBusiness /></ProtectedRoute>} />
                      <Route path='/dashboard/businesses/:id' element={<ProtectedRoute><BusinessProfile /></ProtectedRoute>} />
                      <Route path='/dashboard/businesses/:id/budget' element={<ProtectedRoute><BusinessBudget /></ProtectedRoute>} />  
                      
@@ -118,6 +119,11 @@ function App() {
                      <Route path='/profile/:personId' element={<ProtectedRoute><Profile /></ProtectedRoute>} />
                      
                      <Route path='/profile/:personId/edit' element={<ProtectedRoute><EditProfile /></ProtectedRoute>} />
+                     
+                     
+                     {/* Admin profile */}
+                     <Route path='/admin/:adminId' element={<ProtectedRoute><AdminProfile /></ProtectedRoute>} />
+                     
                   </Route>
                   
                   {/* Auth Routes */}

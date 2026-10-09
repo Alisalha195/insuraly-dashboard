@@ -46,7 +46,7 @@ export const login = async (req , res , next) => {
    // console.log("password:",password);
    
       const {data: {session}} = await supabase.auth.getSession()
-      if(session) await supabase.auth.signOut()
+      // if(session) await supabase.auth.signOut()
       if(!session) {
          const { data: {user} } = await supabase.auth.signInWithPassword({
             email: email,
@@ -59,7 +59,7 @@ export const login = async (req , res , next) => {
             // next();
             return
          } else {
-            res.status(400).json({msg:"user did not login  !" , status:400});
+            res.status(400).json({msg:"wrong password or email  !" , status:400});
             return
          }
       } else {
