@@ -21,7 +21,7 @@ const StatusSelectBox = ({label ,Controller,control ,data, error,defaultValue,di
          Controller={Controller}
          control={control}
          error={error}
-         defaultValue={defaultValue}
+         defaultValue={defaultValue || statusData[0].value}
          disabled={disabled}
       />
     </Flex>

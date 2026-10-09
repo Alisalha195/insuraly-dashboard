@@ -16,6 +16,7 @@ import servicesWagesRoutes from "./servicesWagesRoutes.js"
 import unpaidVacationsRoutes from "./unpaidVacationsRoutes.js"
 import personalInformationsRoutes from "./personalInformationsRoutes.js"
 import retirementSalaryAuthorizedAcquireRoutes from "./retirementSalaryAuthorizedAcquireRoutes.js"
+import adminRoutes from "./adminRoutes.js"
 
 router.use("/auth", authRoutes)
 router.use("/user", userRoutes)
@@ -32,5 +33,7 @@ router.use("/unpaidVacations", unpaidVacationsRoutes)
 router.use("/personalInformations", personalInformationsRoutes)
 router.use("/retirementSalarySuccessor", retirementSalarySuccessorRoutes)
 router.use("/retirementSalaryAuthorizedAcquire", retirementSalaryAuthorizedAcquireRoutes)
+router.use("/admin", adminRoutes)
+
 
 export default router;

@@ -6,11 +6,11 @@ import { host } from '../../constants/connection';
 import BackArrow from '../../components/shared/BackArrow';
 import ProfileUpperSection from '../../components/shared/profile/personal/ProfileUpperSection';
 import ProfileTabs from '../../components/shared/profile/personal/ProfileTabs';
-import { useCustomQuery } from '../../hooks/useCustomQuery';
+import { useAuthCustomQuery, useCustomQuery } from '../../hooks/useCustomQuery';
 
 const ProfileContent = ({personId}) => {
    
-      
+   
       // const {
       //    data: personRules,
       //    error: personRulesError,
@@ -47,9 +47,10 @@ const ProfileContent = ({personId}) => {
       //       ).then((res) => res.json()),
       //    refetchInterval: 5000,
       //    keepPreviousData: true,
-      //    staleTime: 30000,
+      //    staleTime: 30000, 
       // });
       
+      /*//!======the original===========
       const { 
          data:personData, 
          error:personDataError, 
@@ -58,6 +59,18 @@ const ProfileContent = ({personId}) => {
          ["person-about-data", personId] ,
          `${host}/personalInformations/get/id?id=${personId}`
       );
+      *///!=============================
+      const { 
+         data:personData, 
+         error:personDataError, 
+         isLoading :personDataIsLoading
+      } =  useAuthCustomQuery(
+         ["person-about-data", personId] ,
+         `${host}/personalInformations/get/id?id=${personId}`,
+         
+      );
+      
+      console.log("personData : ",personData);
    
   if(personRulesIsLoading) {
    return (

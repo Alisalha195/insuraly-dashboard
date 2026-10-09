@@ -41,9 +41,9 @@ app.use("/auth"  ,authRoutes);
 // app.use("/" ,authenticated ,serverRoutes);
 app.use("/"  ,serverRoutes);
 
-const port = process.env.PORT || 5000;
+const port = process.env.PORT || 3000;
 try {
-   app.listen(port , () => {console.log(`Server is running on port ${port}`)})
+   app.listen(port ,'0.0.0.0' , () => {console.log(`Server is running on port ${port}`)})
  } catch(error) {
    console.log(error)
  }
