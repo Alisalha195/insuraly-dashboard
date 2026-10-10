@@ -51,6 +51,7 @@ import EditRetirement from './pages/dashboard/retirements/edit';
 import SearchRetirement from './pages/dashboard/retirements/search';
 import RetirementProfile from './pages/dashboard/retirements/profile';
 import AdminProfile from './pages/dashboard/admin/profile';
+import SearchUserLogs from './pages/dashboard/admin/profile/logs/search';
 
 
 
@@ -123,6 +124,7 @@ function App() {
                      
                      {/* Admin profile */}
                      <Route path='/admin/:adminId' element={<ProtectedRoute><AdminProfile /></ProtectedRoute>} />
+                     <Route path='/admin/logs/search' element={<ProtectedRoute><SearchUserLogs /></ProtectedRoute>} />
                      
                   </Route>
                   

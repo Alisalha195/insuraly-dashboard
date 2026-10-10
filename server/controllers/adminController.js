@@ -48,3 +48,37 @@ export const getPaginatedAuditLogs = async (req, res) => {
      else if (count < 1) res.status(200).json({ count: 0 });
      else res.status(404).json({ msg: "something went wrong !" });
  }
+ 
+ export const getUserLogsByEmail = async (req, res) => {
+   
+   const {searchValue} = req.body;
+   
+   console.log("search Value :: ",searchValue);
+   
+   const { data, error } = await supabase
+   .from(auditLogsTable)
+   .select(`
+      *,
+       user_id:profiles!inner (
+         email
+       )
+    `
+   , { count: 'exact' }) 
+   .eq('profiles.email', searchValue);
+   
+   
+   console.log("data for getUserLogsByEmail :: ",data);
+   
+   
+   if(error) {
+      res.status(404).json({msg:"user has no logs !", status:404 });
+   } else {
+      if(data.length < 1) {
+         res.status(400).json({msg:"user has no logs !!", status:400});
+      } else {
+         res.status(200).json({data , status:200});
+         next()
+      }
+   }
+   
+ }

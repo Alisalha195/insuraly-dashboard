@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Box, HStack, Flex, Text, VStack, Icon, Span, } from '@chakra-ui/react';
 import { LuSearch } from 'react-icons/lu';
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from 'react-i18next'; 
 import { logsTableHeaderData } from '../../../../components/dashboard/content/baseContent/tables/admin/logs/logsTableHeaderData.ts';
 import LogsTableBody from '../../../../components/dashboard/content/baseContent/tables/admin/logs/LogsTableBody.tsx';
 import useLangDir from '../../../../hooks/useLangDir.ts';
@@ -49,8 +49,8 @@ const AdminProfilePageContent = () => {
          />
          
          {/* upper control */}
-         {/* <HStack justifyContent={"start"} marginBottom={1}>
-            <Flex flexDirection={'column'} justifyContent={'center'} paddingY={0} paddingX={1} onClick={() => navigate("/dashboard/business-owners/search")}>
+         <HStack justifyContent={"start"} marginBottom={1}>
+            <Flex flexDirection={'column'} justifyContent={'center'} paddingY={0} paddingX={1} onClick={() => navigate("/admin/logs/search")}>
                <Icon
                   fontSize={{ xssToXs: "16px", xsToXm: "18px", xmToSm: "20px" }}
                >
@@ -60,18 +60,7 @@ const AdminProfilePageContent = () => {
                </Icon>
             </Flex>
             
-            <Box className='btn' color={btnSecondary}>
-               <Text
-                  onClick={() => navigate("/dashboard/business-owners/add")}
-                  fontSize={{ xssToXs: "14px", xsToXm: "16px", xmToSm: "18px" }}
-                  marginLeft={2}
-                  dir = {dir}
-               >
-                 {t("newOwner")}
-                  
-               </Text>
-            </Box>
-         </HStack> */}
+         </HStack>
 
          <Flex flexDirection={'column'}
             smToMd={{ maxWidth: '70vw' }}
