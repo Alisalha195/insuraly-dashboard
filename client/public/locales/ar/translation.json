@@ -249,7 +249,11 @@
    "Log in" : "تسجيل دخول",
    "log in" : "تسجيل دخول",
    "do not you have an account? create a new one" : "لا تملك حساب مسبقاً ؟ انشاء حساب جديد",
-   "already have an account?" : "لديك حساب مسبقاً?"
+   "already have an account?" : "لديك حساب مسبقاً?",
+   
+   "SearchForUserLogs" : "البحث عن نشاطات المستخدم",
+   
+   "user email" : "ايميل المستخدم"
    
    
 }

@@ -16,6 +16,23 @@ const fetchWithAuth = async (url: string) => {
          'Authorization': `Bearer ${token}`,
       },
    });
+   
+   return response;
+}
+
+const fetchPosthWithAuth = async (url: string, stringified: object[] | object) => {
+   const { data: { session } } = await supabase.auth.getSession();
+   const token = session?.access_token;
+   // console.log("token in fetchWithAuth : ", token);
+   
+   const response = await fetch(url, {
+      method: 'POST' ,
+      headers: {
+         'Authorization': `Bearer ${token}`,
+         'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(stringified) });
+
    return response;
 }
    
@@ -56,24 +73,32 @@ export const usePostCustomQuery = (queryKey:string|number[], url:string,
       keepPreviousData: false,
       staleTime: 30000,} ,
     
-   ) => {
-      const { data, error, isLoading, isSuccess, refetch } = useQuery({
-         queryKey: queryKey, 
-         queryFn : () => fetch(url, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(stringified) }).then((res) => res.json()),   
-         ...options  
-      });
-      
-      return { data, error, isSuccess ,isLoading, refetch };
-   }
-
-/* 
-export const useCustomQuery = (queryKey:string[], queryFn:() => Promise<any>, options?:any) => {
+) => {
    const { data, error, isLoading, isSuccess, refetch } = useQuery({
       queryKey: queryKey, 
-      queryFn : queryFn,   
-      ...options
+      queryFn : () => fetch(url, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(stringified) }).then((res) => res.json()),   
+      ...options  
    });
    
    return { data, error, isSuccess ,isLoading, refetch };
 }
-*/
+
+
+
+export const useAuthPostCustomQuery = (queryKey:string|number[], url:string,
+   stringified:object[] | object , 
+   options:any={refetchInterval: 5000,
+      keepPreviousData: false,
+      staleTime: 30000,} ,
+    
+) => {
+   const { data, error, isLoading, isSuccess, refetch } = useQuery({
+      queryKey: queryKey, 
+      queryFn : () => fetchPosthWithAuth(url, stringified)
+      .then((res) => res.json()),   
+      ...options  
+   });
+   
+   return { data, error, isSuccess ,isLoading, refetch };
+}
+

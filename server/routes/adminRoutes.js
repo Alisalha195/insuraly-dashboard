@@ -1,7 +1,7 @@
 // routes/admin.js
 import express from 'express';
 import { supabase } from "../db/connection.js";
-import { getPaginatedAuditLogs , getAuditLogsCount} from "../controllers/adminController.js";
+import { getPaginatedAuditLogs , getAuditLogsCount, getUserLogsByEmail} from "../controllers/adminController.js";
 import { isAdmin } from '../middlewares/admin.js';
 
 
@@ -19,6 +19,8 @@ const router = express.Router();
 router.get('/audit-logs',isAdmin ,getPaginatedAuditLogs);
 
 router.get('/audit-logs/get-count', getAuditLogsCount);
+
+router.post('/audit-logs/user-email' , isAdmin , getUserLogsByEmail);
 
 
 export default router;
