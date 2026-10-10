@@ -19,7 +19,7 @@ const CommercialTypeSelectBox = ({label ,Controller,control ,data, error,default
         <SelectBox 
            name={"commercialType"}
            disabled={false}
-           defaultValue={commercialTypesData[0].value}
+           defaultValue={defaultValue || commercialTypesData[0].value}
            data={commercialTypesData}
            Controller={Controller}
            control={control}

@@ -16,13 +16,16 @@ import { useAuthStore } from "../../store/useAuthStore";
 import { useContext } from "react";
 import { authContext } from "../../providers/AuthContextProvider";
 import { signupSchema } from "../../utils/authSchema";
+import LanguageToggleButton from "../../components/shared/header/LanguageToggleButton";
+import { useTranslation } from "react-i18next";
+import { supabase } from "../../lib/supabaseClient";
 
 const Signup = () => {
    
    const {authState, setAuthState} = useContext(authContext);
    const navigate = useNavigate();
    const { textPrimary, textSecondary , btnPrimary} = useThemedColors();
-      
+   const {t} = useTranslation();
 
    type FormValues = z.infer<typeof signupSchema>;
    const {
@@ -44,7 +47,7 @@ const Signup = () => {
       onError: (error) => {
          console.log("error occured ! :", error)
       },
-      onSuccess: (response) => {
+      onSuccess: async (response) => {
          // console.log("signup response :", response);
          if (response.status == 404 || response.status == 400) {
             
@@ -59,13 +62,22 @@ const Signup = () => {
                   isAuthenticated: true,
                   loading: false
                });
-               localStorage.setItem('auth', JSON.stringify({
-                  user: response.session.user,
-                  token: response.session.access_token,
-                  isAuthenticated: true,
-                  loading: false
-               }));
+               // localStorage.setItem('auth', JSON.stringify({
+               //    user: response.session.user,
+               //    token: response.session.access_token,
+               //    isAuthenticated: true,
+               //    loading: false
+               // }));
                
+               const { error } = await supabase.auth.setSession({
+                  access_token: response.session.access_token,
+                  refresh_token: response.session.refresh_token,
+               });
+          
+               if (error) {
+                  toast.error("somethng went wrong")
+                  throw error;
+               }
                navigate("/dashboard")
                setTimeout(() => {
                   toast.success('signed up Successfuly !');
@@ -97,19 +109,23 @@ const Signup = () => {
        paddingTop={2}
        
       >
+         <Text  mt={2} fontSize={"40px"} >
+            INSURALY
+         </Text>
          <HStack>
             <ColorModeToggleButton />
-            {/* <Button>
-               logout
-            </Button> */}
+            <LanguageToggleButton />
          </HStack>
-         <PageHeadTitle 
+         {/* <PageHeadTitle 
             backButton={false}
             title={"Sign up"}
-         />
+         /> */}
+         <Text  mt={2} fontSize={{ xssToXs: '12px', xsToXm: "14px", xmToSm: "24px" }} >
+            {t("Sign up")}
+         </Text>
          <VStack 
             gap={"30px"} 
-            paddingTop={2} 
+            // paddingTop={1} 
             backgroundColor={"transparent"} 
             width={{xssToXs: "96%", xsToXm: "94%", xmToSm: "90%", smToMd: "70%", mdTo3xl: "60%" }}
          >
@@ -150,18 +166,18 @@ const Signup = () => {
                onClick={handleSubmit(handleSignup)}
                // onClick={() => signup.mutate()}
             >
-                  Sign up
+                  {t("Sign up")}
             </Button>
             <Text 
                color={textSecondary} 
                fontSize={{ xssToXs: "11px", xsToXm: "12px", xmToSm: "13px", smToMd: "14px", mdTo3xl: "16px" }}
                fontWeight={"500"}
             >
-               already have an account? 
+               {t("already have an account?")} 
                <Span marginLeft={1} style={{textDecoration: 'underline', cursor: 'pointer'}} color={btnPrimary}
                   onClick={() => navigate('/auth/login')}
                >
-                  log in
+                  {t("log in")}
                </Span>
             </Text>
          </VStack>

@@ -21,7 +21,8 @@ const DataTable = ({ TableHeader, TableBody, ...props }: DataRableType): React.R
 
     return (
          <Box>
-            <Table.ScrollArea borderWidth="1px" maxHeight={props?.maxHeight || "300px"} overflowX={'auto'} >
+            <Table.ScrollArea borderWidth="1px" maxHeight={props?.maxHeight || "300px"} overflowX={'auto'} 
+            {...props} >
                <Table.Root size="sm" stickyHeader interactive showColumnBorder>
                   {TableHeader}
                   {TableBody}

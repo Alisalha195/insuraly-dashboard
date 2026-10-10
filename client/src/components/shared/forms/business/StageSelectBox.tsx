@@ -18,7 +18,7 @@ const StageSelectBox = ({label ,Controller,control ,data, error, defaultValue,di
       <SelectBox 
          name={"stage"}
          disabled={disabled}
-         defaultValue={stagesData[0].value}
+         defaultValue={defaultValue || stagesData[0].value}
          data={stagesData}
          Controller={Controller}
          control={control}

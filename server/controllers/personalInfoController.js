@@ -1,5 +1,6 @@
 import {supabase} from "../db/connection.js";
 import { businessOwnerTable, employeeTable, personalInfoTable, retirementTable } from "../db/tables.js"; 
+import { logSensitiveRead } from "../utils/auditLogger.js";
 
 export const checkIfPersonalInfoRecordExistBeforeCreating =  async(req , res , next) => {
    // console.log("in checkIfPersonalInfoRecordExistBeforeCreating middleware", req.body);
@@ -189,6 +190,10 @@ export const getPersonalInfoById = async(req , res, next) => {
          
       } else if((data?.length > 0) && (!error)) {
          // console.log("datadata::",data)
+         
+         logSensitiveRead(req, 'view_personal_info_record', 'personal_informations', id).catch(console.error);
+         
+         console.log("data[0] in getPersonalInfoById::",data[0])
          res.status(200).json({ status:200, person:data[0]})
       }
 }

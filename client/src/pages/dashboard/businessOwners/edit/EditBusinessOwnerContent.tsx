@@ -23,7 +23,7 @@ import {
  import { checkPersonExist } from '../../../../api/checkPersonExist';
  import { host } from '../../../../constants/connection.ts';
  
- import { useNavigate, useLocation } from 'react-router-dom';
+ import { useNavigate, useLocation, useParams } from 'react-router-dom';
 import useThemedColors from '../../../../hooks/useThemedColors';
 import BirthFields from '../../../../components/shared/forms/BirthFields';
 import FixBottomArea from '../../../../components/shared/FixBottomArea';
@@ -36,14 +36,17 @@ import useBusinessOwnerStore from '../../../../store/useAddBusinessOwnerStore';
 import toast from 'react-hot-toast' ;
 import BackArrow from '../../../../components/shared/BackArrow';
 import { BusinessOwnerSchema, BusinessOwnerSchemaFormData } from '../../../../utils/businessOwnerSchema.ts';
+import { useCustomQuery } from '../../../../hooks/useCustomQuery.ts';
 
 
 const EditBusinessOwnerContent = () => {
    
    const navigate = useNavigate();
+   const params = useParams();
+   console.log("params in edit BOwner :", params);
    const location = useLocation();
    const itemData = location.state;
-   console.log("itemData::", itemData);
+   // console.log("itemData::", itemData);
    const {textPrimary, textSecondary} = useThemedColors();
    
    // const formSchema = z.object({
@@ -101,6 +104,19 @@ const EditBusinessOwnerContent = () => {
    //    }),
 
    // });
+   
+   //todo---------------get BOwner Info-------------------
+   
+      // const { 
+      //    data:businessOwnerData, 
+      //    error:businessOwnerDataError, 
+      //    isSuccess:businessOwnerDataSuccess ,
+      //    isLoading :businessOwnerDataIsLoading
+      // } = useCustomQuery(
+      //    ['business-owner', currentpage] ,
+      //    `${host}/businessOwners/get?page=${currentpage}&pageSize=${pageSize}`
+      // );
+   
    
    const businessOwnerSchema = BusinessOwnerSchema({checkPersonExist});
    

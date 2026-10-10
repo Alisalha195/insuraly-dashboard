@@ -29,4 +29,9 @@ export const businessStatusesTable = process.env.BUSINESS_STATUSES
 export const serviceFinishReasonsTable = process.env.SERVICE_FINISH_REASONS
 export const retirementSalaryReceiptCenter = process.env.RETIREMENT_SALARY_RECEIPT_CENTER
 
+export const auditLogsTable = process.env.AUDIT_LOGS_TABLE
+export const userRolesTable = process.env.USER_ROLES_TABLE
+
+
+
 

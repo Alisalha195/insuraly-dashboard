@@ -55,7 +55,7 @@ const ClaimsPageContent = () => {
                   // backgroundColor={"#478"}
                   paddingRight={"40px"}
                >
-                  <Box
+                  {/* <Box
                      className='btn'
                      backgroundColor={btnGreen}
                      paddingX={2}
@@ -67,7 +67,7 @@ const ClaimsPageContent = () => {
                   >
                      {t('new')}
                      
-                  </Box>
+                  </Box> */}
                </Flex>
                <Flex
                   width={'100%'}

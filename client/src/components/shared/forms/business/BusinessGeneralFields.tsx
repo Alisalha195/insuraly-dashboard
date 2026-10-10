@@ -18,6 +18,8 @@ const BusinessGeneralFields = ({setContentLoaded, register, errors, Controller, 
    // console.log("commercialTypesData",commercialTypesData);
    const {t} = useTranslation();
    
+   console.log("props :",props?.defaultValues);
+   
    useEffect(()=>{
       if(isSuccessStages && isSuccessCommercialTypes && isSuccessStatusesData )
          setContentLoaded((prev) => ({...prev , businessGeneralFields : true}));
@@ -61,7 +63,7 @@ const BusinessGeneralFields = ({setContentLoaded, register, errors, Controller, 
                   Controller={Controller}
                   control={control}
                   error={errors.commercialType}
-                  defaultValue={"public sector institute"}
+                  defaultValue={ props?.defaultValues?.commercialType || "public sector institute"}
                />
                
                <StageSelectBox 
@@ -70,7 +72,7 @@ const BusinessGeneralFields = ({setContentLoaded, register, errors, Controller, 
                   Controller={Controller}
                   control={control}
                   error={errors.stage}
-                  defaultValue={"1"}
+                  defaultValue={  props?.defaultValues?.stage || "1"}
                   disabled={false}
                />
                
@@ -80,7 +82,7 @@ const BusinessGeneralFields = ({setContentLoaded, register, errors, Controller, 
                   Controller={Controller}
                   control={control}
                   error={errors.status}
-                  defaultValue={"active"}
+                  defaultValue={ props?.defaultValues?.status  || "active"}
                   disabled={false}
                />
                

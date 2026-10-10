@@ -85,3 +85,21 @@ export const getCities = (country) => {
 
   return { cities, isSuccessCities };
 };
+
+export const getBusinessByBusinessID = (businessID) => {
+   const {
+     data: businessData,
+     isLoading,
+     isSuccess: businessDataSuccess,
+   } = useQuery({
+     queryKey: ["commercial-types"],
+     queryFn: () =>
+       fetch(`${host}/business/get/id?id=${businessID}`).then((res) => res.json()),
+     refetchInterval: 5000,
+     keepPreviousData: true,
+     staleTime: 30000,
+   });
+   return { businessData, businessDataSuccess };
+ };
+
+

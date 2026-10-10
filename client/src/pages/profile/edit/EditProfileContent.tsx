@@ -2,7 +2,7 @@ import { Flex, Text, VStack } from '@chakra-ui/react';
 import { useMutation } from '@tanstack/react-query';
 import React from 'react'
 import { Controller, useForm } from 'react-hook-form';
-import { useLocation, useNavigate, useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import z from 'zod';
 import BackArrow from '../../../components/shared/BackArrow';
 import useThemedColors from '../../../hooks/useThemedColors';

@@ -124,7 +124,7 @@
    "personName" : "Person Name",
    "businessName" : "Business Name",
    
-   "employeesOf" : "Employees",
+   "employeesOf" : "Employees Of",
    "newEmployee" : "new Employee",
    
    "employeeID" : "Employee ID",
@@ -240,7 +240,21 @@
    "newWage" : "new wage",
    "save" : "save",
    "Date" : "Date",
-   "Amount" : "Amount"
+   "Amount" : "Amount",
+   "aBusiness" : "business",
+   
+   "password" : "password",
+   "confirm password" : "confirm password",
+   "Sign up" : "Sign up",
+   "sign up" : "sign up",
+   "Log in" : "Log in",
+   "log in" : "log in",
+   "do not you have an account? create a new one" : "do not you have an account? create a new one",
+   "already have an account?" : "already have an account?",
+   
+   "SearchForUserLogs" : "Search For User Logs",
+   "user email" : "user email"
+   
 
   
    

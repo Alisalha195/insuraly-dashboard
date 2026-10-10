@@ -239,7 +239,21 @@
    "newWage" : "أجر جديد",
    "save" : "حفظ",
    "Date" : "التاريخ",
-   "Amount" : "القيمة"
+   "Amount" : "القيمة",
+   "aBusiness" : "منشأة",
+   
+   "password" : "كلمة المرور",
+   "confirm password" : "تأكيد كلمة المرور",
+   "Sign up" : "انشاء حساب",
+   "sign up" : "انشاء حساب",
+   "Log in" : "تسجيل دخول",
+   "log in" : "تسجيل دخول",
+   "do not you have an account? create a new one" : "لا تملك حساب مسبقاً ؟ انشاء حساب جديد",
+   "already have an account?" : "لديك حساب مسبقاً?",
+   
+   "SearchForUserLogs" : "البحث عن نشاطات المستخدم",
+   
+   "user email" : "ايميل المستخدم"
    
    
 }

@@ -138,7 +138,7 @@ export const getEmployeeServices = async (req , res , next) => {
    .not("Business_Employee", "is", null);
    
    
-   console.log("data in getEmployeeServices :",data);
+   // console.log("data in getEmployeeServices :",data);
    
    if (data?.length < 1 || error) {
       console.log("services not found!! ");
