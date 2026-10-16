@@ -34,7 +34,7 @@ const UserMenu = () => {
             loading: false
          });
          localStorage.removeItem("auth");
-         navigate("/auth/login", {replace:true});
+         navigate("/admin/login", {replace:true});
 
          toast.success('logout Done!')
       } else {

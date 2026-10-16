@@ -52,6 +52,8 @@ import SearchRetirement from './pages/dashboard/retirements/search';
 import RetirementProfile from './pages/dashboard/retirements/profile';
 import AdminProfile from './pages/dashboard/admin/profile';
 import SearchUserLogs from './pages/dashboard/admin/profile/logs/search';
+import UserPage from './pages/user';
+import ProtectedUserRoute from './components/dashboard/ProtectedUserRoute';
 
 
 
@@ -67,71 +69,77 @@ function App() {
                <Routes>
                   <Route path='/' element={<PageContainer />} >
                      <Route path='/' element={<Navigate to="/dashboard" replace={true} />} />
-                     <Route path='/dashboard' element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
+                     <Route path='/dashboard' element={<ProtectedRoute requiredRole="admin"><Dashboard /></ProtectedRoute>} />
 
                      {/* Business Routes */}
-                     <Route path='/dashboard/businesses' element={<ProtectedRoute><Businesses /></ProtectedRoute>} />
-                     <Route path='/dashboard/businesses/search' element={<ProtectedRoute><SearchBusiness /></ProtectedRoute>} />
-                     <Route path='/dashboard/businesses/add' element={<ProtectedRoute><AddBusiness /></ProtectedRoute>} />
-                     <Route path='/dashboard/businesses/:id/edit' element={<ProtectedRoute><EditBusiness /></ProtectedRoute>} />
-                     <Route path='/dashboard/businesses/:id' element={<ProtectedRoute><BusinessProfile /></ProtectedRoute>} />
-                     <Route path='/dashboard/businesses/:id/budget' element={<ProtectedRoute><BusinessBudget /></ProtectedRoute>} />  
+                     <Route path='/dashboard/businesses' element={<ProtectedRoute requiredRole="admin"><Businesses /></ProtectedRoute>} />
+                     <Route path='/dashboard/businesses/search' element={<ProtectedRoute requiredRole="admin"><SearchBusiness /></ProtectedRoute>} />
+                     <Route path='/dashboard/businesses/add' element={<ProtectedRoute requiredRole="admin"><AddBusiness /></ProtectedRoute>} />
+                     <Route path='/dashboard/businesses/:id/edit' element={<ProtectedRoute requiredRole="admin"><EditBusiness /></ProtectedRoute>} />
+                     <Route path='/dashboard/businesses/:id' element={<ProtectedRoute requiredRole="admin"><BusinessProfile /></ProtectedRoute>} />
+                     <Route path='/dashboard/businesses/:id/budget' element={<ProtectedRoute requiredRole="admin"><BusinessBudget /></ProtectedRoute>} />  
                      
-                     <Route path='/dashboard/businesses/:id/employees' element={<ProtectedRoute><BusinessEmployees /></ProtectedRoute>} />
-                     <Route path='/dashboard/businesses/:id/employees/add' element={<ProtectedRoute><AddEmployee /></ProtectedRoute>} />
-                     <Route path='/dashboard/businesses/:id/employees/create' element={<ProtectedRoute><CreateEmployee /></ProtectedRoute>} />  
-                     <Route path='/dashboard/businesses/:id/employees/search' element={<ProtectedRoute><SearchEmployees /></ProtectedRoute>} />
+                     <Route path='/dashboard/businesses/:id/employees' element={<ProtectedRoute requiredRole="admin"><BusinessEmployees /></ProtectedRoute>} />
+                     <Route path='/dashboard/businesses/:id/employees/add' element={<ProtectedRoute requiredRole="admin"><AddEmployee /></ProtectedRoute>} />
+                     <Route path='/dashboard/businesses/:id/employees/create' element={<ProtectedRoute requiredRole="admin"><CreateEmployee /></ProtectedRoute>} />  
+                     <Route path='/dashboard/businesses/:id/employees/search' element={<ProtectedRoute requiredRole="admin"><SearchEmployees /></ProtectedRoute>} />
                      
-                     {/* <Route path='/dashboard/employees/:id' element={<ProtectedRoute><EmployeeProfile /></ProtectedRoute>} /> */}
+                     {/* <Route path='/dashboard/employees/:id' element={<ProtectedRoute requiredRole="admin"><EmployeeProfile /></ProtectedRoute>} /> */}
                      
                      {/* Services Routes */}
-                     <Route path='/dashboard/businesses/:id/employees/:empId/services/add' element={<ProtectedRoute><AddServiceAtBusiness /></ProtectedRoute>} />
-                     <Route path='/dashboard/businesses/:id/employees/:empId/services/:serviceId/edit' element={<ProtectedRoute><EditServiceAtBusiness /></ProtectedRoute>} />
-                     <Route path='/dashboard/businesses/:id/employees/:empId/services/:serviceId/wages' element={<ProtectedRoute><ServiceWages /></ProtectedRoute>} />
+                     <Route path='/dashboard/businesses/:id/employees/:empId/services/add' element={<ProtectedRoute requiredRole="admin"><AddServiceAtBusiness /></ProtectedRoute>} />
+                     <Route path='/dashboard/businesses/:id/employees/:empId/services/:serviceId/edit' element={<ProtectedRoute requiredRole="admin"><EditServiceAtBusiness /></ProtectedRoute>} />
+                     <Route path='/dashboard/businesses/:id/employees/:empId/services/:serviceId/wages' element={<ProtectedRoute requiredRole="admin"><ServiceWages /></ProtectedRoute>} />
                      
                      {/* Business Owners Routes */}
-                     <Route path='/dashboard/business-owners' element={<ProtectedRoute><BusinessOwners /></ProtectedRoute>} />
-                     <Route path='/dashboard/business-owners/search' element={<ProtectedRoute><SearchBusinessOwner /></ProtectedRoute>} />
-                     {/* <Route path='/dashboard/business-owners/:id' element={<ProtectedRoute><BusinessOwnerProfile /></ProtectedRoute>} /> */}
-                     <Route path='/dashboard/business-owners/add' element={<ProtectedRoute><AddBusinessOwner /></ProtectedRoute>} />
+                     <Route path='/dashboard/business-owners' element={<ProtectedRoute requiredRole="admin"><BusinessOwners /></ProtectedRoute>} />
+                     <Route path='/dashboard/business-owners/search' element={<ProtectedRoute requiredRole="admin"><SearchBusinessOwner /></ProtectedRoute>} />
+                     {/* <Route path='/dashboard/business-owners/:id' element={<ProtectedRoute requiredRole="admin"><BusinessOwnerProfile /></ProtectedRoute>} /> */}
+                     <Route path='/dashboard/business-owners/add' element={<ProtectedRoute requiredRole="admin"><AddBusinessOwner /></ProtectedRoute>} />
                      {/* <Route path='/dashboard/business-owners/edit' element={<EditBusinessOwner />} /> */}
 
                      {/* claims Routes */}
-                     <Route path='/dashboard/claims' element={<ProtectedRoute><Claims /></ProtectedRoute>} />
-                     <Route path='/dashboard/claims/monthly/:year/:month' element={<ProtectedRoute><MonthlyClaims /></ProtectedRoute>} />
-                     <Route path='/dashboard/claims/annual/:year' element={<ProtectedRoute><AnnualClaims /></ProtectedRoute>} />
-                     <Route path='/dashboard/claims/retarded' element={<ProtectedRoute><RetardedClaims /></ProtectedRoute>} />
-                     <Route path='/dashboard/claims/monthly/search' element={<ProtectedRoute><SearchMonthlyClaims /></ProtectedRoute>} />
-                     <Route path='/dashboard/claims/retarded/search' element={<ProtectedRoute><SearchRetardedClaims /></ProtectedRoute>} />
+                     <Route path='/dashboard/claims' element={<ProtectedRoute requiredRole="admin"><Claims /></ProtectedRoute>} />
+                     <Route path='/dashboard/claims/monthly/:year/:month' element={<ProtectedRoute requiredRole="admin"><MonthlyClaims /></ProtectedRoute>} />
+                     <Route path='/dashboard/claims/annual/:year' element={<ProtectedRoute requiredRole="admin"><AnnualClaims /></ProtectedRoute>} />
+                     <Route path='/dashboard/claims/retarded' element={<ProtectedRoute requiredRole="admin"><RetardedClaims /></ProtectedRoute>} />
+                     <Route path='/dashboard/claims/monthly/search' element={<ProtectedRoute requiredRole="admin"><SearchMonthlyClaims /></ProtectedRoute>} />
+                     <Route path='/dashboard/claims/retarded/search' element={<ProtectedRoute requiredRole="admin"><SearchRetardedClaims /></ProtectedRoute>} />
                      
                      
                      {/* Retirements Routes */}
-                     <Route path='/dashboard/retirements' element={<ProtectedRoute><Retirements /></ProtectedRoute>} />
-                     <Route path='/dashboard/retirements/new' element={<ProtectedRoute><AddRetirement /></ProtectedRoute>} />
-                     <Route path='/dashboard/retirements/:id/edit' element={<ProtectedRoute><EditRetirement /></ProtectedRoute>} />
-                     <Route path='/dashboard/retirements/:id' element={<ProtectedRoute><RetirementProfile /></ProtectedRoute>} />
-                     <Route path='/dashboard/retirements/new/extending' element={<ProtectedRoute><AddRetirementsExtending /></ProtectedRoute>} />
-                     <Route path='/dashboard/retirements/annual/:type/:year' element={<ProtectedRoute><AnnualRetirements /></ProtectedRoute>} />
-                     <Route path='/dashboard/retirements/monthly/:type/:year/:month' element={<ProtectedRoute><MonthlyRetirements /></ProtectedRoute>} />
-                     <Route path='/dashboard/retirements/search' element={<ProtectedRoute><SearchRetirement /></ProtectedRoute>} />
+                     <Route path='/dashboard/retirements' element={<ProtectedRoute requiredRole="admin"><Retirements /></ProtectedRoute>} />
+                     <Route path='/dashboard/retirements/new' element={<ProtectedRoute requiredRole="admin"><AddRetirement /></ProtectedRoute>} />
+                     <Route path='/dashboard/retirements/:id/edit' element={<ProtectedRoute requiredRole="admin"><EditRetirement /></ProtectedRoute>} />
+                     <Route path='/dashboard/retirements/:id' element={<ProtectedRoute requiredRole="admin"><RetirementProfile /></ProtectedRoute>} />
+                     <Route path='/dashboard/retirements/new/extending' element={<ProtectedRoute requiredRole="admin"><AddRetirementsExtending /></ProtectedRoute>} />
+                     <Route path='/dashboard/retirements/annual/:type/:year' element={<ProtectedRoute requiredRole="admin"><AnnualRetirements /></ProtectedRoute>} />
+                     <Route path='/dashboard/retirements/monthly/:type/:year/:month' element={<ProtectedRoute requiredRole="admin"><MonthlyRetirements /></ProtectedRoute>} />
+                     <Route path='/dashboard/retirements/search' element={<ProtectedRoute requiredRole="admin"><SearchRetirement /></ProtectedRoute>} />
                      
                      
                      {/* profile */}
-                     <Route path='/profile/:personId' element={<ProtectedRoute><Profile /></ProtectedRoute>} />
+                     <Route path='/profile/:personId' element={<ProtectedRoute requiredRole="admin"><Profile /></ProtectedRoute>} />
                      
-                     <Route path='/profile/:personId/edit' element={<ProtectedRoute><EditProfile /></ProtectedRoute>} />
+                     <Route path='/profile/:personId/edit' element={<ProtectedRoute requiredRole="admin"><EditProfile /></ProtectedRoute>} />
                      
                      
                      {/* Admin profile */}
-                     <Route path='/admin/:adminId' element={<ProtectedRoute><AdminProfile /></ProtectedRoute>} />
-                     <Route path='/admin/logs/search' element={<ProtectedRoute><SearchUserLogs /></ProtectedRoute>} />
+                     <Route path='/admin/:adminId' element={<ProtectedRoute requiredRole="admin"><AdminProfile /></ProtectedRoute>} />
+                     <Route path='/admin/logs/search' element={<ProtectedRoute requiredRole="admin"><SearchUserLogs /></ProtectedRoute>} />
                      
                   </Route>
                   
+                  <Route path='/' element={<PageContainer />} >
+                     <Route path='/user' element={<ProtectedUserRoute ><UserPage /></ProtectedUserRoute>} />
+                  </Route>
+                  
+                  
                   {/* Auth Routes */}
-                  <Route path='/auth/login' element={<ProtectedAuthRoute><Login /></ProtectedAuthRoute> } />
+                   <Route path='/auth/login' element={<ProtectedAuthRoute><Login /></ProtectedAuthRoute> } /> 
                   <Route path='/auth/signup' element={<ProtectedAuthRoute><Signup /></ProtectedAuthRoute>} />
                   
+                  <Route path='/admin/login' element={<ProtectedAuthRoute><Login /></ProtectedAuthRoute> } />
                   
                </Routes>
             </AuthContextProvider>

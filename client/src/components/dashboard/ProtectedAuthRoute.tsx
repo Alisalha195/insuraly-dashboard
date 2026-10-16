@@ -7,23 +7,14 @@ import { useAuthStore } from '../../store/useAuthStore';
 import toast from 'react-hot-toast';
 import SkeletonLoader from '../shared/Skeleton';
 import { authContext } from '../../providers/AuthContextProvider';
+import { useIsAdmin } from '../../hooks/useIsAdmin';
 
 const ProtectedAuthRoute = ({children}) => {
    
    const navigate = useNavigate();
-   // const access_token = useAuthStore((state) => state.token);
-   // const loading = useAuthStore((state) => state.loading);
-   // const setUser = useAuthStore((state) => state.setUser);
-   // const setToken = useAuthStore((state) => state.setToken);
-   // const loggedIn = useAuthStore((state) => !!state.token);
-   // const authState = useAuthStore((state) => state);
-   // let isAuthenticated = useAuthStore((state) => state.isAuthenticated);
    
-   const {authState, setAuthState} = useContext(authContext);
-
-   // useEffect(()=>{
-   //    const channel = new BroadcastChannel('auth');
-      
+   const {authState, setAuthState} =useContext(authContext);
+   const { isAdmin, isLoading: isRoleLoading } = useIsAdmin(authState.user?.email);
    
    //    channel.onmessage = (event) => {
    //       if(event.data === 'login') {
@@ -35,7 +26,7 @@ const ProtectedAuthRoute = ({children}) => {
    //    } 
    // },[authState.isAuthenticated]);
    
-      if(authState.loading) {
+      if(authState.loading || (authState.isAuthenticated && isRoleLoading)) {
          return (
             <VStack justifyContent={'center'} height={'50vh'}>
                <SkeletonLoader width='60%'/>
@@ -45,11 +36,13 @@ const ProtectedAuthRoute = ({children}) => {
                <SkeletonLoader width='60%' />
                <SkeletonLoader  width='50%' />
             </VStack>
-         )
+         ) 
        }
-       if(authState.isAuthenticated) {
-        return <Navigate to="/dashboard" replace={true} />;
-      }
+       
+       if (authState.isAuthenticated) {
+         return isAdmin ? <Navigate to="/dashboard" replace /> : <Navigate to="/user" replace />;
+       }
+
       return children;
  }
  

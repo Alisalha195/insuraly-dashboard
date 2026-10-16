@@ -6,7 +6,7 @@ import { supabase } from "../lib/supabaseClient";
 //    console.log("token in useAuthCustomQuery : ", token);
    
    
-const fetchWithAuth = async (url: string) => {
+export const fetchWithAuth = async (url: string) => {
    const { data: { session } } = await supabase.auth.getSession();
    const token = session?.access_token;
    // console.log("token in fetchWithAuth : ", token);
@@ -20,7 +20,7 @@ const fetchWithAuth = async (url: string) => {
    return response;
 }
 
-const fetchPosthWithAuth = async (url: string, stringified: object[] | object) => {
+export const fetchPosthWithAuth = async (url: string, stringified: object[] | object) => {
    const { data: { session } } = await supabase.auth.getSession();
    const token = session?.access_token;
    // console.log("token in fetchWithAuth : ", token);

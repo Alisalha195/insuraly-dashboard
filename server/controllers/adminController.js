@@ -1,5 +1,117 @@
 import { supabase } from "../db/connection.js";
-import {auditLogsTable} from "../db/tables.js";
+import {auditLogsTable, userRolesTable} from "../db/tables.js";
+
+// export const login = async (req , res , next) => {
+//    const email = req.body.email
+//    const password = req.body.password
+   
+   
+//    const {data: userRoleData } = await supabase
+//    .from(userRolesTable)
+//    .select('role')
+//    .eq('email', email)
+//    .single();
+   
+//    console.log("user role record is :",userRoleData);
+   
+   
+//    console.log("admin login controller reached");
+//    console.log("email:", email);
+//    // console.log("password:",password);
+   
+//       const {data: {session}} = await supabase.auth.getSession()
+//       // if(session) await supabase.auth.signOut()
+//       if(!session) {
+         
+         
+//          if(userRoleData?.role == "admin") {
+//             const { data: {user} } = await supabase.auth.signInWithPassword({
+//                email: email,
+//                password: password,
+//             })
+//             if(user) {
+//                const {data: {session}} = await supabase.auth.getSession();
+//                // console.log("user after login:", session);
+//                res.status(200).json({msg:"user logged in successfuly  !" , status:200 , session});
+//                // next();
+//                return
+//             } else {
+//                res.status(400).json({msg:"wrong password or email  !" , status:400});
+//                return
+//             }
+//          } else if(userRoleData?.role == "user") {
+//             // res.status(400).json({msg:"UnAuthorized ! user is not an admin." , status:400});
+//             // return
+            
+            
+            
+//          }
+         
+//       } else {
+//          // console.log("user allready logged in:", session);
+//          res.status(400).json({msg:"user allready logged in  !!" , status:400});
+//          return
+//       }
+      
+// }
+export const checkIfAdmin = (req, res) => {
+   const user = req?.user;
+   const isAdmin = req?.isAdmin;
+   
+   if(user && isAdmin) {
+      res.status(200).json({isAdmin: true, status: 200});
+   }
+   res.status(403).json({isAdmin: false, status: 403});
+   
+}
+
+
+export const login = async (req , res , next) => {
+   const email = req.body.email
+   const password = req.body.password
+   
+   
+   const {data: userRoleData } = await supabase
+   .from(userRolesTable)
+   .select('role')
+   .eq('email', email)
+   .single();
+   
+   console.log("user role record is :",userRoleData);
+   
+   
+   console.log("admin login controller reached");
+   console.log("email:", email);
+   // console.log("password:",password);
+   
+      const {data: {session}} = await supabase.auth.getSession()
+      // if(session) await supabase.auth.signOut()
+      if(!session) {
+         
+         const { data: {user} } = await supabase.auth.signInWithPassword({
+            email: email,
+            password: password,
+         })
+         if(user) {
+            const {data: {session}} = await supabase.auth.getSession();
+            if(userRoleData?.role == "admin") {
+               res.status(200).json({msg:"admin logged in successfuly  !" , status:200 , session});
+               return;
+               
+            } else if(userRoleData?.role == "user") {
+               res.status(200).json({msg:"user logged in successfuly  !" , status:201 , session});
+               return;
+            }
+         }
+         
+      } else {
+         // console.log("user allready logged in:", session);
+         res.status(400).json({msg:"user allready logged in  !!" , status:400});
+         return
+      }
+      
+}
+
 
 export const getPaginatedAuditLogs = async (req, res) => {
    const { page = 1, pageSize = 10, search, action, userId } = req.query;
@@ -39,8 +151,8 @@ export const getPaginatedAuditLogs = async (req, res) => {
  
  
  
- export const getAuditLogsCount = async (req, res) => {
-   const { error, count } = await supabase
+ export const getAuditLogsCount = async (req, res, next) => {
+   const { error, count } = await supabase  
      .from(auditLogsTable)
      .select('*', { count: 'exact', head: true });
      

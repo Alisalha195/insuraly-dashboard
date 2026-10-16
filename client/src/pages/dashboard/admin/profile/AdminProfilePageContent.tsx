@@ -15,6 +15,7 @@ import DataTable from '../../../../components/shared/tables/DataTable.tsx';
 import TableHeader from '../../../../components/shared/tables/TableHeader.tsx';
 import DataTableControl from '../../../../components/shared/tables/DataTableControl.tsx';
 import SkeletonLoader from '../../../../components/shared/Skeleton.tsx';
+import Unauthorized from '../../../../components/shared/Unauthorized.tsx';
 
 
 const AdminProfilePageContent = () => {
@@ -38,7 +39,11 @@ const AdminProfilePageContent = () => {
       `${host}/admin/audit-logs?page=${currentpage}&pageSize=${pageSize}`
    );
    
-   console.log("logsData", logsData?.logs);
+   console.log("logsData", logsData?.status);
+   
+   if(logsData?.status == 403) {
+      return <Unauthorized />
+   }
    
    return (
       <Box >
@@ -69,7 +74,7 @@ const AdminProfilePageContent = () => {
             height={'70vh'}
             >
            {
-            logsData && logsData?.logs.length > 0 ? (
+            logsData && logsData?.logs?.length > 0 ? (
               <>
                   <DataTable
                      TableHeader={

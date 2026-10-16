@@ -47,50 +47,77 @@ const Signup = () => {
       onError: (error) => {
          console.log("error occured ! :", error)
       },
+      // onSuccess: async (response) => {
+      //    console.log("signup response :", response);
+      //    if (response.status == 404 || response.status == 400) {
+            
+      //       toast.error("somethng went wrong")
+      //    } else if (response.status == 200) {
+            
+      //       if(response?.session?.access_token && response?.session?.user && response?.session?.refresh_token) {
+               
+      //          const { error } = await supabase?.auth?.setSession({
+      //             access_token: response?.session?.access_token,
+      //             refresh_token: response?.session?.refresh_token,
+      //          });
+               
+      //          if (error) {
+      //             toast.error("somethng went wrong")
+      //             console.log( error );
+      //             return;
+      //          }
+               
+      //          setAuthState({
+      //             user: response.session.user,
+      //             token: response.session.access_token,
+      //             isAuthenticated: true,
+      //             loading: false
+      //          });
+
+      //          navigate("/dashboard")
+      //          setTimeout(() => {
+      //             toast.success('signed up Successfuly !');
+      //          }, 500);
+      //       }
+      //    } else if (response.status == 201) {
+      //       setTimeout(() => {
+      //          console.log("session from api ;",response)
+      //          navigate("/dashboard")
+      //          toast.success(response?.msg);
+      //       }, 500);
+      //    }
+      // },
       onSuccess: async (response) => {
-         // console.log("signup response :", response);
-         if (response.status == 404 || response.status == 400) {
-            
-            toast.error("somethng went wrong")
-         } else if (response.status == 200) {
-            
-            if(response?.session?.access_token && response?.session?.user) {
-               
-               setAuthState({
-                  user: response.session.user,
-                  token: response.session.access_token,
-                  isAuthenticated: true,
-                  loading: false
-               });
-               // localStorage.setItem('auth', JSON.stringify({
-               //    user: response.session.user,
-               //    token: response.session.access_token,
-               //    isAuthenticated: true,
-               //    loading: false
-               // }));
-               
-               const { error } = await supabase.auth.setSession({
-                  access_token: response.session.access_token,
-                  refresh_token: response.session.refresh_token,
-               });
-          
-               if (error) {
-                  toast.error("somethng went wrong")
-                  throw error;
-               }
-               navigate("/dashboard")
-               setTimeout(() => {
-                  toast.success('signed up Successfuly !');
-               }, 500);
-            }
-         } else if (response.status == 201) {
-            setTimeout(() => {
-               // console.log("session from api ;",response)
-               navigate("/dashboard")
-               toast.success(response?.msg);
-            }, 500);
+         console.log("Signup response:", response);
+       
+         // Safely check if a session block actually came back from your API
+         if (response?.session?.access_token) {
+           const { error } = await supabase.auth.setSession({
+             access_token: response.session.access_token,
+             refresh_token: response.session.refresh_token || response.session.access_token,
+           });
+       
+           if (error) {
+             console.error("Supabase session error:", error);
+             toast.error("Session initialization failed");
+             return;
+           }
+       
+           setAuthState({
+             user: response.session.user,
+             token: response.session.access_token,
+             isAuthenticated: true,
+             loading: false,
+           });
+       
+           navigate("/public/user");
+           toast.success('Signed up successfully!');
+         } else {
+           // This triggers if response.session is null (e.g., status 201 Email confirmation needed)
+           toast.error(response?.msg || "Account created! Please verify your email.");
+           setAuthState(prev => ({...prev, loading: false}));
          }
-      },
+       },
    })
    
    
@@ -175,7 +202,7 @@ const Signup = () => {
             >
                {t("already have an account?")} 
                <Span marginLeft={1} style={{textDecoration: 'underline', cursor: 'pointer'}} color={btnPrimary}
-                  onClick={() => navigate('/auth/login')}
+                  onClick={() => navigate('/admin/login')}
                >
                   {t("log in")}
                </Span>

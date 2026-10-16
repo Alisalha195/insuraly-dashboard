@@ -59,7 +59,7 @@ const Login = () => {
    });
    
    const login = useMutation({
-      mutationFn: (user) => fetch(`${host}/auth/login`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(user) }).then(res => res.json()),
+      mutationFn: (user) => fetch(`${host}/admin/login`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(user) }).then(res => res.json()),
 
       onError: (error) => {
          console.log("error occured ! :", error)
@@ -73,9 +73,15 @@ const Login = () => {
 
             toast.error(response?.msg || "somethng went wrong !!!");
             setLoading(false);
-         } else if (response.status == 200) {
+         } else if (response.status == 200 || response.status == 201) {
             
             if(response?.session?.access_token && response?.session?.user) {
+               
+               const { error } = await supabase.auth.setSession({
+                  access_token: response.session.access_token,
+                  refresh_token: response.session.refresh_token,
+                });
+                
                
                setAuthState({
                   user: response.session.user,
@@ -83,20 +89,11 @@ const Login = () => {
                   isAuthenticated: true,
                   loading: false
                });
-               // localStorage.setItem('auth', JSON.stringify({
-               //    user: response.session.user,
-               //    token: response.session.access_token,
-               //    isAuthenticated: true,
-               //    loading: false
-               // }));
                // const channel = new BroadcastChannel('auth');
                // channel.postMessage("login");
                // channel.close();
                
-               const { error } = await supabase.auth.setSession({
-                  access_token: response.session.access_token,
-                  refresh_token: response.session.refresh_token,
-                });
+               
           
                 if (error) {
                   toast.error("somethng went wrong !!");
@@ -110,7 +107,7 @@ const Login = () => {
                   toast.success('logged in Successfuly !');
                }, 500);
             }
-         }
+         } 
       },
       
    })

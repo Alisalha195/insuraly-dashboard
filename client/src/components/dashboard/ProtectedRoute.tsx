@@ -5,19 +5,14 @@ import toast from 'react-hot-toast';
 import { VStack } from '@chakra-ui/react';
 import SkeletonLoader from '../shared/Skeleton';
 import { authContext } from '../../providers/AuthContextProvider';
+import { useIsAdmin } from '../../hooks/useIsAdmin';
 
-const ProtectedRoute = ({children}) => {
+const ProtectedRoute = ({children, requiredRole }) => {
    
    const {authState, setAuthState} = useContext(authContext);
-   
-   // const navigate = useNavigate(); 
-   // const access_token = useAuthStore((state) => state.token);
-   // let isAuthenticated = useAuthStore((state) => state.isAuthenticated);
-   // const authState = useAuthStore((state) => state);
-   // const loggedIn = useAuthStore((state) => !!state.token);
-   // const loading = useAuthStore((state) => state.loading);
+   const { isAdmin, isLoading } = useIsAdmin(authState.user?.email);
       
-   if(authState.loading) {
+   if(authState.loading || isLoading) {
       return (
          <VStack justifyContent={'center'} height={'50vh'}>
             <SkeletonLoader width='60%'/>
@@ -31,8 +26,17 @@ const ProtectedRoute = ({children}) => {
    }
     
    if(!authState.isAuthenticated) {
-      return <Navigate to="/auth/login" replace={true} />;
-    }
+      return <Navigate to="/admin/login" replace={true} />;
+   } 
+
+    if (requiredRole === 'admin' && !isAdmin) {
+      return <Navigate to="/user" replace={true} />; 
+   }
+   
+   if (requiredRole === 'user' && isAdmin) {
+      return <Navigate to="/dashboard" replace={true} />;
+   }
+   
   return children;
 }
 
