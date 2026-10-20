@@ -9,7 +9,25 @@ import { supabase } from './db/connection.js';
 
 dotenv.config();
 const app = express();
-app.use(cors());
+
+
+const allowedOrigins = [
+   'https://vercel.app', 
+   'http://localhost:5173'             // Local web testing
+];
+
+app.use(cors({
+   origin: (origin, callback) => {
+     // Android apps often send a null origin or no origin header at all
+     if (!origin || allowedOrigins.includes(origin)) {
+       callback(null, true);
+     } else {
+       callback(new Error('Not allowed by CORS'));
+     }
+   }
+ }));
+ 
+// app.use(cors());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
