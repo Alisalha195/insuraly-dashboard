@@ -86,7 +86,7 @@ export const login = async (req , res , next) => {
    
       const {data: {session}} = await supabase.auth.getSession()
       // if(session) await supabase.auth.signOut()
-      if(!session) {
+      // if(!session) {
          
          const { data: {user} } = await supabase.auth.signInWithPassword({
             email: email,
@@ -104,11 +104,11 @@ export const login = async (req , res , next) => {
             }
          }
          
-      } else {
-         // console.log("user allready logged in:", session);
-         res.status(400).json({msg:"user allready logged in  !!" , status:400});
-         return
-      }
+      // } else {
+      //    // console.log("user allready logged in:", session);
+      //    res.status(400).json({msg:"user allready logged in  !!" , status:400});
+      //    return
+      // }
       
 }
 
