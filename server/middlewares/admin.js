@@ -50,12 +50,14 @@ export async function isAdmin(req, res, next) {
       // 1. Get token from Authorization header
       const token = req.headers.authorization?.split(' ')[1];
       if (!token) {
+         console.log("Unauthorized: Missing token");
          return res.status(401).json({ error: 'Unauthorized: Missing token' });
       }
     
       // 2. Verify token with Supabase Auth
       const { data: { user }, error: authError } = await supabase.auth.getUser(token);
       if (authError || !user) {
+         console.log("Unauthorized: Invalid token");
          return res.status(401).json({ error: 'Unauthorized: Invalid token' });
       }
     
@@ -73,6 +75,7 @@ export async function isAdmin(req, res, next) {
       
       const isUserAdmin = data?.role === 'admin';
       if (!isUserAdmin) {
+         console.log("Forbidden: Admins only");
          return res.status(403).json({ error: 'Forbidden: Admins only' });
       }
     

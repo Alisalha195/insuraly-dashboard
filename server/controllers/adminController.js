@@ -59,9 +59,12 @@ export const checkIfAdmin = (req, res) => {
    const isAdmin = req?.isAdmin;
    
    if(user && isAdmin) {
+      console.log("user && isAdmin");
       res.status(200).json({isAdmin: true, status: 200});
+   } else {
+      console.log("not user && not isAdmin");
+      res.status(403).json({isAdmin: false, status: 403});
    }
-   res.status(403).json({isAdmin: false, status: 403});
    
 }
 
@@ -95,10 +98,12 @@ export const login = async (req , res , next) => {
          if(user) {
             const {data: {session}} = await supabase.auth.getSession();
             if(userRoleData?.role == "admin") {
+               console.log("admin logged in successfuly  !");
                res.status(200).json({msg:"admin logged in successfuly  !" , status:200 , session});
                return;
                
             } else if(userRoleData?.role == "user") {
+               console.log("user logged in successfuly  !");
                res.status(200).json({msg:"user logged in successfuly  !" , status:201 , session});
                return;
             }
