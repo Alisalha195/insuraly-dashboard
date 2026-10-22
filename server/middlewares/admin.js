@@ -51,14 +51,14 @@ export async function isAdmin(req, res, next) {
       const token = req.headers.authorization?.split(' ')[1];
       if (!token) {
          console.log("Unauthorized: Missing token");
-         return res.status(401).json({ error: 'Unauthorized: Missing token' });
+         return res.status(401).json({ error: 'Unauthorized: Missing token', status:401 });
       }
     
       // 2. Verify token with Supabase Auth
       const { data: { user }, error: authError } = await supabase.auth.getUser(token);
       if (authError || !user) {
          console.log("Unauthorized: Invalid token");
-         return res.status(401).json({ error: 'Unauthorized: Invalid token' });
+         return res.status(401).json({ error: 'Unauthorized: Invalid token' , status:401});
       }
     
       // 3. Check if user has an admin role in the database
@@ -70,13 +70,13 @@ export async function isAdmin(req, res, next) {
       
       if (dbError) {
          console.error("Database error checking role:", dbError);
-         return res.status(500).json({ error: 'Internal server error checking roles' });
+         return res.status(500).json({ error: 'Internal server error checking roles', status:500 });
       }
       
       const isUserAdmin = data?.role === 'admin';
       if (!isUserAdmin) {
          console.log("Forbidden: Admins only");
-         return res.status(403).json({ error: 'Forbidden: Admins only' });
+         return res.status(403).json({ error: 'Forbidden: Admins only' , status:403});
       }
     
       // 4. Attach to request lifecycle and proceed
@@ -86,6 +86,6 @@ export async function isAdmin(req, res, next) {
 
    } catch (globalError) {
       console.error("Unexpected middleware error:", globalError);
-      return res.status(500).json({ error: 'Internal server error' });
+      return res.status(500).json({ error: 'Internal server error', status:500 });
    }
 }
