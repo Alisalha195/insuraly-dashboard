@@ -17,16 +17,31 @@ const allowedOrigins = [
    'http://localhost:8081'
 ];
 
-app.use(cors({
-   origin: (origin, callback) => {
-     // Android apps often send a null origin or no origin header at all
+// app.use(cors({
+//    origin: (origin, callback) => {
+//      // Android apps often send a null origin or no origin header at all
+//      if (!origin || allowedOrigins.includes(origin)) {
+//        callback(null, true);
+//      } else {
+//        callback(new Error('Not allowed by CORS'));
+//      }
+//    }
+//  }));
+ 
+ app.use(cors({
+   origin: function (origin, callback) {
+     // Check if the request origin matches our allowed list, 
+     // or if it has no origin (like mobile apps/postman)
      if (!origin || allowedOrigins.includes(origin)) {
        callback(null, true);
      } else {
+       console.log("Blocked by CORS. Origin was:", origin);
        callback(new Error('Not allowed by CORS'));
      }
-   }
+   },
+   credentials: true
  }));
+ 
  
 // app.use(cors());
 app.use(express.urlencoded({ extended: true }));
