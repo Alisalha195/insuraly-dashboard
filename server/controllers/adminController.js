@@ -72,7 +72,7 @@ export const checkIfAdmin = (req, res) => {
 export const login = async (req , res , next) => {
    const email = req.body.email
    const password = req.body.password
-   
+   console.log("admin login controller reached");
    
    const {data: userRoleData } = await supabase
    .from(userRolesTable)
@@ -83,7 +83,7 @@ export const login = async (req , res , next) => {
    console.log("user role record is :",userRoleData);
    
    
-   console.log("admin login controller reached");
+   
    console.log("email:", email);
    // console.log("password:",password);
    

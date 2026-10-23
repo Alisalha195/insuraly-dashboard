@@ -13,7 +13,8 @@ const app = express();
 
 const allowedOrigins = [
    'https://vercel.app', 
-   'http://localhost:5173'             // Local web testing
+   'http://localhost:5173',
+   'http://localhost:8081'
 ];
 
 app.use(cors({
