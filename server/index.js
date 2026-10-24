@@ -27,20 +27,52 @@ const allowedOrigins = [
 //      }
 //    }
 //  }));
+
+
+const corsOptions = {
+   origin: (origin, callback) => {
+     // 1. Allow requests with no origin (like mobile apps, Postman, or curl)
+     if (!origin) return callback(null, true);
  
- app.use(cors({
-   origin: function (origin, callback) {
-     // Check if the request origin matches our allowed list, 
-     // or if it has no origin (like mobile apps/postman)
-     if (!origin || allowedOrigins.includes(origin)) {
-       callback(null, true);
-     } else {
-       console.log("Blocked by CORS. Origin was:", origin);
-       callback(new Error('Not allowed by CORS'));
+     // 2. Allow explicitly listed static origins
+     if (allowedOrigins.indexOf(origin) !== -1) {
+       return callback(null, true);
      }
+ 
+     // 3. Match local network IPs for Expo Development Builds (e.g., http://192.168.1.5:8081)
+     const localIpRegex = /^http:\/\/(192\.168\.\d+\.\d+|10\.\d+\.\d+\.\d+|172\.(1[6-9]|2\d|3[0-1])\.\d+\.\d+)(:\d+)?$/;
+     
+     // 4. Match Ngrok or Expo tunnel URLs if using Expo CLI tunnels
+     const tunnelRegex = /.*\.ngrok-free\.app$|.*\.expo\.direct$/;
+ 
+     if (localIpRegex.test(origin) || tunnelRegex.test(origin)) {
+       return callback(null, true);
+     }
+ 
+     // Reject other origins
+     return callback(new Error('Not allowed by CORS'));
    },
-   credentials: true
- }));
+   credentials: true, 
+   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+   allowedHeaders: ['Content-Type', 'Authorization'],
+ };
+ 
+ app.use(cors(corsOptions));
+
+ 
+//  app.use(cors({
+//    origin: function (origin, callback) {
+//      // Check if the request origin matches our allowed list, 
+//      // or if it has no origin (like mobile apps/postman)
+//      if (!origin || allowedOrigins.includes(origin)) {
+//        callback(null, true);
+//      } else {
+//        console.log("Blocked by CORS. Origin was:", origin);
+//        callback(new Error('Not allowed by CORS'));
+//      }
+//    },
+//    credentials: true
+//  }));
  
  
 // app.use(cors());
