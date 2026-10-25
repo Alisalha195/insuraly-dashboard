@@ -58,6 +58,9 @@ const corsOptions = {
  };
  
  app.use(cors(corsOptions));
+ 
+ 
+ app.options('*', cors(corsOptions));
 
  
 //  app.use(cors({
@@ -76,8 +79,8 @@ const corsOptions = {
  
  
 // app.use(cors());
-app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
 // const refreshTokens = new Map();
 // supabase.auth.onAuthStateChange(async (event, session) => {
