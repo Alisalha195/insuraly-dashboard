@@ -95,6 +95,8 @@ export const createRetirement = async (req, res , next) => {
 export const updateRetirement = async (req, res, next) => {
    const {accumulations,finishReason , childrenShare, indemnification, salary, salaryInitiateDate, salaryReceiptCenter , wifeShare, retirementId} = req.body;
    
+   console.log("in retirement update function :  ",req.body);
+   
    const expireDate = new Date(salaryInitiateDate);
    expireDate.setFullYear(expireDate.getFullYear() + 3);
       // console.log("req.body : ",req.body);
