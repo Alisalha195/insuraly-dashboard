@@ -70,8 +70,11 @@ router.get("/commercialTypes", getCommercialTypes);
 router.get("/stages", getStages);
 router.get("/statuses", getStatuses);
 
-router.put("/edit",activityLogger('data.update', 'Business'),editBusiness);
+router.put("/edit",activityLogger('data.update', 'Business', (req) => req.body.business_id),editBusiness);
 
 router.get("/get-budget", getBusinessBudgetByID);
 
 export default router;
+
+
+
