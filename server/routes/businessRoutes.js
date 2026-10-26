@@ -25,6 +25,8 @@ import { addService } from "../controllers/servicesController.js";
 import { addServiceWages } from "../controllers/serviceWagesController.js";
 import { checkIfPersonalInfoRecordExistBeforeCreating, createPersonalInfoRecord } from "../controllers/personalInfoController.js";
 
+import {activityLogger} from "../middlewares/activityLogger.js"
+
 const router = Router();
 
 router.post("/create", createBusiness);
@@ -68,7 +70,7 @@ router.get("/commercialTypes", getCommercialTypes);
 router.get("/stages", getStages);
 router.get("/statuses", getStatuses);
 
-router.put("/edit", editBusiness);
+router.put("/edit",activityLogger('data.update', 'Business'),editBusiness);
 
 router.get("/get-budget", getBusinessBudgetByID);
 
