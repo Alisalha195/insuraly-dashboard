@@ -10,8 +10,10 @@ import TableHeader from '../../../../components/shared/tables/TableHeader';
 import SkeletonLoader from '../../../../components/shared/Skeleton';
 import BackArrow from '../../../../components/shared/BackArrow';
 import Error from '../../../../components/shared/Error';
-import { AnnualRetirementsTableHeaderData } from '../../../../components/dashboard/content/baseContent/tables/retirements/annual/AnnualRetirementsTableHeaderData';
+
 import AnnualRetirementsTableBody from '../../../../components/dashboard/content/baseContent/tables/retirements/annual/AnnualRetirementsTableBody';
+import { AnnualRetirementsTableHeaderData } from '../../../../components/dashboard/content/baseContent/tables/retirements/annual/AnnualRetirementsTableHeaderData';
+
 import { getAnnulaClaimsShapedData, getDataGroupedByMonthes } from '../../../../lib/helpers';
 import { LuSearch } from 'react-icons/lu';
 import DataTableControl from '../../../../components/shared/tables/DataTableControl';
