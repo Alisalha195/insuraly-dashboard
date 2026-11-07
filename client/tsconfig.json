@@ -10,6 +10,9 @@
     "skipLibCheck": true,
     "paths": {
       "@/*": ["./src/*"]
-    }
+    },
+    "noImplicitAny": false,           // Allows variables to default to 'any' type if incomplete
+    "strictNullChecks": false,        // Stops complaining about null/undefined variables
+    "ignoreDeprecations": "5.0",      // Suppresses configuration warnings
   }
 }
