@@ -1,5 +1,5 @@
 import React from 'react'
-import CreateEmployeeContent from './createEmployeeContent';
+import CreateEmployeeContent from './CreateEmployeeContent';
 
 const CreateEmployee = () => {
   return (
