@@ -4,7 +4,7 @@ import { Box, HStack, Flex, Text, VStack, Icon, Span, } from '@chakra-ui/react';
 import { LuSearch } from 'react-icons/lu';
 import { useTranslation } from 'react-i18next'; 
 import  LogsTableHeaderData  from '../../../../components/dashboard/content/baseContent/tables/admin/logs/LogsTableHeaderData';
-import LogsTableBody from '../../../../components/dashboard/content/baseContent/tables/admin/logs/LogsTableBody';
+import LogsTableBody from '../../../../components/dashboard/content/baseContent/tables/admin/logs/LogsTableBody.tsx';
 import useLangDir from '../../../../hooks/useLangDir.ts';
 import { getTableRowsCount } from '../../../../api/getTableRowsCount.ts';
 import useThemedColors from '../../../../hooks/useThemedColors.ts';
