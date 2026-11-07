@@ -51,7 +51,7 @@ import EditRetirement from './pages/dashboard/retirements/edit';
 import SearchRetirement from './pages/dashboard/retirements/search';
 import RetirementProfile from './pages/dashboard/retirements/profile';
 import AdminProfile from './pages/dashboard/admin/profile';
-import SearchUserLogs from './pages/dashboard/admin/profile/logs/search';
+import SearchUserLogs from './pages/dashboard/admin/profile/usersLogs/search';
 import UserPage from './pages/user';
 import ProtectedUserRoute from './components/dashboard/ProtectedUserRoute';
 
