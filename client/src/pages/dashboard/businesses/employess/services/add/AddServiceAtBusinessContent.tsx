@@ -8,22 +8,22 @@
    import { useMutation } from "@tanstack/react-query";
    import toast from "react-hot-toast";
    import { FaDollarSign } from "react-icons/fa6";
-   import useThemedColors from "../../../../../../hooks/useThemedColors";
-   import PageHeadTitle from "../../../../../../components/shared/PageHeadTitle";
-   import { capitalize } from "../../../../../../lib/capitalize";
-   import { getEmployeeByInsuranceNumber } from "../../../../../../api/employees/getEmployeeByInsuranceNumber";
-   import FieldGroup from "../../../../../../components/shared/forms/FieldGroup";
-   import { host } from "../../../../../../constants/connection";
-   import Control from "../../../../../../components/shared/forms/Control";
-   import DatePickerField from "../../../../../../components/shared/forms/DatePickerField";
-   import { getFinishedWorkReasons } from "../../../../../../api/services/getServicesRelatedData";
-   import FisinshReasonsSelectBox from "../../../../../../components/shared/forms/services/FinishReasonsSelectBox";
-   import { getEmployeeServices } from "../../../../../../api/employees/getEmployeeServices";
-   import { checkServiceInitiateDateValidation } from "../../../../../../lib/helpers";
-   import { ServiceSchema, ServiceSchemaFormData } from "../../../../../../utils/employeeSchema";
+   import useThemedColors from "@/hooks/useThemedColors";
+   import PageHeadTitle from "@/components/shared/PageHeadTitle";
+   import { capitalize } from "@/lib/capitalize";
+   import { getEmployeeByInsuranceNumber } from "@/api/employees/getEmployeeByInsuranceNumber";
+   import FieldGroup from "@/components/shared/forms/FieldGroup";
+   import { host } from "@/constants/connection";
+   import Control from "@/components/shared/forms/Control";
+   import DatePickerField from "@/components/shared/forms/DatePickerField";
+   import { getFinishedWorkReasons } from "@/api/services/getServicesRelatedData";
+   import FisinshReasonsSelectBox from "@/components/shared/forms/services/FinishReasonsSelectBox";
+   import { getEmployeeServices } from "@/api/employees/getEmployeeServices";
+   import { checkServiceInitiateDateValidation } from "@/lib/helpers";
+   import { ServiceSchema, ServiceSchemaFormData } from "@/utils/employeeSchema";
    import { useTranslation } from "react-i18next";
-import useLangDir from "../../../../../../hooks/useLangDir";
-import FixBottomArea from "../../../../../../components/shared/FixBottomArea";
+import useLangDir from "@/hooks/useLangDir";
+import FixBottomArea from "@/components/shared/FixBottomArea";
 
 const AddServiceAtBusinessContent = () => {
    

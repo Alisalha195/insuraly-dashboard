@@ -4,23 +4,23 @@ import React from 'react'
 import { Controller, useForm } from 'react-hook-form';
 import { useNavigate, useParams } from 'react-router-dom';
 import z from 'zod';
-import BackArrow from '../../../components/shared/BackArrow';
-import useThemedColors from '../../../hooks/useThemedColors';
-import BasicFieldsSection from '../../../components/shared/forms/BasicFieldsSection';
-import BirthFields from '../../../components/shared/forms/BirthFields';
-import BirthRegistrationFields from '../../../components/shared/forms/BirthRegistrationFields';
-import ContactFields from '../../../components/shared/forms/ContactFields';
-import Control from '../../../components/shared/forms/Control';
-import FixBottomArea from '../../../components/shared/FixBottomArea';
-import PageHeadTitle from '../../../components/shared/PageHeadTitle';
-import { host } from '../../../constants/connection';
+import BackArrow from '@/components/shared/BackArrow';
+import useThemedColors from '@/hooks/useThemedColors';
+import BasicFieldsSection from '@/components/shared/forms/BasicFieldsSection';
+import BirthFields from '@/components/shared/forms/BirthFields';
+import BirthRegistrationFields from '@/components/shared/forms/BirthRegistrationFields';
+import ContactFields from '@/components/shared/forms/ContactFields';
+import Control from '@/components/shared/forms/Control';
+import FixBottomArea from '@/components/shared/FixBottomArea';
+import PageHeadTitle from '@/components/shared/PageHeadTitle';
+import { host } from '@/constants/connection';
 import toast from 'react-hot-toast';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { checkPersonExist } from '../../../api/checkPersonExist';
-import { useCustomQuery } from '../../../hooks/useCustomQuery';
-import SkeletonLoader from '../../../components/shared/Skeleton';
-import Error from '../../../components/shared/Error';
-import { PersonalSchemaFormData, PersonalSchema } from '../../../utils/personalSchema';
+import { checkPersonExist } from '@/api/checkPersonExist';
+import { useCustomQuery } from '@/hooks/useCustomQuery';
+import SkeletonLoader from '@/components/shared/Skeleton';
+import Error from '@/components/shared/Error';
+import { PersonalSchemaFormData, PersonalSchema } from '@/utils/personalSchema';
 import { useTranslation } from 'react-i18next';
 
 const EditProfileContent = () => {

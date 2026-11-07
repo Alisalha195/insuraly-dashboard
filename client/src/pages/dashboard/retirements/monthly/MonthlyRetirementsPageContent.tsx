@@ -1,19 +1,19 @@
 import React, { useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom';
-import useThemedColors from '../../../../hooks/useThemedColors';
-import { useCustomQuery } from '../../../../hooks/useCustomQuery';
-import { host } from '../../../../constants/connection';
-import Error from '../../../../components/shared/Error';
+import useThemedColors from '@/hooks/useThemedColors';
+import { useCustomQuery } from '@/hooks/useCustomQuery';
+import { host } from '@/constants/connection';
+import Error from '@/components/shared/Error';
 import { Box, Center, Flex, HStack, Icon, Span, Text, VStack } from '@chakra-ui/react';
-import BackArrow from '../../../../components/shared/BackArrow';
-import SkeletonLoader from '../../../../components/shared/Skeleton';
-import PageHeadTitle from '../../../../components/shared/PageHeadTitle';
+import BackArrow from '@/components/shared/BackArrow';
+import SkeletonLoader from '@/components/shared/Skeleton';
+import PageHeadTitle from '@/components/shared/PageHeadTitle';
 import { LuSearch } from 'react-icons/lu';
-import DataTable from '../../../../components/shared/tables/DataTable';
-import DataTableControl from '../../../../components/shared/tables/DataTableControl';
-import TableHeader from '../../../../components/shared/tables/TableHeader';
-import { MonthlyRetirementsTableHeaderData } from '../../../../components/dashboard/content/baseContent/tables/retirements/monthly/MonthlyRetirementsTableHeaderData';
-import MonthlyRetirementsTableBody from '../../../../components/dashboard/content/baseContent/tables/retirements/monthly/MonthlyRetirementsTableBody';
+import DataTable from '@/components/shared/tables/DataTable';
+import DataTableControl from '@/components/shared/tables/DataTableControl';
+import TableHeader from '@/components/shared/tables/TableHeader';
+import { MonthlyRetirementsTableHeaderData } from '@/components/dashboard/content/baseContent/tables/retirements/monthly/MonthlyRetirementsTableHeaderData';
+import MonthlyRetirementsTableBody from '@/components/dashboard/content/baseContent/tables/retirements/monthly/MonthlyRetirementsTableBody';
 import { useTranslation } from 'react-i18next';
 
 const MonthlyRetirementsPageContent = () => {

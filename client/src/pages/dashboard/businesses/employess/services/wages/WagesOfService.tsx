@@ -1,23 +1,23 @@
 import { Box, Button, Dialog, Drawer, Flex, HStack, Portal, Span, Text, VStack } from '@chakra-ui/react';
 import React, { useEffect, useState } from 'react'
-import DatePickerField from '../../../../../../components/shared/forms/DatePickerField';
-import FieldGroup from '../../../../../../components/shared/forms/FieldGroup';
+import DatePickerField from '@/components/shared/forms/DatePickerField';
+import FieldGroup from '@/components/shared/forms/FieldGroup';
 import { useForm, useFieldArray, Controller } from "react-hook-form";
 import { base64url, z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
-import PageHeadTitle from '../../../../../../components/shared/PageHeadTitle';
-import { capitalize } from '../../../../../../lib/capitalize';
+import PageHeadTitle from '@/components/shared/PageHeadTitle';
+import { capitalize } from '@/lib/capitalize';
 import { useLocation, useNavigate } from 'react-router-dom';
-import useThemedColors from '../../../../../../hooks/useThemedColors';
+import useThemedColors from '@/hooks/useThemedColors';
 import { LuDelete } from "react-icons/lu";
 import { GoPerson } from "react-icons/go";
 import { PiBuildingOffice } from "react-icons/pi";
-import { getEmployeeByID } from '../../../../../../api/employees/getEmployeeByID';
+import { getEmployeeByID } from '@/api/employees/getEmployeeByID';
 import { useMutation, useQuery } from '@tanstack/react-query';
-import { host } from '../../../../../../constants/connection';
+import { host } from '@/constants/connection';
 import toast from 'react-hot-toast';
-import {  WagesSchema, WagesSchemaFormData } from '../../../../../../utils/employeeSchema';
-import { useCustomQuery } from '../../../../../../hooks/useCustomQuery';
+import {  WagesSchema, WagesSchemaFormData } from '@/utils/employeeSchema';
+import { useCustomQuery } from '@/hooks/useCustomQuery';
 import { FaExpand } from 'react-icons/fa';
 import { useTranslation } from 'react-i18next';
 

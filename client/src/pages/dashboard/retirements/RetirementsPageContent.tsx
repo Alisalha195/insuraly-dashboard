@@ -1,14 +1,14 @@
 import { Box,  Flex, Icon, Span, Text } from '@chakra-ui/react';
 import React from 'react'
-import PageHeadTitle from '../../../components/shared/PageHeadTitle';
-import useThemedColors from '../../../hooks/useThemedColors';
-import Card from '../../../components/ui/Card/Card';
+import PageHeadTitle from '@/components/shared/PageHeadTitle';
+import useThemedColors from '@/hooks/useThemedColors';
+import Card from '@/components/ui/Card/Card';
 import { useNavigate } from 'react-router-dom';
-import { getAnnualRetirementsCount } from '../../../api/retirements/getAnnualRetirementsCount';
-import { getMonthlyRetirementsCount } from '../../../api/retirements/getMonthlylRetirementsCount';
+import { getAnnualRetirementsCount } from '@/api/retirements/getAnnualRetirementsCount';
+import { getMonthlyRetirementsCount } from '@/api/retirements/getMonthlylRetirementsCount';
 import { LuSearch } from 'react-icons/lu';
 import { useTranslation } from 'react-i18next';
-import { capitalize } from '../../../lib/capitalize';
+import { capitalize } from '@/lib/capitalize';
 
 const RetirementsPageContent = () => {
    

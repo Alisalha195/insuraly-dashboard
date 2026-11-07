@@ -1,10 +1,10 @@
 import React, { useEffect, useRef, useState, useTransition } from 'react'
-import useThemedColors from '../../../../../hooks/useThemedColors';
+import useThemedColors from '@/hooks/useThemedColors';
 import { useLocation } from 'react-router-dom';
 import { Box, Flex, Text, VStack } from '@chakra-ui/react';
-import BackArrow from '../../../../../components/shared/BackArrow';
-import SearchBox from '../../../../../components/shared/header/SearchBox';
-import RetardedClaimsSearchActions from '../../../../../components/dashboard/content/baseContent/tables/claims/retarded/RetardedClaimsSearchActions';
+import BackArrow from '@/components/shared/BackArrow';
+import SearchBox from '@/components/shared/header/SearchBox';
+import RetardedClaimsSearchActions from '@/components/dashboard/content/baseContent/tables/claims/retarded/RetardedClaimsSearchActions';
 import { useTranslation } from 'react-i18next';
 
 const SearchRetardedClaimsPageContent = () => {

@@ -2,23 +2,23 @@
    import {useMutation } from '@tanstack/react-query';
    import * as z from 'zod';
    import {zodResolver} from '@hookform/resolvers/zod';
-   import { host } from '../../../../constants/connection.ts';
+   import { host } from '@/constants/connection.ts';
    import { Box,  Flex, Span, Text, VStack,} from "@chakra-ui/react";
    import { useNavigate, useNavigation } from 'react-router-dom';
    import {useForm, Controller} from 'react-hook-form';
-   import useThemedColors from '../../../../hooks/useThemedColors';
-   import FixBottomArea from '../../../../components/shared/FixBottomArea';
-   import Control from '../../../../components/shared/forms/Control';
+   import useThemedColors from '@/hooks/useThemedColors';
+   import FixBottomArea from '@/components/shared/FixBottomArea';
+   import Control from '@/components/shared/forms/Control';
    import toast from 'react-hot-toast' ;
    import {  useState } from 'react';
-   import BackArrow from '../../../../components/shared/BackArrow';
-   import BusinessGeneralFields from '../../../../components/shared/forms/business/BusinessGeneralFields';
-   import AddressFields from '../../../../components/shared/forms/business/AddressFields';
-   import { getBusinessOwnerByInsuranceNumber } from '../../../../api/businessOwner/getBusinessOwnerByInsuranceNumber';
-   import { BusinessSchema } from '../../../../utils/businessSchema.ts';
-   import PageHeadTitle from '../../../../components/shared/PageHeadTitle.tsx';
-   import { capitalize } from '../../../../lib/capitalize.ts';
-   import SkeletonLoader from '../../../../components/shared/Skeleton.tsx';
+   import BackArrow from '@/components/shared/BackArrow';
+   import BusinessGeneralFields from '@/components/shared/forms/business/BusinessGeneralFields';
+   import AddressFields from '@/components/shared/forms/business/AddressFields';
+   import { getBusinessOwnerByInsuranceNumber } from '@/api/businessOwner/getBusinessOwnerByInsuranceNumber';
+   import { BusinessSchema } from '@/utils/businessSchema.ts';
+   import PageHeadTitle from '@/components/shared/PageHeadTitle.tsx';
+   import { capitalize } from '@/lib/capitalize.ts';
+   import SkeletonLoader from '@/components/shared/Skeleton.tsx';
 import { useTranslation } from 'react-i18next';
 
 

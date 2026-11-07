@@ -1,9 +1,9 @@
 import { useEffect, useRef, useState } from "react";
-import useThemedColors from "../../../../../hooks/useThemedColors";
+import useThemedColors from "@/hooks/useThemedColors";
 import { Box, Flex, Text, VStack } from "@chakra-ui/react";
-import BackArrow from "../../../../../components/shared/BackArrow";
-import SearchBox from "../../../../../components/shared/header/SearchBox";
-import MonthlyClaimsSearchActions from "../../../../../components/dashboard/content/baseContent/tables/claims/monthly/MonthlyClaimsSearchActions";
+import BackArrow from "@/components/shared/BackArrow";
+import SearchBox from "@/components/shared/header/SearchBox";
+import MonthlyClaimsSearchActions from "@/components/dashboard/content/baseContent/tables/claims/monthly/MonthlyClaimsSearchActions";
 import { useLocation } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 

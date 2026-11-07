@@ -1,19 +1,19 @@
 import { Box, Center, Flex, Span,  Text,  VStack } from '@chakra-ui/react';
-import PageHeadTitle from '../../../../components/shared/PageHeadTitle';
-import { getAnnulaClaimsShapedData, getDataGroupedByMonthes } from '../../../../lib/helpers';
-import useThemedColors from '../../../../hooks/useThemedColors';
-import { useCustomQuery } from '../../../../hooks/useCustomQuery';
+import PageHeadTitle from '@/components/shared/PageHeadTitle';
+import { getAnnulaClaimsShapedData, getDataGroupedByMonthes } from '@/lib/helpers';
+import useThemedColors from '@/hooks/useThemedColors';
+import { useCustomQuery } from '@/hooks/useCustomQuery';
 // import { useEffect, useState } from 'react';
-import { host } from '../../../../constants/connection';
-import DataTable from '../../../../components/shared/tables/DataTable';
-// import DataTableControl from '../../../../components/shared/tables/DataTableControl';
-import SkeletonLoader from '../../../../components/shared/Skeleton';
-import TableHeader from '../../../../components/shared/tables/TableHeader';
-import AnnualClaimsTableBody from '../../../../components/dashboard/content/baseContent/tables/claims/annuall/AnnualClaimsTableBody';
-import { annualClaimsTableHeaderData } from '../../../../components/dashboard/content/baseContent/tables/claims/annuall/annualClaimsTableHeaderData';
+import { host } from '@/constants/connection';
+import DataTable from '@/components/shared/tables/DataTable';
+// import DataTableControl from '@/components/shared/tables/DataTableControl';
+import SkeletonLoader from '@/components/shared/Skeleton';
+import TableHeader from '@/components/shared/tables/TableHeader';
+import AnnualClaimsTableBody from '@/components/dashboard/content/baseContent/tables/claims/annuall/AnnualClaimsTableBody';
+import { annualClaimsTableHeaderData } from '@/components/dashboard/content/baseContent/tables/claims/annuall/annualClaimsTableHeaderData';
 import { useParams } from 'react-router-dom';
-import BackArrow from '../../../../components/shared/BackArrow';
-import Error from '../../../../components/shared/Error';
+import BackArrow from '@/components/shared/BackArrow';
+import Error from '@/components/shared/Error';
 import { useTranslation } from 'react-i18next';
 
 const AnuualClaimsPageContent = () => {

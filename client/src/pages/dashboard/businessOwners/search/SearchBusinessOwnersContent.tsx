@@ -1,9 +1,9 @@
 import { Box, Flex, HStack, Input, Text, VStack } from '@chakra-ui/react'
 import React, { useEffect, useRef, useState } from 'react'
-import BackArrow from '../../../../components/shared/BackArrow'
-import useThemedColors from '../../../../hooks/useThemedColors';
-import SearchBox from '../../../../components/shared/header/SearchBox';
-import BusinessOwnerSearchActions from '../../../../components/dashboard/content/baseContent/tables/businessOwners/BusinessOwnerSearchActions';
+import BackArrow from '@/components/shared/BackArrow'
+import useThemedColors from '@/hooks/useThemedColors';
+import SearchBox from '@/components/shared/header/SearchBox';
+import BusinessOwnerSearchActions from '@/components/dashboard/content/baseContent/tables/businessOwners/BusinessOwnerSearchActions';
 import { useTranslation } from 'react-i18next';
 
 const SearchBusinessOwnersContent = () => {

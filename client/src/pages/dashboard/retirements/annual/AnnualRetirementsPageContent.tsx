@@ -1,15 +1,15 @@
 import React, { useState, useTransition } from 'react'
 import { useNavigate, useParams } from 'react-router-dom';
-import { host } from '../../../../constants/connection';
-import { useCustomQuery } from '../../../../hooks/useCustomQuery';
+import { host } from '@/constants/connection';
+import { useCustomQuery } from '@/hooks/useCustomQuery';
 import { Box, Center, Flex, HStack, Icon, Span,  Text,  VStack } from '@chakra-ui/react';
-import PageHeadTitle from '../../../../components/shared/PageHeadTitle';
-import useThemedColors from '../../../../hooks/useThemedColors';
-import DataTable from '../../../../components/shared/tables/DataTable';
-import TableHeader from '../../../../components/shared/tables/TableHeader';
-import SkeletonLoader from '../../../../components/shared/Skeleton';
-import BackArrow from '../../../../components/shared/BackArrow';
-import Error from '../../../../components/shared/Error';
+import PageHeadTitle from '@/components/shared/PageHeadTitle';
+import useThemedColors from '@/hooks/useThemedColors';
+import DataTable from '@/components/shared/tables/DataTable';
+import TableHeader from '@/components/shared/tables/TableHeader';
+import SkeletonLoader from '@/components/shared/Skeleton';
+import BackArrow from '@/components/shared/BackArrow';
+import Error from '@/components/shared/Error';
 
 import AnnualRetirementsTableBody from '@/components/dashboard/content/baseContent/tables/retirements/annual/AnnualRetirementsTableBody';
 

@@ -1,29 +1,29 @@
 //--imports--
    import { Box, Flex, Grid, Span, Switch, Text } from "@chakra-ui/react";
-   import BackArrow from "../../../../../components/shared/BackArrow";
-   import BasicFieldsSection from "../../../../../components/shared/forms/BasicFieldsSection";
-   import BirthFields from "../../../../../components/shared/forms/BirthFields";
-   import BirthRegistrationFields from "../../../../../components/shared/forms/BirthRegistrationFields";
-   import ContactFields from "../../../../../components/shared/forms/ContactFields";
-   import Control from "../../../../../components/shared/forms/Control";
-   import FixBottomArea from "../../../../../components/shared/FixBottomArea";
-   import useThemedColors from "../../../../../hooks/useThemedColors";
+   import BackArrow from "@/components/shared/BackArrow";
+   import BasicFieldsSection from "@/components/shared/forms/BasicFieldsSection";
+   import BirthFields from "@/components/shared/forms/BirthFields";
+   import BirthRegistrationFields from "@/components/shared/forms/BirthRegistrationFields";
+   import ContactFields from "@/components/shared/forms/ContactFields";
+   import Control from "@/components/shared/forms/Control";
+   import FixBottomArea from "@/components/shared/FixBottomArea";
+   import useThemedColors from "@/hooks/useThemedColors";
    import { z } from "zod";
-   import { checkPersonExist } from "../../../../../api/checkPersonExist";
+   import { checkPersonExist } from "@/api/checkPersonExist";
    import { Controller, useForm } from "react-hook-form";
    import { zodResolver } from "@hookform/resolvers/zod";
    import { useLocation, useNavigate } from "react-router-dom";
    import { useMutation } from "@tanstack/react-query";
-   import { host } from "../../../../../constants/connection";
+   import { host } from "@/constants/connection";
    import toast from "react-hot-toast";
-   import FieldGroup from "../../../../../components/shared/forms/FieldGroup";
+   import FieldGroup from "@/components/shared/forms/FieldGroup";
    import { FaDollarSign } from "react-icons/fa";
-   import DatePickerField from "../../../../../components/shared/forms/DatePickerField";
+   import DatePickerField from "@/components/shared/forms/DatePickerField";
    import { useEffect, useState } from "react";
-   import { getFinishedWorkReasons } from "../../../../../api/services/getServicesRelatedData";
-   import FisinshReasonsSelectBox from "../../../../../components/shared/forms/services/FinishReasonsSelectBox";
-   import { capitalize } from "../../../../../lib/capitalize";
-   import { NewEmployeeSchema, NewEmployeeSchemaFormData } from "../../../../../utils/employeeSchema";
+   import { getFinishedWorkReasons } from "@/api/services/getServicesRelatedData";
+   import FisinshReasonsSelectBox from "@/components/shared/forms/services/FinishReasonsSelectBox";
+   import { capitalize } from "@/lib/capitalize";
+   import { NewEmployeeSchema, NewEmployeeSchemaFormData } from "@/utils/employeeSchema";
    import { useTranslation } from "react-i18next";
 
 

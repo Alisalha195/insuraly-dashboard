@@ -1,22 +1,22 @@
 import { Box, Center, Flex, HStack, Icon, Span,  Text,  VStack } from '@chakra-ui/react';
-import PageHeadTitle from '../../../../components/shared/PageHeadTitle';
-import { getMonthNames } from '../../../../lib/helpers';
-import useThemedColors from '../../../../hooks/useThemedColors';
-import { useCustomQuery } from '../../../../hooks/useCustomQuery';
+import PageHeadTitle from '@/components/shared/PageHeadTitle';
+import { getMonthNames } from '@/lib/helpers';
+import useThemedColors from '@/hooks/useThemedColors';
+import { useCustomQuery } from '@/hooks/useCustomQuery';
 import { useState } from 'react';
-import { host } from '../../../../constants/connection';
-import DataTable from '../../../../components/shared/tables/DataTable';
-import DataTableControl from '../../../../components/shared/tables/DataTableControl';
-import SkeletonLoader from '../../../../components/shared/Skeleton';
-import { monthlyClaimsTableHeaderData } from '../../../../components/dashboard/content/baseContent/tables/claims/monthly/monthlyClaimsTableHeaderData';
-import TableHeader from '../../../../components/shared/tables/TableHeader';
-import MonthlyClaimsTableBody from '../../../../components/dashboard/content/baseContent/tables/claims/monthly/MonthlyClaimsTableBody';
+import { host } from '@/constants/connection';
+import DataTable from '@/components/shared/tables/DataTable';
+import DataTableControl from '@/components/shared/tables/DataTableControl';
+import SkeletonLoader from '@/components/shared/Skeleton';
+import { monthlyClaimsTableHeaderData } from '@/components/dashboard/content/baseContent/tables/claims/monthly/monthlyClaimsTableHeaderData';
+import TableHeader from '@/components/shared/tables/TableHeader';
+import MonthlyClaimsTableBody from '@/components/dashboard/content/baseContent/tables/claims/monthly/MonthlyClaimsTableBody';
 import { useNavigate, useParams } from 'react-router-dom';
-import Error from '../../../../components/shared/Error';
-import BackArrow from '../../../../components/shared/BackArrow';
+import Error from '@/components/shared/Error';
+import BackArrow from '@/components/shared/BackArrow';
 import { LuSearch } from 'react-icons/lu';
 import { useTranslation } from 'react-i18next';
-import { capitalize } from '../../../../lib/capitalize';
+import { capitalize } from '@/lib/capitalize';
 
 const MonthlyClaimsPageContent = () => {
    

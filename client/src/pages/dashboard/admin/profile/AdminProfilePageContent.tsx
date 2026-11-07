@@ -5,17 +5,17 @@ import { LuSearch } from 'react-icons/lu';
 import { useTranslation } from 'react-i18next'; 
 import LogsTableBody from '@/components/dashboard/content/baseContent/tables/admin/logs/LogsTableBody';
 import  LogsTableHeaderData  from '@/components/dashboard/content/baseContent/tables/admin/logs/LogsTableHeaderData.tsx';
-import useLangDir from '../../../../hooks/useLangDir.ts';
-import { getTableRowsCount } from '../../../../api/getTableRowsCount.ts';
-import useThemedColors from '../../../../hooks/useThemedColors.ts';
-import { useAuthCustomQuery } from '../../../../hooks/useCustomQuery.ts';
-import { host } from '../../../../constants/connection.ts';
-import PageHeadTitle from '../../../../components/shared/PageHeadTitle.tsx';
-import DataTable from '../../../../components/shared/tables/DataTable.tsx';
-import TableHeader from '../../../../components/shared/tables/TableHeader.tsx';
-import DataTableControl from '../../../../components/shared/tables/DataTableControl.tsx';
-import SkeletonLoader from '../../../../components/shared/Skeleton.tsx';
-import Unauthorized from '../../../../components/shared/Unauthorized.tsx';
+import useLangDir from '@/hooks/useLangDir.ts';
+import { getTableRowsCount } from '@/api/getTableRowsCount.ts';
+import useThemedColors from '@/hooks/useThemedColors.ts';
+import { useAuthCustomQuery } from '@/hooks/useCustomQuery.ts';
+import { host } from '@/constants/connection.ts';
+import PageHeadTitle from '@/components/shared/PageHeadTitle.tsx';
+import DataTable from '@/components/shared/tables/DataTable.tsx';
+import TableHeader from '@/components/shared/tables/TableHeader.tsx';
+import DataTableControl from '@/components/shared/tables/DataTableControl.tsx';
+import SkeletonLoader from '@/components/shared/Skeleton.tsx';
+import Unauthorized from '@/components/shared/Unauthorized.tsx';
 
 
 const AdminProfilePageContent = () => {

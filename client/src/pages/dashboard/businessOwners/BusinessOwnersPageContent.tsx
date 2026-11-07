@@ -2,21 +2,21 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useQuery, } from '@tanstack/react-query';
-import { getTableRowsCount } from '../../../api/getTableRowsCount';
-import { businessOwnerTableHeaderData } from "../../../components/dashboard/content/baseContent/tables/businessOwners/businessOwnerTableHeaderData.ts";
-import TableHeader from "../../../components/shared/tables/TableHeader.tsx"
-import BusinessOwnerTableBody from '../../../components/dashboard/content/baseContent/tables/businessOwners/BusinessOwnerTableBody';
+import { getTableRowsCount } from '@/api/getTableRowsCount';
+import { businessOwnerTableHeaderData } from "@/components/dashboard/content/baseContent/tables/businessOwners/businessOwnerTableHeaderData.ts";
+import TableHeader from "@/components/shared/tables/TableHeader.tsx"
+import BusinessOwnerTableBody from '@/components/dashboard/content/baseContent/tables/businessOwners/BusinessOwnerTableBody';
 import { Box, HStack, Flex, Text, VStack, Icon, Span, } from '@chakra-ui/react';
-import useThemedColors from '../../../hooks/useThemedColors';
-import DataTable from '../../../components/shared/tables/DataTable.tsx';
-import DataTableControl from '../../../components/shared/tables/DataTableControl.tsx';
-import { host } from '../../../constants/connection.ts';
-import PageHeadTitle from "../../../components/shared/PageHeadTitle";
-import SkeletonLoader from '../../../components/shared/Skeleton.tsx';
+import useThemedColors from '@/hooks/useThemedColors';
+import DataTable from '@/components/shared/tables/DataTable.tsx';
+import DataTableControl from '@/components/shared/tables/DataTableControl.tsx';
+import { host } from '@/constants/connection.ts';
+import PageHeadTitle from "@/components/shared/PageHeadTitle";
+import SkeletonLoader from '@/components/shared/Skeleton.tsx';
 import { LuSearch } from 'react-icons/lu';
-import { useCustomQuery } from '../../../hooks/useCustomQuery.ts';
+import { useCustomQuery } from '@/hooks/useCustomQuery.ts';
 import { useTranslation } from 'react-i18next';
-import useLangDir from '../../../hooks/useLangDir.ts';
+import useLangDir from '@/hooks/useLangDir.ts';
 
 const BusinessOwnersPageContent = () => {
 

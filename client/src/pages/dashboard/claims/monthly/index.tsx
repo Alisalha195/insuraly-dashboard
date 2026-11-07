@@ -1,4 +1,3 @@
-import React from 'react'
 import MonthlyClaimsPageContent from './MonthlyClaimsPageContent';
 
 const MonthlyClaims = () => {

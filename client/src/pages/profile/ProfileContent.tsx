@@ -2,13 +2,13 @@ import { Box, VStack } from '@chakra-ui/react';
 import React, { useContext } from 'react'
 import SkeletonLoader from '../../components/shared/Skeleton';
 import { useQuery } from '@tanstack/react-query';
-import { host } from '../../constants/connection';
-import BackArrow from '../../components/shared/BackArrow';
-import ProfileUpperSection from '../../components/shared/profile/personal/ProfileUpperSection';
-import ProfileTabs from '../../components/shared/profile/personal/ProfileTabs';
-import { useAuthCustomQuery, useCustomQuery } from '../../hooks/useCustomQuery';
-// import { supabase } from '../../lib/supabaseClient';
-import { authContext } from '../../providers/AuthContextProvider';
+import { host } from '@/constants/connection';
+import BackArrow from '@/components/shared/BackArrow';
+import ProfileUpperSection from '@/components/shared/profile/personal/ProfileUpperSection';
+import ProfileTabs from '@/components/shared/profile/personal/ProfileTabs';
+import { useAuthCustomQuery, useCustomQuery } from '@/hooks/useCustomQuery';
+// import { supabase } from '@/lib/supabaseClient';
+import { authContext } from '@/providers/AuthContextProvider';
 
 const ProfileContent = ({personId}) => {
    

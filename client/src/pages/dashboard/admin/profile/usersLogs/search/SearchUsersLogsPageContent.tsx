@@ -1,10 +1,10 @@
 import { Box, Flex, HStack, Input, Text, VStack } from '@chakra-ui/react'
 import React, { useEffect, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next';
-import useThemedColors from '../../../../../../hooks/useThemedColors';
-import BackArrow from '../../../../../../components/shared/BackArrow';
-import SearchBox from '../../../../../../components/shared/header/SearchBox';
-import UsersLogsSearchActions from '../../../../../../components/dashboard/content/baseContent/tables/admin/logs/UsersLogsSearchActions';
+import useThemedColors from '@/hooks/useThemedColors';
+import BackArrow from '@/components/shared/BackArrow';
+import SearchBox from '@/components/shared/header/SearchBox';
+import UsersLogsSearchActions from '@/components/dashboard/content/baseContent/tables/admin/logs/UsersLogsSearchActions';
 
 const SearchUsersLogsPageContent = () => { 
    

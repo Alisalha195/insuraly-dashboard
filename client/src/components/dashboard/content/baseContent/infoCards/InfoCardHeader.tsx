@@ -1,10 +1,10 @@
 import { Flex, Icon, Box } from '@chakra-ui/react';
-import useThemedColors from '../../../../../hooks/useThemedColors';
+import useThemedColors from '@/hooks/useThemedColors';
 
 import { Md3dRotation } from "react-icons/md";
 import { useTranslation } from 'react-i18next';
-import { capitalize } from '../../../../../lib/capitalize';
-import useLangDir from '../../../../../hooks/useLangDir';
+import { capitalize } from '@/lib/capitalize';
+import useLangDir from '@/hooks/useLangDir';
 
 
 const InfoCardHeader = ({ title, textColor, icon }) => {

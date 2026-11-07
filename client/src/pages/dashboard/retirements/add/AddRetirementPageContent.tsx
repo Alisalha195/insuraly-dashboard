@@ -1,20 +1,20 @@
 import { Box, Flex, Span, Text, VStack } from '@chakra-ui/react'
 import React, { useState } from 'react'
-import PageHeadTitle from '../../../../components/shared/PageHeadTitle'
+import PageHeadTitle from '@/components/shared/PageHeadTitle'
 import { useNavigate } from 'react-router-dom';
-import useThemedColors from '../../../../hooks/useThemedColors';
-import { getFinishedWorkReasons } from '../../../../api/services/getServicesRelatedData';
-import FisinshReasonsSelectBox from '../../../../components/shared/forms/services/FinishReasonsSelectBox';
+import useThemedColors from '@/hooks/useThemedColors';
+import { getFinishedWorkReasons } from '@/api/services/getServicesRelatedData';
+import FisinshReasonsSelectBox from '@/components/shared/forms/services/FinishReasonsSelectBox';
 import { Controller, useForm } from 'react-hook-form';
-import { RetirementSchema, RetirementSchemaFormData } from '../../../../utils/retirementSchema';
+import { RetirementSchema, RetirementSchemaFormData } from '@/utils/retirementSchema';
 
-import {  getEmployeeToRetireByInsuranceNumber } from '../../../../api/employees/getEmployeeByInsuranceNumber';
+import {  getEmployeeToRetireByInsuranceNumber } from '@/api/employees/getEmployeeByInsuranceNumber';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { capitalize } from '../../../../lib/capitalize';
-import FieldGroup from '../../../../components/shared/forms/FieldGroup';
-import SkeletonLoader from '../../../../components/shared/Skeleton';
+import { capitalize } from '@/lib/capitalize';
+import FieldGroup from '@/components/shared/forms/FieldGroup';
+import SkeletonLoader from '@/components/shared/Skeleton';
 import { useMutation } from '@tanstack/react-query';
-import { host } from '../../../../constants/connection';
+import { host } from '@/constants/connection';
 import toast from 'react-hot-toast';
 
 const AddRetirementPageContent = () => {

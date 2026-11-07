@@ -1,14 +1,14 @@
 import { Box, Flex, HStack, Span, Text, VStack } from '@chakra-ui/react';
 import React from 'react'
-import PageHeadTitle from '../../../../components/shared/PageHeadTitle';
-import useThemedColors from '../../../../hooks/useThemedColors';
+import PageHeadTitle from '@/components/shared/PageHeadTitle';
+import useThemedColors from '@/hooks/useThemedColors';
 import { FaDollarSign, FaUser } from 'react-icons/fa';
-import FixBottomArea from '../../../../components/shared/FixBottomArea';
-import { useCustomQuery } from '../../../../hooks/useCustomQuery';
-import { host } from '../../../../constants/connection';
-import SkeletonLoader from '../../../../components/shared/Skeleton';
-import Error from '../../../../components/shared/Error';
-import { capitalize } from '../../../../lib/capitalize';
+import FixBottomArea from '@/components/shared/FixBottomArea';
+import { useCustomQuery } from '@/hooks/useCustomQuery';
+import { host } from '@/constants/connection';
+import SkeletonLoader from '@/components/shared/Skeleton';
+import Error from '@/components/shared/Error';
+import { capitalize } from '@/lib/capitalize';
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 

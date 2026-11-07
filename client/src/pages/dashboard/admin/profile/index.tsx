@@ -1,7 +1,7 @@
 import React from 'react'
 import AdminProfilePageContent from './AdminProfilePageContent'
-import { useAuthPostCustomQuery } from '../../../../hooks/useCustomQuery';
-import { host } from '../../../../constants/connection';
+import { useAuthPostCustomQuery } from '@/hooks/useCustomQuery';
+import { host } from '@/constants/connection';
 
 const AdminProfile = () => {
    

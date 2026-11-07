@@ -1,7 +1,7 @@
 import { Box, Skeleton, SkeletonCircle, SkeletonText } from '@chakra-ui/react'
 import InfoCardHeader from './InfoCardHeader';
 
-import useThemedColors from '../../../../../hooks/useThemedColors';
+import useThemedColors from '@/hooks/useThemedColors';
 import InfoCardBody from './InfoCardBody';
 import { Suspense } from 'react';
 

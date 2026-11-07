@@ -1,11 +1,11 @@
 import { Box, Flex, Portal, VStack } from "@chakra-ui/react"
 import BackArrow from "../../../../components/shared/BackArrow";
 import { useLocation, useParams } from "react-router-dom";
-import useThemedColors from "../../../../hooks/useThemedColors";
-import PageHeadTitle from "../../../../components/shared/PageHeadTitle";
+import useThemedColors from "@/hooks/useThemedColors";
+import PageHeadTitle from "@/components/shared/PageHeadTitle";
 import { useQuery } from "@tanstack/react-query";
-import { host } from "../../../../constants/connection";
-import SkeletonLoader from "../../../../components/shared/Skeleton";
+import { host } from "@/constants/connection";
+import SkeletonLoader from "@/components/shared/Skeleton";
 
 const BusinessBudgetContent = () => {
    const params = useParams();

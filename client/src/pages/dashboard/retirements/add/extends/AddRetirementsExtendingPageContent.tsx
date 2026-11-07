@@ -1,21 +1,21 @@
 import React, { useEffect } from 'react'
-import { ExtindingSchema, RetirementExtindingSchemaFormData } from '../../../../../utils/retirementSchema'
+import { ExtindingSchema, RetirementExtindingSchemaFormData } from '@/utils/retirementSchema'
 import { Controller, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { Box, Flex, Grid, Text } from '@chakra-ui/react';
-import useThemedColors from '../../../../../hooks/useThemedColors';
-import FieldGroup from '../../../../../components/shared/forms/FieldGroup';
+import useThemedColors from '@/hooks/useThemedColors';
+import FieldGroup from '@/components/shared/forms/FieldGroup';
 import { FaDollarSign } from 'react-icons/fa';
-import DatePickerField from '../../../../../components/shared/forms/DatePickerField';
-import { getSalaryReceiptCenters } from '../../../../../api/retirements/getSalaryReceiptCenters';
-import SalaryReceiptCentersSelectBox from '../../../../../components/shared/forms/retirements/SalaryReceiptCentersSelectBox';
-import FixBottomArea from '../../../../../components/shared/FixBottomArea';
-import Control from '../../../../../components/shared/forms/Control';
+import DatePickerField from '@/components/shared/forms/DatePickerField';
+import { getSalaryReceiptCenters } from '@/api/retirements/getSalaryReceiptCenters';
+import SalaryReceiptCentersSelectBox from '@/components/shared/forms/retirements/SalaryReceiptCentersSelectBox';
+import FixBottomArea from '@/components/shared/FixBottomArea';
+import Control from '@/components/shared/forms/Control';
 import { dataTagSymbol, useMutation } from '@tanstack/react-query';
-import { host } from '../../../../../constants/connection';
+import { host } from '@/constants/connection';
 import toast from 'react-hot-toast';
-import { deleteRetirement } from '../../../../../api/retirements/deleteReirement';
+import { deleteRetirement } from '@/api/retirements/deleteReirement';
 import z from 'zod';
 
 const AddRetirementsExtendingPageContent = () => {

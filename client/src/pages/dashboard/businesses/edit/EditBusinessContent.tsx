@@ -6,23 +6,23 @@
    import {zodResolver} from '@hookform/resolvers/zod';
    import {useForm, Controller} from 'react-hook-form';
    import { useNavigate, useLocation, useParams } from 'react-router-dom';
-   import useThemedColors from '../../../../hooks/useThemedColors';
-   import FixBottomArea from '../../../../components/shared/FixBottomArea';
-   import Control from '../../../../components/shared/forms/Control';
+   import useThemedColors from '@/hooks/useThemedColors';
+   import FixBottomArea from '@/components/shared/FixBottomArea';
+   import Control from '@/components/shared/forms/Control';
    import toast from 'react-hot-toast' ;
-   import BackArrow from '../../../../components/shared/BackArrow';
-   import { getBusinessOwnerByInsuranceNumber } from '../../../../api/businessOwner/getBusinessOwnerByInsuranceNumber';
+   import BackArrow from '@/components/shared/BackArrow';
+   import { getBusinessOwnerByInsuranceNumber } from '@/api/businessOwner/getBusinessOwnerByInsuranceNumber';
    import { useContext, useEffect, useState } from 'react';
-   import BusinessGeneralFields from '../../../../components/shared/forms/business/BusinessGeneralFields';
-   import AddressFields from '../../../../components/shared/forms/business/AddressFields';
-   import {  BusinessSchema } from '../../../../utils/businessSchema.ts';
-   import PageHeadTitle from '../../../../components/shared/PageHeadTitle.tsx';
+   import BusinessGeneralFields from '@/components/shared/forms/business/BusinessGeneralFields';
+   import AddressFields from '@/components/shared/forms/business/AddressFields';
+   import {  BusinessSchema } from '@/utils/businessSchema.ts';
+   import PageHeadTitle from '@/components/shared/PageHeadTitle.tsx';
    import { useTranslation } from 'react-i18next';
-   import { capitalize } from '../../../../lib/capitalize.ts';
-   import { useCustomQuery } from '../../../../hooks/useCustomQuery.ts';
-   import SkeletonLoader from '../../../../components/shared/Skeleton.tsx';
-   import Error from '../../../../components/shared/Error.tsx';
-import { authContext } from '../../../../providers/AuthContextProvider.tsx';
+   import { capitalize } from '@/lib/capitalize.ts';
+   import { useCustomQuery } from '@/hooks/useCustomQuery.ts';
+   import SkeletonLoader from '@/components/shared/Skeleton.tsx';
+   import Error from '@/components/shared/Error.tsx';
+import { authContext } from '@/providers/AuthContextProvider.tsx';
    
    
 const EditBusinessContent = () => {

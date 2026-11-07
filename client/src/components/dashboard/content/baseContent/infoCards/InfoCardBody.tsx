@@ -1,5 +1,5 @@
 import { Flex, SkeletonText, Text } from "@chakra-ui/react";
-import useThemedColors from "../../../../../hooks/useThemedColors";
+import useThemedColors from "@/hooks/useThemedColors";
 import { Suspense } from "react";
 
 const InfoCardBody = ({ amount, textColor }) => {

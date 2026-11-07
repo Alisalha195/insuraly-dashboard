@@ -20,23 +20,23 @@ import {
  import * as z from 'zod';
  import {zodResolver} from '@hookform/resolvers/zod';
  import {useForm, Controller} from 'react-hook-form';
- import { checkPersonExist } from '../../../../api/checkPersonExist';
- import { host } from '../../../../constants/connection.ts';
+ import { checkPersonExist } from '@/api/checkPersonExist';
+ import { host } from '@/constants/connection.ts';
  
  import { useNavigate, useLocation, useParams } from 'react-router-dom';
-import useThemedColors from '../../../../hooks/useThemedColors';
-import BirthFields from '../../../../components/shared/forms/BirthFields';
-import FixBottomArea from '../../../../components/shared/FixBottomArea';
-import BirthRegistrationFields from '../../../../components/shared/forms/BirthRegistrationFields';
-import ContactFields from '../../../../components/shared/forms/ContactFields';
-import Control from '../../../../components/shared/forms/Control';
-import BasicFieldsSection from '../../../../components/shared/forms/BasicFieldsSection';
-import useBusinessOwnerStore from '../../../../store/useAddBusinessOwnerStore';
+import useThemedColors from '@/hooks/useThemedColors';
+import BirthFields from '@/components/shared/forms/BirthFields';
+import FixBottomArea from '@/components/shared/FixBottomArea';
+import BirthRegistrationFields from '@/components/shared/forms/BirthRegistrationFields';
+import ContactFields from '@/components/shared/forms/ContactFields';
+import Control from '@/components/shared/forms/Control';
+import BasicFieldsSection from '@/components/shared/forms/BasicFieldsSection';
+// import useBusinessOwnerStore from '@/store/useAddBusinessOwnerStore';
 
 import toast from 'react-hot-toast' ;
-import BackArrow from '../../../../components/shared/BackArrow';
-import { BusinessOwnerSchema, BusinessOwnerSchemaFormData } from '../../../../utils/businessOwnerSchema.ts';
-import { useCustomQuery } from '../../../../hooks/useCustomQuery.ts';
+import BackArrow from '@/components/shared/BackArrow';
+import { BusinessOwnerSchema, BusinessOwnerSchemaFormData } from '@/utils/businessOwnerSchema.ts';
+import { useCustomQuery } from '@/hooks/useCustomQuery.ts';
 
 
 const EditBusinessOwnerContent = () => {

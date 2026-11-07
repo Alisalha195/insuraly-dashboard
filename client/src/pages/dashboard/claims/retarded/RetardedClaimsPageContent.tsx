@@ -1,17 +1,17 @@
 import { Box, Center, Flex, HStack, Icon, Span, Text, VStack } from '@chakra-ui/react';
 import React, { useState } from 'react'
-import PageHeadTitle from '../../../../components/shared/PageHeadTitle';
-import useThemedColors from '../../../../hooks/useThemedColors';
+import PageHeadTitle from '@/components/shared/PageHeadTitle';
+import useThemedColors from '@/hooks/useThemedColors';
 import { useNavigate, useParams } from 'react-router-dom';
-import DataTable from '../../../../components/shared/tables/DataTable';
-import DataTableControl from '../../../../components/shared/tables/DataTableControl';
-import TableHeader from '../../../../components/shared/tables/TableHeader';
-import { retardedClaimsTableHeaderData } from '../../../../components/dashboard/content/baseContent/tables/claims/retarded/retardedClaimsTableHeaderData';
-import RetardedClaimsTableBody from '../../../../components/dashboard/content/baseContent/tables/claims/retarded/RetardedClaimsTableBody';
-import { useCustomQuery } from '../../../../hooks/useCustomQuery';
-import { host } from '../../../../constants/connection';
-import SkeletonLoader from '../../../../components/shared/Skeleton';
-import Error from '../../../../components/shared/Error';
+import DataTable from '@/components/shared/tables/DataTable';
+import DataTableControl from '@/components/shared/tables/DataTableControl';
+import TableHeader from '@/components/shared/tables/TableHeader';
+import { retardedClaimsTableHeaderData } from '@/components/dashboard/content/baseContent/tables/claims/retarded/retardedClaimsTableHeaderData';
+import RetardedClaimsTableBody from '@/components/dashboard/content/baseContent/tables/claims/retarded/RetardedClaimsTableBody';
+import { useCustomQuery } from '@/hooks/useCustomQuery';
+import { host } from '@/constants/connection';
+import SkeletonLoader from '@/components/shared/Skeleton';
+import Error from '@/components/shared/Error';
 import { LuSearch } from 'react-icons/lu';
 import { useTranslation } from 'react-i18next';
 

@@ -1,7 +1,7 @@
-import { useContext } from "react";
-import InfoCards from "../../components/dashboard/content/baseContent/infoCards/InfoCards";
-import { useAuthStore } from "../../store/useAuthStore";
-import { authContext } from "../../providers/AuthContextProvider";
+// import { useContext } from "react";
+import InfoCards from "@/components/dashboard/content/baseContent/infoCards/InfoCards";
+// import { useAuthStore } from "../../store/useAuthStore";
+// import { authContext } from "../../providers/AuthContextProvider";
 
 
 const DashboardContent = () => {

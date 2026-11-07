@@ -1,24 +1,24 @@
 import { Box, Flex, HStack, Icon,  Span,  Text, VStack } from '@chakra-ui/react';
 import React, { useState } from 'react'
-import BackArrow from '../../../../components/shared/BackArrow';
-import PageHeadTitle from '../../../../components/shared/PageHeadTitle';
+import BackArrow from '@/components/shared/BackArrow';
+import PageHeadTitle from '@/components/shared/PageHeadTitle';
 import { LuSearch } from 'react-icons/lu';
-import useThemedColors from '../../../../hooks/useThemedColors';
+import useThemedColors from '@/hooks/useThemedColors';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
-import DataTable from '../../../../components/shared/tables/DataTable';
-import DataTableControl from '../../../../components/shared/tables/DataTableControl';
-import SkeletonLoader from '../../../../components/shared/Skeleton';
+import DataTable from '@/components/shared/tables/DataTable';
+import DataTableControl from '@/components/shared/tables/DataTableControl';
+import SkeletonLoader from '@/components/shared/Skeleton';
 import { useQuery } from '@tanstack/react-query';
-import { host } from '../../../../constants/connection';
-import { employeeTableHeaderData } from '../../../../components/dashboard/content/baseContent/tables/employees/employeeTableHeaderData';
-import TableHeader from '../../../../components/shared/tables/TableHeader';
-import { getEmployeesCountInBusiness } from '../../../../api/getTableRowsCount';
-import EmployeeTableBody from '../../../../components/dashboard/content/baseContent/tables/employees/EmployeeTableBody';
-import { capitalize } from '../../../../lib/capitalize';
-import { useCustomQuery } from '../../../../hooks/useCustomQuery';
+import { host } from '@/constants/connection';
+import { employeeTableHeaderData } from '@/components/dashboard/content/baseContent/tables/employees/employeeTableHeaderData';
+import TableHeader from '@/components/shared/tables/TableHeader';
+import { getEmployeesCountInBusiness } from '@/api/getTableRowsCount';
+import EmployeeTableBody from '@/components/dashboard/content/baseContent/tables/employees/EmployeeTableBody';
+import { capitalize } from '@/lib/capitalize';
+import { useCustomQuery } from '@/hooks/useCustomQuery';
 import { useTranslation } from 'react-i18next';
-import { getBusinessByBusinessID } from '../../../../api/business/getBusinessRelatedData';
-import useLangDir from '../../../../hooks/useLangDir';
+import { getBusinessByBusinessID } from '@/api/business/getBusinessRelatedData';
+import useLangDir from '@/hooks/useLangDir';
 
 const BusinessEmployeesContent = () => {
    

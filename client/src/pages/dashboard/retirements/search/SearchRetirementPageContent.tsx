@@ -1,10 +1,10 @@
 
 import { Box, Flex, HStack, Input, Text, VStack } from '@chakra-ui/react'
 import React, { useEffect, useRef, useState } from 'react'
-import BackArrow from '../../../../components/shared/BackArrow';
-import SearchBox from '../../../../components/shared/header/SearchBox';
-import useThemedColors from '../../../../hooks/useThemedColors';
-import RetirementsSearchActions from '../../../../components/dashboard/content/baseContent/tables/retirements/search/RetirementsSearchActions';
+import BackArrow from '@/components/shared/BackArrow';
+import SearchBox from '@/components/shared/header/SearchBox';
+import useThemedColors from '@/hooks/useThemedColors';
+import RetirementsSearchActions from '@/components/dashboard/content/baseContent/tables/retirements/search/RetirementsSearchActions';
 import { useTranslation } from 'react-i18next';
 
 const SearchRetirementPageContent = () => {

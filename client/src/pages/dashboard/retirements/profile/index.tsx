@@ -1,4 +1,3 @@
-import React from 'react'
 import RetirementProfilePageContent from './RetirementProfilePageContent'
 import { useParams } from 'react-router-dom';
 
