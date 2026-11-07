@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next';
 import useThemedColors from '@/hooks/useThemedColors';
 import BackArrow from '@/components/shared/BackArrow';
 import SearchBox from '@/components/shared/header/SearchBox';
-import UsersLogsSearchActions from '@/components/dashboard/content/baseContent/tables/admin/logs/UsersLogsSearchActions';
+import UsersLogsSearchActions from '@/components/dashboard/content/baseContent/tables/admin/userLogs/UsersLogsSearchActions';
 
 const SearchUsersLogsPageContent = () => { 
    
