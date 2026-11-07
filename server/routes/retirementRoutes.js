@@ -1,7 +1,7 @@
 
 // retirement
 import { Router } from "express";
-import {getRetirementById, getPaginatedAnnualRetirements , getPaginatedMonthlyRetirements, getMonthlyRetirementCount, getAnnualRetirementCount, deleteRetirement, createRetirement, getSalaryReceiptCenters, createRetirementExtending, getRetirementCount, updateRetirement, getRetirementsByNationalNumber, getRetirementsByName, getRetirementsByInsuranceNumber, getRetirementsByEmployeeID} from "../controllers/retirementController.js";
+import {getRetirementById, getPaginatedAnnualRetirements , getPaginatedMonthlyRetirements, getMonthlyRetirementCount, getAnnualRetirementCount, deleteRetirement, createRetirement, getSalaryReceiptCenters, createRetirementExtending, getRetirementCount, updateRetirement, getRetirementsByNationalNumber, getRetirementsByName, getRetirementsByInsuranceNumber, getRetirementsByEmployeeID, getRetirementSalaryAmountByEmail, getRetirementSalaryByEmail} from "../controllers/retirementController.js";
 
 const router = Router();
 
@@ -24,7 +24,10 @@ router.post("/create-retirement", createRetirement);
 router.post("/create-retirement-extending", createRetirementExtending);
 router.post("/update-retirement", updateRetirement);
 
-router.delete("/delete-retirement", deleteRetirement); 
+router.delete("/delete-retirement", deleteRetirement);  
+
+router.post("/getRetirementSalaryAmountByEmail", getRetirementSalaryAmountByEmail);
+router.post("/getRetirementSalaryByEmail", getRetirementSalaryByEmail);
 
 
-export default router;
+export default router; 

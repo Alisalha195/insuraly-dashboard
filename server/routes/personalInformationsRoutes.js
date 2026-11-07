@@ -3,7 +3,7 @@ import { Router } from "express";
 import { authMiddleware } from "../middlewares/authMiddleware.js";
 import { authenticated } from "../middlewares/authenticated.js";
 
-import {checkIfPersonalInfoRecordExistBeforeCreating, createPersonalInfoRecord , editPersonalInfoRecord,deletePersonalInfoRecord, checkIfPersonalInfoRecordExist, getPersonalInfoByInsuranceNumber, getPersonRules, getPersonalInfoById, getPersonalRecord} from "../controllers/personalInfoController.js";
+import {checkIfPersonalInfoRecordExistBeforeCreating, createPersonalInfoRecord , editPersonalInfoRecord,deletePersonalInfoRecord, checkIfPersonalInfoRecordExist, getPersonalInfoByInsuranceNumber, getPersonRules, getPersonalInfoById, getPersonalRecord, getInsuranceNumberByEmail} from "../controllers/personalInfoController.js";
 import { activityLogger } from "../middlewares/activityLogger.js";
 const router = Router();
 
@@ -19,5 +19,7 @@ router.get("/get/id",authMiddleware ,getPersonalInfoById)
 
 
 router.get("/getPersonRules/personId",activityLogger('person.PersonRules_initiated') ,getPersonRules);
+
+router.post("/getInsuranceNumberByEmail",getInsuranceNumberByEmail)
 
 export default router;

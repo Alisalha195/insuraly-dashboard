@@ -26,7 +26,9 @@ const ProtectedAuthRoute = ({children}) => {
    //    } 
    // },[authState.isAuthenticated]);
    
-      if(authState.loading || (authState.isAuthenticated && isRoleLoading)) {
+      console.log("authstate :",authState);
+      console.log("isAdmin ?? :",isAdmin);
+      if(authState.loading ) {
          return (
             <VStack justifyContent={'center'} height={'50vh'}>
                <SkeletonLoader width='60%'/>

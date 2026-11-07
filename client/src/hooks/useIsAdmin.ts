@@ -34,13 +34,14 @@ export const useIsAdmin = (userEmail) => {
      ["is-admin", userEmail],
      `${host}/admin/is-admin`, 
      { email: userEmail || "" },
-     { enabled: !!userEmail } 
+   //   { enabled: !!userEmail } 
    );
  
-   const isAdminFlag = adminData?.status === 200 ? adminData?.isAdmin : false;
- 
+   console.log("isAdmin Data :",adminData)
+   const isAdminFlag = adminData?.status == 200 ? adminData?.isAdmin : false;
+   // prompt("isAdminFlag :",isAdminFlag)
    return { 
      isAdmin: isAdminFlag, 
-     isLoading: !!userEmail && isLoading 
+     isLoading: isLoading 
    };
  };

@@ -86,13 +86,22 @@ import { supabase } from "../db/connection.js";
  * @param {function|null} idResolver - Optional function to dynamically extract the exact ID from the req object
  */
 export function activityLogger(actionName, tableName = null, idResolver = null) {
-   console.log("🚀 activityLogger initialized for action:", actionName);
+   console.log("🚀 activityLogger initialized for action:", actionName, "in table :",tableName);
    
    return (req, res, next) => {
       // 1. Capture request context snapshots immediately while request variables are alive
-      const userId = req.user?.id || null;
+      // const userId = req.user?.id || null;
+      const userId = req.user?.id || req.query?.userAgentID || req?.body?.userAgentID;
       const ipAddress = req.ip || req.headers['x-forwarded-for'] || '';
       const userAgent = req.headers['user-agent'] || '';
+      
+      console.log(" req :", req);
+      
+      console.log(" userId :", userId);
+      console.log(" req.ip :", req.ip);
+      console.log("req.headers['x-forwarded-for'] :", req.headers['x-forwarded-for']);
+      console.log(" req.ip :",  req.headers['user-agent'] );
+      
       
       let recordId = null;
 
@@ -101,6 +110,7 @@ export function activityLogger(actionName, tableName = null, idResolver = null) 
          // Explicit resolution mode
          try {
             recordId = idResolver(req);
+            console.log(" recordId :",  recordId);
          } catch (err) {
             console.error('⚠️ Explicit idResolver crashed:', err.message);
          }
@@ -117,6 +127,7 @@ export function activityLogger(actionName, tableName = null, idResolver = null) 
 
          if (pkKey) {
             recordId = lookIn[pkKey];
+            console.log("pkKey :",pkKey)
          }
       }
 
@@ -143,6 +154,9 @@ export function activityLogger(actionName, tableName = null, idResolver = null) 
                      user_agent: String(userAgent),
                      new_data: auditPayload
                   });
+                  
+                  // next();
+                  
                } catch (err) {
                   console.error(' Critical Application-Layer Audit Logging failed:', err.message);
                }

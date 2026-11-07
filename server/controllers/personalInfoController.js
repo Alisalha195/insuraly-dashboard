@@ -193,7 +193,7 @@ export const getPersonalInfoById = async(req , res, next) => {
          
          logSensitiveRead(req, 'view_personal_info_record', 'personal_informations', id).catch(console.error);
          
-         console.log("data[0] in getPersonalInfoById::",data[0])
+         // console.log("data[0] in getPersonalInfoById::",data[0])
          res.status(200).json({ status:200, person:data[0]})
       }
 }
@@ -344,4 +344,23 @@ export const getPersonRules = async (req, res, next) => {
 export const getPersonalRecord = async (req, res, next) => {
    const {personal_informations} = req.body;
    res.status(200).json({ status:200, person:personal_informations})
+}
+
+export const getInsuranceNumberByEmail = async (req, res, next) => {
+   const {email} = req.body;
+   console.log("email is :",email)
+   const {data , error} = await supabase
+   
+   .from(personalInfoTable)
+   .select("insurance_number")
+   .eq("email", email);
+   
+   console.log("data in getInsurance Number :",data);
+   
+   if(error || data?.length < 1) {
+      res.status(404).json({msg:"user not found", status:404});
+   }
+   else if((data?.length > 0) && (!error)) {
+      res.status(200).json({ status:200, insuranceNumber:data[0]?.insurance_number})
+   }
 }

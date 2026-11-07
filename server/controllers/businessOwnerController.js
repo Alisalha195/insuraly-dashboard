@@ -223,3 +223,29 @@ export const deleteBusinessOwner = async (req, res , next) => {
   }
 }
 
+export const getBusinessesCountByEmail = async (req, res, next) => {
+   
+   const {email} = req.body;
+   
+   const { data , error } = await supabase
+   .from(businessTable)
+   .select(`
+      * ,
+      Business_owners!inner(
+         business_owner_id,
+         personal_informations!inner(
+            *
+         )
+      )
+   `)
+   .eq("Business_owners.personal_informations.email",email);
+   
+   // console.log("data in getBusinessesCountByEmail :",data);
+      
+   if(data?.length < 1 || error) {
+      res.status(404).json({msg:"something went wrong !", status:404});
+   } else {
+      res.status(200).json({ businessesCount: data?.length, status:200});
+   }
+}
+

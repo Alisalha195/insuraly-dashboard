@@ -1,4 +1,3 @@
-import React from 'react'
 import ProfileContent from './ProfileContent'
 import { useParams } from 'react-router-dom'
 

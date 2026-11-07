@@ -129,7 +129,7 @@ const EditRetirementPageContent = () => {
          toast.error("somethng went wrong");
       },
       onSuccess: (response) => {
-         // console.log("response :", response)
+         console.log("response :", response)
          if(!response.executed){
             toast.error("somethng went wrong")
          } else if(response.executed) {

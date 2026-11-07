@@ -24,16 +24,18 @@ const ProtectedRoute = ({children, requiredRole }) => {
          </VStack>
       )
    }
+   
+   
     
    if(!authState.isAuthenticated) {
       return <Navigate to="/admin/login" replace={true} />;
    } 
 
-    if (requiredRole === 'admin' && !isAdmin) {
+    else if (requiredRole === 'admin' && !isAdmin) {
       return <Navigate to="/user" replace={true} />; 
    }
    
-   if (requiredRole === 'user' && isAdmin) {
+   else if (requiredRole === 'user' && isAdmin) {
       return <Navigate to="/dashboard" replace={true} />;
    }
    

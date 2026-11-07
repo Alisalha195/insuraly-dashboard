@@ -12,7 +12,7 @@
    import toast from 'react-hot-toast' ;
    import BackArrow from '../../../../components/shared/BackArrow';
    import { getBusinessOwnerByInsuranceNumber } from '../../../../api/businessOwner/getBusinessOwnerByInsuranceNumber';
-   import { useEffect, useState } from 'react';
+   import { useContext, useEffect, useState } from 'react';
    import BusinessGeneralFields from '../../../../components/shared/forms/business/BusinessGeneralFields';
    import AddressFields from '../../../../components/shared/forms/business/AddressFields';
    import {  BusinessSchema } from '../../../../utils/businessSchema.ts';
@@ -22,10 +22,14 @@
    import { useCustomQuery } from '../../../../hooks/useCustomQuery.ts';
    import SkeletonLoader from '../../../../components/shared/Skeleton.tsx';
    import Error from '../../../../components/shared/Error.tsx';
+import { authContext } from '../../../../providers/AuthContextProvider.tsx';
    
    
 const EditBusinessContent = () => {
    
+   const {authState } = useContext(authContext);
+   console.log("authState in profile :",authState?.user?.id);
+         
    const navigate = useNavigate();
    // const location = useLocation();
    const params = useParams();
@@ -155,7 +159,7 @@ const EditBusinessContent = () => {
    
    const handleSaveBusiness = (data) => {
       setSaving(true);
-      const dataWithId = {...data , businesslId : params?.id}      
+      const dataWithId = {...data , businesslId : params?.id, userAgentID: authState?.user?.id}      
       
       console.log("dataWithId : ",dataWithId)
       saveBusiness.mutate(dataWithId);

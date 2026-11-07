@@ -1,5 +1,5 @@
 import { Box, VStack } from '@chakra-ui/react';
-import React from 'react'
+import React, { useContext } from 'react'
 import SkeletonLoader from '../../components/shared/Skeleton';
 import { useQuery } from '@tanstack/react-query';
 import { host } from '../../constants/connection';
@@ -7,10 +7,16 @@ import BackArrow from '../../components/shared/BackArrow';
 import ProfileUpperSection from '../../components/shared/profile/personal/ProfileUpperSection';
 import ProfileTabs from '../../components/shared/profile/personal/ProfileTabs';
 import { useAuthCustomQuery, useCustomQuery } from '../../hooks/useCustomQuery';
+// import { supabase } from '../../lib/supabaseClient';
+import { authContext } from '../../providers/AuthContextProvider';
 
 const ProfileContent = ({personId}) => {
    
-   
+      // const { data: { session } } = await supabase.auth.getSession();
+      // console.log("session !!!! :",session);
+      
+      const {authState } = useContext(authContext);
+      console.log("authState in profile :",authState?.user?.id);
       // const {
       //    data: personRules,
       //    error: personRulesError,
@@ -66,7 +72,7 @@ const ProfileContent = ({personId}) => {
          isLoading :personDataIsLoading
       } =  useAuthCustomQuery(
          ["person-about-data", personId] ,
-         `${host}/personalInformations/get/id?id=${personId}`,
+         `${host}/personalInformations/get/id?id=${personId}&userAgentID=${authState?.user?.id || ""}`,
          
       );
       

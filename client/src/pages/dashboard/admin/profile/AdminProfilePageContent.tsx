@@ -39,7 +39,7 @@ const AdminProfilePageContent = () => {
       `${host}/admin/audit-logs?page=${currentpage}&pageSize=${pageSize}`
    );
    
-   console.log("logsData", logsData?.status);
+   // console.log("logsData", logsData);
    
    if(logsData?.status == 403) {
       return <Unauthorized />

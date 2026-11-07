@@ -27,7 +27,11 @@ import { supabase } from "../db/connection.js";
 
 export async function logSensitiveRead(req, action, tableName, recordId = null) {
   // Capture values instantly
-  const userId = req.user?.id || null; 
+  
+//   const { data: { user }, error } = await supabase.auth.getUser(token);
+  const userId = req.user?.id || req.query?.userAgentID || req?.body?.userAgentID;
+  
+  console.log("userId in logSensitiveRead :",userId);
   const ipAddress = req.ip || req.headers['x-forwarded-for'] || '';
   const userAgent = req.headers['user-agent'] || '';
 

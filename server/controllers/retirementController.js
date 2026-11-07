@@ -630,3 +630,58 @@ export const getRetirementsByInsuranceNumber = async (req, res, next) => {
        
     
 }
+
+export const getRetirementSalaryAmountByEmail = async (req, res, next) => {
+   const {email} = req.body;
+   
+   const { data ,error } = await supabase
+   .from(retirementSalaryTable)
+   .select(
+      `* , Retirement!inner (
+         *, Employees!inner (
+            *,personal_informations!inner(
+               *
+             )
+            )  
+      )
+   `
+    )
+   .eq("Retirement.Employees.personal_informations.email",email); 
+   
+   console.log("data for getRetirementSalaryAmountByEmail :",data);
+   
+   if(data?.length < 1 || error) {
+      res.status(404).json({msg:"something went wrong !", status:403});
+   } else {
+      res.status(200).json({salaryAmount : data[0]?.salary_amount ,  status:200});
+   }
+   
+}
+
+export const getRetirementSalaryByEmail = async (req, res, next) => {
+   
+   const {email} = req.body;
+   
+   const { data ,error } = await supabase
+   .from(retirementSalaryTable)
+   .select(
+      `* , Retirement!inner (
+         *, Employees!inner (
+            *,personal_informations!inner(
+               *
+             )
+            )  
+      )
+   `
+    )
+   .eq("Retirement.Employees.personal_informations.email",email); 
+   
+   console.log("data for getRetirementSalaryAmountByEmail :",data);
+   
+   if(data?.length < 1 || error) {
+      res.status(404).json({msg:"something went wrong !", status:404});
+   }  else {
+      res.status(200).json({data, status:200});
+   }
+}
+   
