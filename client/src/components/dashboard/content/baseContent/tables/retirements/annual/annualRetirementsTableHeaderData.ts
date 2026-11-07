@@ -1,6 +1,6 @@
 
 
-export const AnnualRetirementsTableHeaderData = [
+const AnnualRetirementsTableHeaderData = [
    "firstName",
    "fatherName",
    "lastName",
@@ -12,4 +12,5 @@ export const AnnualRetirementsTableHeaderData = [
    // "delivered",
    // "claims amount",
 ];
-  
+ 
+export default AnnualRetirementsTableHeaderData;
