@@ -11,9 +11,9 @@ import SkeletonLoader from '../../../../components/shared/Skeleton';
 import BackArrow from '../../../../components/shared/BackArrow';
 import Error from '../../../../components/shared/Error';
 
-// import AnnualRetirementsTableBody from '../../../../components/dashboard/content/baseContent/tables/retirements/annual/AnnualRetirementsTableBody';
+import AnnualRetirementsTableBody from '@/components/dashboard/content/baseContent/tables/retirements/annual/AnnualRetirementsTableBody';
 
-// import AnnualRetirementsTableHeaderData from '../../../../components/dashboard/content/baseContent/tables/retirements/annual/AnnualRetirementsTableHeaderData';
+import AnnualRetirementsTableHeaderData from '@/components/dashboard/content/baseContent/tables/retirements/annual/AnnualRetirementsTableHeaderData';
 
 import { getAnnulaClaimsShapedData, getDataGroupedByMonthes } from '../../../../lib/helpers';
 import { LuSearch } from 'react-icons/lu';
@@ -86,7 +86,7 @@ const AnnualRetirementsPageContent = () => {
                     // overflow={'auto'}
                  >
    
-                    {/* <DataTable
+                    <DataTable
                        TableHeader={
                           <TableHeader headerData={AnnualRetirementsTableHeaderData} />
                        }
@@ -101,7 +101,7 @@ const AnnualRetirementsPageContent = () => {
                        setCurrentPage={setCurrentPage}
                        completeDataCount={annualRetirementsData?.dataCount}
                        pageSize={pageSize}
-                    /> */}
+                    />
                  </Flex>
               {/* </VStack> */}
               
