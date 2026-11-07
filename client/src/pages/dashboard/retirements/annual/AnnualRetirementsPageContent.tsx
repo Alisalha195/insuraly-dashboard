@@ -13,7 +13,7 @@ import Error from '@/components/shared/Error';
 
 import AnnualRetirementsTableBody from '@/components/dashboard/content/baseContent/tables/retirements/annual/AnnualRetirementsTableBody';
 
-import AnnualRetirementsTableHeaderData from '@/components/dashboard/content/baseContent/tables/retirements/annual/AnnualRetirementsTableHeaderData.tsx';
+import {AnnualRetirementsTableHeaderData} from '@/components/dashboard/content/baseContent/tables/retirements/annual/AnnualRetirementsTableHeaderData';
 
 import { getAnnulaClaimsShapedData, getDataGroupedByMonthes } from '@/lib/helpers';
 import { LuSearch } from 'react-icons/lu';
