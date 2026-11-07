@@ -12,7 +12,7 @@ import ServiceTableBody from '../../../../dashboard/content/baseContent/tables/s
 import TableHeader from '../../../tables/TableHeader';
 
 import AnnualRetirementsTableBody from '../../../../dashboard/content/baseContent/tables/retirements/annual/AnnualRetirementsTableBody';
-import AnnualRetirementsTableHeaderData from '../../../../dashboard/content/baseContent/tables/retirements/annual/AnnualRetirementsTableHeaderData';
+import {AnnualRetirementsTableHeaderData} from '../../../../dashboard/content/baseContent/tables/retirements/annual/AnnualRetirementsTableHeaderData';
 
 const RetirementTab = ({employeeId}) => {
    
