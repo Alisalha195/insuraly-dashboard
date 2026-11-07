@@ -10,8 +10,9 @@ import DataTable from '../../../tables/DataTable';
 import { serviceTableHeaderData } from '../../../../dashboard/content/baseContent/tables/services/serviceTableHeaderData';
 import ServiceTableBody from '../../../../dashboard/content/baseContent/tables/services/ServiceTableBody';
 import TableHeader from '../../../tables/TableHeader';
-import { AnnualRetirementsTableHeaderData } from '../../../../dashboard/content/baseContent/tables/retirements/annual/AnnualRetirementsTableHeaderData';
+
 import AnnualRetirementsTableBody from '../../../../dashboard/content/baseContent/tables/retirements/annual/AnnualRetirementsTableBody';
+import AnnualRetirementsTableHeaderData from '../../../../dashboard/content/baseContent/tables/retirements/annual/AnnualRetirementsTableHeaderData';
 
 const RetirementTab = ({employeeId}) => {
    
