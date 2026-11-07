@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { Box, HStack, Flex, Text, VStack, Icon, Span, } from '@chakra-ui/react';
 import { LuSearch } from 'react-icons/lu';
 import { useTranslation } from 'react-i18next'; 
-import { logsTableHeaderData } from '../../../../components/dashboard/content/baseContent/tables/admin/logs/logsTableHeaderData.ts';
+import  LogsTableHeaderData  from '../../../../components/dashboard/content/baseContent/tables/admin/logs/LogsTableHeaderData';
 import LogsTableBody from '../../../../components/dashboard/content/baseContent/tables/admin/logs/LogsTableBody';
 import useLangDir from '../../../../hooks/useLangDir.ts';
 import { getTableRowsCount } from '../../../../api/getTableRowsCount.ts';
@@ -78,7 +78,7 @@ const AdminProfilePageContent = () => {
               <>
                   <DataTable
                      TableHeader={
-                        <TableHeader headerData={logsTableHeaderData} />
+                        <TableHeader headerData={LogsTableHeaderData} />
                      }
                      TableBody={
                         <LogsTableBody data={logsData?.logs} search={false} />
