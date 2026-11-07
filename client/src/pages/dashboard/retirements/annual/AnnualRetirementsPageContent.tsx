@@ -13,11 +13,11 @@ import Error from '@/components/shared/Error';
 
 import AnnualRetirementsTableBody from '@/components/dashboard/content/baseContent/tables/retirements/annual/AnnualRetirementsTableBody';
 
-import AnnualRetirementsTableHeaderData from '@/components/dashboard/content/baseContent/tables/retirements/annual/AnnualRetirementsTableHeaderData';
+import AnnualRetirementsTableHeaderData from '@/components/dashboard/content/baseContent/tables/retirements/annual/AnnualRetirementsTableHeaderData.tsx';
 
-import { getAnnulaClaimsShapedData, getDataGroupedByMonthes } from '../../../../lib/helpers';
+import { getAnnulaClaimsShapedData, getDataGroupedByMonthes } from '@/lib/helpers';
 import { LuSearch } from 'react-icons/lu';
-import DataTableControl from '../../../../components/shared/tables/DataTableControl';
+import DataTableControl from '@/components/shared/tables/DataTableControl';
 import { useTranslation } from 'react-i18next';
 
 
