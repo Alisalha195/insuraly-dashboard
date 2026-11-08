@@ -12,6 +12,7 @@ const app = express();
 
 
 const allowedOrigins = [
+   'https://insuraly-dashboard.alisalha195.workers.dev',
    'https://vercel.app', 
    'http://localhost:5173',
    'http://localhost:8081'
