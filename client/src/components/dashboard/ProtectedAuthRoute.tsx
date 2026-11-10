@@ -28,7 +28,7 @@ const ProtectedAuthRoute = ({children}) => {
    
       console.log("authstate :",authState);
       console.log("isAdmin ?? :",isAdmin);
-      if(authState.loading ) {
+      if((authState.loading ) || (isRoleLoading)) {
          return (
             <VStack justifyContent={'center'} height={'50vh'}>
                <SkeletonLoader width='60%'/>
@@ -42,6 +42,11 @@ const ProtectedAuthRoute = ({children}) => {
        }
        
        if (authState.isAuthenticated) {
+         // if(isAdmin && !isRoleLoading) {
+         //    return <Navigate to="/dashboard" replace />;
+         // }else if(!isAdmin && !isRoleLoading) {
+         //    <Navigate to="/user" replace />;
+         // }
          return isAdmin ? <Navigate to="/dashboard" replace /> : <Navigate to="/user" replace />;
        }
 

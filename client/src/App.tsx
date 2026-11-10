@@ -54,6 +54,9 @@ import AdminProfile from './pages/dashboard/admin/profile';
 import SearchUserLogs from './pages/dashboard/admin/profile/usersLogs/search';
 import UserPage from './pages/user';
 import ProtectedUserRoute from './components/dashboard/ProtectedUserRoute';
+import Successors from './pages/dashboard/retirements/successors';
+import Acquires from './pages/dashboard/retirements/Acquires';
+import UserPageContainer from './components/user/UserPageContainer';
 
 
 
@@ -117,6 +120,9 @@ function App() {
                      <Route path='/dashboard/retirements/monthly/:type/:year/:month' element={<ProtectedRoute requiredRole="admin"><MonthlyRetirements /></ProtectedRoute>} />
                      <Route path='/dashboard/retirements/search' element={<ProtectedRoute requiredRole="admin"><SearchRetirement /></ProtectedRoute>} />
                      
+                     <Route path='/dashboard/retirements/Successors' element={<ProtectedRoute requiredRole="admin"><Successors /></ProtectedRoute>} />
+                     <Route path='/dashboard/retirements/Acquires' element={<ProtectedRoute requiredRole="admin"><Acquires /></ProtectedRoute>} />
+                     
                      
                      {/* profile */}
                      <Route path='/profile/:personId' element={<ProtectedRoute requiredRole="admin"><Profile /></ProtectedRoute>} />
@@ -130,7 +136,7 @@ function App() {
                      
                   </Route>
                   
-                  <Route path='/' element={<PageContainer />} >
+                  <Route path='/' element={<UserPageContainer />} >
                      <Route path='/user' element={<ProtectedUserRoute ><UserPage /></ProtectedUserRoute>} />
                   </Route>
                   

@@ -2,6 +2,7 @@
 import { MdPeople } from "react-icons/md";
 import { IoPersonAddSharp } from "react-icons/io5";
 import { MdOutlineHandshake } from "react-icons/md";
+// import { url } from "zod";
 
 export const sidabarListData = [
    {
@@ -10,11 +11,13 @@ export const sidabarListData = [
       innerList : [
          {
             title: 'viewAcquires',
-            icon :  MdPeople
+            icon :  MdPeople,
+            url   : "/dashboard/retirements/Acquires"
          },
          {
             title: 'newAcquire',
-            icon :  IoPersonAddSharp
+            icon :  IoPersonAddSharp,
+            url   : "/dashboard/retirements/AddAcquire"
          },
          
       ]
@@ -25,11 +28,13 @@ export const sidabarListData = [
       innerList : [
          {
             title: 'viewSuccessors',
-            icon :  MdPeople
+            icon :  MdPeople,
+            url   : "/dashboard/retirements/Successors"
          },
          {
             title: 'newSuccessor',
-            icon :  IoPersonAddSharp
+            icon :  IoPersonAddSharp,
+            url   : "/dashboard/retirements/AddSuccessor"
          },
          
       ]

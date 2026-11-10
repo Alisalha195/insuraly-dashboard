@@ -1,14 +1,26 @@
+import { useIsAdmin } from '@/hooks/useIsAdmin';
+import { authContext } from '@/providers/AuthContextProvider';
 import { Flex, Span } from '@chakra-ui/react'
-import React from 'react'
+import React, { useContext } from 'react'
 import { useNavigate } from 'react-router-dom'
 
 const LogoBasic = () => {
    
    const navigate = useNavigate();
+   const {authState, setAuthState} = useContext(authContext);
+   const {isAdmin} = useIsAdmin(authState.user?.email);
   return (
       <Flex 
        justifyContent={'center'}
-       onClick={()=>navigate("/dashboard")}
+      //  onClick={()=>navigate("/dashboard")}
+      onClick={()=>{
+         if(isAdmin) {
+            navigate("/dashboard");
+         } else {
+            navigate("/user");
+         }
+      }}
+      
       >
        <Span
           backgroundColor={"#999"}

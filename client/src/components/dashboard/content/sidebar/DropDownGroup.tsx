@@ -3,11 +3,14 @@ import useThemedColors from "../../../../hooks/useThemedColors";
 import { useTranslation } from "react-i18next";
 import { capitalize } from "../../../../lib/capitalize";
 import useLangDir from "../../../../hooks/useLangDir";
+import { useNavigate } from "react-router-dom";
 
 const DropDownGroup = ({ data, collabsed }) => {
    const { textSecondary, textPrimary ,bgSecondary , bgPrimary, iconInSidebar } = useThemedColors();
    const {t} = useTranslation();
    const {dir} = useLangDir();
+   const navigate = useNavigate();
+   
    if(collabsed) {
       return (
       <Flex marginTop={3} flexDirection={"column"} alignItems={"center"} gap={2}>
@@ -47,6 +50,7 @@ const DropDownGroup = ({ data, collabsed }) => {
                         paddingX={2}
                         paddingY={1}
                         borderRadius={4}
+                        onClick={() => navigate(innerItem.url)}
                      >
                         <Span>
                           <innerItem.icon />
@@ -177,6 +181,7 @@ const DropDownGroup = ({ data, collabsed }) => {
                               textWrap={'nowrap'}
                               textOverflow={"ellipsis"}
                               dir={dir}
+                              onClick={() => navigate(item.url)}
                            >
                               <Span
                                  //  fontSize={{ xssToXs: "11px", xsToXm: "12px", xmToSm: "13px", smTo3xl: "15px" }}

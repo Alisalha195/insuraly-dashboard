@@ -11,6 +11,7 @@ import { authContext } from "../../../providers/AuthContextProvider";
 import { useContext, useState } from "react";
 import { useTranslation } from "react-i18next";
 import useLangDir from "../../../hooks/useLangDir";
+import { useIsAdmin } from "@/hooks/useIsAdmin";
 
 const UserMenu = () => {
    const { textPrimary, hovering, textSecondary } = useThemedColors();
@@ -19,6 +20,7 @@ const UserMenu = () => {
    
    const navigate = useNavigate();
    const {authState, setAuthState} = useContext(authContext);
+   const {isAdmin} = useIsAdmin(authState.user?.email);
 
    const [isMenuOpen, setIsMenuOpen] = useState(false)
    const handleLogout = async () => {
@@ -44,7 +46,8 @@ const UserMenu = () => {
    }
    
    const gotoProfile = () => {
-      navigate("/admin/4");
+      if(isAdmin)
+         navigate("/admin/4");
    }
    
    if(authState.loading) return (<h1>Loading...</h1>)
