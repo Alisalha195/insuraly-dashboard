@@ -66,8 +66,8 @@ const BusinessesTab = ({ businessOwnerId }) => {
             </HStack>
 
             <Flex flexDirection={'column'}
-               smToMd={{ maxWidth: '70vw' }}
-               smDown={{ maxWidth: '96vw' }}
+               smToMd={{ maxWidth: "90vw" }}
+               smDown={{ maxWidth: "96vw" }}
                maxWidth={'98vw'}
                height={'70vh'}
 
@@ -75,7 +75,7 @@ const BusinessesTab = ({ businessOwnerId }) => {
                
                {
                   (businessesData && businessesData.length > 0) ?
-                  <Flex>
+                 
                      <DataTable
                         TableHeader={
                            <TableHeader headerData={businessTableHeaderData}  />
@@ -85,7 +85,7 @@ const BusinessesTab = ({ businessOwnerId }) => {
                         }
                         maxHeight={"240px"}
                      />
-                  </Flex>
+                 
                   :
                   <Text color={textSecondary}>No Businesses Found!</Text>
                }

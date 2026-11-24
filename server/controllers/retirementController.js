@@ -684,4 +684,14 @@ export const getRetirementSalaryByEmail = async (req, res, next) => {
       res.status(200).json({data, status:200});
    }
 }
+
+
+
+export const deathAfterRetirement = async (req,res,next) => {
+   // get data from req.body
+   
+   // update the transfers (stop all)
+   
+   // for all successors : create record
+}
    

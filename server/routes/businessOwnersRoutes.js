@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { createBusinessOwner, getBusinessOwner, getPaginatedBusinessOwners, getBusinessOwnersCount, deleteBusinessOwner, getBusinessOwnersByNames,getBusinessOwnerById, getOwnerBusinesses, getBusinessesCountByEmail } from "../controllers/businessOwnerController.js";
+import { createBusinessOwner, getBusinessOwner, getPaginatedBusinessOwners, getBusinessOwnersCount, deleteBusinessOwner, getBusinessOwnersByNames,getBusinessOwnerById, getOwnerBusinesses, getBusinessesCountByEmail, getBusinessesByEmail } from "../controllers/businessOwnerController.js";
 import { 
    createPersonalInfoRecord,
    getPersonalInfoByName,
@@ -34,6 +34,7 @@ router.put("/edit", editPersonalInfoRecord);
 router.delete("/delete", deleteBusinessOwner);
 
 router.post("/getBusinessesCountByEmail",getBusinessesCountByEmail);
+router.post("/getBusinessesByEmail",getBusinessesByEmail);
 
 
 export default router;

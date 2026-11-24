@@ -37,7 +37,7 @@ export const useIsAdmin = (userEmail) => {
    //   { enabled: !!userEmail } 
    );
  
-   console.log("isAdmin Data :",adminData)
+   // console.log("isAdmin Data :",adminData)
    const isAdminFlag = adminData?.status == 200 ? adminData?.isAdmin : false;
    // prompt("isAdminFlag :",isAdminFlag)
    return { 

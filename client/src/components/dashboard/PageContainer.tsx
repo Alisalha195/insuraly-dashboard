@@ -12,6 +12,8 @@ const PageContainer = () => {
    
    const {currentLanguage, isRTL, dir} = useLangDir();
    
+   const headerHeight = headerSize?.height ?? 0;
+   
    // const [lang , setLang] = useState('en');
    // const isRTL = ['ar'].includes(lang);
    // const localeTag = isRTL ? "ar-EG" : "en-US";
@@ -32,7 +34,7 @@ const PageContainer = () => {
             SidebarSize={SidebarSize}
          />
             
-         <Flex position={'relative'}  direction="column" className='[flex-grow:1] ' maxHeight={'100vh'} overflow={'hidden'} >
+         <Flex position={'relative'}  direction="column" className='[flex-grow:1] '  height="100vh" maxHeight={'100vh'} overflow={'hidden'} >
             
            <Header 
               ref={headerRef}
@@ -41,10 +43,24 @@ const PageContainer = () => {
             //   isRTL = {isRTL}
            />
            <LocaleProvider locale={currentLanguage}  dir={dir}>
-              <Box dir={dir} marginTop={`${headerSize?.height}px`}   padding={1} paddingBottom={4} >
-                 {/* {children} */}
+              {/* <Box dir={dir} marginTop={`${headerSize?.height}px`} flexDirection={'column'}   padding={1} paddingBottom={4} maxHeight={}>
+                 
                  <Outlet />
-              </Box>
+              </Box> */}
+              
+              <Flex
+                  dir={dir}
+                  marginTop={`${headerHeight }px`}
+                  height={`calc(100% - ${headerHeight}px)`}
+                  maxHeight={`calc(100% - ${headerHeight}px)`}
+                  flexDirection="column"
+                  padding={1}
+                  paddingBottom={4}
+                  // overflowY="auto"
+               >
+                  <Outlet />
+               </Flex>
+              
            </LocaleProvider>
          </Flex>
      </HStack>

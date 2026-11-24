@@ -41,39 +41,49 @@ const ClaimsPageContent = () => {
       
    
      return (
-       <Box
-       width={'100%'}
+       <Flex
+       flexDirection={'column'} overflowY={'auto'}
        >
          <PageHeadTitle 
             title={capitalize(t('claims'))}
             backButton={true} 
          />
-            <VStack >
-               <Flex
-                  width={'100%'}
-                  justifyContent={'end'}
-                  // backgroundColor={"#478"}
-                  paddingRight={"40px"}
+          <Flex
+               width={'100%'}
+               justifyContent={'end'}
+               // backgroundColor={"#478"}
+               paddingRight={"40px"}
+            >
+               {/* <Box
+                  className='btn'
+                  backgroundColor={btnGreen}
+                  paddingX={2}
+                  // paddingY={1}
+                  paddingBottom={1}
+                  borderRadius={'7px'}
+                  // lineHeight={1}
+                  color={'#fff'}
                >
-                  {/* <Box
-                     className='btn'
-                     backgroundColor={btnGreen}
-                     paddingX={2}
-                     // paddingY={1}
-                     paddingBottom={1}
-                     borderRadius={'7px'}
-                     // lineHeight={1}
-                     color={'#fff'}
-                  >
-                     {t('new')}
-                     
-                  </Box> */}
-               </Flex>
+                  {t('new')}
+                  
+               </Box> */}
+            </Flex>
+              
                <Flex
-                  width={'100%'}
-                  // justifyContent={'space-around'}
-                  justifyContent={'center'}
-                  gap={9}
+                  // width={"100%"}
+                  // flexGrow={1}
+                  flexWrap={{baseToXmm: "wrap", xmmTo3xl:'nowrap'}}
+                  justifyContent={"space-around"}
+                  alignItems={"center"}
+                  gap={{ baseToXs: "6px", xsToXm: "18px", xmToSm: "20px", smTo3xl : "60px" }}   
+                  flexDirection={{baseToXmm: "column", xmmTo3xl:'row'}}
+                  overflowY={"auto"}
+                  // height={'auto'}
+                  
+                  pt={{baseToXmm: 3, xmmTo3xl:10}}
+                  pb={{baseToXmm: 3, xmmTo3xl:11}}
+                  pe={{baseToXmm: 3, xmmTo3xl:10}}
+                  ps={{baseToXmm: 4, xmmTo3xl:11}}
                >
                   
 
@@ -96,7 +106,7 @@ const ClaimsPageContent = () => {
                       }}
                   >
                      <Card.CardHeader>
-                        <Text textAlign={'center'} marginBottom={2}>{t("thisYear")}</Text>
+                        <Text textAlign={'center'} marginBottom={2} fontSize={{xssToXmm:"16px", xmmToMd:"20px", mdTo3xl:"26px"}} >{t("thisYear")}</Text>
                      </Card.CardHeader>
                      <Card.CardContent>
                         <Flex 
@@ -140,7 +150,7 @@ const ClaimsPageContent = () => {
                      }}
                   >
                      <Card.CardHeader>
-                        <Text textAlign={'center'} marginBottom={2}>{t("thisMonth")}</Text>
+                        <Text textAlign={'center'} marginBottom={2} fontSize={{xssToXmm:"16px", xmmToMd:"20px", mdTo3xl:"26px"}}>{t("thisMonth")}</Text>
                      </Card.CardHeader>
                      <Card.CardContent>
                         <Flex 
@@ -203,7 +213,7 @@ const ClaimsPageContent = () => {
                      }}
                   >
                      <Card.CardHeader>
-                        <Text textAlign={'center'}marginBottom={2}>{t("retarded")}</Text>
+                        <Text textAlign={'center'}marginBottom={2} fontSize={{xssToXmm:"16px", xmmToMd:"20px", mdTo3xl:"26px"}}>{t("retarded")}</Text>
                      </Card.CardHeader>
                      <Card.CardContent
                         // backgroundColor={'#222'}
@@ -239,9 +249,8 @@ const ClaimsPageContent = () => {
                      </Text> */}
                   </Card>
                </Flex>
-               
-            </VStack>
-       </Box>
+
+       </Flex>
      )
    } else if (claimsStatsIsLoading) {
       return (

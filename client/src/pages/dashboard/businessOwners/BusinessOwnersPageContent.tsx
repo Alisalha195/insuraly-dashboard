@@ -83,8 +83,8 @@ const BusinessOwnersPageContent = () => {
             </HStack>
 
             <Flex flexDirection={'column'}
-               smToMd={{ maxWidth: '70vw' }}
-               smDown={{ maxWidth: '96vw' }}
+               smToMd={{ maxWidth: "90vw" }}
+               smDown={{ maxWidth: "96vw" }}
                maxWidth={'98vw'}
                height={'70vh'}
                >

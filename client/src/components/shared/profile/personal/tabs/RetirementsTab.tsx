@@ -61,15 +61,15 @@ const RetirementTab = ({employeeId}) => {
             </HStack> */}
 
             <Flex flexDirection={'column'}
-               smToMd={{ maxWidth: '70vw' }}
-               smDown={{ maxWidth: '96vw' }}
+               smToMd={{ maxWidth: "90vw" }}
+               smDown={{ maxWidth: "96vw" }}
                maxWidth={'98vw'}
                height={'70vh'}
 
             >
                {
                   (retirementsData && retirementsData.length > 0) ?
-                  <Flex>
+                 
                      <DataTable
                         TableHeader={
                            <TableHeader headerData={AnnualRetirementsTableHeaderData}  />
@@ -79,7 +79,7 @@ const RetirementTab = ({employeeId}) => {
                         }
                         maxHeight={"240px"}
                      />
-                  </Flex>
+                  
                   :
                   <Text color={textSecondary}>No Retirement Found!</Text>
                }

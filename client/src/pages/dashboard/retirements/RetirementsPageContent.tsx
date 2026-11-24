@@ -31,7 +31,8 @@ const RetirementsPageContent = () => {
    ];
    
   return (
-    <Box width={"100%"}>
+    <Flex flexDirection={'column'} overflowY={'auto'} >
+    
       <PageHeadTitle 
          title={<Text fontSize={30}>{capitalize(t("retirements"))}</Text>}
          backButton={true} 
@@ -52,17 +53,35 @@ const RetirementsPageContent = () => {
             </Flex>
               
            <Flex>
-               <Span className='btn' color={btnGreen} width={"auto"} paddingX={"8px"} paddingY={"3px"}
+               <Span 
+               className='btn' 
+               
+               color={btnGreen} 
+               width={"auto"} 
+               paddingX={"8px"} 
+               paddingY={"3px"}
+               fontSize={{ baseToXs: "10px", xsToXm: "12px", xmToSm: "16px", smTo3xl:"22px" }}
                onClick={()=> navigate("/dashboard/retirements/new")}
                >{capitalize(t("newRetirementProfile"))}</Span>
             </Flex>
          </Flex>
       </Box>
-      
+      {/* <div> */}
       <Flex
-         width={"100%"}
-         justifyContent={"center"}
-         gap={"100px"}
+         // width={"100%"}
+         flexGrow={1}
+         justifyContent={"space-around"}
+         alignItems={"center"}
+         gap={{ baseToXs: "6px", xsToXm: "18px", xmToSm: "20px", smTo3xl : "60px" }}   
+         flexDirection={{baseToXmm: "column", xmmTo3xl:'row'}}
+         overflowY={"auto"}
+         // height={'auto'}
+         
+         pt={{baseToXmm: 2, xmmTo3xl:10}}
+         pb={{baseToXmm: 2, xmmTo3xl:10}}
+         pe={{baseToXmm: 3, xmmTo3xl:10}}
+         ps={{baseToXmm: 4, xmmTo3xl:11}}
+         
       >
          
          {/* This Year */}
@@ -79,10 +98,15 @@ const RetirementsPageContent = () => {
             //  className='btn'
              _hover={{borderColor:"#f50"}}
              transition={'all 0.2s ease-in-out'}
+            //  width={'auto'}
             
          >
             <Card.CardHeader>
-               <Text textAlign={'center'} marginBottom={2}>{t("thisYear")}</Text>
+               <Text textAlign={'center'} marginBottom={2} 
+               fontSize={{xssToXmm:"18px", xmmToMd:"22px", mdTo3xl:"26px"}} 
+               >
+                  {t("thisYear")}
+               </Text>
             </Card.CardHeader>
             <Card.CardContent>
                <Flex 
@@ -99,11 +123,12 @@ const RetirementsPageContent = () => {
                            <Flex  
                               // backgroundColor={'#555'}
                               // padding={'10px'}
+                              flexDirection={"row"}
                               key={index}
                               alignItems={'end'}
                               justifyContent={'space-between'}
                               width={"100%"}
-                              gap={10}
+                              gap={{xssToXmm:6, xmmToMd:8, mdTo3xl:10}} 
                               paddingX={"6px"}
                               paddingY={"2px"}
                               borderRadius={'6px'}
@@ -115,7 +140,7 @@ const RetirementsPageContent = () => {
                               onClick={()=> navigate(`/dashboard/retirements/annual/${item?.type}/${thisDate.getFullYear()}`) }
                            >
                               
-                              <Box fontSize={"22px"} >{t(item?.label)}</Box>
+                              <Box fontSize={{xssToXmm:"18px", xmmToMd:"22px", mdTo3xl:"26px"}}  >{t(item?.label)}</Box>
                               <Box fontSize={"18px"} >{item?.value}</Box>
                            </Flex>
                            
@@ -144,7 +169,7 @@ const RetirementsPageContent = () => {
              
          >
             <Card.CardHeader>
-               <Text textAlign={'center'} marginBottom={2}>{t("thisMonth")}</Text>
+               <Text textAlign={'center'} marginBottom={2} fontSize={{xssToXmm:"18px", xmmToMd:"22px", mdTo3xl:"26px"}} >{t("thisMonth")}</Text>
             </Card.CardHeader>
             <Card.CardContent>
                <Flex 
@@ -161,11 +186,12 @@ const RetirementsPageContent = () => {
                            <Flex  
                               // backgroundColor={'#999'}
                               // padding={'10px'}
+                              flexDirection={"row"}
                               key={index}
                               alignItems={'end'}
                               justifyContent={'space-between'}
                               width={"100%"}
-                              gap={10}
+                              gap={{xssToXmm:6, xmmToMd:8, mdTo3xl:10}} 
                               paddingX={"6px"}
                               paddingY={"2px"}
                               borderWidth={1}
@@ -177,7 +203,7 @@ const RetirementsPageContent = () => {
                               onClick={()=> navigate(`/dashboard/retirements/monthly/${item?.type}/${thisDate.getFullYear()}/${thisDate.getMonth()+1}`) }
                            >
                               
-                              <Box fontSize={"22px"} >{t(item?.label)}</Box>
+                              <Box fontSize={{xssToXmm:"18px", xmmToMd:"22px", mdTo3xl:"26px"}} >{t(item?.label)}</Box>
                               <Box fontSize={"18px"} >{item?.value}</Box>
                            </Flex>
                            
@@ -190,9 +216,10 @@ const RetirementsPageContent = () => {
          </Card>
          
       </Flex>
+      {/* </div> */}
          
       
-    </Box>
+    </Flex>
   )
 }
 

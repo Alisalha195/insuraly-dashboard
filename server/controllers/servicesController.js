@@ -201,5 +201,39 @@ export const getServicesCountByEmail = async (req, res, next) => {
     }
 }
 
+export const getServicesByEmail = async (req, res, next) => {
+   const {email} = req.body;
+   
+   const { data, error } = await supabase
+   .from(servicesTable)
+   .select(`
+      *,
+      Business_Employee!inner(
+         *,
+         Employees!inner(
+            *,
+            personal_informations!inner(
+               *
+            )
+         ),
+         Businesses!inner(
+            *
+         )
+      )
+   `)
+   .eq("Business_Employee.Employees.personal_informations.email", email);
+   
+   // console.log("servcres in getServicesCountByEmail : ",data);
+
+   if (data?.length < 1 || error) {
+      // console.log("services not found!! ");
+      res.status(404).json({ msg: "something went wrong !" , status:404});
+    } else {
+
+      res.status(200).json({servicesCount: data, status:200});
+      return data;
+    }
+}
+
 
 

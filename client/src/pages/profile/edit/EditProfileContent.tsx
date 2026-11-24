@@ -125,7 +125,7 @@ const EditProfileContent = () => {
    } else if(error) { 
       return <Error message={"something went wrong"}/>
    }
-   else if(isSuccess && data.person.personal_info_id) {
+   else if(isSuccess && data?.person?.personal_info_id) {
      return (
       <Flex flexDirection={'column'} maxHeight={'100vh'} overflowY={'scroll'}>
          {/* <BackArrow />

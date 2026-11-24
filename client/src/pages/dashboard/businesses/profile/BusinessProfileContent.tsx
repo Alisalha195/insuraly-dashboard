@@ -1,8 +1,8 @@
-import { Box, Flex, Heading, HStack, Span, Text, VStack } from "@chakra-ui/react";
+import { Box, DataList, Flex, Heading, HStack, Span, Text, VStack } from "@chakra-ui/react";
 import BusinessLogo from "../../../../components/shared/profile/business/BusinessLogo";
 import Budget from "../../../../components/shared/Budget";
 import Count from "../../../../components/shared/Count";
-import { MdPeopleAlt } from "react-icons/md";
+import { MdPeopleAlt,  MdPerson } from "react-icons/md";
 import useThemedColors from "../../../../hooks/useThemedColors";
 
 import { useNavigate, useParams } from "react-router-dom";
@@ -14,12 +14,15 @@ import SkeletonLoader from "../../../../components/shared/Skeleton";
 import Error from "../../../../components/shared/Error";
 import { capitalize } from "../../../../lib/capitalize";
 import { useCustomQuery } from "../../../../hooks/useCustomQuery";
+import { useTranslation } from "react-i18next";
+import FixBottomArea from "@/components/shared/FixBottomArea";
 
 const BusinessProfileContent = () => {
    
    const navigate = useNavigate();
    const params = useParams();
-   const {textPrimary, textSecondary} = useThemedColors();
+   const {textPrimary, textSecondary, iconGray} = useThemedColors();
+   const {t} = useTranslation();
    
    // const {
    //    data: businessData,
@@ -44,7 +47,7 @@ const BusinessProfileContent = () => {
       ["business-profile", params?.id] ,
       `${host}/business/get/id?id=${params?.id}`
    );
-   
+   console.log("businesses data :",businessData)
    const { 
       data:businessEmployeesCount, 
       error:businessEmployeesCountError, 
@@ -70,6 +73,7 @@ const BusinessProfileContent = () => {
       return (
          <Flex
             flexDirection={'column'}
+            overflowY={'hidden'}
          > 
             <PageHeadTitle 
             title={<Span fontWeight={500} color={textSecondary}>{capitalize(businessData?.business_name) || "Business Profile"}</Span>}
@@ -100,20 +104,35 @@ const BusinessProfileContent = () => {
                            Costline Medical Group
                         </Text> */}
                      </Flex>
-                     <Text
-                        color={textSecondary}
-                        fontSize={{xssToXs:"18px", xsToSm:"19px"}}
-                        fontStyle={'italic'}
+                     <Flex 
+                        flexDirection={'row'}
+                        alignItems={'center'}
                      >
-                        {businessData?.Business_owners?.personal_informations?.first_name} {businessData?.Business_owners?.personal_informations?.last_name}
-                     </Text>
+                        <Text 
+                           color={iconGray}
+                           fontSize={{xssToXmm:"24px", xmmTo3xl:"28px"}}
+                        >
+                           <MdPerson />
+                        </Text>
+                        <Text
+                           color={textSecondary}
+                           fontSize={{xssToXs:"18px", xsToSm:"19px"}}
+                           fontStyle={'italic'}
+                        >
+                           {capitalize(businessData?.Business_owners?.personal_informations?.first_name)} {capitalize(businessData?.Business_owners?.personal_informations?.last_name)}
+                        </Text>
+                     </Flex>
                      <Flex
                         color={textSecondary}
                         fontSize={{xssToXs:"15px", xsToSm:"17px"}}
                         
                      >
-                        <Text>
-                           2020
+                        <Text 
+                           color={iconGray}
+                           fontSize={{xssToXs:"14px", xsToSm:"16px"}}
+                        >
+
+                           {businessData?.law_initiative_date}
                         </Text>
                      </Flex>
                   </Flex>
@@ -141,6 +160,44 @@ const BusinessProfileContent = () => {
                   
                </Flex>
             </Flex>
+         
+            <Flex mt={8} overflowY={'scroll'}>
+               <DataList.Root orientation="horizontal" divideY="1px" maxW="md">
+                           
+                 <DataList.Item key={'commercial_type'} pt="4">
+                   <Flex flexDirection={{xssToXm:"column", xmTo3xl:"row"}} justifyContent={'space-between'}>
+                      <DataList.ItemLabel fontSize={{xssToXs:"14px", xsToSm:"16px"}}>{t("commercialType")}</DataList.ItemLabel>
+                      <DataList.ItemValue ps={2} fontSize={{xssToXs:"14px", xsToSm:"16px"}}>{businessData?.commercial_type}</DataList.ItemValue>
+                   </Flex>
+                 </DataList.Item>
+                 
+                 <DataList.Item key={'stage'} pt="4">
+                   <Flex flexDirection={{xssToXm:"column", xmTo3xl:"row"}} justifyContent={'space-between'}>
+                      <DataList.ItemLabel fontSize={{xssToXs:"14px", xsToSm:"16px"}}>{t("stage")}</DataList.ItemLabel>
+                      <DataList.ItemValue  ps={2} fontSize={{xssToXs:"14px", xsToSm:"16px"}}>{businessData?.stage}</DataList.ItemValue>
+                   </Flex>
+                 </DataList.Item>
+                 
+                 <DataList.Item key={'state'} pt="4">
+                    <Flex flexDirection={{xssToXm:"column", xmTo3xl:"row"}} justifyContent={'space-between'}>
+                      <DataList.ItemLabel fontSize={{xssToXs:"14px", xsToSm:"16px"}}>{t("State")}</DataList.ItemLabel>
+                      <DataList.ItemValue  ps={2} fontSize={{xssToXs:"14px", xsToSm:"16px"}}>{businessData?.state}</DataList.ItemValue>
+                    </Flex>
+                 </DataList.Item>
+                 
+                 <DataList.Item key={'status'} pt="4">
+                    <Flex flexDirection={{xssToXm:"column", xmTo3xl:"row"}} justifyContent={'space-between'}>
+                      <DataList.ItemLabel fontSize={{xssToXs:"14px", xsToSm:"16px"}}>{t("status")}</DataList.ItemLabel>
+                      <DataList.ItemValue  ps={2} fontSize={{xssToXs:"14px", xsToSm:"16px"}}>{businessData?.status}</DataList.ItemValue>
+                    </Flex>
+                 </DataList.Item>
+                 
+                 
+
+               </DataList.Root>
+            </Flex>
+            <FixBottomArea />
+         
          </Flex>
       )
    } else {

@@ -15,7 +15,8 @@ router.post("/checkIfExist", checkIfPersonalInfoRecordExist );
 
 router.post("/get/insurance-number", getPersonalInfoByInsuranceNumber, getPersonalRecord);
 
-router.get("/get/id",authMiddleware ,getPersonalInfoById)
+// router.get("/get/id",authMiddleware ,getPersonalInfoById)
+router.get("/get/id" ,getPersonalInfoById)
 
 
 router.get("/getPersonRules/personId",activityLogger('person.PersonRules_initiated') ,getPersonRules);

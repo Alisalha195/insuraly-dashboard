@@ -93,7 +93,7 @@ const BusinessesPageContent = () => {
 
             <Flex
                flexDirection={"column"}
-               smToMd={{ maxWidth: "70vw" }}
+               smToMd={{ maxWidth: "90vw" }}
                smDown={{ maxWidth: "96vw" }}
                maxWidth={"98vw"}
                height={"70vh"}

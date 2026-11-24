@@ -67,15 +67,16 @@ const ServicesTab = ({employeeId}) => {
             </HStack> */}
 
             <Flex flexDirection={'column'}
-               smToMd={{ maxWidth: '70vw' }}
-               smDown={{ maxWidth: '96vw' }}
+               smToMd={{ maxWidth: "90vw" }}
+               smDown={{ maxWidth: "96vw" }}
                maxWidth={'98vw'}
                height={'70vh'}
+               // overflow={'auto'}
 
             >
                {
                   (servicesData && servicesData.length > 0) ?
-                  <Flex>
+                  
                      <DataTable
                         TableHeader={
                            <TableHeader headerData={serviceTableHeaderData}  />
@@ -85,7 +86,7 @@ const ServicesTab = ({employeeId}) => {
                         }
                         maxHeight={"240px"}
                      />
-                  </Flex>
+                  
                   :
                   <Text color={textSecondary}>No Businesses Found!</Text>
                }
